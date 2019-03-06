@@ -1,0 +1,20 @@
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.iconfont {
+  display: inline-block;
+  font-size: 16px;
+}
+.foot-img {
+  margin-top: 16px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+
+.el-progress-bar__inner {
+  background: linear-gradient(90deg,#91BD35,#3F8A38);
+}

@@ -1,0 +1,176 @@
+<template>
+  <div class="mylearn-right">
+    <div class="right-nav">
+      <ul>
+        <li 
+          v-for="(item,index) in navList" 
+          :key="index" 
+          :class="tab === (index + 1)? 'active' : ''" 
+          @click="switchTab(index)"> {{ item.label }} </li>
+      </ul>
+    </div>
+    <div class="center">
+      <ul>
+        <li
+          v-for="(item,index) in contentList"
+          :key="index"
+          class="list-item">
+          <img :src="item.src">
+          <div class="content">
+            <div class="title">{{ item.title }}</div>
+            <p v-show="item.offDay != 0">
+              {{ item.offDay }}天后到期
+            </p>
+            <div class="desc">
+              <span>{{ item.lessons }}成员</span>
+              <span
+                class="rank"
+                @click="toRank">进度排名></span>
+            </div>
+            <div class="foot">
+              班级有效期：2019-01-03至2020-01-03
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      tab: 1,
+      navList:[
+        { label: '全部班级', value: 1 },
+        { label: '开班中', value: 2 },
+        { label: '已到期', value: 3 }
+      ],
+      contentList: [
+        {
+          src: require('~/assets/images/wbc.jpg'),
+          title: '大美中医启续篇——时间',
+          offDay: 20,
+          lessons: 2,
+          percent: 96,
+          number: 12
+        },
+        {
+          src: require('~/assets/images/wbc.jpg'),
+          title: '大美中医启续篇——时间',
+          offDay: 20,
+          lessons: 2,
+          percent: 96,
+          number: 12
+        },
+        {
+          src: require('~/assets/images/wbc.jpg'),
+          title: '大美中医启续篇——时间',
+          offDay: 20,
+          lessons: 2,
+          percent: 96,
+          number: 12
+        },
+        {
+          src: require('~/assets/images/wbc.jpg'),
+          title: '大美中医启续篇——时间',
+          offDay: 20,
+          lessons: 2,
+          percent: 96,
+          number: 12
+        }
+      ]
+    }
+  },
+  methods: {
+    switchTab(index){
+      this.tab = index + 1;
+    },
+    toRank() {
+      this.$router.push({
+        name: 'rank-course',
+        query: {
+          tab: 3
+        }
+      })
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+  .mylearn-right{
+    width: 850px;
+    border: 1px solid rgba(228, 236, 243, 1);
+    border-radius: 4px;
+    box-sizing: border-box;
+    .right-nav{
+      border-bottom: 1px solid rgba(228, 236, 243, 1);
+      margin: 0 16px;
+      box-sizing: border-box;
+      li{
+        display: inline-block;
+        margin-right: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        color: #666;
+        box-sizing: border-box;
+        line-height: 54px;
+      }
+      .active{
+        color:#46C37B;
+        border-bottom: 2px solid #46C27B;
+      }
+    }
+    .center {
+      margin-top: 20px;
+      margin-left: 30px;
+      .list-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        vertical-align: top;
+        height: 135px;
+        margin-bottom: 30px;
+        img {
+          width: 240px;
+          height: 135px;
+          border-radius: 6px;
+        }
+        .content {
+          margin-left: 20px;
+        }
+        .title {
+          margin-bottom: 16px;
+          font-size: 18px;
+          color: #333;
+        }
+        .desc {
+          margin-top: 16px;
+          color: #666;
+          font-size: 14px;
+          .rank {
+            margin-left: 240px;
+            cursor: pointer;
+          }
+        }
+        p {
+          margin-top: 14px;
+          font-size: 12px;
+          color: #3F8A38;
+        }
+        .foot {
+          margin-top: 16px;
+          font-size: 12px;
+          color: #999;
+          span {
+            display: inline-block;
+          }
+          .rank {
+            margin-left: 260px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+</style>

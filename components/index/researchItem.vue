@@ -1,0 +1,86 @@
+<template>
+  <div
+    class="item"
+    @click="toDetail">
+    <img :src="dataObj.src">
+    <div class="content">
+      <div class="title">{{ dataObj.title }}</div>
+      <div class="info">
+        <span class="name">{{ dataObj.name }}</span>
+        <span class="rank">{{ dataObj.rank }}</span>
+        <span class="number">{{ dataObj.number }}人学过</span>
+      </div>
+      <p>{{ dataObj.des }}</p>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  props: {
+    dataObj: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+    toDetail() {
+      this.$router.push({
+        name: 'play'
+      })
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+  .item {
+    width: 285px;
+    height: 330px;
+  }
+  img {
+    display: block;
+    width: 285px;
+    height: 160px;
+    background: rgba(98,98,98,1);
+    border-radius: 6px;
+  }
+  .content {
+    padding: 0 10px;
+    .title {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #333;
+    }
+    .info {
+      margin-top: 14px;
+      font-size: 0;
+      .name {
+        color: #3F8A38;
+        font-size: 12px;
+      }
+      .rank {
+        margin-left: 10px;
+        font-size: 12px;
+        color: #999;
+      }
+      .number {
+        font-size: 12px;
+        color: #999;
+        float: right;
+      }
+    }
+    p {
+      margin-top: 18px;
+      font-size: 12px;
+      line-height: 18px;
+      color: #999;
+    }
+  }
+  
+</style>

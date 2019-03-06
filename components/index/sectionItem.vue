@@ -1,0 +1,88 @@
+<template>
+  <div class="container">
+    <img :src="dataObj.src">
+    <div class="content">
+      <div class="title">{{ dataObj.title }}</div>
+      <div class="info">
+        <span
+          v-if="dataObj.isFree"
+          class="free">免费
+        </span>
+        <span
+          v-else
+          class="price">￥{{ dataObj.price }}
+        </span>
+        <span class="lesson">共{{ dataObj.lessons }}节</span>
+        <span class="number">{{ dataObj.number }}人学过</span>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  props: {
+    dataObj: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+  .item {
+    width: 224px;
+    height: 183px;
+  }
+  img {
+    display: block;
+    width: 224px;
+    height: 126px;
+    background: rgba(98,98,98,1);
+    border-radius: 6px;
+  }
+  .content {
+    padding: 0 10px;
+    .title {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #333;
+    }
+    .info {
+      margin-top: 9px;
+      font-size: 0;
+      .free {
+        display: inline-block;
+        width: 34px;
+        height: 19px;
+        line-height: 19px;
+        font-size: 12px;
+        text-align: center;
+        color: #fff;
+        background: #3F8A38;
+        border-radius: 2px;
+      }
+      .price {
+        display: inline-block;
+        height: 19px;
+        line-height: 19px;
+        padding: 0 6px;
+        font-size: 12px;
+        background: #FBB03B;
+        color: #fff;
+        border-radius: 2px;
+      }
+      .lesson {
+        margin-left: 12px;
+        font-size: 12px;
+        color: #999;
+      }
+      .number {
+        font-size: 12px;
+        color: #999;
+        float: right;
+      }
+    }
+  }
+</style>

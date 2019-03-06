@@ -1,0 +1,155 @@
+<template>
+  <div class="mylearn-right">
+    <div class="right-nav">
+      <ul>
+        <li 
+          v-for="(item,index) in navList" 
+          :key="index" 
+          :class="tab === (index + 1)? 'active' : ''" 
+          @click="switchTab(index)"> {{ item.label }} </li>
+      </ul>
+    </div>
+    <div class="center">
+      <ul>
+        <li
+          v-for="(item,index) in contentList"
+          :key="index"
+          class="list-item">
+          <img :src="item.src">
+          <div class="content">
+            <div class="title">{{ item.title }}</div>
+            <p
+              v-show="item.offDay != 0"
+              class="desc">
+              {{ item.offDay }}天后到期
+            </p>
+            <div class="foot">
+              <span>已学{{ item.percent }}%</span>
+              <span>共{{ item.number }}节</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      tab: 1,
+      navList:[
+        { label: '全部课程', value: 1 },
+        { label: '学习中', value: 2 },
+        { label: '已学完', value: 3 },
+        { label: '未学完', value: 4 },
+        { label: '已到期', value: 5 }
+      ],
+      contentList: [
+        {
+          src: require('~/assets/images/wbc.jpg'),
+          title: '大美中医启续篇——时间',
+          offDay: 20,
+          percent: 96,
+          number: 12
+        },
+        {
+          src: require('~/assets/images/wbc.jpg'),
+          title: '大美中医启续篇——时间',
+          offDay: 0,
+          percent: 96,
+          number: 12
+        },
+        {
+          src: require('~/assets/images/wbc.jpg'),
+          title: '大美中医启续篇——时间',
+          offDay: 20,
+          percent: 96,
+          number: 12
+        },
+        {
+          src: require('~/assets/images/wbc.jpg'),
+          title: '大美中医启续篇——时间',
+          offDay: 20,
+          percent: 96,
+          number: 12
+        }
+      ]
+    }
+  },
+  methods: {
+    switchTab(index){
+      this.tab = index + 1;
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+  .mylearn-right{
+    width: 850px;
+    border: 1px solid rgba(228, 236, 243, 1);
+    border-radius: 4px;
+    box-sizing: border-box;
+    .right-nav{
+      border-bottom: 1px solid rgba(228, 236, 243, 1);
+      margin: 0 16px;
+      box-sizing: border-box;
+      li{
+        display: inline-block;
+        margin-right: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        color: #666;
+        box-sizing: border-box;
+        line-height: 54px;
+      }
+      .active{
+        color:#46C37B;
+        border-bottom: 2px solid #46C27B;
+      }
+    }
+    .center {
+      padding-bottom: 30px;
+      .list-item {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 243px;
+        height: 223px;
+        margin-left: 30px;
+        margin-top: 30px;
+        img {
+          width: 243px;
+          height: 146px;
+          border-radius: 6px;
+        }
+        .content {
+          padding: 0 10px;
+        }
+        .title {
+          margin-top: 12px;
+          font-size: 14px;
+          color: #333;
+        }
+        p {
+          margin-top: 12px;
+          font-size: 12px;
+          color: #3F8A38;
+        }
+        .foot {
+          display: flex;
+          justify-content: space-between;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          margin-top: 10px;
+          font-size: 12px;
+          color: #999;
+          span {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+</style>
