@@ -20,21 +20,27 @@
             <div class="input">
               <span class="img1" />
               <input
+                v-model="form1.phone"
                 type="text"
                 placeholder="手机号">
             </div>
             <div class="input valid">
               <span class="img2" />
               <input
+                v-model="form1.code"
                 type="text"
                 placeholder="验证码">
-              <div class="button">获取验证码</div>
+              <div
+                v-show="!timeShow"
+                class="button"
+                @click="getCode">获取验证码</div>
+              <div
+                v-show="timeShow"
+                class="button">{{ count }}s后重试</div>
             </div>
-            <div class="denglu">登录</div>
-            <!-- <div class="text">
-              <span>收不到验证码</span>
-              <span>注册账户</span>
-            </div> -->
+            <div
+              class="denglu"
+              @click="login1">登录</div>
           </div>
           <div
             v-show="tab === 2"
@@ -42,17 +48,24 @@
             <div class="input">
               <span class="img1" />
               <input
+                v-model="form2.username"
                 type="text"
                 placeholder="邮箱/手机号/用户名">
             </div>
             <div class="input">
               <span class="img3" />
               <input
+                v-model="form2.password"
                 type="password"
                 placeholder="密码">
             </div>
-            <el-checkbox class="checkbox">记住密码</el-checkbox>
-            <div class="denglu">登录</div>
+            <el-checkbox
+              v-model="form2.checked"
+              class="checkbox">记住密码
+            </el-checkbox>
+            <div
+              class="denglu"
+              @click="login2">登录</div>
           </div>
           <div class="text">
             <span>收不到验证码</span>
@@ -70,23 +83,111 @@
 </template>
 <script>
 import NavBar from '~/components/navBar.vue'
+import { isvalidatemobile, validatenull } from '~/assets/js/util'
 export default {
   components: {
     NavBar
   },
   data() {
     return {
-      tab: 1
+      tab: 1,
+      timer: null,
+      count: null,
+      timeShow: false,
+      form1: {
+        phone: '',
+        code: ''
+      },
+      form2: {
+        username: '',
+        password: '',
+        checked: false
+      }
     }
   },
   methods: {
     changeTab(tab) {
       this.tab = tab
     },
+    // 跳转到注册页面
     toRegister() {
       this.$router.push({
         name: 'register'
       })
+    },
+    // 登录
+    login1() {
+      let result = isvalidatemobile(this.form1.phone)
+      if(result[0]) {
+        this.$message({
+          message: result[1],
+          type: 'warning'
+        })
+        return
+      }
+      if(!this.form1.code) {
+        this.$message({
+          message: '验证码不能为空',
+          type: 'warning'
+        })
+        return
+      }
+      this.$message({
+        message: '登录成功！',
+        type: 'success'
+      })
+    },
+    login2() {
+      if(!this.form2.username) {
+        this.$message({
+          message: '用户名不能为空',
+          type: 'warning'
+        })
+        return
+      }
+      if(!this.form2.password) {
+        this.$message({
+          message: '密码不能为空',
+          type: 'warning'
+        })
+        return
+      }
+      this.$message({
+        message: '登录成功！',
+        type: 'success'
+      })
+    },
+    // 获取验证码
+    getCode() {
+      let result = isvalidatemobile(this.form1.phone)
+      if(result[0]) {
+        this.$message({
+          message: result[1],
+          type: 'warning'
+        })
+      } else {
+        // this.$axios.post('/admin/api/account/phoneCode_1551248297799', {
+        //   phone: this.form.phone
+        // })
+        this.$message({
+          message: '已发送验证码，请查收！',
+          type: 'success'
+        })
+        const TIME_COUNT = 60
+        if(!this.timer) {
+          this.count = TIME_COUNT
+          this.timeShow = true
+          this.timer = setInterval(() => {
+            if(this.count > 0 && this.count <= TIME_COUNT) {
+              this.count --
+            } else {
+              this.timeShow = false
+              clearInterval(this.timer)
+              this.timer = null
+            }
+          }, 1000)
+        }
+      }
     }
   }
 }

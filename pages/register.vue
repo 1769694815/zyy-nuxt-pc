@@ -13,31 +13,48 @@
             <div class="input">
               <span class="img1" />
               <input
+                v-model="form.phone"
                 type="text"
                 placeholder="请输入你的手机号">
             </div>
             <div class="input">
               <span class="img2" />
               <input
+                v-model="form.code"
                 type="text"
                 placeholder="验证码">
-              <div class="button">获取验证码</div>
+              <div
+                v-show="!timeShow"
+                class="button"
+                @click="getCode">获取验证码</div>
+              <div
+                v-show="timeShow"
+                class="button">{{ count }}s后重试</div>
             </div>
             <div class="input">
               <span class="img1" />
               <input
+                v-model="form.password"
                 type="password"
                 placeholder="设置您的密码">
             </div>
             <div class="input">
               <span class="img1" />
               <input
+                v-model="form.password2"
                 type="password"
                 placeholder="确认您的密码">
             </div>
-            <div class="denglu">注册</div>
+            <div
+              class="denglu"
+              @click="register">注册</div>
             <div class="text">
-              <el-checkbox class="checkbox">我已阅读并同意<span class="server">《服务协议》</span></el-checkbox>
+              <el-checkbox
+                v-model="form.checked"
+                class="checkbox"
+                checked>我已阅读并同意
+              </el-checkbox>
+              <span class="server">《服务协议》</span>
               <span @click="toLogin">用户登录</span>
             </div>
           </div>
@@ -48,13 +65,24 @@
 </template>
 <script>
 import NavBar from '~/components/navBar.vue'
+import { validatenull, isvalidatemobile } from '~/assets/js/util.js'
 export default {
   components: {
     NavBar
   },
   data() {
     return {
-      tab: 1
+      tab: 1,
+      timeShow: false,
+      timer: null,
+      count: '',
+      form: {
+        phone: '',
+        code: '',
+        password: '',
+        password2: '',
+        checked: true
+      }
     }
   },
   methods: {
@@ -62,6 +90,81 @@ export default {
       this.$router.push({
         name: 'login'
       })
+    },
+    // 注册
+    register() {
+      let result = isvalidatemobile(this.form.phone)
+      if(result[0]) {
+        this.$message({
+          message: result[1],
+          type: 'warning'
+        })
+        return
+      }
+      if(!this.form.code) {
+        this.$message({
+          message: '验证码不能为空',
+          type: 'warning'
+        })
+        return
+      }
+      if(!this.form.password || !this.form.password2) {
+        this.$message({
+          message: '密码不能为空',
+          type: 'warning'
+        })
+        return
+      }
+      if(this.form.password != this.form.password2) {
+        this.$message({
+          message: '两次输入密码不一致',
+          type: 'warning'
+        })
+        return
+      }
+      if(!this.form.checked) {
+        this.$message({
+          message: '您需要同意服务协议才能注册！',
+          type: 'warning'
+        })
+        return
+      }
+      this.$message({
+        message: '注册成功！',
+        type: 'success'
+      })
+    },
+    // 获取验证码
+    getCode() {
+      let result = isvalidatemobile(this.form.phone)
+      if(result[0]) {
+        this.$message({
+          message: result[1],
+          type: 'warning'
+        })
+      } else {
+        // this.$axios.post('/admin/api/account/phoneCode_1551248297799', {
+        //   phone: this.form.phone
+        // })
+        this.$message({
+          message: '已发送验证码，请查收！',
+          type: 'success'
+        })
+        const TIME_COUNT = 60
+        if(!this.timer) {
+          this.count = TIME_COUNT
+          this.timeShow = true
+          this.timer = setInterval(() => {
+            if(this.count > 0 && this.count <= TIME_COUNT) {
+              this.count --
+            } else {
+              this.timeShow = false
+              clearInterval(this.timer)
+              this.timer = null
+            }
+          }, 1000)
+        }
+      }
     }
   }
 }
@@ -163,6 +266,7 @@ export default {
             font-size: 12px;
           }
           .server {
+            margin-left: -100px;
             color: #f77a0e;
           }
           span {
