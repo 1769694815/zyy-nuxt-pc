@@ -1,15 +1,15 @@
 <template>
   <div class="container">
     <div class="left-img">
-      <img :src="dataObj.src">
-      <div class="tag">{{ dataObj.type }}</div>
+      <img :src="dataObj.thumb">
+      <!-- <div class="tag">{{ dataObj.type }}</div> -->
     </div>
     <div class="content">
       <div class="title">{{ dataObj.title }}</div>
-      <div class="desc">{{ dataObj.desc }}</div>
+      <div class="desc">{{ dataObj.brife }}</div>
       <div class="foot">
-        <span class="date">{{ dataObj.date }}</span>
-        <span class="number">{{ dataObj.number }}</span>
+        <span class="date">{{ dataObj.publishedtime }}</span>
+        <span class="number">{{ dataObj.hits }}</span>
       </div>
     </div>
   </div>
@@ -32,6 +32,7 @@ export default {
     align-items: center;
   }
   .left-img {
+    flex: 0 0 224px;
     position: relative;
     width: 224px;
     height: 126px;
@@ -52,8 +53,12 @@ export default {
   }
   
   .content {
+    width: 332px;
     margin-left: 16px;
     .title {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
       font-size: 18px;
     }
     .desc {

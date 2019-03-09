@@ -2,13 +2,13 @@
   <div
     class="item"
     @click="toDetail">
-    <img :src="dataObj.src">
+    <img :src="dataObj.middle_picture">
     <div class="content">
       <div class="title">{{ dataObj.title }}</div>
       <div class="info">
-        <span class="name">{{ dataObj.name }}</span>
-        <span class="rank">{{ dataObj.rank }}</span>
-        <span class="number">{{ dataObj.number }}人学过</span>
+        <span class="name">{{ dataObj.famousName }}</span>
+        <span class="rank">{{ dataObj.famousTitle }}</span>
+        <span class="number">{{ dataObj.student_num }}人学过</span>
       </div>
       <p>{{ dataObj.des }}</p>
     </div>

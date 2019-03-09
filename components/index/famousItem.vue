@@ -1,12 +1,12 @@
 <template>
   <div class="item">
-    <img :src="dataObj.src">
+    <img :src="dataObj.pic">
     <div class="content">
       <span class="name">{{ dataObj.name }}</span>
-      <span class="rank">{{ dataObj.rank }}</span>
+      <span class="rank">{{ dataObj.title }}</span>
       <div class="detail">
-        <span>{{ dataObj.lessons }}门精选课</span>
-        <span class="fr">{{ dataObj.number }}人关注</span>
+        <span>{{ dataObj.courseNum }}门精选课</span>
+        <span class="fr">{{ dataObj.fanNum }}人关注</span>
       </div>
     </div>
   </div>

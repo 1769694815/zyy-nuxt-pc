@@ -1,8 +1,10 @@
 import qs from 'qs'
 import { Base64 } from '~/assets/js/base64.js'
 
-const clientId = 'zyy_Ios'
-const clientSecret = 'DhOjYp6in5EnXtoZjWhbWg=='
+// const clientId = 'zyy_Ios'
+// const clientSecret = 'DhOjYp6in5EnXtoZjWhbWg=='
+const clientId = 'zyy_web'
+const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
 const encodeStr = Base64.encode(clientId + ':' + clientSecret);
 
 export default function({ $axios, redirect }) {
@@ -24,4 +26,3 @@ export default function({ $axios, redirect }) {
   $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
   $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
 }
-// axios.defaults.baseURL = 'http://212.64.79.36:8080'

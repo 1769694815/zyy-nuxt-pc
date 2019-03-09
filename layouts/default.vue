@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!-- <v-header/> -->
+    <v-header/>
     <nuxt/>
-    <!-- <friend-link/>
-    <v-footer/> -->
+    <friend-link/>
+    <v-footer/>
   </div>
 </template>
 

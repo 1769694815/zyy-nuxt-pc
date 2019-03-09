@@ -1,19 +1,19 @@
 <template>
   <div class="container">
-    <img :src="dataObj.src">
+    <img :src="dataObj.middle_picture">
     <div class="content">
       <div class="title">{{ dataObj.title }}</div>
       <div class="info">
         <span
-          v-if="dataObj.isFree"
+          v-if="dataObj.price == 0"
           class="free">免费
         </span>
         <span
           v-else
           class="price">￥{{ dataObj.price }}
         </span>
-        <span class="lesson">共{{ dataObj.lessons }}节</span>
-        <span class="number">{{ dataObj.number }}人学过</span>
+        <span class="lesson">共{{ dataObj.lesson_num }}节</span>
+        <span class="number">{{ dataObj.student_num }}人学过</span>
       </div>
     </div>
   </div>

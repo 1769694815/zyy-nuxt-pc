@@ -7,9 +7,9 @@
         height="400px" 
         class="imgs">
         <el-carousel-item
-          v-for="(item, index) in imgs"
+          v-for="(item, index) in carousels"
           :key="index">
-          <img :src="'http://212.64.79.36:8080' + item.pic">
+          <img :src="item.pic">
         </el-carousel-item>
       </el-carousel>
       <div class="carousel-content">
@@ -35,7 +35,7 @@
             <span>药学</span>
           </div>
           <div class="nav-item">
-            <i class="iconfont icon-xiangmu"/>   
+            <i class="iconfont icon-xiangmu"/>
             培训项目
           </div>
           <div class="sub-nav">
@@ -55,9 +55,10 @@
           </div>
           <ul>
             <li
-              v-for="(item, index) in infoList"
+              v-for="(item, index) in toutiaoList"
+              v-if="index < 4"
               :key="index">
-              {{ item }}
+              {{ `【${item.typeName}】${item.title}` }}
             </li>
           </ul>
         </section>
@@ -109,9 +110,12 @@
       <div class="container-header">
         <h2>中医健康</h2>
         <div class="subnav">
-          <span>卫生</span>
-          <span>保健</span>
-          <span>其他</span>
+          <span
+            v-for="(item, index) in healthSubList"
+            v-if="index > 0"
+            :key="index">
+            <span>{{ item.name }}</span>
+          </span>
           <span class="pos-right">
             查看更多
             <i class="iconfont icon-more-right" />
@@ -128,7 +132,7 @@
         </div>
         <div class="right-list">
           <div
-            v-for="(item, index) in rightList"
+            v-for="(item, index) in healthList"
             v-if="index < 8"
             :key="index"
             class="list-item">
@@ -141,8 +145,12 @@
       <div class="container-header">
         <h2>自学考试</h2>
         <div class="subnav">
-          <span>中药学</span>
-          <span>药学</span>
+          <span
+            v-for="(item, index) in examSubList"
+            v-if="index > 0"
+            :key="index">
+            <span>{{ item.name }}</span>
+          </span>
           <span class="pos-right">
             查看更多
             <i class="iconfont icon-more-right" />
@@ -159,7 +167,7 @@
         </div>
         <div class="right-list">
           <div
-            v-for="(item, index) in rightList"
+            v-for="(item, index) in examList"
             v-if="index < 8"
             :key="index"
             class="list-item">
@@ -172,6 +180,12 @@
       <div class="container-header">
         <h2>中医药理论</h2>
         <div class="subnav">
+          <span
+            v-for="(item, index) in theorySubList"
+            v-if="index > 0"
+            :key="index">
+            <span>{{ item.name }}</span>
+          </span>
           <span class="pos-right">
             查看更多
             <i class="iconfont icon-more-right" />
@@ -188,7 +202,7 @@
         </div>
         <div class="right-list">
           <div
-            v-for="(item, index) in rightList"
+            v-for="(item, index) in theoryList"
             v-if="index < 8"
             :key="index"
             class="list-item">
@@ -215,7 +229,7 @@
             v-for="(item, index) in trainList"
             :key="index"
             class="train-img">
-            <img :src="item">
+            <img :src="item.middle_picture">
             <div class="text">中药炮制工</div>
           </div>
         </div>
@@ -233,6 +247,7 @@
         <div class="toutiao">
           <div
             v-for="(item, index) in toutiaoList"
+            v-if="index < 6"
             :key="index"
             class="toutiao-item">
             <toutiao-item :data-obj="item"/>
@@ -252,7 +267,6 @@ import ResearchItem from '~/components/index/researchItem.vue'
 import FamousItem from '~/components/index/famousItem.vue'
 import SectionItem from '~/components/index/sectionItem.vue'
 import ToutiaoItem from '~/components/index/toutiaoItem.vue'
-import Api from '~/plugins/api.js'
 export default {
   components: {
     'v-nav': Nav,
@@ -263,217 +277,19 @@ export default {
   },
   data() {
     return {
-      imgs: [],
-      infoList: [
-        '【文化活动】中国“藏医药浴法被列入联合国非遗名录',
-        '【文化活动】中国“藏医药浴法被列入联合国非遗名录',
-        '【文化活动】中国“藏医药浴法被列入联合国非遗名录',
-        '【文化活动】中国“藏医药浴法被列入联合国非遗名录'
-      ],
-      researchList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '姚荷生先生讨论病案例',
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 1024,
-          des: '专心致力于《伤寒论》的诊断治疗学研究，学术上有非常大的贡献..'
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '姚荷生先生讨论病案例',
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 1024,
-          des: '专心致力于《伤寒论》的诊断治疗学研究，学术上有非常大的贡献..'
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '姚荷生先生讨论病案例',
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 1024,
-          des: '专心致力于《伤寒论》的诊断治疗学研究，学术上有非常大的贡献..'
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '姚荷生先生讨论病案例',
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 1024,
-          des: '专心致力于《伤寒论》的诊断治疗学研究，学术上有非常大的贡献..'
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '姚荷生先生讨论病案例',
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 1024,
-          des: '专心致力于《伤寒论》的诊断治疗学研究，学术上有非常大的贡献..'
-        }
-      ],
-      famousList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '茕茕孑立',
-          rank: '国家级中医',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '茕茕孑立',
-          rank: '国家级中医',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '茕茕孑立',
-          rank: '国家级中医',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '茕茕孑立',
-          rank: '国家级中医',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '茕茕孑立',
-          rank: '国家级中医',
-          lessons: 12,
-          number: 236
-        }
-      ],
-      rightList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: true,
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: false,
-          price: 180,
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: false,
-          price: 180,
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: false,
-          price: 180,
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: false,
-          price: 180,
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: true,
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: true,
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: true,
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          isFree: true,
-          lessons: 12,
-          number: 236
-        }
-      ],
-      trainList: [
-        require('~/assets/images/wbc.jpg'),
-        require('~/assets/images/wbc.jpg'),
-        require('~/assets/images/wbc.jpg'),
-        require('~/assets/images/wbc.jpg')
-      ],
-      toutiaoList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中国“藏医药浴法”被列入联合国...',
-          type: '文化活动',
-          desc: '当地时间28日，在联合国教科文组织保护非物质文化遗产政府间...',
-          date: '2018-12-10',
-          number: 516
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中国“藏医药浴法”被列入联合国...',
-          type: '中医健康',
-          desc: '当地时间28日，在联合国教科文组织保护非物质文化遗产政府间...',
-          date: '2018-12-10',
-          number: 516
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中国“藏医药浴法”被列入联合国...',
-          type: '行业资讯',
-          desc: '当地时间28日，在联合国教科文组织保护非物质文化遗产政府间...',
-          date: '2018-12-10',
-          number: 516
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中国“藏医药浴法”被列入联合国...',
-          type: '文件公告',
-          desc: '当地时间28日，在联合国教科文组织保护非物质文化遗产政府间...',
-          date: '2018-12-10',
-          number: 516
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中国“藏医药浴法”被列入联合国...',
-          type: '教育热点',
-          desc: '当地时间28日，在联合国教科文组织保护非物质文化遗产政府间...',
-          date: '2018-12-10',
-          number: 516
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中国“藏医药浴法”被列入联合国...',
-          type: '进社区',
-          desc: '当地时间28日，在联合国教科文组织保护非物质文化遗产政府间...',
-          date: '2018-12-10',
-          number: 516
-        }
-      ]
+      carousels: [],
+      infoList: [],
+      researchList: [],
+      famousList: [],
+      examList: [],
+      theoryList: [],
+      healthList: [],
+      rightList: [],
+      trainList: [],
+      toutiaoList: [],
+      healthSubList: [],
+      examSubList: [],
+      theorySubList: []
     }
   },
   async asyncData({ $axios }) {
@@ -499,21 +315,124 @@ export default {
     }
     this.$axios.post('/auth/oauth/token', params).then(res => {
       this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
-      this.$axios('/yxs/api/index').then(res => {
-        console.log(res.data)
-        if(res.code === 0) {
-          let data = res.data
-          this.imgs = data.carousels
-          this.researchList = data.chineseMedicineHealths
-          console.log(this.imgs)
-        }
-      })
+      this.getCarousel()
+      this.getMenuList()
+      this.getResearchList()
+      this.getRecommendList(10)
+      this.getRecommendList(11)
+      this.getRecommendList(13)
+      this.getDoctorList()
+      this.getNewsList()
+      this.getTrainList()
+      this.getCategoryByCode('course_category_health')
+      this.getCategoryByCode('course_category_theory')
+      this.getCategoryByCode('course_category_selflearn')
     })
   },
   methods: {
+    // 跳转到头条页面
     toToutiao() {
       this.$router.push({
         name: 'toutiao'
+      })
+    },
+    // 获取轮播
+    getCarousel() {
+      this.$axios('/yxs/api/web/navigation').then(res => {
+        if(res.code == 0) {
+          this.carousels = res.data
+        }
+      })
+    },
+    // 获取首页菜单列表
+    getMenuList() {
+       this.$axios('/yxs/api/web/course/categoryTree').then(res => {
+        if(res.code == 0) {
+          console.log('menu', res)
+        }
+      })
+    },
+    // 获取首页中医研究所
+    getResearchList() {
+      this.$axios('/yxs/api/web/doctor/recommendCourseList').then(res => {
+        if(res.code == 0) {
+          this.researchList = res.data
+        }
+      })
+    },
+    // 获取首页中医健康,自学考试,中医药理论 
+    getRecommendList(type) {
+      this.$axios('/yxs/api/web/course/getRecommendList', {
+        params: {
+          type
+        }
+      }).then(res => {
+        if(res.code == 0) {
+          switch(type) {
+            case 10:
+              this.examList = res.data
+              break;
+            case 11:
+              this.theoryList = res.data
+              break;
+            case 13:
+              this.healthList = res.data
+              break;
+          }
+        }
+      })
+    },
+    // 获取首页名医师承
+    getDoctorList() {
+      this.$axios('/yxs/api/web/doctor/recommendList').then(res => {
+        if(res.code == 0) {
+          this.famousList = res.data
+        }
+      })
+    },
+    // 首页培训项目
+    getTrainList() {
+      this.$axios('/yxs/api/web/course/getRecommendTrainList', {
+        params: {
+          type: 1
+        }
+      }).then(res => {
+        if(res.code == 0) {
+          this.trainList = res.data
+        }
+      })
+    },
+    // 获取首页资讯
+    getNewsList() {
+      this.$axios('/yxs/api/web/news/recommendList').then(res => {
+        if(res.code == 0) {
+          this.toutiaoList = res.data
+        }
+      })
+    },
+    // 获取推荐课程分类
+    getCategoryByCode(code) {
+      this.$axios('/yxs/api/web/course/getCategoryByCode', {
+        params: {
+          code
+        }
+      }).then(res => {
+        if(res.code == 0) {
+          switch(code) {
+            case 'course_category_health':
+              this.healthSubList = res.data
+              console.log('1', res)
+              break;
+            case 'course_category_selflearn':
+              this.examSubList = res.data
+              console.log('2', res)
+              break;
+            case 'course_category_theory':
+              this.theorySubList = res.data
+              console.log('3', res)
+              break;
+          }
+        }
       })
     }
   }

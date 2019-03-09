@@ -190,6 +190,7 @@ export default {
     margin: 0 auto;
     .logo {
       cursor: pointer;
+      height: 90px;
     }
     .search {
       display: flex;

@@ -64,7 +64,8 @@ module.exports = {
 
   proxy: {
     '/api/': {
-      target: 'http://212.64.79.36:8080',
+      // target: 'http://212.64.79.36:8080',
+      target: 'http://192.168.2.199:9999',
       // target: 'http://132.232.173.47:3000/mock/25/yxs/api',
       pathRewrite: { '^/api/': '/', changeOrigin: true }
     }

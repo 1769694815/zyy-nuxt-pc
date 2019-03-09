@@ -6,7 +6,7 @@
         课程中心
       </div>
       <ul>
-        <li>首页</li>
+        <li @click="$router.push({name: 'index'})">首页</li>
         <li>自学考试</li>
         <li>西学中</li>
         <li>名师医承</li>
