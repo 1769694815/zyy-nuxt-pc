@@ -293,6 +293,7 @@ export default {
     }
   },
   async asyncData({ $axios }) {
+    console.log('this', this)
     // let params = {
     //   username: '',
     //   password: '',
@@ -301,9 +302,18 @@ export default {
     // }
     // $axios.post('/auth/oauth/token', params).then(res => {
     //   $axios.setHeader('Authorization', 'Bearer' + res.access_token)
-    //   $axios('/yxs/api/index').then(res => {
-    //     console.log(res)
-    //   })
+    //   getCarousel()
+    //   this.getMenuList()
+    //   this.getResearchList()
+    //   this.getRecommendList(10)
+    //   this.getRecommendList(11)
+    //   this.getRecommendList(13)
+    //   this.getDoctorList()
+    //   this.getNewsList()
+    //   this.getTrainList()
+    //   this.getCategoryByCode('course_category_health')
+    //   this.getCategoryByCode('course_category_theory')
+    //   this.getCategoryByCode('course_category_selflearn')
     // })
   },
   mounted() {

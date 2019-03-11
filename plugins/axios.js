@@ -22,7 +22,18 @@ export default function({ $axios, redirect }) {
   $axios.onError(error => {
     return Promise.reject(error);
   });
-
+  
+  let params = {
+    username: '',
+    password: '',
+    scope: 'server',
+    grant_type: 'client_credentials'
+  }
   $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
+  // $axios.setHeader('Content-Type', 'application/json', ['post'])
+
   $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
+  $axios.post('/auth/oauth/token', params).then(res => {
+    $axios.setHeader('Authorization', 'Bearer' + res.access_token)
+  })
 }

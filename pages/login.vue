@@ -95,10 +95,12 @@ export default {
       count: null,
       timeShow: false,
       form1: {
+        type: 'MOBILE',
         phone: '',
         code: ''
       },
       form2: {
+        type: 'PWD',
         username: '',
         password: '',
         checked: false
@@ -132,9 +134,17 @@ export default {
         })
         return
       }
-      this.$message({
-        message: '登录成功！',
-        type: 'success'
+      // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
+      // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
+      this.$axios.post('/admin/api/web/account/login', this.form1).then(res => {
+        if(res.code == 0) {
+          this.$message({
+            message: '登录成功！',
+            type: 'success'
+          })
+        } else {
+          this.$message.error(res.msg);
+        }
       })
     },
     login2() {
@@ -152,9 +162,18 @@ export default {
         })
         return
       }
-      this.$message({
-        message: '登录成功！',
-        type: 'success'
+      // this.$axios.setHeader('Content-Type', 'application/json')
+      // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
+      console.log(this.$axios)
+      this.$axios.post('/admin/api/web/account/login', this.form2).then(res => {
+        if(res.code == 0) {
+          this.$message({
+            message: '登录成功！',
+            type: 'success'
+          })
+        } else {
+          this.$message.error(res.msg)
+        }
       })
     },
     // 获取验证码
