@@ -4,14 +4,15 @@
     <div class="list">
       <div
         v-for="(item, index) in dataArray"
+        v-if="index < 3"
         :key="index"
         class="item">
-        <img :src="item.src">
+        <img :src="item.pic">
         <div class="title">{{ item.title }}</div>
         <div class="info">
-          <span class="teacher">讲师：{{ item.teacher }}</span>
-          <span class="lesson">共{{ item.lessons }}节</span>
-          <span class="number">{{ item.number }}人学过</span>
+          <span class="teacher">讲师：{{ item.name }}</span>
+          <span class="lesson">共{{ item.courseNum }}节</span>
+          <span class="number">{{ item.fanNum }}人学过</span>
         </div>
       </div>
     </div>

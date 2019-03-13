@@ -17,19 +17,7 @@ export default {
     'v-footer': Footer,
     'v-header': Header,
     FriendLink
-  },
-  // created() {
-  //   let params = {
-  //     username: '',
-  //     password: '',
-  //     scope: 'server',
-  //     grant_type: 'client_credentials'
-  //   }
-  //   this.$axios.post('/auth/oauth/token', params).then(res => {
-  //     console.log('token', res)
-  //     this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
-  //   })
-  // }
+  }
 }
 </script>
 

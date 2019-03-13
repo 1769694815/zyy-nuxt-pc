@@ -4,16 +4,17 @@
     <div class="list">
       <div
         v-for="(item, index) in dataArray"
+        v-if="index < 3"
         :key="index"
         class="item">
         <div class="train-img">
-          <img :src="item.src">
+          <img :src="item.middle_picture">
           <div class="text">中药炮制工</div>
         </div>
         <div class="info">
-          <span class="teacher">讲师：{{ item.teacher }}</span>
-          <span class="lesson">共{{ item.lessons }}节</span>
-          <span class="number">{{ item.number }}人学过</span>
+          <span class="teacher">讲师：{{ item.fanousrName }}</span>
+          <span class="lesson">共{{ item.lessonNum }}节</span>
+          <span class="number">{{ item.studentNum }}人学过</span>
         </div>
       </div>
     </div>

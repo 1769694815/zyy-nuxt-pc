@@ -77,6 +77,7 @@ export default {
       timer: null,
       count: '',
       form: {
+        type: 'MOBILE',
         phone: '',
         code: '',
         password: '',
@@ -136,9 +137,15 @@ export default {
             message: '注册成功！',
             type: 'success'
           })
+          setTimeout(() => {
+            this.$router.push({
+              name: 'login'
+            })
+          }, 1000)
+        } else {
+          this.$message.error(res.msg)
         }
       })
-     
     },
     // 获取验证码
     getCode() {

@@ -48,7 +48,7 @@
             <div class="input">
               <span class="img1" />
               <input
-                v-model="form2.username"
+                v-model="form2.userName"
                 type="text"
                 placeholder="邮箱/手机号/用户名">
             </div>
@@ -101,7 +101,7 @@ export default {
       },
       form2: {
         type: 'PWD',
-        username: '',
+        userName: '',
         password: '',
         checked: false
       }
@@ -142,13 +142,17 @@ export default {
             message: '登录成功！',
             type: 'success'
           })
+          window.localStorage.setItem('zyy_userToken', res.data.userToken)
+          this.$router.push({
+            name: 'index'
+          })
         } else {
           this.$message.error(res.msg);
         }
       })
     },
     login2() {
-      if(!this.form2.username) {
+      if(!this.form2.userName) {
         this.$message({
           message: '用户名不能为空',
           type: 'warning'
@@ -170,6 +174,10 @@ export default {
           this.$message({
             message: '登录成功！',
             type: 'success'
+          })
+          window.localStorage.setItem('zyy_userToken', res.data.userToken)
+          this.$router.push({
+            name: 'index'
           })
         } else {
           this.$message.error(res.msg)

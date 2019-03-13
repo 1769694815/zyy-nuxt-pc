@@ -6,13 +6,13 @@
         课程中心
       </div>
       <ul>
-        <li @click="$router.push({name: 'index'})">首页</li>
-        <li>自学考试</li>
-        <li>西学中</li>
-        <li>名师医承</li>
-        <li>中医药进社区</li>
-        <li>下载App</li>
-        <li>关于我们</li>
+        <li
+          v-for="(item, index) in list"
+          :key="index"
+          :class="{active: index == tab}"
+          @click="changeTab(item, index)">
+          {{ item.name }}
+        </li>
       </ul>
     </div>
   </div>
@@ -21,7 +21,52 @@
 export default {
   data() {
     return {
-      
+      tab: 0,
+      list: [
+        {
+          name: '首页',
+          label: 0,
+          path: 'index'
+        },
+        {
+          name: '自学考试',
+          label: 1,
+          path: 'train'
+        },
+        {
+          name: '西学中',
+          label: 2
+        },
+        {
+          name: '名师医承',
+          label: 3
+        },
+        {
+          name: '中医药进社区',
+          label: 4
+        },
+        {
+          name: '下载App',
+          label: 5
+        },
+        {
+          name: '关于我们',
+          label: 6,
+          path: 'about'
+        },
+      ]
+    }
+  },
+  mounted() {
+    this.tab = localStorage.getItem('zyy_tab') || 0
+  },
+  methods: {
+    changeTab(item, index) {
+      window.localStorage.setItem('zyy_tab', index)
+      this.tab = index
+      this.$router.push({
+        name: item.path
+      })
     }
   }
 }
@@ -58,8 +103,13 @@ export default {
     }
     li {
       display: inline-block;
-      margin-left: 60px;
+      padding: 0 36px;
       cursor: pointer;
+      box-sizing: border-box;
+      &.active {
+        background: #3F8A38;
+        color: #fff;
+      }
     }
   }
 </style>

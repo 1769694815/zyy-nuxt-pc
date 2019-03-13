@@ -13,8 +13,10 @@
               <td>
                 <span
                   v-for="(item, index) in types"
-                  :key="index">
-                  {{ item.label }}
+                  :key="index"
+                  :class="{active:firstActive == index}"
+                  @click="changeFirst(item, index)">
+                  {{ item.name }}
                 </span>
               </td>
             </tr>
@@ -23,8 +25,10 @@
               <td>
                 <span
                   v-for="(item, index) in courses"
-                  :key="index">
-                  {{ item.label }}
+                  :key="index"
+                  :class="{active:secondActive == index}"
+                  @click="changeSecond(item, index)">
+                  {{ item.name }}
                 </span>
               </td>
             </tr>
@@ -33,32 +37,63 @@
               <td>
                 <span
                   v-for="(item, index) in orders"
-                  :key="index">
+                  :key="index"
+                  :class="{active:thirdActive == index}"
+                  @click="changeThird(item, index)">
                   {{ item.label }}
                 </span>
               </td>
             </tr>
           </table>
-          <ul>
+          <ul v-show="classType == 2">
             <li
               v-for="(item, index) in result"
-              :key="index">
-              <img :src="item.src">
+              :key="index"
+              class="common-class">
+              <img :src="item.middle_picture">
               <div class="info">
                 <div class="title">{{ item.title }}</div>
-                <div class="tag">
+                <div
+                  v-if="item.courses"
+                  class="tag">
                   <span
-                    v-for="(tag, index) in item.tags"
+                    v-for="(tag, index) in item.courseName.split(',')"
                     :key="index">
                     {{ tag }}
                   </span>
                 </div>
-                <div class="price">{{ item.price }}</div>
+                <div class="price">￥{{ item.price }}</div>
                 <div class="foot">
-                  <span>{{ item.number }}人已报名</span>
-                  <span>截止报名：{{ item.date }}</span>                  
+                  <span>{{ item.studentNum }}人已报名</span>
+                  <span>截止报名：{{ item.closeDate }}</span>
                 </div>
                 <div class="button">立即报名</div>
+                <div class="button">报名结束</div>
+                <div class="button">已加入本班</div>
+              </div>
+            </li>
+          </ul>
+          <ul
+            v-show="classType == 1"
+            class="train-ul">
+            <li
+              v-for="(item, index) in result"
+              :key="index" 
+              class="train-class">
+              <img :src="item.middle_picture">
+              <div class="content">
+                <div class="title">{{ item.title }}</div>
+                <div class="info">
+                  <span
+                    v-if="item.price == 0"
+                    class="free">免费
+                  </span>
+                  <span
+                    v-else
+                    class="price">￥{{ item.price }}
+                  </span>
+                  <span class="number">{{ item.student_num }}人学过</span>
+                </div>
               </div>
             </li>
           </ul>
@@ -85,28 +120,36 @@ export default {
   },
   data() {
     return {
+      current: 1,
+      size: 10,
+      categoryId: '',
+      orderByClause: 1,
+      firstActive: 0,
+      secondActive: 0,
+      thirdActive: 0,
+      classType: 1,
       recommendLessons: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        }
+        // {
+        //   src: require('~/assets/images/wbc.jpg'),
+        //   title: '大美中医启续篇——时间',
+        //   teacher: '彭丽丽',
+        //   lessons: 12,
+        //   number: 236
+        // },
+        // {
+        //   src: require('~/assets/images/wbc.jpg'),
+        //   title: '大美中医启续篇——时间',
+        //   teacher: '彭丽丽',
+        //   lessons: 12,
+        //   number: 236
+        // },
+        // {
+        //   src: require('~/assets/images/wbc.jpg'),
+        //   title: '大美中医启续篇——时间',
+        //   teacher: '彭丽丽',
+        //   lessons: 12,
+        //   number: 236
+        // }
       ],
       recommendTrains: [
         {
@@ -131,50 +174,8 @@ export default {
           number: 236
         }
       ],
-      types: [
-        {
-          label: '全部',
-          value: 1
-        },
-        {
-          label: '培训项目',
-          value: 1
-        },
-        {
-          label: '自学考试',
-          value: 1
-        },
-        {
-          label: '中医基础理论',
-          value: 1
-        },
-        {
-          label: '中医研究所',
-          value: 1
-        },
-        {
-          label: '名医师承',
-          value: 1
-        },
-        // {
-        //   label: '中医健康',
-        //   value: 1
-        // }
-      ],
-      courses: [
-        {
-          label: '全部',
-          value: 1
-        },
-        {
-          label: '西学中',
-          value: 2
-        },
-        {
-          label: '其他',
-          value: 3
-        }
-      ],
+      types: [],
+      courses: [],
       orders: [
         {
           label: '最新',
@@ -185,41 +186,89 @@ export default {
           value: 2
         }
       ],
-      result: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          tags: ['中医药理论', '药学'],
-          price: 699,
-          number: 12,
-          date: '2019-12-12'
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          tags: ['中医药理论', '药学'],
-          price: 699,
-          number: 12,
-          date: '2019-12-12'
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          tags: ['中医药理论', '药学'],
-          price: 699,
-          number: 12,
-          date: '2019-12-12'
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          tags: ['中医药理论', '药学'],
-          price: 699,
-          number: 12,
-          date: '2019-12-12'
-        },
-      ]
+      result: []
     }
+  },
+  mounted() {
+    this.getList(this.categoryId, 1)
+    this.getTrainList()
+    this.getRecommendLessons()
+  },
+  methods: {
+    changeFirst(item, index) {
+      this.firstActive = index
+      this.getList(item, 1)
+    },
+    changeSecond(item, index) {
+      this.secondActive = index
+      this.getList(item, 2)
+    },
+    changeThird(item, index) {
+      this.thirdActive = index
+      this.orderByClause = index == 0 ? 1 : 2
+      this.getList(item)
+    },
+    getList(item, i) {
+      this.classType = item.type ? 2 : 1
+      console.log('item', item)
+      if(i == 1) {
+        this.courses = [{
+          name: '全部',
+          id: 0
+        }]
+        if(item.children && item.children.length > 0) {
+          item.children.map(item => {
+            this.courses.push(item)
+          })
+        }
+      }
+      this.$axios('/yxs/api/web/course/more', {
+        params: {
+          current: this.current,
+          size: this.size,
+          categoryId: item.id == 0 ? '' : item.id,
+          orderByClause: this.orderByClause,
+          type: this.classType,
+          userToken: ''
+        }
+      }).then(res => {
+        if(this.types && this.types.length == 0) {
+          this.types = [{
+            name: '全部',
+            id: 0
+          }]
+          console.log('types', this.types)
+          res.data.allTrainCate.map(item => {
+            item.type = 2
+            this.types.push(item)
+          })
+          res.data.allCate.map(item => {
+            this.types.push(item)
+          })
+        }
+        this.result = res.data.list.records
+      })
+    },
+    // 推荐培训项目
+    getTrainList() {
+      this.$axios('/yxs/api/web/course/getRecommendTrainList', {
+        params: {
+          type: 1
+        }
+      }).then(res => {
+        if(res.code == 0) {
+          this.recommendTrains = res.data
+        }
+      })
+    },
+    // 推荐课程
+    getRecommendLessons() {
+      this.$axios('/yxs/api/web/doctor/recommendList').then(res => {
+        if(res.code == 0) {
+          this.recommendLessons = res.data
+        }
+      })
+    },
   }
 }
 </script>
@@ -260,14 +309,21 @@ export default {
           border: 1px solid #E5E5E5;
           background: #f5f5f5;
           font-size: 0;
+          cursor: pointer;
           span {
             margin-left: 20px;
             padding: 8px;
             font-size: 14px;
+            text-align: center;
+            &.active {
+              background: #3F8A38;
+              font-size: 14px;
+              color: #fff;
+            }
           }
         }
       }
-      li {
+      .common-class {
         display: flex;
         position: relative;
         margin-top: 30px;
@@ -323,6 +379,69 @@ export default {
             color: #fff;
             background: #3F8A38;
             text-align: center;
+          }
+        }
+      }
+      .train-ul {
+        width: 930px;
+        overflow: hidden;
+      }
+      .train-class {
+        display: inline-block;
+        align-items: center;
+        margin-top: 20px;
+        margin-left: 19px;
+        &:nth-child(4n + 1){
+          margin-left: 0;
+        }
+        img {
+          display: block;
+          width: 218px;
+          height: 122px;
+          background: rgba(98,98,98,1);
+          border-radius: 6px;
+        }
+        .content {
+          padding: 0 10px;
+          .title {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #333;
+          }
+          .info {
+            margin-top: 9px;
+            font-size: 0;
+            .free {
+              display: inline-block;
+              width: 34px;
+              height: 19px;
+              line-height: 19px;
+              font-size: 12px;
+              text-align: center;
+              color: #fff;
+              background: #3F8A38;
+              border-radius: 2px;
+            }
+            .price {
+              display: inline-block;
+              height: 19px;
+              line-height: 19px;
+              padding: 0 6px;
+              font-size: 12px;
+              background: #FBB03B;
+              color: #fff;
+              border-radius: 2px;
+            }
+            .lesson {
+              margin-left: 12px;
+              font-size: 12px;
+              color: #999;
+            }
+            .number {
+              font-size: 12px;
+              color: #999;
+              float: right;
+            }
           }
         }
       }

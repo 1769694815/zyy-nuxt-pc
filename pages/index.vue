@@ -262,7 +262,7 @@
 </template>
 
 <script>
-import Nav from '~/components/index/navBar.vue'
+import Nav from '~/components/navBar.vue'
 import ResearchItem from '~/components/index/researchItem.vue'
 import FamousItem from '~/components/index/famousItem.vue'
 import SectionItem from '~/components/index/sectionItem.vue'
@@ -293,7 +293,6 @@ export default {
     }
   },
   async asyncData({ $axios }) {
-    console.log('this', this)
     // let params = {
     //   username: '',
     //   password: '',
@@ -302,20 +301,20 @@ export default {
     // }
     // $axios.post('/auth/oauth/token', params).then(res => {
     //   $axios.setHeader('Authorization', 'Bearer' + res.access_token)
-    //   getCarousel()
-    //   this.getMenuList()
-    //   this.getResearchList()
-    //   this.getRecommendList(10)
-    //   this.getRecommendList(11)
-    //   this.getRecommendList(13)
-    //   this.getDoctorList()
-    //   this.getNewsList()
-    //   this.getTrainList()
-    //   this.getCategoryByCode('course_category_health')
-    //   this.getCategoryByCode('course_category_theory')
-    //   this.getCategoryByCode('course_category_selflearn')
     // })
+    // let params = {
+    //   username: '',
+    //   password: '',
+    //   scope: 'server',
+    //   grant_type: 'client_credentials'
+    // }
+    // let data = await $axios.post('/auth/oauth/token', params)
+    // console.log(data)
+    // $axios.setHeader('Authorization', 'Bearer' + data.access_token)
   },
+  created() {
+    
+  }, 
   mounted() {
     let params = {
       username: '',
@@ -323,8 +322,8 @@ export default {
       scope: 'server',
       grant_type: 'client_credentials'
     }
-    this.$axios.post('/auth/oauth/token', params).then(res => {
-      this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
+    // this.$axios.post('/auth/oauth/token', params).then(res => {
+    //   this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
       this.getCarousel()
       this.getMenuList()
       this.getResearchList()
@@ -337,7 +336,7 @@ export default {
       this.getCategoryByCode('course_category_health')
       this.getCategoryByCode('course_category_theory')
       this.getCategoryByCode('course_category_selflearn')
-    })
+    // })
   },
   methods: {
     // 跳转到头条页面

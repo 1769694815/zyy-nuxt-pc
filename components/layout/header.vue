@@ -11,7 +11,9 @@
             class="register"
             @click="toRegister">免费注册</span>
         </div>
-        <div class="content-right">
+        <div
+          v-show="tagShow"
+          class="content-right">
           <div
             class="message"
             @click="toMynews">我的消息
@@ -60,7 +62,9 @@
               <img src="~/assets/images/search.png">
             </div>
           </div>
-          <div class="content-right">
+          <div
+            v-show="tagShow"
+            class="content-right">
             <div
               class="message"
               @click="toMynews">我的消息
@@ -84,11 +88,16 @@
 export default {
   data() {
     return {
-      fixedShow: false
+      fixedShow: false,
+      tagShow: false
     }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
+    let userToken = window.localStorage.getItem('zyy_userToken')
+    if(userToken) {
+      this.tagShow = true
+    }
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll)

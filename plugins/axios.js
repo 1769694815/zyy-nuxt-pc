@@ -14,11 +14,11 @@ export default function({ $axios, redirect }) {
     });
     return config;
   });
- 
+
   $axios.onResponse(response => {
     return Promise.resolve(response.data);
   });
- 
+
   $axios.onError(error => {
     return Promise.reject(error);
   });
@@ -29,11 +29,15 @@ export default function({ $axios, redirect }) {
     scope: 'server',
     grant_type: 'client_credentials'
   }
-  $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
-  // $axios.setHeader('Content-Type', 'application/json', ['post'])
 
+  $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
   $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
+  
   $axios.post('/auth/oauth/token', params).then(res => {
     $axios.setHeader('Authorization', 'Bearer' + res.access_token)
   })
+  
+  // $axios.setHeader('Authorization', 'Bearerbeb31048-148a-4910-8c1b-f42cb5a83115')
+
 }
+
