@@ -1,60 +1,70 @@
 <template>
-  <div class="mylearn-right">
-    <div class="header">
-      <div class="title">全部关注</div>
-      <div
-        v-if="!isEdit"
-        class="button"
-        @click="edit">编辑
+  <div>
+    <left-tab :tab-index="tabIndex" />    
+    <div class="mylearn-right">
+      <div class="header">
+        <div class="title">全部关注</div>
+        <div
+          v-if="!isEdit"
+          class="button"
+          @click="edit">编辑
+        </div>
+        <div
+          v-else
+          class="button">
+          <span
+            class="save"
+            @click="save">保存修改</span>
+          <span
+            class="cancel"
+            @click="cancel">取消操作</span>
+        </div>
       </div>
-      <div
-        v-else
-        class="button">
-        <span
-          class="save"
-          @click="save">保存修改</span>
-        <span
-          class="cancel"
-          @click="cancel">取消操作</span>
-      </div>
-    </div>
-    <div class="center">
-      <ul>
-        <li
-          v-for="(item,index) in contentList"
-          :key="index"
-          class="list-item">
-          <img :src="item.src">
-          <div
-            v-show="isEdit"
-            class="mask"
-            @mouseenter="mouseEnter(index)"
-            @mouseleave="mouseLeave(index)"
-            @click="cancelCollect(index)">
+      <div class="center">
+        <ul>
+          <li
+            v-for="(item,index) in contentList"
+            :key="index"
+            class="list-item">
+            <img :src="item.src">
             <div
-              :ref="'text' + index"
-              class="text">
-              取消关注
+              v-show="isEdit"
+              class="mask"
+              @mouseenter="mouseEnter(index)"
+              @mouseleave="mouseLeave(index)"
+              @click="cancelCollect(index)">
+              <div
+                :ref="'text' + index"
+                class="text">
+                取消关注
+              </div>
             </div>
-          </div>
-          <div class="content">
-            <div class="title">{{ item.name }}</div>
-            <div class="foot">
-              <span class="rank">{{ item.rank }}</span>
-              <span class="number">{{ item.number }}人关注</span>
+            <div class="content">
+              <div class="title">{{ item.name }}</div>
+              <div class="foot">
+                <span class="rank">{{ item.rank }}</span>
+                <span class="number">{{ item.number }}人关注</span>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import LeftTab from '~/components/mine/leftTab.vue'
 export default {
+  components: {
+    LeftTab
+  },
   data() {
     return {
       tab: 1,
+      tabIndex: 5,
       isEdit: false,
+      size: 10,
+      current: 1,
       navList:[
         { label: '全部课程', value: 1 },
         { label: '学习中', value: 2 },
@@ -62,33 +72,11 @@ export default {
         { label: '未学完', value: 4 },
         { label: '已到期', value: 5 }
       ],
-      contentList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          name: '姚荷生',
-          rank: '国家级中医',
-          number: 236
-        }
-      ]
+      contentList: []
     }
+  },
+  mounted() {
+    this.getList()
   },
   methods: {
     switchTab(index){
@@ -111,6 +99,19 @@ export default {
     },
     cancelCollect(index) {
       this.contentList.splice(index, 1);
+    },
+    getList() {
+      let userToken = localStorage.getItem('zyy_userToken')
+      if(userToken) {
+        this.$axios.setHeader('userToken', userToken)
+      }
+      let params = {
+        size: this.size,
+        current: this.current
+      }
+      this.$axios('/yxs/api/web/user/getFamousCollectionPageByUserId', params).then(res => {
+        this.contentList = res.data.records
+      })
     }
   }
 }

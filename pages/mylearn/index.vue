@@ -1,43 +1,59 @@
 <template>
-  <div class="mylearn-right">
-    <div class="right-nav">
-      <ul>
-        <li 
-          v-for="(item,index) in navList" 
-          :key="index" 
-          :class="tab === (index + 1)? 'active' : ''" 
-          @click="switchTab(index)"> {{ item.label }} </li>
-      </ul>
-    </div>
-    <div class="center">
-      <ul>
-        <li
-          v-for="(item,index) in contentList"
-          :key="index"
-          class="list-item">
-          <img :src="item.src">
-          <div class="content">
-            <div class="title">{{ item.title }}</div>
-            <p
-              v-show="item.offDay != 0"
-              class="desc">
-              {{ item.offDay }}天后到期
-            </p>
-            <div class="foot">
-              <span>已学{{ item.percent }}%</span>
-              <span>共{{ item.number }}节</span>
+  <div>
+    <left-tab :tab-index="tabIndex" />
+    <div class="mylearn-right">
+      <div class="right-nav">
+        <ul>
+          <li 
+            v-for="(item,index) in navList" 
+            :key="index" 
+            :class="tab === (index + 1)? 'active' : ''" 
+            @click="switchTab(index)"> {{ item.label }} </li>
+        </ul>
+      </div>
+      <div class="center">
+        <ul>
+          <li
+            v-for="(item,index) in contentList"
+            :key="index"
+            class="list-item">
+            <img :src="item.middlePicture">
+            <div class="content">
+              <div class="title">{{ item.title }}</div>
+              <p
+                v-if="item.dayCount != 0"
+                class="desc">
+                {{ item.dayCount }}天后到期
+              </p>
+              <p
+                v-else
+                class="desc">
+                已到期
+              </p>
+              <div class="foot">
+                <span>已学{{ item.result }}</span>
+                <span>共{{ item.lessonNum }}节</span>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
+  
 </template>
 <script>
+import LeftTab from '~/components/mine/leftTab.vue'
 export default {
+  components: {
+    LeftTab
+  },
   data() {
     return {
       tab: 1,
+      tabIndex: 1,
+      size: 10,
+      current: 1,
       navList:[
         { label: '全部课程', value: 1 },
         { label: '学习中', value: 2 },
@@ -45,41 +61,28 @@ export default {
         { label: '未学完', value: 4 },
         { label: '已到期', value: 5 }
       ],
-      contentList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 0,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        }
-      ]
+      contentList: []
     }
+  },
+  mounted() {
+    this.getList()
   },
   methods: {
     switchTab(index){
       this.tab = index + 1;
+    },
+    getList() {
+      let userToken = localStorage.getItem('zyy_userToken')
+      if(userToken) {
+        this.$axios.setHeader('userToken', userToken)
+      }
+      let params = {
+        size: this.size,
+        current: this.current
+      }
+      this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', params).then(res => {
+        this.contentList = res.data.records
+      })
     }
   }
 }

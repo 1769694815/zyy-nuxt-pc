@@ -1,40 +1,48 @@
 <template>
-  <div class="right-container">
-    <div class="top">
-      <span>今日学习时长20分钟</span>
-      <span>累计学习时长1096分钟</span>
-    </div>
-    <div
-      id="lineCharts"
-      ref="echarts" />
-    <div class="center">
-      <ul>
-        <li
-          v-for="(item,index) in contentList"
-          :key="index"
-          class="list-item">
-          <img :src="item.src">
-          <div class="content">
-            <div class="title">{{ item.title }}</div>
-            <p
-              v-show="item.offDay != 0"
-              class="desc">
-              {{ item.offDay }}天后到期
-            </p>
-            <div class="foot">
-              <span>已学{{ item.percent }}%</span>
-              <span>共{{ item.number }}节</span>
+  <div> 
+    <left-tab :tab-index="tabIndex" />
+    <div class="right-container">
+      <div class="top">
+        <span>今日学习时长20分钟</span>
+        <span>累计学习时长1096分钟</span>
+      </div>
+      <div
+        id="lineCharts"
+        ref="echarts" />
+      <div class="center">
+        <ul>
+          <li
+            v-for="(item,index) in contentList"
+            :key="index"
+            class="list-item">
+            <img :src="item.src">
+            <div class="content">
+              <div class="title">{{ item.title }}</div>
+              <p
+                v-show="item.offDay != 0"
+                class="desc">
+                {{ item.offDay }}天后到期
+              </p>
+              <div class="foot">
+                <span>已学{{ item.percent }}%</span>
+                <span>共{{ item.number }}节</span>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import LeftTab from '~/components/mine/leftTab.vue'
 export default {
+  components: {
+    LeftTab
+  },
   data() {
     return {
+      tabIndex: 3,
       contentList: [
         {
           src: require('~/assets/images/wbc.jpg'),

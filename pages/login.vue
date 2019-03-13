@@ -142,7 +142,7 @@ export default {
             message: '登录成功！',
             type: 'success'
           })
-          window.localStorage.setItem('zyy_userToken', res.data.userToken)
+          window.localStorage.setItem('zyy_userToken', res.data.userToken)        
           this.$router.push({
             name: 'index'
           })

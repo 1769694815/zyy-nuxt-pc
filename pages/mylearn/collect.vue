@@ -1,70 +1,81 @@
 <template>
-  <div class="mylearn-right">
-    <div class="header">
-      <div class="title">全部收藏</div>
-      <div
-        v-if="!isEdit"
-        class="button"
-        @click="edit">编辑
+  <div> 
+    <left-tab :tab-index="tabIndex" />
+    <div class="mylearn-right">
+      <div class="header">
+        <div class="title">全部收藏</div>
+        <div
+          v-if="!isEdit"
+          class="button"
+          @click="edit">编辑
+        </div>
+        <div
+          v-else
+          class="button">
+          <span
+            class="save"
+            @click="save">保存修改</span>
+          <span
+            class="cancel"
+            @click="cancel">取消操作</span>
+        </div>
       </div>
-      <div
-        v-else
-        class="button">
-        <span
-          class="save"
-          @click="save">保存修改</span>
-        <span
-          class="cancel"
-          @click="cancel">取消操作</span>
-      </div>
-    </div>
-    <div class="center">
-      <ul>
-        <li
-          v-for="(item,index) in contentList"
-          :key="index"
-          class="list-item">
-          <img :src="item.src">
-          <div
-            v-show="isEdit"
-            class="mask"
-            @mouseenter="mouseEnter(index)"
-            @mouseleave="mouseLeave(index)"
-            @click="cancelCollect(index)">
+      <div class="center">
+        <ul>
+          <li
+            v-for="(item,index) in contentList"
+            :key="index"
+            class="list-item">
+            <img :src="item.src">
             <div
-              :ref="'text' + index"
-              class="text">
-              取消收藏
+              v-show="isEdit"
+              class="mask"
+              @mouseenter="mouseEnter(index)"
+              @mouseleave="mouseLeave(index)"
+              @click="cancelCollect(index)">
+              <div
+                :ref="'text' + index"
+                class="text">
+                取消收藏
+              </div>
             </div>
-          </div>
-          <div class="content">
-            <div class="title">{{ item.title }}</div>
-            <p
-              v-show="item.offDay != 0"
-              class="desc">
-              共{{ item.number }}节
-            </p>
-            <div class="foot">
-              <span v-if="item.isBuy">已购买</span>
-              <span
-                v-else
-                class="price">￥{{ item.price }}</span>
-              <span :class="item.isBuy ? 'suc' : 'def'">
-                {{ item.isBuy ? '立即学习' : '立即购买' }}
-              </span>
+            <div class="content">
+              <div class="title">{{ item.title }}</div>
+              <p
+                v-show="item.offDay != 0"
+                class="desc">
+                共{{ item.number }}节
+              </p>
+              <div class="foot">
+                <span v-if="item.isBuy">已购买</span>
+                <span
+                  v-else
+                  class="price">￥{{ item.price }}</span>
+                <span :class="item.isBuy ? 'suc' : 'def'">
+                  {{ item.isBuy ? '立即学习' : '立即购买' }}
+                </span>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
+ 
 </template>
 <script>
+import LeftTab from '~/components/mine/leftTab.vue'
 export default {
+  components: {
+    LeftTab
+  },
   data() {
     return {
       tab: 1,
+      tabIndex: 4,
       isEdit: false,
+      size: 10,
+      current: 1,
       navList:[
         { label: '全部课程', value: 1 },
         { label: '学习中', value: 2 },
@@ -72,45 +83,11 @@ export default {
         { label: '未学完', value: 4 },
         { label: '已到期', value: 5 }
       ],
-      contentList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12,
-          isBuy: true,
-          price: 699
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 0,
-          percent: 96,
-          number: 12,
-          isBuy: true,
-          price: 699
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12,
-          isBuy: false,
-          price: 699
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12,
-          isBuy: false,
-          price: 699
-        }
-      ]
+      contentList: []
     }
+  },
+  mounted() {
+    this.getList()
   },
   methods: {
     switchTab(index){
@@ -133,6 +110,19 @@ export default {
     },
     cancelCollect(index) {
       this.contentList.splice(index, 1);
+    },
+    getList() {
+      let userToken = localStorage.getItem('zyy_userToken')
+      if(userToken) {
+        this.$axios.setHeader('userToken', userToken)
+      }
+      let params = {
+        size: this.size,
+        current: this.current
+      }
+      this.$axios('/yxs/api/web/user/getCourseCollectionPageByUserId', params).then(res => {
+        this.contentList = res.data.records
+      })
     }
   }
 }

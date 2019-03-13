@@ -39,11 +39,13 @@ export default {
         },
         {
           name: '名师医承',
-          label: 3
+          label: 3,
+          path: 'doctor'
         },
         {
           name: '中医药进社区',
-          label: 4
+          label: 4,
+          path: 'community'
         },
         {
           name: '下载App',

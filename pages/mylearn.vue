@@ -1,7 +1,8 @@
 <template>
   <div>
     <nav-bar />
-    <div class="container">
+    <nuxt-child class="container" />
+    <!-- <div class="container">
       <div class="container-left">
         <ul>
           <li
@@ -14,9 +15,8 @@
         </ul>
       </div>
       <div class="container-right">
-        <nuxt-child />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -57,28 +57,28 @@ export default {
     width: 1140px;
     margin: 30px auto;
   }
-  .container-left {
-    width: 270px;
-    padding: 20px 0;
-    height: 185px;
-    border: 1px solid #e4ecf3;
-    border-radius: 4px;
-    li {
-      height: 37px;
-      line-height: 37px;
-      padding-left: 17px;
-      color: #333;
-      font-size: 12px;
-      border-left: 2px solid #fff;
-      cursor: pointer;
-      &.active {
-        color: #46C37B;
-        border-left: 2px solid #46C37B;
-      }
-    }
-  }
-  .container-right {
-    flex: 1;
-    margin-left: 20px;
-  }
+  // .container-left {
+  //   width: 270px;
+  //   padding: 20px 0;
+  //   height: 185px;
+  //   border: 1px solid #e4ecf3;
+  //   border-radius: 4px;
+  //   li {
+  //     height: 37px;
+  //     line-height: 37px;
+  //     padding-left: 17px;
+  //     color: #333;
+  //     font-size: 12px;
+  //     border-left: 2px solid #fff;
+  //     cursor: pointer;
+  //     &.active {
+  //       color: #46C37B;
+  //       border-left: 2px solid #46C37B;
+  //     }
+  //   }
+  // }
+  // .container-right {
+  //   flex: 1;
+  //   margin-left: 20px;
+  // }
 </style>

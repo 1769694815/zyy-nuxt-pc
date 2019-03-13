@@ -1,44 +1,51 @@
 <template>
-  <div class="mylearn-right">
-    <div class="right-nav">
-      <ul>
-        <li 
-          v-for="(item,index) in navList" 
-          :key="index" 
-          :class="tab === (index + 1)? 'active' : ''" 
-          @click="switchTab(index)"> {{ item.label }} </li>
-      </ul>
-    </div>
-    <div class="center">
-      <ul>
-        <li
-          v-for="(item,index) in contentList"
-          :key="index"
-          class="list-item">
-          <img :src="item.src">
-          <div class="content">
-            <div class="title">{{ item.title }}</div>
-            <div class="desc">
-              <span>共{{ item.lessons }}门</span>
-              <span>已学{{ item.percent }}%</span>
+  <div>
+    <left-tab :tab-index="tabIndex" />
+    <div class="mylearn-right">
+      <div class="right-nav">
+        <ul>
+          <li 
+            v-for="(item,index) in navList" 
+            :key="index" 
+            :class="tab === (index + 1)? 'active' : ''" 
+            @click="switchTab(index)"> {{ item.label }} </li>
+        </ul>
+      </div>
+      <div class="center">
+        <ul>
+          <li
+            v-for="(item,index) in contentList"
+            :key="index"
+            class="list-item">
+            <img :src="item.src">
+            <div class="content">
+              <div class="title">{{ item.title }}</div>
+              <div class="desc">
+                <span>共{{ item.lessons }}门</span>
+                <span>已学{{ item.percent }}%</span>
+              </div>
+              <p v-show="item.offDay != 0">
+                {{ item.offDay }}天后到期
+              </p>
+              <div class="foot">
+                <span>{{ item.number }}成员</span>
+                <span
+                  class="rank"
+                  @click="toRank">进度排名></span>
+              </div>
             </div>
-            <p v-show="item.offDay != 0">
-              {{ item.offDay }}天后到期
-            </p>
-            <div class="foot">
-              <span>{{ item.number }}成员</span>
-              <span
-                class="rank"
-                @click="toRank">进度排名></span>
-            </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import LeftTab from '~/components/mine/leftTab.vue'
 export default {
+  components: {
+    LeftTab
+  },
   data() {
     return {
       tab: 1,
@@ -47,41 +54,13 @@ export default {
         { label: '开班中', value: 2 },
         { label: '已到期', value: 3 }
       ],
-      contentList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          lessons: 2,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          lessons: 2,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          lessons: 2,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          lessons: 2,
-          percent: 96,
-          number: 12
-        }
-      ]
+      size: 10,
+      current: 1,
+      contentList: []
     }
+  },
+  mounted() {
+    this.getList()
   },
   methods: {
     switchTab(index){
@@ -90,6 +69,19 @@ export default {
     toRank() {
       this.$router.push({
         name: 'rank-course'
+      })
+    },
+    getList() {
+      let userToken = localStorage.getItem('zyy_userToken')
+      if(userToken) {
+        this.$axios.setHeader('userToken', userToken)
+      }
+      let params = {
+        size: this.size,
+        current: this.current
+      }
+      this.$axios('/yxs/api/user/getClassroomMemberPageByUserId', params).then(res => {
+        this.contentList = res.data.records
       })
     }
   }
