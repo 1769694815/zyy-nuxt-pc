@@ -26,7 +26,7 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item">
-            <img :src="item.src">
+            <img :src="item.pic">
             <div
               v-show="isEdit"
               class="mask"
@@ -42,8 +42,8 @@
             <div class="content">
               <div class="title">{{ item.name }}</div>
               <div class="foot">
-                <span class="rank">{{ item.rank }}</span>
-                <span class="number">{{ item.number }}人关注</span>
+                <span class="rank">{{ item.title }}</span>
+                <span class="number">{{ item.fanNum }}人关注</span>
               </div>
             </div>
           </li>
@@ -109,7 +109,9 @@ export default {
         size: this.size,
         current: this.current
       }
-      this.$axios('/yxs/api/web/user/getFamousCollectionPageByUserId', params).then(res => {
+      this.$axios('/yxs/api/web/user/getFamousCollectionPageByUserId', {
+        params
+      }).then(res => {
         this.contentList = res.data.records
       })
     }

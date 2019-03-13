@@ -26,7 +26,7 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item">
-            <img :src="item.src">
+            <img :src="item.middlePicture">
             <div
               v-show="isEdit"
               class="mask"
@@ -44,15 +44,15 @@
               <p
                 v-show="item.offDay != 0"
                 class="desc">
-                共{{ item.number }}节
+                共{{ item.lessonNum }}节
               </p>
               <div class="foot">
-                <span v-if="item.isBuy">已购买</span>
+                <span v-if="item.buystatus">已购买</span>
                 <span
                   v-else
                   class="price">￥{{ item.price }}</span>
-                <span :class="item.isBuy ? 'suc' : 'def'">
-                  {{ item.isBuy ? '立即学习' : '立即购买' }}
+                <span :class="item.buystatus ? 'suc' : 'def'">
+                  {{ item.buystatus ? '立即学习' : '立即购买' }}
                 </span>
               </div>
             </div>
@@ -120,8 +120,10 @@ export default {
         size: this.size,
         current: this.current
       }
-      this.$axios('/yxs/api/web/user/getCourseCollectionPageByUserId', params).then(res => {
-        this.contentList = res.data.records
+      this.$axios('/yxs/api/web/user/getCourseCollectionPageByUserId', {
+        params
+      }).then(res => {
+        this.contentList = res.data
       })
     }
   }

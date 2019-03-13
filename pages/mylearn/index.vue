@@ -8,7 +8,7 @@
             v-for="(item,index) in navList" 
             :key="index" 
             :class="tab === (index + 1)? 'active' : ''" 
-            @click="switchTab(index)"> {{ item.label }} </li>
+            @click="switchTab(index, item)"> {{ item.label }} </li>
         </ul>
       </div>
       <div class="center">
@@ -54,12 +54,13 @@ export default {
       tabIndex: 1,
       size: 10,
       current: 1,
+      type: 0,
       navList:[
-        { label: '全部课程', value: 1 },
-        { label: '学习中', value: 2 },
-        { label: '已学完', value: 3 },
-        { label: '未学完', value: 4 },
-        { label: '已到期', value: 5 }
+        { label: '全部课程', value: 0 },
+        { label: '学习中', value: 3 },
+        { label: '已学完', value: 2 },
+        { label: '未学习', value: 1 },
+        { label: '已到期', value: 4 }
       ],
       contentList: []
     }
@@ -68,8 +69,10 @@ export default {
     this.getList()
   },
   methods: {
-    switchTab(index){
+    switchTab(index, item){
       this.tab = index + 1;
+      this.type = item.value
+      this.getList()
     },
     getList() {
       let userToken = localStorage.getItem('zyy_userToken')
@@ -78,10 +81,13 @@ export default {
       }
       let params = {
         size: this.size,
-        current: this.current
+        current: this.current,
+        type: this.type
       }
-      this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', params).then(res => {
-        this.contentList = res.data.records
+      this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
+        params
+      }).then(res => {
+        this.contentList = res.data
       })
     }
   }

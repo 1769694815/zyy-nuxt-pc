@@ -3,8 +3,8 @@
     <left-tab :tab-index="tabIndex" />
     <div class="right-container">
       <div class="top">
-        <span>今日学习时长20分钟</span>
-        <span>累计学习时长1096分钟</span>
+        <span>今日学习时长{{ todayTime }}分钟</span>
+        <span>累计学习时长{{ totalTime }}分钟</span>
       </div>
       <div
         id="lineCharts"
@@ -15,17 +15,22 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item">
-            <img :src="item.src">
+            <img :src="item.middlePicture">
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <p
-                v-show="item.offDay != 0"
+                v-if="item.dayCount != 0"
                 class="desc">
-                {{ item.offDay }}天后到期
+                {{ item.dayCount }}天后到期
+              </p>
+              <p
+                v-else
+                class="desc">
+                已到期
               </p>
               <div class="foot">
-                <span>已学{{ item.percent }}%</span>
-                <span>共{{ item.number }}节</span>
+                <span>已学{{ item.result }}</span>
+                <span>共{{ item.lessonNum }}节</span>
               </div>
             </div>
           </li>
@@ -42,44 +47,18 @@ export default {
   },
   data() {
     return {
+      todayTime: 0,
+      totalTime: 0,
       tabIndex: 3,
-      contentList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 0,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        }
-      ]
+      contentList: []
     }
   },
   mounted() {
     this.initCharts()
+    this.getList()
   },
   methods: {
-    initCharts() {
+    initCharts(xData, yData) {
       let myChart = this.$echarts.init(this.$refs.echarts)
        myChart.setOption({
         title: {
@@ -98,7 +77,7 @@ export default {
         tooltip: {},
         xAxis: {
           type: 'category',
-          data: ['11.27', '11.28', '11.29', '11.30', '12.1', '12.2', '今天'],
+          data: xData,
           axisLine: {
             lineStyle: {
               color: '#DEDEDE'
@@ -124,7 +103,7 @@ export default {
           splitLine: { show: true },
         },
         series: [{
-          data: [1, 1, 1, 80, 50, 100, 90],
+          data: yData,
           type: 'line',
           symbolSize: 8,
           lineStyle: {
@@ -153,6 +132,21 @@ export default {
           }
         }]
       })
+    },
+    getList() {
+      this.$axios('/yxs/api/web/user/selfLearnLog').then(res => {
+        this.contentList = res.data.detailList
+        let xData = []
+        let yData = []
+        this.todayTime = res.data.studyTimeList[0].learnTime
+        this.todayTime = res.data.weekLearnTime
+        res.data.studyTimeList.map(item => {
+          xData.unshift(item.date)
+          yData.unshift(item.learnTime)
+        })
+        xData[6] = '今天'
+        this.initCharts(xData, yData)
+      })
     }
   }
   
@@ -169,7 +163,7 @@ export default {
     }
   }
   #lineCharts {
-    width: 100%;
+    width: 850px;
     height: 260px;
     padding: 0 15px;
   }
