@@ -1,64 +1,70 @@
 <template>
-  <div class="content">
-    <div class="header">
-      <div class="title">我的订单</div>
-    </div>
-    <div class="list">
-      <ul>
-        <li
-          v-for="(item, index) in list"
-          :key="index"
-          class="item"
-          @click="toDetail">
-          <div class="item-header">
-            <div class="number">订单编号：{{ item.id }}</div>
-            <div class="date">创建时间：{{ item.date }}</div>
-          </div>
-          <div class="item-content">
-            <img :src="item.src">
-            <div class="item-info">
-              <div class="item-title">{{ item.title }}</div>
-              <div class="item-price">{{ item.price }}</div>
+  <div>
+    <personal-tab :tab-index="tabIndex" />
+    <div class="content">
+      <div class="header">
+        <div class="title">我的订单</div>
+      </div>
+      <div class="list">
+        <ul>
+          <li
+            v-for="(item, index) in list"
+            :key="index"
+            class="item"
+            @click="toDetail">
+            <div class="item-header">
+              <div class="number">订单编号：{{ item.sn }}</div>
+              <div class="date">创建时间：{{ item.createTime }}</div>
             </div>
-          </div>
-        </li>
-      </ul>
+            <div class="item-content">
+              <img :src="item.itemPic">
+              <div class="item-info">
+                <div class="item-title">{{ item.itemName }}</div>
+                <div class="item-price">￥{{ item.amount }}</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import PersonalTab from '~/components/mine/personalTab.vue'
 export default {
+  components: {
+    PersonalTab
+  },
   data() {
     return {
-      list: [
-        {
-          id: 'NS2019030655SD',
-          date: '2019-01-03',
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          price: '￥180'
-        },
-        {
-          id: 'NS2019030655SD',
-          date: '2019-01-03',
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          price: '￥180'
-        },
-        {
-          id: 'NS2019030655SD',
-          date: '2019-01-03',
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          price: '￥180'
-        },
-      ]
+      tabIndex: 2,
+      size: 10,
+      current: 1,
+      list: []
     }
+  },
+  mounted() {
+    this.getList()
   },
   methods: {
     toDetail() {
       this.$router.push({
         name: 'personal-orderDetail'
+      })
+    },
+    getList() {
+      let userToken = localStorage.getItem('zyy_userToken')
+      if(userToken) {
+        this.$axios.setHeader('userToken', userToken)
+      }
+      let params = {
+        size: this.size,
+        current: this.current
+      }
+      this.$axios('/yxs/api/web/user/getOrdersPageByUserId', {
+        params
+      }).then(res => {
+        this.list = res.data.records
       })
     }
   }
@@ -66,6 +72,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .content {
+    flex: 1;
     padding: 0 15px;
     border: 1px solid #e4ecf3;
     border-radius: 4px;

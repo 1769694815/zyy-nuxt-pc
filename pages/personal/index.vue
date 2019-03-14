@@ -1,122 +1,141 @@
 <template>
-  <div class="content">
-    <div class="header">
-      <div class="title">我的资料</div>
-      <div
-        v-if="!isEdit"
-        class="button"
-        @click="edit">编辑</div>
-      <div
+  <div>
+    <personal-tab :tab-index="tabIndex" />
+    <div class="content">
+      <div class="header">
+        <div class="title">我的资料</div>
+        <div
+          v-if="!isEdit"
+          class="button"
+          @click="edit">编辑</div>
+        <div
+          v-else
+          class="button"
+          @click="save">保存</div>
+      </div>
+      <el-form
+        v-if="isEdit"
+        ref="form"
+        :model="form"
+        class="form"
+        label-width="80px">
+        <el-form-item label="头像">
+          <el-upload
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+            class="avatar-uploader"
+            action="https://jsonplaceholder.typicode.com/posts/">
+            <img
+              v-if="form.avatar"
+              :src="form.avatar"
+              class="avatar">
+            <i
+              v-else
+              class="el-icon-plus avatar-uploader-icon" />
+          </el-upload>
+        </el-form-item>
+        <div class="flex">
+          <el-form-item
+            label="用户名">
+            <el-input v-model="form.userName" />
+          </el-form-item>
+          <span>可修改一次</span>
+        </div>
+        <el-form-item label="昵称">
+          <el-input v-model="form.nickName" />
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-radio-group v-model="form.sex">
+            <el-radio label="0">男</el-radio>
+            <el-radio label="1">女</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="生日">
+          <el-date-picker
+            v-model="form.birthday"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期" />
+        </el-form-item>
+        <el-form-item label="地区">
+          <el-input v-model="form.address" />
+        </el-form-item>
+      </el-form>
+      
+      <el-form
         v-else
-        class="button"
-        @click="save">保存</div>
-    </div>
-    <el-form
-      v-if="isEdit"
-      ref="form"
-      :model="form"
-      class="form"
-      label-width="80px">
-      <el-form-item label="头像">
-        <el-upload
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload"
-          class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/">
+        class="form"
+        label-width="80px">
+        <el-form-item label="头像：">
           <img
-            v-if="imageUrl"
-            :src="imageUrl"
+            v-show="form.avatar"
+            :src="form.avatar"
             class="avatar">
           <i
-            v-else
+            v-show="!form.avatar"
             class="el-icon-plus avatar-uploader-icon" />
-        </el-upload>
-      </el-form-item>
-      <div class="flex">
-        <el-form-item
-          label="用户名">
-          <el-input v-model="form.username" />
         </el-form-item>
-        <span>可修改一次</span>
-      </div>
-      <el-form-item label="昵称">
-        <el-input v-model="form.nickname" />
-      </el-form-item>
-      <el-form-item label="性别">
-        <el-radio-group v-model="form.sex">
-          <el-radio label="男" />
-          <el-radio label="女" />
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="生日">
-        <el-date-picker
-          v-model="form.birthday"
-          type="date"
-          placeholder="选择日期" />
-      </el-form-item>
-      <el-form-item label="地区">
-        <el-cascader
-          :options="options"
-          v-model="form.selectedOptions"
-          placeholder="选择地区"
-          @change="handleChange" />
-      </el-form-item>
-    </el-form>
-    <el-form
-      v-else
-      class="form"
-      label-width="80px">
-      <el-form-item label="头像：">
-        <img
-          v-if="imageUrl"
-          :src="imageUrl"
-          class="avatar">
-        <i
-          v-else
-          class="el-icon-plus avatar-uploader-icon" />
-      </el-form-item>
-      <div class="flex">
-        <el-form-item
-          label="用户名：">
-          <div>wx_2019wo我做主</div>
+        <div class="flex">
+          <el-form-item
+            label="用户名：">
+            <div>{{ form.userName }}</div>
+          </el-form-item>
+        </div>
+        <el-form-item label="昵称：">
+          <div>{{ form.nickName ? form.nickName : '未设置' }}</div>
         </el-form-item>
-      </div>
-      <el-form-item label="昵称：">
-        <div>未设置</div>
-      </el-form-item>
-      <el-form-item label="性别：">
-        <div>男</div>        
-      </el-form-item>
-      <el-form-item label="生日：">
-        <div>未设置</div>
-      </el-form-item>
-      <el-form-item label="地区：">
-        <div>未设置</div>
-      </el-form-item>
-    </el-form>
+        <el-form-item label="性别：">
+          <div>{{ form.sex == 0 ? '男' : '女' }}</div>
+        </el-form-item>
+        <el-form-item label="生日：">
+          <div>{{ form.birthday ? form.birthday : '未设置' }}</div>
+        </el-form-item>
+        <el-form-item label="地区：">
+          <div>{{ form.address ? form.address : '未设置' }}</div>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 <script>
+import PersonalTab from '~/components/mine/personalTab.vue'
 export default {
+  components: {
+    PersonalTab
+  },
   data() {
     return {
       isEdit: false,
+      tabIndex: 1,
       form: {
-        username: 'wx_2019wo我做主',
-        nickname: '未设置',
-        sex: '男',
-        birthday: [],
-        selectedOptions: []
+        userName: '',
+        nickName: '',
+        sex: '0',
+        birthday: '',
+        avatar: '',
+        address: ''
       },
-      imageUrl: 'https://goss.veer.com/creative/vcg/veer/1600water/veer-303672143.jpg',
+      form2: {},
       options: []
     }
   },
+  mounted() {
+    this.getInfo()
+  },
   methods: {
+    getInfo() {
+      let userToken = localStorage.getItem('zyy_userToken')
+      if(userToken) {
+        this.$axios.setHeader('userToken', userToken)
+      }
+      this.$axios('/admin/api/web/user/info').then(res => {
+        this.form = res.data
+      })
+    },
     // 上传成功
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      this.form.avatar = URL.createObjectURL(file.raw);
     },
     // 上传前
     beforeAvatarUpload() {
@@ -130,13 +149,37 @@ export default {
       this.isEdit = true
     },
     save() {
-      this.isEdit = false
+      // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
+      this.$axios.post('/admin/api/web/user/update', {
+        userToken: localStorage.getItem('zyy_userToken'),
+        userName: this.form.userName,
+        nickName: this.form.nickName,
+        sex: this.form.sex,
+        birthday: this.form.birthday,
+        avatar: this.form.avatar,
+        address: this.form.address
+      }).then(res => {
+        if(res.code == 0) {
+          this.isEdit = false
+          this.getInfo()
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: res.msg,
+            type: 'warning'
+          })
+        }
+      })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
   .content {
+    flex: 1;
     border: 1px solid #e4ecf3;
     border-radius: 4px;
   }

@@ -22,11 +22,9 @@ export default {
   data() {
     return {
       list: [
-        { label: '我的课程', name: 'mylearn' },
-        { label: '我的班级', name: 'mylearn-myclass' },
-        { label: '学习时长', name: 'mylearn-duration' },
-        { label: '我的收藏', name: 'mylearn-collect' },
-        { label: '我的关注', name: 'mylearn-interest' },
+        { label: '我的资料', name: 'personal' },
+        { label: '我的订单', name: 'personal-order' },
+        { label: '安全设置', name: 'personal-security' }
       ]
     }
   },

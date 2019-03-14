@@ -184,6 +184,7 @@ export default {
         }
       })
     },
+    
     // 获取验证码
     getCode() {
       let result = isvalidatemobile(this.form1.phone)
@@ -193,27 +194,35 @@ export default {
           type: 'warning'
         })
       } else {
-        // this.$axios.post('/admin/api/account/phoneCode_1551248297799', {
-        //   phone: this.form.phone
-        // })
-        this.$message({
-          message: '已发送验证码，请查收！',
-          type: 'success'
-        })
-        const TIME_COUNT = 60
-        if(!this.timer) {
-          this.count = TIME_COUNT
-          this.timeShow = true
-          this.timer = setInterval(() => {
-            if(this.count > 0 && this.count <= TIME_COUNT) {
-              this.count --
-            } else {
-              this.timeShow = false
-              clearInterval(this.timer)
-              this.timer = null
+        this.$axios.post('/admin/api/account/code', {
+          phone: this.form1.phone
+        }).then(res => {
+          if(res.code == 0) {
+            this.$message({
+              message: '已发送验证码，请查收！',
+              type: 'success'
+            })
+            const TIME_COUNT = 60
+            if(!this.timer) {
+              this.count = TIME_COUNT
+              this.timeShow = true
+              this.timer = setInterval(() => {
+                if(this.count > 0 && this.count <= TIME_COUNT) {
+                  this.count --
+                } else {
+                  this.timeShow = false
+                  clearInterval(this.timer)
+                  this.timer = null
+                }
+              }, 1000)
             }
-          }, 1000)
-        }
+          } else {
+            this.$message({
+              message: data.message,
+              type: 'error'
+            })
+          }
+        })
       }
     }
   }

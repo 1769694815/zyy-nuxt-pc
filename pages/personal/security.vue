@@ -1,43 +1,67 @@
 <template>
-  <div class="content">
-    <div class="header">
-      <div class="title">安全设置</div>
-    </div>
-    <div class="info">
-      <div class="info-item">
-        <div class="title">手机账号</div>
-        <div class="tel">152****6064</div>
-        <div
-          class="operate"
-          @click="update">修改
-        </div>
+  <div>
+    <personal-tab :tab-index="tabIndex" />
+    <div class="content">
+      <div class="header">
+        <div class="title">安全设置</div>
       </div>
-      <div class="info-item">
-        <div class="title">登录密码</div>
-        <div class="tel"><i class="iconfont icon-lock" /></div>
-        <div class="operate">重置密码</div>
+      <div class="info">
+        <div class="info-item">
+          <div class="title">手机账号</div>
+          <div class="tel">{{ phone }}</div>
+          <div
+            class="operate"
+            @click="update">修改
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="title">登录密码</div>
+          <div class="tel"><i class="iconfont icon-lock" /></div>
+          <div class="operate">重置密码</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import PersonalTab from '~/components/mine/personalTab.vue'
 export default {
+  components: {
+    PersonalTab
+  },
   data() {
     return {
-      
+      tabIndex: 3,
+      phone: ''
     }
+  },
+  mounted() {
+    this.getInfo()
   },
   methods: {
     update() {
       this.$router.push({
-        name: 'personal-updateMobile'
+        name: 'personal-updateMobile',
+        query: {
+          phone: this.phone
+        }
       })
-    }
+    },
+    getInfo() {
+      let userToken = localStorage.getItem('zyy_userToken')
+      if(userToken) {
+        this.$axios.setHeader('userToken', userToken)
+      }
+      this.$axios('/admin/api/web/user/info').then(res => {
+        this.phone = res.data.phone
+      })
+    },
   }
 }
 </script>
 <style lang="scss" scoped>
   .content {
+    flex: 1;
     border: 1px solid #e4ecf3;
     border-radius: 4px;
     min-height: 360px;
