@@ -120,12 +120,12 @@ export default {
   },
   data() {
     return {
-      tabIndex: 2,
+      tabIndex: 3,
       current: 1,
       size: 10,
       categoryId: '',
       orderByClause: 1,
-      firstActive: 2,
+      firstActive: 1,
       secondActive: 0,
       thirdActive: 0,
       classType: 1,
@@ -169,7 +169,7 @@ export default {
     }
   },
   mounted() {
-    this.getList('', 1)
+    this.getList(this.categoryId, 1)
     this.getTrainList()
     this.getRecommendLessons()
   },
@@ -206,7 +206,7 @@ export default {
         params: {
           current: this.current,
           size: this.size,
-          categoryId: item.id == 0 ? 10 : item.id,
+          categoryId: item.id == 0 ? '' : item.id,
           orderByClause: this.orderByClause,
           type: this.classType,
           userToken: ''

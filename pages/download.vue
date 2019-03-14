@@ -2,7 +2,13 @@
   <div style="width:100%">
     <nav-bar :tab-index="tabIndex" />
     <div class="container">
-      11
+      <div class="crumb">
+        首页>下载app
+      </div>
+    </div>
+    <div class="container">
+      <img src="../assets/images/aboutus.jpg">
+      <img src="../assets/images/aboutus2.jpg">
     </div>
   </div>
 </template>
@@ -14,7 +20,7 @@ export default {
   },
   data() {
     return {
-      tabIndex: 5
+      tabIndex: 6
     }
   }
 }

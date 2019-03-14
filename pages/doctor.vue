@@ -1,14 +1,17 @@
 <template>
   <div style="width:100%">
-    <nav-bar />
+    <nav-bar :tab-index="tabIndex" />
     <div class="container">
-      <div class="crumb">
-        首页>名医师承
-      </div>
-    </div>
-    <div class="container">
-      <img src="../assets/images/aboutus.jpg">
-      <img src="../assets/images/aboutus2.jpg">
+      <h1>名医师承</h1>
+      <div class="subtitle">数百位江中名医精品课程，零距离在线学习</div>
+      <ul class="list">
+        <li
+          v-for="(item, index) in list"
+          :key="index">
+          <img :src="item.pic">
+          <div class="title">{{ item.name + ' ' + item.title }}</div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -20,7 +23,18 @@ export default {
   },
   data() {
     return {
-
+      tabIndex: 4,
+      list: []
+    }
+  },
+  mounted() {
+    this.getList()
+  },
+  methods: {
+    getList() {
+      this.$axios('/yxs/api/web/doctor/more').then(res => {
+        this.list = res.data
+      })
     }
   }
 }
@@ -29,11 +43,61 @@ export default {
   .container {
     width: 1200px;
     margin: 0 auto;
-    .crumb {
-      margin-top: 28px;
-      margin-bottom: 18px;
-      font-size: 12px;
+    h1 {
+      position: relative;
+      margin-top: 50px;
+      text-align: center;
+      font-size: 34px;
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 400px;
+        height: 1px;
+        background: #b6b6b6;
+      }
+      &:before {
+        left: 0;
+      }
+      &:after {
+        right: 0;
+      }
+    }
+    .subtitle {
+      margin-top: 30px;
+      font-size: 14px;
       color: #666;
+      text-align: center;
+    }
+    .list {
+      width: 1200px;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+      li {
+        flex-shrink: 1;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        margin-left: 20px;
+        width: 285px;
+        height: 190px;
+        &:nth-child(4n+1) {
+          margin-left: 0;
+        }
+        img {
+          margin: 0;
+          width: 100%;
+          height: 160px;
+        }
+        .title {
+          padding-left: 10px;
+          height: 30px;
+          line-height: 30px;
+          background: #f5f5f5;
+          font-size: 12px;
+          color: #333;
+        }
+      }
     }
   }
 </style>

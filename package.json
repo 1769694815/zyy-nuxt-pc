@@ -19,6 +19,7 @@
     "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.6",
     "express": "^4.16.3",
+    "js-cookie": "^2.2.0",
     "nuxt": "^2.0.0",
     "qs": "^6.6.0",
     "vue-video-player": "^5.0.2"

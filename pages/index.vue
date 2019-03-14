@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <v-nav/>
+    <v-nav :tab-index="tabIndex" />
     <!-- 轮播图 -->
     <div class="carousel">
       <el-carousel
@@ -277,6 +277,7 @@ export default {
   },
   data() {
     return {
+      tabIndex: 1,
       carousels: [],
       infoList: [],
       researchList: [],

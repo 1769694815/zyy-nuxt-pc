@@ -9,7 +9,7 @@
         <li
           v-for="(item, index) in list"
           :key="index"
-          :class="{active: index == tab}"
+          :class="{active: index + 1 == tabIndex}"
           @click="changeTab(item, index)">
           {{ item.name }}
         </li>
@@ -19,9 +19,16 @@
 </template>
 <script>
 export default {
+  props: {
+    tabIndex: {
+      type: Number,
+      default: function () {
+        return null
+      }
+    }
+  },
   data() {
     return {
-      tab: 0,
       list: [
         {
           name: '首页',
@@ -35,7 +42,8 @@ export default {
         },
         {
           name: '西学中',
-          label: 2
+          label: 2,
+          path: 'western'
         },
         {
           name: '名师医承',
@@ -49,7 +57,8 @@ export default {
         },
         {
           name: '下载App',
-          label: 5
+          label: 5,
+          path: 'download'
         },
         {
           name: '关于我们',
@@ -59,13 +68,8 @@ export default {
       ]
     }
   },
-  mounted() {
-    this.tab = localStorage.getItem('zyy_tab') || 0
-  },
   methods: {
     changeTab(item, index) {
-      window.localStorage.setItem('zyy_tab', index)
-      this.tab = index
       this.$router.push({
         name: item.path
       })
