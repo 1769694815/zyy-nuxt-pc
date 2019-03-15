@@ -79,6 +79,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .nav-bar {
+    background: #fff;
     box-sizing: border-box;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
