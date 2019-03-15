@@ -26,14 +26,6 @@ export default {
   components: {
     Tag
   },
-  props: {
-    dataArray: {
-      type: Array,
-      default: function() {
-        return []
-      }
-    }
-  },
   data() {
     return {
       recommendTrains: []

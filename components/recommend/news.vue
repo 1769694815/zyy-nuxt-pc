@@ -28,14 +28,6 @@ export default {
   components: {
     Tag
   },
-  props: {
-    dataObj: {
-      type: Array,
-      default: function() {
-        return []
-      }
-    }
-  },
   data() {
     return {
       recommendNews: []
