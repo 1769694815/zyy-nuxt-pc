@@ -1,21 +1,22 @@
 <template>
   <section class="news-container">
     <tag :text="['资', '讯']" />
-    <div class="title">{{ dataObj.title }}</div>
-    <div class="content">
-      <img :src="dataObj.src">
+    <!-- <div class="title">{{ dataObj[0].title }}</div> -->
+    <!-- <div class="content">
+      <img :src="dataObj[0].thumb">
       <div class="desc">
-        {{ dataObj.desc }}
+        {{ dataObj[0].brife }}
         <span class="detail">[详细]</span>
       </div>
-    </div>
+    </div> -->
     <div class="list">
       <div
-        v-for="(item, index) in dataObj.list"
+        v-for="(item, index) in recommendNews"
+        v-if="index < 3"
         :key="index"
         class="item">
         <span class="circle"/>
-        <span>【{{ item.type }}】</span>
+        <span>【{{ item.typeName }}】</span>
         <span>{{ item.title }}</span>
       </div>
     </div>
@@ -29,16 +30,28 @@ export default {
   },
   props: {
     dataObj: {
-      type: Object,
+      type: Array,
       default: function() {
-        return {}
+        return []
       }
     }
   },
   data() {
     return {
-
+      recommendNews: []
     }
+  },
+  mounted() {
+    this.getNewsList()
+  },
+  methods: {
+    getNewsList() {
+      this.$axios('/yxs/api/web/news/recommendList').then(res => {
+        if(res.code == 0) {
+          this.recommendNews = res.data
+        }
+      })
+    },
   }
 }
 </script>
@@ -48,6 +61,10 @@ export default {
     height: 365px;
     background: #f6f6f6;
     .title {
+      width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       margin-top: 18px;
       margin-left: 14px;
       font-size: 16px;

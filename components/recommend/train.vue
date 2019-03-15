@@ -3,7 +3,7 @@
     <tag :text="['培', '训']" />
     <div class="list">
       <div
-        v-for="(item, index) in dataArray"
+        v-for="(item, index) in recommendTrains"
         v-if="index < 3"
         :key="index"
         class="item">
@@ -36,7 +36,23 @@ export default {
   },
   data() {
     return {
-
+      recommendTrains: []
+    }
+  },
+  mounted() {
+    this.getTrainList()
+  },
+  methods: {
+    getTrainList() {
+      this.$axios('/yxs/api/web/course/getRecommendTrainList', {
+        params: {
+          type: 1
+        }
+      }).then(res => {
+        if(res.code == 0) {
+          this.recommendTrains = res.data
+        }
+      })
     }
   }
 }

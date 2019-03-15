@@ -1,0 +1,12 @@
+.htmlContent {
+  width: 100%;
+}
+.htmlContent p {
+  font-size: 14px;
+  line-height: 30px;
+}
+.htmlContent p img {
+  width: 100%;
+  height: 400px;
+  background-size: contain;
+}

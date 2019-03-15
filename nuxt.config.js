@@ -31,6 +31,7 @@ module.exports = {
     'video.js/dist/video-js.css',
     '@/assets/css/reset.css',
     '@/assets/css/common.css',
+    '@/assets/css/htmlContent.css',
     '@/static/font/iconfont.css'
   ],
 

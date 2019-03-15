@@ -3,16 +3,16 @@
     <tag :text="['课', '程']" />
     <div class="list">
       <div
-        v-for="(item, index) in dataArray"
+        v-for="(item, index) in recommendLessons"
         v-if="index < 3"
         :key="index"
         class="item">
-        <img :src="item.pic">
+        <img :src="item.middle_picture">
         <div class="title">{{ item.title }}</div>
         <div class="info">
-          <span class="teacher">讲师：{{ item.name }}</span>
-          <span class="lesson">共{{ item.courseNum }}节</span>
-          <span class="number">{{ item.fanNum }}人学过</span>
+          <span class="teacher">讲师：{{ item.teacherName }}</span>
+          <span class="lesson">共{{ item.lessonNum }}节</span>
+          <span class="number">{{ item.studentNum }}人学过</span>
         </div>
       </div>
     </div>
@@ -34,8 +34,24 @@ export default {
   },
   data() {
     return {
-      
+      recommendLessons: []
     }
+  },
+  mounted() {
+    this.getRecommendList(13)
+  },
+  methods: {
+    getRecommendList(type) {
+      this.$axios('/yxs/api/web/course/getRecommendList', {
+        params: {
+          type
+        }
+      }).then(res => {
+        if(res.code == 0) {
+          this.recommendLessons = res.data
+        }
+      })
+    },
   }
 }
 </script>

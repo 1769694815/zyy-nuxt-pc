@@ -10,10 +10,8 @@
           <nuxt-child />
         </div>
         <section class="content-right">
-          <news-section :data-obj="recommendNews" />
-          <lesson-section
-            :data-array="recommendLessons"
-            class="section" />
+          <news-section />
+          <lesson-section class="section" />
           <train-section
             :data-array="recommendTrains"
             class="section" />
@@ -41,73 +39,8 @@ export default {
   },
   data() {
     return {
-      recommendNews: {
-        title: '中国“藏医药浴法”被列入联合...',
-        src: require('~/assets/images/wbc.jpg'),
-        desc: '当地时间28日，在联合国教科文组织保护非物质文化...',
-        list: [
-          {
-            type: '文化活动',
-            title: '中国“藏医药浴法”被列入联合国非遗名录'
-          },
-          {
-            type: '文化活动',
-            title: '中国“藏医药浴法”被列入联合国非遗名录'
-          },
-          {
-            type: '文化活动',
-            title: '中国“藏医药浴法”被列入联合国非遗名录'
-          }
-        ]
-      },
-      recommendLessons: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        }
-      ],
-      recommendTrains: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        }
-      ]
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
