@@ -12,8 +12,8 @@
   margin-top: 16px;
   margin-bottom: 40px;
   text-align: center;
+  cursor: pointer;
 }
-
 
 .el-progress-bar__inner {
   background: linear-gradient(90deg,#91BD35,#3F8A38);

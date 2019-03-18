@@ -18,7 +18,9 @@
         </section>
       </div>
       <div class="foot-img">
-        <img src="~/assets/images/foot-img.jpg">
+        <img
+          src="~/assets/images/foot-img.jpg"
+          @click="toService">
       </div>
     </div>
   </div>
@@ -41,6 +43,13 @@ export default {
     return {
     }
   },
+  methods: {
+    toService() {
+      this.$router.push({
+        name: 'service'
+      })
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

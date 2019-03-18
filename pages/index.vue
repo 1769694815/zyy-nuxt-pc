@@ -256,7 +256,9 @@
       </div>
     </div>
     <div class="foot-img">
-      <img src="~/assets/images/foot-img.jpg">
+      <img
+        src="~/assets/images/foot-img.jpg"
+        @click="toService">
     </div>
   </div>
 </template>
@@ -344,6 +346,11 @@ export default {
     toToutiao() {
       this.$router.push({
         name: 'toutiao'
+      })
+    },
+    toService() {
+      this.$router.push({
+        name: 'service'
       })
     },
     // 获取轮播
