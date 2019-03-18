@@ -109,7 +109,8 @@ export default {
       rightList: [],
       healthList: [],
       careerList: [],
-      wisdomList: []
+      wisdomList: [],
+      carousels: []
     }
   },
   mounted() {
