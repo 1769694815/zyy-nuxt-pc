@@ -14,11 +14,11 @@
         <div
           v-show="tagShow"
           class="content-right">
-          <div
+          <!-- <div
             class="message"
             @click="toMynews">我的消息
             <span class="dot"/>
-          </div>
+          </div> -->
           <div
             class="learn"
             @click="toMylearn">我的学习
@@ -65,11 +65,11 @@
           <div
             v-show="tagShow"
             class="content-right">
-            <div
+            <!-- <div
               class="message"
               @click="toMynews">我的消息
               <span class="dot"/>
-            </div>
+            </div> -->
             <div
               class="learn"
               toMylearn>我的学习

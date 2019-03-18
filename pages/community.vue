@@ -10,13 +10,16 @@
             <el-carousel-item
               v-for="(item, index) in carousels"
               :key="index">
-              <img :src="item.pic">
+              <img :src="item.url">
             </el-carousel-item>
           </el-carousel>
         </div>
         <div class="banner-right">
-          <img src="../assets/images/wbc.jpg">
-          <img src="../assets/images/wbc.jpg">
+          <img
+            v-for="(item, index) in rightList"
+            v-if="index < 2"
+            :key="index"
+            :src="item.middle_picture">
         </div>
       </div>
       <div class="flex">
@@ -46,18 +49,13 @@
         <div class="course">
           <div class="title">推荐课程</div>
           <ul>
-            <li>
-              <img src="../assets/images/wbc.jpg">
+            <li
+              v-for="(item, index) in healthList"
+              :key="index">
+              <img :src="item.middle_picture">
               <div class="desc">
-                <div class="name">经络不通有哪些症状</div>
-                <div class="number">740</div>
-              </div>
-            </li>
-            <li>
-              <img src="../assets/images/wbc.jpg">
-              <div class="desc">
-                <div class="name">经络不通有哪些症状</div>
-                <div class="number">740</div>
+                <div class="name">{{ item.title }}</div>
+                <div class="number">{{ item.studentNum }}</div>
               </div>
             </li>
           </ul>
@@ -72,10 +70,10 @@
         </div>
         <ul>
           <li
-            v-for="(item, index) in 5"
+            v-for="(item, index) in careerList"
             :key="index">
-            <img src="../assets/images/wbc.jpg">
-            <div class="desc">经络不通有哪些症状</div>
+            <img :src="item.middlePicture">
+            <div class="desc">{{ item.title }}</div>
           </li>
         </ul>
       </div>
@@ -88,10 +86,10 @@
         </div>
         <ul>
           <li
-            v-for="(item, index) in 5"
+            v-for="(item, index) in wisdomList"
             :key="index">
-            <img src="../assets/images/wbc.jpg">
-            <div class="desc">经络不通有哪些症状</div>
+            <img :src="item.middlePicture">
+            <div class="desc">{{ item.title }}</div>
           </li>
         </ul>
       </div>
@@ -107,26 +105,60 @@ export default {
   data() {
     return {
       tabIndex: 5,
-      channels: []
+      channels: [],
+      rightList: [],
+      healthList: [],
+      careerList: [],
+      wisdomList: []
     }
   },
   mounted() {
     this.getCarousel()
     this.getChannel()
+    this.getResearchList()
+    this.getRecommendList(13)
+    this.getCourseList()
   },
   methods: {
     // 获取轮播
     getCarousel() {
-      this.$axios('/yxs/api/web/navigation').then(res => {
+      this.$axios('/yxs/api/web/news/getBannerList').then(res => {
         if(res.code == 0) {
           this.carousels = res.data
         }
       })
     },
-    // 
+    // banner图
     getChannel() {
       this.$axios('/yxs/api/web/news/community').then(res => {
         this.channels = res.data
+      })
+    },
+    // 获取banner右侧图片
+    getResearchList() {
+      this.$axios('/yxs/api/web/doctor/recommendCourseList').then(res => {
+        if(res.code == 0) {
+          this.rightList = res.data
+        }
+      })
+    },
+    // 推荐课程
+    getRecommendList(type) {
+      this.$axios('/yxs/api/web/course/getRecommendList', {
+        params: {
+          type
+        }
+      }).then(res => {
+        if(res.code == 0) {
+          this.healthList = res.data
+        }
+      })
+    },
+    // 获取课程
+    getCourseList() {
+      this.$axios('/yxs/api/web/course/getCodeCourse').then(res => {
+        this.careerList = res.data.career
+        this.wisdomList = res.data.wisdom
       })
     }
   }
@@ -288,7 +320,7 @@ export default {
         flex: 1;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         margin-left: 20px;
         overflow: hidden;
       }
