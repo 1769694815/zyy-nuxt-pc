@@ -74,3 +74,15 @@ export function judgeUser() {
   }
   return result;
 }
+
+// 时间戳转字符串
+export function formatStamp(time) {
+  let date = new Date(parseInt(time))
+  let y = date.getFullYear()
+  let m = formatStr(date.getMonth() + 1)
+  let d = formatStr(date.getDate())
+  return `${y}-${m}-${d}`
+}
+export function formatStr(n) {
+  return n > 9 ? n : (0 + '' + n)
+}

@@ -30,7 +30,7 @@
                   @click="toRank">进度排名></span>
               </div>
               <div class="foot">
-                班级有效期：{{ item.startTime }}至 {{ item.endTime }}
+                班级有效期：{{ formatStamp(item.startTime) }}至 {{ formatStamp(item.endTime) }}
               </div>
             </div>
           </li>
@@ -42,6 +42,7 @@
 <script>
 import LeftTab from '~/components/mine/teacherLeftTab.vue'
 import Cookies from 'js-cookie'
+// import { formatStamp } from '~/assets/js/util.js'
 export default {
   components: {
     LeftTab
@@ -96,6 +97,16 @@ export default {
       }).then(res => {
         this.contentList = res.data.records
       })
+    },
+    formatStamp(time) {
+      let date = new Date(parseInt(time))
+      let y = date.getFullYear()
+      let m = this.formatStr(date.getMonth() + 1)
+      let d = this.formatStr(date.getDate())
+      return `${y}-${m}-${d}`
+    },
+    formatStr(n) {
+      return n > 9 ? n : (0 + '' + n)
     }
   }
 }

@@ -1,68 +1,74 @@
 <template>
-  <div class="right-content">
-    <div class="header">
-      <div class="search">
-        <div class="input">
-          <input
-            type="text"
-            placeholder="搜索用户名查看学员进度">
+  <div>
+    <left-tab :tab-index="tabIndex" />
+    <div class="right-content">
+      <div class="header">
+        <div class="search">
+          <div class="input">
+            <input
+              type="text"
+              placeholder="搜索用户名查看学员进度">
+          </div>
+          <div class="search-icon">
+            <img src="~/assets/images/search.png">
+          </div>
         </div>
-        <div class="search-icon">
-          <img src="~/assets/images/search.png">
+        <div class="nav">
+          <ul>
+            <li
+              v-for="(item, index) in navList"
+              :key="index"
+              :class="tab === (index + 1)? 'active' : ''" 
+              @click="switchTab(index)"> {{ item.label }} </li>
+          </ul>
         </div>
       </div>
-      <div class="nav">
+      <div class="rank-content">
         <ul>
           <li
-            v-for="(item, index) in navList"
+            v-for="(item, index) in rankList"
             :key="index"
-            :class="tab === (index + 1)? 'active' : ''" 
-            @click="switchTab(index)"> {{ item.label }} </li>
+            @click="modalShow">
+            <div 
+              :class="(index + 1) > 3 ? 'none' : ''"
+              class="num" >{{ index + 1 }}</div>
+            <div class="box">
+              <img :src="item.avatar">
+              <div class="info">
+                <div class="name">{{ item.name }}</div>
+                <el-progress
+                  :percentage="item.percent"
+                  :show-text="false"
+                  color="linear-gradient(-90deg,rgba(145,189,53,1),rgba(63,138,56,1))"
+                  class="progress" />
+              </div>
+              <div class="text">已学{{ item.percent }}%</div>
+              <div class="like">
+                <i class="iconfont icon-aixin" />
+                <span>{{ item.zan }}</span>
+              </div>
+            </div>
+          </li>
         </ul>
       </div>
+      <progress-modal
+        v-show="showModal"
+        @hide-modal="hideModal" />
     </div>
-    <div class="rank-content">
-      <ul>
-        <li
-          v-for="(item, index) in rankList"
-          :key="index"
-          @click="modalShow">
-          <div 
-            :class="(index + 1) > 3 ? 'none' : ''"
-            class="num" >{{ index + 1 }}</div>
-          <div class="box">
-            <img :src="item.avatar">
-            <div class="info">
-              <div class="name">{{ item.name }}</div>
-              <el-progress
-                :percentage="item.percent"
-                :show-text="false"
-                color="linear-gradient(-90deg,rgba(145,189,53,1),rgba(63,138,56,1))"
-                class="progress" />
-            </div>
-            <div class="text">已学{{ item.percent }}%</div>
-            <div class="like">
-              <i class="iconfont icon-aixin" />
-              <span>{{ item.zan }}</span>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <progress-modal
-      v-show="showModal"
-      @hide-modal="hideModal" />
   </div>
 </template>
 <script>
 import ProgressModal from '~/components/modal/progressModal.vue'
+import LeftTab from '~/components/mine/rankLeftTab.vue'
 export default {
   components: {
-    ProgressModal
+    ProgressModal,
+    LeftTab
   },
   data() {
     return {
       tab: 1,
+      tabIndex: 2,
       showModal: false,
       navList: [
         { label: "药理学", value: 1 },
@@ -120,6 +126,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .right-content {
+    flex: 1;
     padding-bottom: 30px;
     border: 1px solid #E4ECF3;
     box-sizing: border-box;
