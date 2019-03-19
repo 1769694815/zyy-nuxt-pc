@@ -2,7 +2,8 @@
   <div>
     <v-header />
     <nav-bar />
-    <div class="container">
+    <nuxt-child class="container" />
+    <!-- <div class="container">
       <div class="container-left">
         <ul>
           <li
@@ -17,7 +18,7 @@
       <div class="container-right">
         <nuxt-child />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

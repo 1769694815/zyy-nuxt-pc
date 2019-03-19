@@ -54,6 +54,7 @@
 </template>
 <script>
 import LeftTab from '~/components/mine/leftTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     LeftTab
@@ -65,7 +66,8 @@ export default {
       isEdit: false,
       size: 10,
       current: 1,
-      navList:[
+      userInfo: '',
+      navList: [
         { label: '全部课程', value: 1 },
         { label: '学习中', value: 2 },
         { label: '已学完', value: 3 },
@@ -76,6 +78,13 @@ export default {
     }
   },
   mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+      return
+    }
     this.getList()
   },
   methods: {
@@ -101,13 +110,10 @@ export default {
       this.contentList.splice(index, 1);
     },
     getList() {
-      let userToken = localStorage.getItem('zyy_userToken')
-      if(userToken) {
-        this.$axios.setHeader('userToken', userToken)
-      }
       let params = {
         size: this.size,
-        current: this.current
+        current: this.current,
+        userToken: this.userInfo.userToken
       }
       this.$axios('/yxs/api/web/user/getFamousCollectionPageByUserId', {
         params

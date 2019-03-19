@@ -1,66 +1,74 @@
 <template>
-  <div class="teacher">
-    <ul>
-      <li
-        v-for="(item, index) in contentList"
-        :key="index">
-        <img :src="item.src">
-        <div class="content">
-          <div class="title">{{ item.title }}</div>
-          <div class="info">
-            <span
-              v-if="item.isfree"
-              class="free">
-              免费
-            </span>
-            <span
-              v-else
-              class="price">
-              ￥{{ item.price }}
-            </span>
-            <span class="lesson">共{{ item.lessons }}节</span>
-            <span class="number">{{ item.number }}人学过</span>
+  <div>
+    <left-tab :tab-index="tabIndex" />
+    <div class="teacher">
+      <ul>
+        <li
+          v-for="(item, index) in contentList"
+          :key="index">
+          <img :src="item.middlePicture">
+          <div class="content">
+            <div class="title">{{ item.title }}</div>
+            <div class="info">
+              <span
+                v-if="item.price == 0"
+                class="free">
+                免费
+              </span>
+              <span
+                v-else
+                class="price">
+                ￥{{ item.price }}
+              </span>
+              <span class="lesson">共{{ item.lessonNum }}节</span>
+              <span class="number">{{ item.studentNum }}人学过</span>
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
+import LeftTab from '~/components/mine/teacherLeftTab.vue'
+import Cookies from 'js-cookie'
 export default {
+  components: {
+    LeftTab
+  },
   data() {
     return {
-      contentList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12,
-          isfree: true
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12
-        }
-      ]
+      tabIndex: 1,
+      size: 10,
+      current: 1,
+      type: 0,
+      contentList: [],
+      userInfo: ''
+    }
+  },
+  mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+      return
+    }
+    this.getList()
+  },
+  methods: {
+    getList() {
+      let params = {
+        size: this.size,
+        current: this.current,
+        type: this.type,
+        userToken: this.userInfo.userToken
+      }
+      this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
+        params
+      }).then(res => {
+        this.contentList = res.data
+      })
     }
   }
 }

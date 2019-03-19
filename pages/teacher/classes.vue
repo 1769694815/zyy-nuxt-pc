@@ -1,86 +1,76 @@
 <template>
-  <div class="mylearn-right">
-    <div class="right-nav">
-      <ul>
-        <li 
-          v-for="(item,index) in navList" 
-          :key="index" 
-          :class="tab === (index + 1)? 'active' : ''" 
-          @click="switchTab(index)"> {{ item.label }} </li>
-      </ul>
-    </div>
-    <div class="center">
-      <ul>
-        <li
-          v-for="(item,index) in contentList"
-          :key="index"
-          class="list-item">
-          <img :src="item.src">
-          <div class="content">
-            <div class="title">{{ item.title }}</div>
-            <p v-show="item.offDay != 0">
-              {{ item.offDay }}天后到期
-            </p>
-            <div class="desc">
-              <span>{{ item.lessons }}成员</span>
-              <span
-                class="rank"
-                @click="toRank">进度排名></span>
+  <div>
+    <left-tab :tab-index="tabIndex" />
+    <div class="mylearn-right">
+      <div class="right-nav">
+        <ul>
+          <li 
+            v-for="(item,index) in navList" 
+            :key="index" 
+            :class="tab === (index + 1)? 'active' : ''" 
+            @click="switchTab(index)"> {{ item.label }} </li>
+        </ul>
+      </div>
+      <div class="center">
+        <ul>
+          <li
+            v-for="(item,index) in contentList"
+            :key="index"
+            class="list-item">
+            <img :src="item.middlePicture">
+            <div class="content">
+              <div class="title">{{ item.title }}</div>
+              <p v-show="item.dayCount != 0">
+                {{ item.dayCount }}天后到期
+              </p>
+              <div class="desc">
+                <span>{{ item.studentNum }}成员</span>
+                <span
+                  class="rank"
+                  @click="toRank">进度排名></span>
+              </div>
+              <div class="foot">
+                班级有效期：{{ item.startTime }}至 {{ item.endTime }}
+              </div>
             </div>
-            <div class="foot">
-              班级有效期：2019-01-03至2020-01-03
-            </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import LeftTab from '~/components/mine/teacherLeftTab.vue'
+import Cookies from 'js-cookie'
 export default {
+  components: {
+    LeftTab
+  },
   data() {
     return {
       tab: 1,
+      type: 0,
+      tabIndex: 2,
+      size: 10,
+      current: 1,
+      userInfo: '',
       navList:[
         { label: '全部班级', value: 1 },
         { label: '开班中', value: 2 },
         { label: '已到期', value: 3 }
       ],
-      contentList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          lessons: 2,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          lessons: 2,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          lessons: 2,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          lessons: 2,
-          percent: 96,
-          number: 12
-        }
-      ]
+      contentList: []
     }
+  },
+  mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+      return
+    }
+    this.getList()
   },
   methods: {
     switchTab(index){
@@ -92,6 +82,19 @@ export default {
         query: {
           tab: 3
         }
+      })
+    },
+    getList() {
+      let params = {
+        size: this.size,
+        current: this.current,
+        type: this.type,
+        userToken: this.userInfo.userToken
+      }
+      this.$axios('/yxs/api/web/user/getClassroomMemberPageByUserId', {
+        params
+      }).then(res => {
+        this.contentList = res.data.records
       })
     }
   }

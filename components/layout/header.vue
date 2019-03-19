@@ -31,7 +31,7 @@
             <span class="dot"/>
           </div> -->
           <div
-            v-show="userInfo && userInfo.roleName == 'zyy_student'"
+            v-show="userInfo && userInfo.roleName != 'zyy_lecturer'"
             class="learn"
             @mouseover="learnListShow = true"
             @mouseout="learnListShow = false">我的学习

@@ -41,6 +41,7 @@
 </template>
 <script>
 import LeftTab from '~/components/mine/leftTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     LeftTab
@@ -54,7 +55,13 @@ export default {
     }
   },
   mounted() {
-    this.initCharts()
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+      return
+    }
     this.getList()
   },
   methods: {
@@ -134,7 +141,11 @@ export default {
       })
     },
     getList() {
-      this.$axios('/yxs/api/web/user/selfLearnLog').then(res => {
+      this.$axios('/yxs/api/web/user/selfLearnLog', {
+        params: {
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
         this.contentList = res.data.detailList
         let xData = []
         let yData = []

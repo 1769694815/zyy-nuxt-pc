@@ -45,6 +45,7 @@
 </template>
 <script>
 import LeftTab from '~/components/mine/leftTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     LeftTab
@@ -54,6 +55,7 @@ export default {
       tab: 1,
       tabIndex: 2,
       type: 0,
+      userInfo: '',
       navList:[
         { label: '全部班级', value: 0 },
         { label: '开班中', value: 1 },
@@ -65,6 +67,13 @@ export default {
     }
   },
   mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+      return
+    }
     this.getList()
   },
   methods: {
@@ -79,14 +88,11 @@ export default {
       })
     },
     getList() {
-      let userToken = localStorage.getItem('zyy_userToken')
-      if(userToken) {
-        this.$axios.setHeader('userToken', userToken)
-      }
       let params = {
         size: this.size,
         current: this.current,
-        type: this.type
+        type: this.type,
+        userToken: this.userInfo.userToken
       }
       this.$axios('/yxs/api/web/user/getClassroomMemberPageByUserId', {
         params
