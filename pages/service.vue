@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-header />
     <div class="bg-header" />
     <div class="pic-1">
       <img src="../assets/images/fuwu_b1.jpg">
@@ -46,7 +47,11 @@
   </div>
 </template>
 <script>
+import Header from '~/components/layout/header.vue'
 export default {
+  components: {
+    'v-header': Header
+  },
   data() {
     return {
       carousels: []

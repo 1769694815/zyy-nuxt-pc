@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-header />
     <nav-bar />
     <div class="login">
       <div class="wrap">
@@ -82,11 +83,14 @@
   </div>
 </template>
 <script>
+import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
 import { isvalidatemobile, validatenull } from '~/assets/js/util'
+import Cookies from 'js-cookie'
 export default {
   components: {
-    NavBar
+    NavBar,
+    'v-header': Header
   },
   data() {
     return {
@@ -138,11 +142,12 @@ export default {
       // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
       this.$axios.post('/admin/api/web/account/login', this.form1).then(res => {
         if(res.code == 0) {
+          Cookies.set('zyy_userInfo', res.data, { expires: 30 })
           this.$message({
             message: '登录成功！',
             type: 'success'
           })
-          window.localStorage.setItem('zyy_userToken', res.data.userToken)        
+          window.localStorage.setItem('zyy_userToken', res.data.userToken)
           this.$router.push({
             name: 'index'
           })
@@ -171,6 +176,7 @@ export default {
       console.log(this.$axios)
       this.$axios.post('/admin/api/web/account/login', this.form2).then(res => {
         if(res.code == 0) {
+          Cookies.set('zyy_userInfo', res.data, { expires: 30 })
           this.$message({
             message: '登录成功！',
             type: 'success'

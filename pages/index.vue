@@ -1,10 +1,11 @@
 <template>
   <div class="container">
+    <v-header />
     <v-nav :tab-index="tabIndex" />
     <!-- 轮播图 -->
     <div class="carousel">
       <el-carousel
-        height="400px" 
+        height="400px"
         class="imgs">
         <el-carousel-item
           v-for="(item, index) in carousels"
@@ -269,9 +270,11 @@ import ResearchItem from '~/components/index/researchItem.vue'
 import FamousItem from '~/components/index/famousItem.vue'
 import SectionItem from '~/components/index/sectionItem.vue'
 import ToutiaoItem from '~/components/index/toutiaoItem.vue'
+import Header from '~/components/layout/header.vue'
 export default {
   components: {
     'v-nav': Nav,
+    'v-header': Header,
     ResearchItem,
     FamousItem,
     SectionItem,
@@ -438,15 +441,12 @@ export default {
           switch(code) {
             case 'course_category_health':
               this.healthSubList = res.data
-              console.log('1', res)
               break;
             case 'course_category_selflearn':
               this.examSubList = res.data
-              console.log('2', res)
               break;
             case 'course_category_theory':
               this.theorySubList = res.data
-              console.log('3', res)
               break;
           }
         }

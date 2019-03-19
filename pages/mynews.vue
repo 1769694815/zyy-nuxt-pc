@@ -1,5 +1,6 @@
 <template>
   <div class="mynews-container">
+    <v-header />
     <Navbar/>
     <div class="mynews-content">
       <div class="container-left">
@@ -53,10 +54,12 @@
 </template>
 
 <script>
+import Header from '~/components/layout/header.vue'
 import Navbar from "~/components/navBar.vue";
 export default {
   components: {
-    Navbar
+    Navbar,
+    'v-header': Header
   },
   data() {
     return {

@@ -3,13 +3,24 @@
     <div class="header-top">
       <div class="content">
         <div class="content-left">
-          <span class="welcome">HI，欢迎来到中医药在线学习平台!</span>
           <span
-            class="login"
-            @click="toLogin">我要登录</span>
+            v-if="!userInfo"
+            class="welcome">
+            HI，欢迎来到中医药在线学习平台!
+          </span>
           <span
-            class="register"
-            @click="toRegister">免费注册</span>
+            v-else
+            class="welcome">
+            HI，{{ userInfo.userName }}{{ rankName }}，欢迎来到中医药在线学习平台!
+          </span>
+          <span v-show="loginShow">
+            <span
+              class="login"
+              @click="toLogin">我要登录</span>
+            <span
+              class="register"
+              @click="toRegister">免费注册</span>
+          </span>
         </div>
         <div
           v-show="tagShow"
@@ -20,12 +31,49 @@
             <span class="dot"/>
           </div> -->
           <div
+            v-show="userInfo && userInfo.roleName == 'zyy_student'"
             class="learn"
-            @click="toMylearn">我的学习
+            @mouseover="learnListShow = true"
+            @mouseout="learnListShow = false">我的学习
+            <i class="iconfont icon-arrowright" />
+            <ul v-show="learnListShow">
+              <li
+                v-for="(item, index) in learnList"
+                :key="index"
+                @click="$router.push({ name: item.path }); learnListShow = false">
+                {{ item.label }}
+              </li>
+            </ul>
+          </div>
+          <div
+            v-show="userInfo && userInfo.roleName == 'zyy_lecturer'"
+            class="learn"
+            @mouseover="teacherListShow = true"
+            @mouseout="teacherListShow = false">我的学习
+            <i class="iconfont icon-arrowright" />
+            <ul v-show="teacherListShow">
+              <li
+                v-for="(item, index) in teacherList"
+                :key="index"
+                @click="$router.push({ name: item.path }); teacherListShow = false">
+                {{ item.label }}
+              </li>
+            </ul>
           </div>
           <div
             class="personal"
-            @click="toPersonal">个人中心
+            @mouseover="personalListShow = true"
+            @mouseout="personalListShow = false">个人中心
+            <i class="iconfont icon-arrowright" />
+            <ul v-show="personalListShow">
+              <li
+                v-for="(item, index) in personalList"
+                :key="index"
+                @click="$router.push({ name: item.path }); personalListShow = false">
+                {{ item.label }}
+              </li>
+              <li @click="logout">退出登录</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -72,7 +120,7 @@
             </div> -->
             <div
               class="learn"
-              toMylearn>我的学习
+              @click="toMylearn">我的学习
             </div>
             <div
               class="personal"
@@ -82,21 +130,99 @@
         </div>
       </div>
     </transition>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      :before-close="cancel"
+      title="提示"
+      width="30%">
+      <span>确定退出登录吗？</span>
+      <span slot="footer">
+        <el-button @click="cancel">取消</el-button>
+        <el-button
+          type="primary"
+          @click="ok">确定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
+import Cookies from 'js-cookie'
+import { judgeUser } from '~/assets/js/util'
 export default {
   data() {
     return {
       fixedShow: false,
-      tagShow: false
+      tagShow: false,
+      loginShow: false,
+      learnListShow: false,
+      personalListShow: false,
+      teacherListShow: false,
+      dialogVisible: false,
+      userInfo: '',
+      rankName: '',
+      learnList: [
+        {
+          label: '我的课程',
+          path: 'mylearn'
+        },
+        {
+          label: '我的班级',
+          path: 'mylearn-myclass'
+        },
+        {
+          label: '学习时长',
+          path: 'mylearn-duration'
+        },
+        {
+          label: '我的收藏',
+          path: 'mylearn-collect'
+        },
+        {
+          label: '我的关注',
+          path: 'mylearn-interest'
+        }
+      ],
+      teacherList: [
+        {
+          label: '在教课程',
+          path: 'teacher'
+        },
+        {
+          label: '在教班级',
+          path: 'teacher-classes'
+        },
+        {
+          label: '我的收藏',
+          path: 'teacher-collect'
+        }
+      ],
+      personalList: [
+        {
+          label: '我的资料',
+          path: 'personal'
+        },
+        {
+          label: '我的订单',
+          path: 'personal-order'
+        },
+        {
+          label: '安全设置',
+          path: 'personal-security'
+        }
+      ]
     }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
-    let userToken = window.localStorage.getItem('zyy_userToken')
-    if(userToken) {
+    // let userToken = window.localStorage.getItem('zyy_userToken')
+    let userInfo = Cookies.getJSON('zyy_userInfo')
+    console.log('userinfo', userInfo)
+    this.rankName = judgeUser()
+    if(userInfo) {
+      this.userInfo = userInfo
       this.tagShow = true
+    } else {
+      this.loginShow = true
     }
   },
   destroyed() {
@@ -136,6 +262,20 @@ export default {
       this.$router.push({
         name: 'index'
       })
+    },
+    logout() {
+      this.dialogVisible = true
+    },
+    cancel() {
+      this.dialogVisible = false
+    },
+    ok() {
+      // clear
+      Cookies.remove('zyy_userInfo')
+      this.$router.push({
+        name: 'login'
+      })
+      this.dialogVisible = false
     }
   }
 }
@@ -174,6 +314,17 @@ export default {
           display: inline-block;
           margin-left: 28px;
           cursor: pointer;
+        }
+        .learn, .personal {
+          position: relative;
+          ul {
+            position: absolute;
+          }
+          li {
+            width: 80px;
+            // text-align: center;
+            background: #fff;
+          }
         }
         .message {
           position: relative;
@@ -300,6 +451,9 @@ export default {
         }
       }
     }
+  }
+  .icon-arrowright {
+    transform: rotate(90deg);
   }
   .fade-leave-active, .fade-enter-active {
     transition: all 0.4s ease;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-header />
     <nav-bar />
     <div class="container">
       <div class="container-left">
@@ -20,14 +21,16 @@
   </div>
 </template>
 <script>
+import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
 export default {
   components: {
-    NavBar
+    NavBar,
+    'v-header': Header
   },
   data() {
     return {
-      tab: null,
+      tab: 1,
       leftList: [
         { label: '在教课程', name: 'teacher' },
         { label: '在教班级', name: 'teacher-classes' },
@@ -36,12 +39,11 @@ export default {
     }
   },
   mounted() {
-    this.tab = window.sessionStorage.getItem('teacherTab') || 1
+    this.switchTab()
   },
   methods: {
-    switchTab(index) {
+    switchTab(index = 0) {
       this.tab = index + 1
-      sessionStorage.setItem('teacherTab', index + 1)
       this.$router.push({
         name: this.leftList[index].name
       })

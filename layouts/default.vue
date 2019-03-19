@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-header/>
+    <!-- <v-header/> -->
     <nuxt/>
     <friend-link/>
     <v-footer/>
@@ -9,13 +9,13 @@
 
 <script>
 import Footer from '~/components/layout/footer.vue'
-import Header from '~/components/layout/header.vue'
+// import Header from '~/components/layout/header.vue'
 import FriendLink from '~/components/layout/friendLink.vue'
 import { Base64 } from '~/assets/js/base64.js'
 export default {
   components: {
     'v-footer': Footer,
-    'v-header': Header,
+    // 'v-header': Header,
     FriendLink
   }
 }

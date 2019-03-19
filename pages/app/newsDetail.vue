@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     getDetail() {
-      console.log('1')
       this.$axios('/yxs/api/news/detail', {params: {id: 17}}).then(res => {
         console.log('detail', res)
       })

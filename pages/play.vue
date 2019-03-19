@@ -1,5 +1,6 @@
 <template>
   <div style="width:100%">
+    <v-header />
     <nav-bar />
     <div class="container">
       <div class="crumb">
@@ -86,12 +87,14 @@
   </div>
 </template>
 <script>
+import Header from '~/components/layout/header.vue'
 import VideoPlayer from '~/components/video.vue'
 import NavBar from '~/components/navBar.vue'
 export default {
   components: {
     VideoPlayer,
-    NavBar
+    NavBar,
+    'v-header': Header    
   },
   data() {
     return {

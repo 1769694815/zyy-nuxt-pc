@@ -1,5 +1,6 @@
 <template>
   <div style="width:100%">
+    <v-header />
     <nav-bar :tab-index="tabIndex"/>
     <div class="train-container">
       <div class="crumb">
@@ -109,6 +110,7 @@
   </div>
 </template>
 <script>
+import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
 import LessonSection from '~/components/recommend/lesson.vue'
 import TrainSection from '~/components/recommend/train.vue'
@@ -116,7 +118,8 @@ export default {
   components: {
     NavBar,
     LessonSection,
-    TrainSection
+    TrainSection,
+    'v-header': Header
   },
   data() {
     return {

@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 /**
  * 判断是否为空
  */
@@ -42,3 +44,33 @@ export function isvalidatemobile(phone) {
   return list;
 }
 
+// 判断登录人信息
+export function judgeUser() {
+  let result = ''
+  let userInfo = Cookies.getJSON('zyy_userInfo')
+  if(!userInfo) {
+    return
+  }
+  let roleName = userInfo.roleName
+  switch(roleName) {
+    case 'zyy_student':
+      result = '学员'
+      break;
+    case 'zyy_instructor':
+      result = '辅导员'
+      break;
+    case 'zyy_lecturer':
+      result = '讲师'
+      break;
+    case 'zyy_headmaster':
+      result = '班主任'
+      break;
+    case 'zyy_superAdmin':
+      result = '超级管理员'
+      break;
+    case 'zyy_admin':
+      result = '管理员'
+      break;
+  }
+  return result;
+}

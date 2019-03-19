@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-header />
     <nav-bar />
     <div class="register">
       <div class="wrap">
@@ -64,11 +65,13 @@
   </div>
 </template>
 <script>
+import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
 import { validatenull, isvalidatemobile } from '~/assets/js/util.js'
 export default {
   components: {
-    NavBar
+    NavBar,
+    'v-header': Header
   },
   data() {
     return {

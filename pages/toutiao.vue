@@ -1,5 +1,6 @@
 <template>
   <div style="width:100%">
+    <v-header />
     <nav-bar />
     <div class="container">
       <div class="crumb">
@@ -26,6 +27,7 @@
   </div>
 </template>
 <script>
+import Header from '~/components/layout/header.vue'
 import ToutiaoIndex from './toutiao/index'
 import NavBar from '~/components/navBar.vue'
 import LessonSection from '~/components/recommend/lesson.vue'
@@ -37,7 +39,8 @@ export default {
     NavBar,
     LessonSection,
     NewsSection,
-    TrainSection
+    TrainSection,
+    'v-header': Header
   },
   data() {
     return {
