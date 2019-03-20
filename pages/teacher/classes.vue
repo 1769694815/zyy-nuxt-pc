@@ -27,7 +27,7 @@
                 <span>{{ item.studentNum }}成员</span>
                 <span
                   class="rank"
-                  @click="toRank">进度排名></span>
+                  @click="toRank(item.classroomId)">进度排名></span>
               </div>
               <div class="foot">
                 班级有效期：{{ formatStamp(item.startTime) }}至 {{ formatStamp(item.endTime) }}
@@ -77,12 +77,10 @@ export default {
     switchTab(index){
       this.tab = index + 1;
     },
-    toRank() {
+    toRank(id) {
+      window.localStorage.setItem('zyy_classId', id)
       this.$router.push({
-        name: 'rank-course',
-        query: {
-          tab: 3
-        }
+        name: 'rank-course'
       })
     },
     getList() {

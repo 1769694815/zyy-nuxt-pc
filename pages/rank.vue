@@ -3,22 +3,6 @@
     <v-header />
     <nav-bar />
     <nuxt-child class="container" />
-    <!-- <div class="container">
-      <div class="container-left">
-        <ul>
-          <li
-            v-for="(item, index) in leftList"
-            :key="index"
-            :class="tab == (index + 1) ? 'active' : ''"
-            @click="switchTab(index)">
-            {{ item.label }}
-          </li>
-        </ul>
-      </div>
-      <div class="container-right">
-        <nuxt-child />
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
@@ -31,20 +15,7 @@ export default {
   },
   data() {
     return {
-      tab: this.$route.query.tab || 3,
-      leftList: [
-        { label: '返回在教班级', name: 'teacher-classes' },
-        { label: '本班总计排名', name: 'rank-total' },
-        { label: '本班课程排名', name: 'rank-course' }
-      ]
-    }
-  },
-  methods: {
-    switchTab(index) {
-      this.tab = index + 1
-      this.$router.push({
-        name: this.leftList[index].name
-      })
+
     }
   }
 }

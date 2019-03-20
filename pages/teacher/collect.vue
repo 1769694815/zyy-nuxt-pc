@@ -32,7 +32,7 @@
               class="mask"
               @mouseenter="mouseEnter(index)"
               @mouseleave="mouseLeave(index)"
-              @click="cancelCollect(index)">
+              @click="cancelCollect(item, index)">
               <div
                 :ref="'text' + index"
                 class="text">
@@ -116,8 +116,23 @@ export default {
     mouseLeave(index) {
       this.$refs['text'+ index][0].style.display = 'none'
     },
-    cancelCollect(index) {
-      this.contentList.splice(index, 1);
+    // 取消收藏
+    cancelCollect(item, index) {
+      this.$confirm(`确定取消收藏【${item.title}】这门课程吗？`).then(res => {
+        this.$axios('/yxs/api/web/user/cancelCourseCollection', {
+          params: {
+            courseId: this.contentList[index].courseId,
+            userToken: this.userInfo.userToken
+          }
+        }).then(res => {
+          this.$message({
+            message: '取消收藏成功',
+            type: 'success'
+          })
+          this.isEdit = false
+          this.getList()
+        })
+      })
     }
   }
 }

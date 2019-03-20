@@ -19,7 +19,7 @@
               v-for="(item, index) in navList"
               :key="index"
               :class="tab === (index + 1)? 'active' : ''" 
-              @click="switchTab(index)"> {{ item.label }} </li>
+              @click="switchTab(item, index)"> {{ item.title }} </li>
           </ul>
         </div>
       </div>
@@ -35,17 +35,17 @@
             <div class="box">
               <img :src="item.avatar">
               <div class="info">
-                <div class="name">{{ item.name }}</div>
+                <div class="name">{{ item.userName }}</div>
                 <el-progress
-                  :percentage="item.percent"
+                  :percentage="sliceStr(item.result)"
                   :show-text="false"
                   color="linear-gradient(-90deg,rgba(145,189,53,1),rgba(63,138,56,1))"
                   class="progress" />
               </div>
-              <div class="text">已学{{ item.percent }}%</div>
+              <div class="text">已学{{ item.result }}</div>
               <div class="like">
                 <i class="iconfont icon-aixin" />
-                <span>{{ item.zan }}</span>
+                <span>{{ item.watchNum }}</span>
               </div>
             </div>
           </li>
@@ -60,6 +60,7 @@
 <script>
 import ProgressModal from '~/components/modal/progressModal.vue'
 import LeftTab from '~/components/mine/rankLeftTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     ProgressModal,
@@ -70,48 +71,30 @@ export default {
       tab: 1,
       tabIndex: 2,
       showModal: false,
+      classId: null,
+      userInfo: '',
       navList: [
         { label: "药理学", value: 1 },
         { label: "中医药理论", value: 2 }
       ],
-      rankList: [
-        {
-          num: 1,
-          avatar: require('~/assets/images/wbc.jpg'),
-          name: '蔬菜帮帮',
-          percent: 80,
-          zan: 12
-        },
-        {
-          num: 1,
-          avatar: require('~/assets/images/wbc.jpg'),
-          name: '蔬菜帮帮',
-          percent: 80,
-          zan: 12
-        },
-        {
-          num: 1,
-          avatar: require('~/assets/images/wbc.jpg'),
-          name: '蔬菜帮帮',
-          percent: 80,
-          zan: 12
-        },
-        {
-          num: 1,
-          avatar: require('~/assets/images/wbc.jpg'),
-          name: '蔬菜帮帮',
-          percent: 80,
-          zan: 12
-        }
-      ]
+      rankList: []
     }
   },
-  created() {
-
+  mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+      return
+    }
+    this.classId = window.localStorage.getItem('zyy_classId')
+    this.getCourseList()
   },
   methods: {
-    switchTab(index){
+    switchTab(item, index){
       this.tab = index + 1;
+      this.getRankList(item.courseId)
     },
     modalShow() {
       this.showModal = true
@@ -120,6 +103,36 @@ export default {
     hideModal() {
       this.showModal = false
       document.body.style.overflow = ''
+    },
+    // 获取课程列表
+    getCourseList() {
+      this.$axios('/yxs/api/web/user/getRecordByClassId', {
+        params: {
+          userToken: this.userInfo.userToken,
+          classId: this.classId
+        }
+      }).then(res => {
+        this.navList = res.data
+        this.getRankList(res.data[0].courseId)
+      })
+    },
+    // 获取排名信息
+    getRankList(id) {
+      this.$axios('/yxs/api/web/user/ranking', {
+        params: {
+          userToken: this.userInfo.userToken,
+          courseId: id
+        }
+      }).then(res => {
+        this.rankList = res.data
+      })
+    },
+    // 截取百分比
+    sliceStr(str) {
+      if(str) {
+        console.log(str.slice(0, -1))
+        return str.slice(0, -1)
+      }
     }
   }
 }

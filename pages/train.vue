@@ -81,7 +81,7 @@
               v-for="(item, index) in result"
               :key="index" 
               class="train-class">
-              <img :src="item.middle_picture">
+              <img v-lazy="item.middle_picture">
               <div class="content">
                 <div class="title">{{ item.title }}</div>
                 <div class="info">
@@ -133,29 +133,7 @@ export default {
       thirdActive: 0,
       classType: 1,
       recommendLessons: [],
-      recommendTrains: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        }
-      ],
+      recommendTrains: [],
       types: [],
       courses: [],
       orders: [
@@ -297,6 +275,7 @@ export default {
             padding: 8px;
             font-size: 14px;
             text-align: center;
+            // white-space: nowrap;
             &.active {
               background: #3F8A38;
               font-size: 14px;

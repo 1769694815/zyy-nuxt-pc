@@ -43,7 +43,8 @@ module.exports = {
     '@/plugins/echarts',
     '@/plugins/axios',
     { src: '@/plugins/video-player', ssr: false },
-    { src: '@/static/font/iconfont.js', ssr: false }
+    { src: '@/static/font/iconfont.js', ssr: false },
+    { src: '@/plugins/vue-lazyload.js', ssr: false }
   ],
 
   /*
