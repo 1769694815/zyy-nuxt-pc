@@ -51,7 +51,7 @@
               v-for="(item, index) in result"
               :key="index"
               class="common-class">
-              <img :src="item.middle_picture">
+              <img :src="item.middlePicture">
               <div class="info">
                 <div class="title">{{ item.title }}</div>
                 <div
@@ -131,31 +131,9 @@ export default {
       firstActive: 1,
       secondActive: 0,
       thirdActive: 0,
-      classType: 1,
+      classType: 2,
       recommendLessons: [],
-      recommendTrains: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '中药炮制厂',
-          teacher: '彭丽丽',
-          lessons: 12,
-          number: 236
-        }
-      ],
+      recommendTrains: [],
       types: [],
       courses: [],
       orders: [

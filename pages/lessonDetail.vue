@@ -52,17 +52,21 @@
             <div class="lesson-intronduce">
               <h1>课程介绍</h1>
               <div class="text">
-                {{ detailList.desd }}
+                {{ detailData.brife }}
               </div>
             </div>
           </div>
           <div class="content-right">
             <div class="teacher-title"><span>授课老师</span></div>
-            <div class="teacher">
-              <img :src="personalList.src">
+            <div
+              v-for="(item,index) in detailData.teacherList"
+              v-if="index < 1"
+              :key="index"
+              class="teacher">
+              <img :src="item.pic">
               <div class="text">
-                <span class="name">{{ personalList.name }}</span>
-                <span class="fame">{{ personalList.fame }}</span>
+                <span class="name">{{ item.name }}</span>
+                <span class="fame">{{ item.title }}</span>
               </div>
             </div>
           </div>
@@ -70,17 +74,12 @@
             <div class="title"><span>学员动态</span></div>
             <div class="text">
               <ul>
-                <li 
-                  v-for="(item,index) in learnList"
+                <li
+                  v-for="(item,index) in detailData.doList"
                   :key="index" >
-                  {{ item.name }}<span> 开始学习课时 </span>{{ item.lesson }}
-                </li>
-              </ul>
-              <ul>
-                <li 
-                  v-for="(item,index) in collectList"
-                  :key="index" >
-                  {{ item.name }}<span> 收藏了课程 </span>{{ item.lesson }}
+                  {{ item.userName }}
+                  <span> {{ item.type == 0 ? '开始学习课时' : '收藏了课程' }} </span>
+                  {{ item.courseName }}
                 </li>
               </ul>
             </div>
@@ -88,13 +87,13 @@
           <div class="related-class">
             <div class="title"><span>相关课程</span></div>
             <ul>
-              <li 
-                v-for="(item,index) in relatedList" 
+              <li
+                v-for="(item,index) in detailData.courseList" 
                 :key="index" 
                 class="lesson">
-                <img :src="item.src">
+                <img :src="item.pic">
                 <h3>{{ item.title }}</h3>
-                <span>{{ item.number }}</span>
+                <span>{{ item.studentNum }}</span>
               </li>
             </ul>
           </div>
@@ -118,71 +117,15 @@ export default {
   data(){
     return{
       tab: 1,
-      // id: this.$route.query.id,
-      id: 2,
+      id: this.$route.query.id,
+      // id: 2,
       detailData: '',
       navList:[
         {label:"课程概览", value: 1},
         {label:"课程视频", value: 2},
         {label:"评论", value: 3},
         {label:"笔记", value: 4}
-      ],
-      detailList:{
-        src: require('~/assets/images/wbc.jpg'),
-        title: '有机化学',
-        number: 12,
-        learned: 2345,
-        des: '有机化学又称为碳化合物的化学，是研究有机化合物的组成、结构、性质、制备方法与应用的科学，是化学中极重要的一个分支。',
-        desd:'有机化学又称为碳化合物的化学，是研究有机化合物的组成、结构、性质、制备方法与应用的科学，是化学中极重要的一个分支。含碳化合物被称为有机化合物是因为以往的化学家们认为含碳物质一定要由生物（有机体）才能制造；然而在1828年的时候，德国化学家弗里德里希·维勒，在实验室中首次成功合成尿素（一种生物分子），自此以后有机化学便脱离传统所定义的范围，扩大为含碳物质的化学。',
-        price: 180,
-      },
-      personalList:{
-        src: require('~/assets/images/wbc.jpg'),
-        name: '范崔生',
-        fame: '教授、国家级名老中医'
-
-      },
-      learnList: [
-        {
-          name: '刘秋云',
-          lesson:'01.绪论'
-        },
-        {
-          name: '刘秋云',
-          lesson:'01.绪论'
-        },
-        {
-          name: '刘秋云',
-          lesson:'01.绪论'
-        },
-      ],
-      collectList:[
-        {
-          name: '刘秋云',
-          lesson:'01.绪论'
-        },
-        {
-          name: '刘秋云',
-          lesson:'01.绪论'
-        },
-      ],
-      relatedList:[
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '经络不通有哪些症状',
-          number: 640,
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '经络不通有哪些症状',
-          number: 640,
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '经络不通有哪些症状',
-          number: 640,
-        }
-      ],
+      ]
     }
   },
   mounted() {

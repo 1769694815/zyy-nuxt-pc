@@ -50,8 +50,9 @@
             <li
               v-for="(item, index) in result"
               :key="index"
-              class="common-class">
-              <img :src="item.middle_picture">
+              class="common-class"
+              @click="toTrainDetail(item.id)">
+              <img :src="item.middlePicture">
               <div class="info">
                 <div class="title">{{ item.title }}</div>
                 <div
@@ -152,6 +153,7 @@ export default {
   },
   mounted() {
     this.getList('', 1)
+    this.getCourseType()
     this.getTrainList()
     this.getRecommendLessons()
   },
@@ -210,6 +212,21 @@ export default {
         this.result = res.data.list.records
       })
     },
+    getCourseType() {
+      this.$axios('/yxs/api/web/course//getCourseType').then(res => {
+          this.types = [{
+            name: '全部',
+            id: 0
+          }]
+          res.data.allTrainCate.map(item => {
+            item.type = 2
+            this.types.push(item)
+          })
+          res.data.allCate.map(item => {
+            this.types.push(item)
+          })
+      })
+    },
     // 推荐培训项目
     getTrainList() {
       this.$axios('/yxs/api/web/course/getRecommendTrainList', {
@@ -234,6 +251,15 @@ export default {
     toLessonDetail(id) {
       this.$router.push({
         name: 'lessonDetail',
+        query: {
+          id
+        }
+      })
+    },
+    // 进培训详情
+    toTrainDetail(id) {
+      this.$router.push({
+        name: 'trainDetail',
         query: {
           id
         }

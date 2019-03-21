@@ -24,6 +24,14 @@
             </div>
           </div>
         </div>
+        <div class="pic-1">
+          <img
+            class="a2"
+            src="../assets/images/a2.png">
+          <img
+            class="a1"
+            src="../assets/images/a1.png">
+        </div>
       </div>
     </div>
   </div>
@@ -49,9 +57,11 @@ export default {
     margin: 0 auto;
   }
   .c1 {
+    position: relative;
     height: 400px;
     padding-top: 100px;
     background: url(../assets/images/d_bj1.jpg) no-repeat center;
+    overflow: hidden;
     .content {
       margin-left: 300px;
       .title {
@@ -82,6 +92,20 @@ export default {
             color: #fff;
           }
         }
+      }
+    }
+    .pic-1 {
+      position: absolute;
+      left: 860px;
+      top: 0;
+      .a2 {
+        position: absolute;
+        top: 85px;
+      }
+      .a1 {
+        position: absolute;
+        top: 30px;
+        left: 170px;
       }
     }
   }
