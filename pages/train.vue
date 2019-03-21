@@ -80,7 +80,8 @@
             <li
               v-for="(item, index) in result"
               :key="index" 
-              class="train-class">
+              class="train-class"
+              @click="toLessonDetail(item.id)">
               <img v-lazy="item.middle_picture">
               <div class="content">
                 <div class="title">{{ item.title }}</div>
@@ -229,6 +230,15 @@ export default {
         }
       })
     },
+    // 进课程详情
+    toLessonDetail(id) {
+      this.$router.push({
+        name: 'lessonDetail',
+        query: {
+          id
+        }
+      })
+    }
   }
 }
 </script>
