@@ -128,7 +128,7 @@ export default {
       tabIndex: 2,
       current: 1,
       size: 10,
-      categoryId: '',
+      categoryId: 10, // 默认10,自学考试id
       orderByClause: 1,
       firstActive: 2,
       secondActive: 0,
@@ -152,30 +152,20 @@ export default {
     }
   },
   mounted() {
-    this.getList('', 1)
     this.getCourseType()
     this.getTrainList()
     this.getRecommendLessons()
   },
   methods: {
     changeFirst(item, index) {
-      this.firstActive = index
-      this.secondActive = 0
-      this.getList(item, 1)
-    },
-    changeSecond(item, index) {
-      this.secondActive = index
-      this.getList(item, 2)
-    },
-    changeThird(item, index) {
-      this.thirdActive = index
-      this.orderByClause = index == 0 ? 1 : 2
-      this.getList(item)
-    },
-    getList(item, i) {
-      this.classType = item.type ? 2 : 1
-      console.log('item', item)
-      if(i == 1) {
+      if(item.id == 21) {
+        this.$router.push({
+          name: 'western'
+        })
+      } else {
+        this.categoryId = item.id
+        this.firstActive = index
+        this.secondActive = 0
         this.courses = [{
           name: '全部',
           id: 0
@@ -185,46 +175,53 @@ export default {
             this.courses.push(item)
           })
         }
+        this.getList(item, 1)
+      }
+    },
+    changeSecond(item, index) {
+      this.secondActive = index
+      if(item.id == 0) {
+        this.getList('', 2)
+      } else {
+        this.getList(item, 2)
+      }
+    },
+    changeThird(item, index) {
+      this.thirdActive = index
+      this.orderByClause = index == 0 ? 1 : 2
+      this.getList(item, 3)
+    },
+    getList(item, i) {
+      if(i == 1) {
+        this.classType = item.type ? 2 : 1
       }
       this.$axios('/yxs/api/web/course/more', {
         params: {
           current: this.current,
           size: this.size,
-          categoryId: item.id == 0 ? 10 : item.id,
+          categoryId: item.id || this.categoryId,
           orderByClause: this.orderByClause,
           type: this.classType,
           userToken: ''
         }
       }).then(res => {
-        if(this.types && this.types.length == 0) {
-          this.types = [{
-            name: '全部',
-            id: 0
-          }]
-          res.data.allTrainCate.map(item => {
-            item.type = 2
-            this.types.push(item)
-          })
-          res.data.allCate.map(item => {
-            this.types.push(item)
-          })
-        }
         this.result = res.data.list.records
       })
     },
     getCourseType() {
       this.$axios('/yxs/api/web/course//getCourseType').then(res => {
-          this.types = [{
-            name: '全部',
-            id: 0
-          }]
-          res.data.allTrainCate.map(item => {
-            item.type = 2
-            this.types.push(item)
-          })
-          res.data.allCate.map(item => {
-            this.types.push(item)
-          })
+        this.types = [{
+          name: '全部',
+          id: 0
+        }]
+        res.data.allTrainCate.map(item => {
+          item.type = 2
+          this.types.push(item)
+        })
+        res.data.allCate.map(item => {
+          this.types.push(item)
+        })
+        this.changeFirst(res.data.allCate[0], 2)
       })
     },
     // 推荐培训项目
@@ -384,10 +381,12 @@ export default {
         overflow: hidden;
       }
       .train-class {
+        width: 218px;
         display: inline-block;
         align-items: center;
         margin-top: 20px;
         margin-left: 19px;
+        overflow: hidden;
         &:nth-child(4n + 1){
           margin-left: 0;
         }
@@ -401,9 +400,13 @@ export default {
         .content {
           padding: 0 10px;
           .title {
+            width: 100%;
             margin-top: 15px;
             font-size: 14px;
             color: #333;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
           .info {
             margin-top: 9px;

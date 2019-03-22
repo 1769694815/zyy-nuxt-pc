@@ -50,7 +50,8 @@
             <li
               v-for="(item, index) in result"
               :key="index"
-              class="common-class">
+              class="common-class"
+              @click="toTrainDetail(item.id)">
               <img :src="item.middlePicture">
               <div class="info">
                 <div class="title">{{ item.title }}</div>
@@ -80,8 +81,9 @@
             <li
               v-for="(item, index) in result"
               :key="index" 
-              class="train-class">
-              <img :src="item.middle_picture">
+              class="train-class"
+              @click="toLessonDetail(item.id)">
+              <img v-lazy="item.middle_picture">
               <div class="content">
                 <div class="title">{{ item.title }}</div>
                 <div class="info">
@@ -126,7 +128,7 @@ export default {
       tabIndex: 3,
       current: 1,
       size: 10,
-      categoryId: '',
+      categoryId: 21, // 默认21,培训项目id
       orderByClause: 1,
       firstActive: 1,
       secondActive: 0,
@@ -150,29 +152,20 @@ export default {
     }
   },
   mounted() {
-    this.getList(this.categoryId, 1)
+    this.getCourseType()
     this.getTrainList()
     this.getRecommendLessons()
   },
   methods: {
     changeFirst(item, index) {
-      this.firstActive = index
-      this.secondActive = 0
-      this.getList(item, 1)
-    },
-    changeSecond(item, index) {
-      this.secondActive = index
-      this.getList(item, 2)
-    },
-    changeThird(item, index) {
-      this.thirdActive = index
-      this.orderByClause = index == 0 ? 1 : 2
-      this.getList(item)
-    },
-    getList(item, i) {
-      this.classType = item.type ? 2 : 1
-      console.log('item', item)
-      if(i == 1) {
+      if(item.id != 21) {
+        this.$router.push({
+          name: 'train'
+        })
+      } else {
+        this.categoryId = item.id
+        this.firstActive = index
+        this.secondActive = 0
         this.courses = [{
           name: '全部',
           id: 0
@@ -182,31 +175,53 @@ export default {
             this.courses.push(item)
           })
         }
+        this.getList(item, 1)
+      }
+    },
+    changeSecond(item, index) {
+      this.secondActive = index
+      if(item.id == 0) {
+        this.getList('', 2)
+      } else {
+        this.getList(item, 2)
+      }
+    },
+    changeThird(item, index) {
+      this.thirdActive = index
+      this.orderByClause = index == 0 ? 1 : 2
+      this.getList(item, 3)
+    },
+    getList(item, i) {
+      if(i == 1) {
+        this.classType = item.type ? 2 : 1
       }
       this.$axios('/yxs/api/web/course/more', {
         params: {
           current: this.current,
           size: this.size,
-          categoryId: item.id == 0 ? '' : item.id,
+          categoryId: item.id || this.categoryId,
           orderByClause: this.orderByClause,
           type: this.classType,
           userToken: ''
         }
       }).then(res => {
-        if(this.types && this.types.length == 0) {
-          this.types = [{
-            name: '全部',
-            id: 0
-          }]
-          res.data.allTrainCate.map(item => {
-            item.type = 2
-            this.types.push(item)
-          })
-          res.data.allCate.map(item => {
-            this.types.push(item)
-          })
-        }
         this.result = res.data.list.records
+      })
+    },
+    getCourseType() {
+      this.$axios('/yxs/api/web/course//getCourseType').then(res => {
+        this.types = [{
+          name: '全部',
+          id: 0
+        }]
+        res.data.allTrainCate.map(item => {
+          item.type = 2
+          this.types.push(item)
+        })
+        res.data.allCate.map(item => {
+          this.types.push(item)
+        })
+        this.changeFirst(res.data.allTrainCate[0], 1)
       })
     },
     // 推荐培训项目
@@ -229,6 +244,24 @@ export default {
         }
       })
     },
+    // 进课程详情
+    toLessonDetail(id) {
+      this.$router.push({
+        name: 'lessonDetail',
+        query: {
+          id
+        }
+      })
+    },
+    // 进培训详情
+    toTrainDetail(id) {
+      this.$router.push({
+        name: 'trainDetail',
+        query: {
+          id
+        }
+      })
+    }
   }
 }
 </script>
@@ -275,6 +308,7 @@ export default {
             padding: 8px;
             font-size: 14px;
             text-align: center;
+            // white-space: nowrap;
             &.active {
               background: #3F8A38;
               font-size: 14px;
@@ -347,10 +381,12 @@ export default {
         overflow: hidden;
       }
       .train-class {
+        width: 218px;
         display: inline-block;
         align-items: center;
         margin-top: 20px;
         margin-left: 19px;
+        overflow: hidden;
         &:nth-child(4n + 1){
           margin-left: 0;
         }
@@ -364,9 +400,13 @@ export default {
         .content {
           padding: 0 10px;
           .title {
+            width: 100%;
             margin-top: 15px;
             font-size: 14px;
             color: #333;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
           .info {
             margin-top: 9px;
