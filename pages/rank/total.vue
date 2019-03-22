@@ -2,33 +2,12 @@
   <div>
     <left-tab :tab-index="tabIndex" />
     <div class="right-content">
-      <div class="header">
-        <div class="search">
-          <div class="input">
-            <input
-              type="text"
-              placeholder="搜索用户名查看学员进度">
-          </div>
-          <div class="search-icon">
-            <img src="~/assets/images/search.png">
-          </div>
-        </div>
-        <div class="nav">
-          <ul>
-            <li
-              v-for="(item, index) in navList"
-              :key="index"
-              :class="tab === (index + 1)? 'active' : ''" 
-              @click="switchTab(index)"> {{ item.label }} </li>
-          </ul>
-        </div>
-      </div>
       <div class="rank-content">
         <ul>
           <li
             v-for="(item, index) in rankList"
             :key="index"
-            @click="modalShow">
+            @click="modalShow(item)">
             <div 
               :class="(index + 1) > 3 ? 'none' : ''"
               class="num" >{{ index + 1 }}</div>
@@ -37,15 +16,15 @@
               <div class="info">
                 <div class="name">{{ item.name }}</div>
                 <el-progress
-                  :percentage="item.percent"
+                  :percentage="sliceStr(item.result)"
                   :show-text="false"
                   color="linear-gradient(-90deg,rgba(145,189,53,1),rgba(63,138,56,1))"
                   class="progress" />
               </div>
-              <div class="text">已学{{ item.percent }}%</div>
+              <div class="text">已学{{ item.result }}</div>
               <div class="like">
                 <i class="iconfont icon-aixin" />
-                <span>{{ item.zan }}</span>
+                <span>{{ item.watchNum }}</span>
               </div>
             </div>
           </li>
@@ -53,6 +32,8 @@
       </div>
       <progress-modal
         v-show="showModal"
+        :left-list="navList"
+        :user-id="userId"
         @hide-modal="hideModal" />
     </div>
   </div>
@@ -60,6 +41,7 @@
 <script>
 import ProgressModal from '~/components/modal/progressModal.vue'
 import LeftTab from '~/components/mine/rankLeftTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     ProgressModal,
@@ -70,56 +52,57 @@ export default {
       tab: 1,
       tabIndex: 1,
       showModal: false,
-      navList: [
-        { label: "药理学", value: 1 },
-        { label: "中医药理论", value: 2 }
-      ],
-      rankList: [
-        {
-          num: 1,
-          avatar: require('~/assets/images/wbc.jpg'),
-          name: '蔬菜帮帮',
-          percent: 80,
-          zan: 12
-        },
-        {
-          num: 1,
-          avatar: require('~/assets/images/wbc.jpg'),
-          name: '蔬菜帮帮',
-          percent: 80,
-          zan: 12
-        },
-        {
-          num: 1,
-          avatar: require('~/assets/images/wbc.jpg'),
-          name: '蔬菜帮帮',
-          percent: 80,
-          zan: 12
-        },
-        {
-          num: 1,
-          avatar: require('~/assets/images/wbc.jpg'),
-          name: '蔬菜帮帮',
-          percent: 80,
-          zan: 12
-        }
-      ]
+      classId: null,
+      userId: null,
+      navList: [],
+      rankList: []
     }
   },
-  created() {
-
+  mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    this.classId = window.localStorage.getItem('zyy_classId')
+    this.getList()
+    this.getCourseList()
   },
   methods: {
     switchTab(index){
       this.tab = index + 1;
     },
-    modalShow() {
+    modalShow(item) {
+      this.userId = item.userId
       this.showModal = true
       document.body.style.overflow = 'hidden'
     },
     hideModal() {
       this.showModal = false
       document.body.style.overflow = ''
+    },
+    // 获取课程列表
+    getCourseList() {
+      this.$axios('/yxs/api/web/user/getRecordByClassId', {
+        params: {
+          userToken: this.userInfo.userToken,
+          classId: this.classId
+        }
+      }).then(res => {
+        this.navList = res.data
+      })
+    },
+    getList() {
+      this.$axios('/yxs/api/web/user/classRanking', {
+        params: {
+          classId: this.classId,
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
+        this.rankList = res.data
+      })
+    },
+    // 截取百分比
+    sliceStr(str) {
+      if(str) {
+        return parseFloat(str.slice(0, -1))
+      }
     }
   }
 }
