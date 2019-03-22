@@ -18,8 +18,8 @@
               v-for="(item, index) in leftList"
               :key="index"
               :class="(tab === index + 1) ? 'active' : ''"
-              @click="switchTab(index)">
-              {{ item.name }}
+              @click="switchTab(item, index)">
+              {{ item.title }}
             </li>
           </ul>
         </div>
@@ -33,7 +33,7 @@
                 <span>{{ item.name }}</span>
                 <span>{{ item.title }}</span>
               </div>
-              <div class="percent">已学{{ item.percent }}%</div>
+              <div class="percent">已学{{ item.result }}</div>
             </li>
           </ul>
         </div>
@@ -42,65 +42,71 @@
   </div>
 </template>
 <script>
+import Cookies from 'js-cookie'
 export default {
+  props: {
+    leftList: {
+      type: Array,
+      default: function() {
+        return []
+      }
+    },
+    userId: {
+      type: Number,
+      default: function() {
+        return null
+      }
+    }
+  },
   data() {
     return {
       showModal: false,
       tab: 1,
-      leftList: [
-        {
-          name: '药理学',
-          value: 1
-        },
-        {
-          name: '中医药理论',
-          value: 1
-        },
-        {
-          name: '中医学',
-          value: 1
-        }
-      ],
-      rightList: [
-        {
-          chapter: '第一章',
-          name: '绪论',
-          title: '药膳养生师概念',
-          percent: 96
-        },
-        {
-          chapter: '第一章',
-          name: '绪论',
-          title: '药膳养生师概念',
-          percent: 96
-        },
-        {
-          chapter: '第一章',
-          name: '绪论',
-          title: '药膳养生师概念',
-          percent: 96
-        },
-        {
-          chapter: '第一章',
-          name: '绪论',
-          title: '药膳养生师概念',
-          percent: 96
-        },
-      ]
+      uid: null,
+      cid: null,
+      userInfo: '',
+      rightList: []
     }
   },
-  created() {
-
+  watch: {
+    leftList(newVal, oldVal) {
+      if(newVal.length > 0) {
+        this.cid = newVal[0].courseId
+      }
+    },
+    userId(newVal, oldVal) {
+      this.uid = newVal
+      this.userInfo = Cookies.getJSON('zyy_userInfo')
+      this.getList()
+    }
+  },
+  mounted() {
+    
   },
   methods: {
     handleClose() {
       this.showModal = false
       this.$emit('hide-modal')
     },
-    switchTab(index) {
+    switchTab(item, index) {
       this.tab = index + 1
+      this.cid = item.courseId
+      this.getList()
+    },
+    getList() {
+      console.log('het')
+      this.$axios('/yxs/api/web/user/getRegcordByUserIdAndCousreId', {
+        params: {
+          userId: this.uid,
+          courseId: this.cid,
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
+        this.rightList = res.data
+      })
     }
-  }
+  },
+  
 }
 </script>
 <style lang="scss" scoped>
@@ -136,14 +142,15 @@ export default {
         padding: 30px;
         .m-left {
           position: absolute;
-          width: 110px;
+          width: 160px;
           li {
-            padding-left: 20px;
+            // padding-left: 20px;
             height: 30px;
             line-height: 30px;
             font-size: 12px;
             color: #333;
             cursor: pointer;
+            text-align: center;
             &.active {
               border: 1px solid #E4ECF3;
               border-right: 1px solid #fff;
@@ -152,8 +159,9 @@ export default {
           }
         }
         .m-right {
-          width: 630px;
-          margin-left: 109px;
+          width: 580px;
+          min-height: 300px;
+          margin-left: 159px;
           padding: 10px 50px 10px 70px;
           border: 1px solid #E4ECF3;
           border-radius: 4px;
@@ -165,6 +173,9 @@ export default {
             font-size: 14px;
             color: #666;
             border-bottom: 1px solid #E4ECF3;
+            &:last-child {
+              border-bottom: none;
+            }
             span {
               margin-right: 4px;
             }

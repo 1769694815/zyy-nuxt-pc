@@ -352,7 +352,7 @@ export default {
         color: #fff;
         margin-top: 15px;
         text-align: center;
-        font-size: 16px;   
+        font-size: 16px;
         .b1{
           float: left;
           width: 138px;

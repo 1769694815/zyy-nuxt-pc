@@ -28,7 +28,7 @@
           <li
             v-for="(item, index) in rankList"
             :key="index"
-            @click="modalShow">
+            @click="modalShow(item)">
             <div 
               :class="(index + 1) > 3 ? 'none' : ''"
               class="num" >{{ index + 1 }}</div>
@@ -53,6 +53,8 @@
       </div>
       <progress-modal
         v-show="showModal"
+        :left-list="navList"
+        :user-id="userId"
         @hide-modal="hideModal" />
     </div>
   </div>
@@ -72,11 +74,9 @@ export default {
       tabIndex: 2,
       showModal: false,
       classId: null,
+      userId: null,
       userInfo: '',
-      navList: [
-        { label: "药理学", value: 1 },
-        { label: "中医药理论", value: 2 }
-      ],
+      navList: [],
       rankList: []
     }
   },
@@ -96,7 +96,8 @@ export default {
       this.tab = index + 1;
       this.getRankList(item.courseId)
     },
-    modalShow() {
+    modalShow(item) {
+      this.userId = item.userId
       this.showModal = true
       document.body.style.overflow = 'hidden'
     },
@@ -113,7 +114,9 @@ export default {
         }
       }).then(res => {
         this.navList = res.data
-        this.getRankList(res.data[0].courseId)
+        if(res.data && res.data.length > 0) {
+          this.getRankList(res.data[0].courseId)
+        }
       })
     },
     // 获取排名信息
@@ -130,8 +133,7 @@ export default {
     // 截取百分比
     sliceStr(str) {
       if(str) {
-        console.log(str.slice(0, -1))
-        return str.slice(0, -1)
+        return parseFloat(str.slice(0, -1))
       }
     }
   }
