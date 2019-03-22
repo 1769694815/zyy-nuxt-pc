@@ -31,7 +31,9 @@
               价格：<span>{{ detailData.price }}</span> 中医币
             </div>
             <div class="bottom">
-              <div class="b1">免费试看</div>
+              <div
+                class="b1"
+                @click="toPlay">免费试看</div>
               <div class="b2">购买课程</div>
             </div>
           </div>
@@ -118,7 +120,6 @@ export default {
     return{
       tab: 1,
       id: this.$route.query.id,
-      // id: 2,
       detailData: '',
       navList:[
         {label:"课程概览", value: 1},
@@ -142,6 +143,14 @@ export default {
         }
       }).then(res => {
         this.detailData = res.data
+      })
+    },
+    toPlay() {
+      this.$router.push({
+        name: 'play',
+        query: {
+          courseId: this.id
+        }
       })
     }
   }
@@ -245,6 +254,7 @@ export default {
             color: #3f8a38;
             box-sizing: border-box;
             font-size: 16px;
+            cursor: pointer;
           }
           .b2{
             width: 150px;
@@ -255,8 +265,8 @@ export default {
             box-sizing: border-box;
             color: #ffffff;
             font-size: 16px;
+            cursor: pointer;
           }
-
         }
       }
     }

@@ -20,6 +20,16 @@ export default {
         return {}
       }
     }
+  },
+  methods: {
+    toDetail(id) {
+      this.$router.push({
+        name: 'lessonDetail',
+        query: {
+          id
+        }
+      })
+    }
   }
 }
 </script>

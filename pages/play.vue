@@ -8,7 +8,7 @@
       </div>
       <div class="play-container">
         <div class="play-header">
-          <div class="title">中医药理论课程</div>
+          <div class="title">{{ info.courseTitle }}</div>
           <di class="sub">
             <span>163人学过</span>
             <span>20天后到期,请尽快学完</span>
@@ -18,14 +18,14 @@
           <video-player />
           <ul class="menu">
             <li
-              v-for="(item, index) in menuList"
+              v-for="(item, index) in info.lessons"
               :key="index">
               <div class="chapter">{{ item.chapter }}</div>
               <div class="info">
-                <span>{{ item.name }}</span>
-                <span>{{ item.title }}</span>
+                <!-- <span>{{ item.name }}</span> -->
+                <span>{{ item.lessonTitle }}</span>
                 <div class="foot">
-                  <span>{{ item.time }}分钟</span>
+                  <span>{{ item.learnTime }}分钟</span>
                   <span>已学完</span>
                 </div>
               </div>
@@ -40,17 +40,22 @@
             v-for="(item,index) in otherList"
             :key="index"
             class="list-item">
-            <img :src="item.src">
+            <img :src="item.middlePicture">
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <p
-                v-show="item.offDay != 0"
+                v-if="item.dayCount != 0"
                 class="desc">
-                {{ item.offDay }}天后到期
+                {{ item.dayCount }}天后到期
+              </p>
+              <p
+                v-else
+                class="desc">
+                已到期
               </p>
               <div class="foot">
-                <span>已学{{ item.percent }}%</span>
-                <span>共{{ item.number }}节</span>
+                <span>已学{{ item.result }}</span>
+                <span>共{{ item.lessonNum }}节</span>
               </div>
             </div>
           </li>
@@ -62,12 +67,12 @@
           <li
             v-for="(item, index) in recommendList"
             :key="index">
-            <img :src="item.src">
+            <img :src="item.middle_picture">
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <div class="info">
                 <span
-                  v-if="item.isfree"
+                  v-if="item.price == 0"
                   class="free">
                   免费
                 </span>
@@ -76,8 +81,8 @@
                   class="price">
                   ￥{{ item.price }}
                 </span>
-                <span class="lesson">共{{ item.lessons }}节</span>
-                <span class="number">{{ item.number }}人学过</span>
+                <span class="lesson">共{{ item.lessonNum }}节</span>
+                <span class="number">{{ item.studentNum }}人学过</span>
               </div>
             </div>
           </li>
@@ -90,14 +95,19 @@
 import Header from '~/components/layout/header.vue'
 import VideoPlayer from '~/components/video.vue'
 import NavBar from '~/components/navBar.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     VideoPlayer,
     NavBar,
-    'v-header': Header    
+    'v-header': Header
   },
   data() {
     return {
+      courseId: null,
+      lessonId: null,
+      userInfo: '',
+      info: '',
       menuList: [
         {
           chapter: '第一章',
@@ -121,82 +131,49 @@ export default {
           time: 130
         },
       ],
-      otherList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 0,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          offDay: 20,
-          percent: 96,
-          number: 12
-        }
-      ],
-      recommendList: [
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12,
-          isfree: true
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12
-        },
-        {
-          src: require('~/assets/images/wbc.jpg'),
-          title: '大美中医启续篇——时间',
-          lessons: 12,
-          price: 96,
-          number: 12
-        }
-      ]
+      otherList: [],
+      recommendList: []
     }
+  },
+  mounted() {
+    this.courseId = this.$route.query.courseId
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    this.getInfo()
+    this.getList()
+    this.getRecommendList(10)
+  },
+  methods: {
+    getInfo() {
+      this.$axios.post('/yxs/api/web/user/startLearnCourse', {
+        courseId: 35,
+        lessonId: this.lessonId,
+        userToken: this.userInfo.userToken
+      }).then(res => {
+        this.info = res.data
+      })
+    },
+    getList() {
+      let params = {
+        size: 5,
+        current: 1,
+        type: 0,
+        userToken: this.userInfo.userToken
+      }
+      this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
+        params
+      }).then(res => {
+        this.otherList = res.data
+      })
+    },
+    getRecommendList(type) {
+      this.$axios('/yxs/api/web/course/getRecommendList', {
+        params: {
+          type
+        }
+      }).then(res => {
+        this.recommendList = res.data
+      })
+    },
   }
 }
 </script>
@@ -231,6 +208,7 @@ export default {
           height: 102px;
           background: #131313;
           height: 500px;
+          overflow: auto;
           li {
             display: flex;
             margin: 0 30px;

@@ -1,8 +1,8 @@
 <template>
-  <div
-    class="item"
-    @click="toDetail">
-    <img :src="dataObj.middle_picture">
+  <div class="item">
+    <img
+      :src="dataObj.middle_picture"
+      @click="toDetail(dataObj.courseId)">
     <div class="content">
       <div class="title">{{ dataObj.title }}</div>
       <div class="info">
@@ -30,9 +30,12 @@ export default {
     }
   },
   methods: {
-    toDetail() {
+    toDetail(id) {
       this.$router.push({
-        name: 'play'
+        name: 'lessonDetail',
+        query: {
+          id
+        }
       })
     }
   }

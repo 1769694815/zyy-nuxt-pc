@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <img :src="dataObj.middle_picture">
+    <img
+      :src="dataObj.middle_picture"
+      @click="toDetail(dataObj.id)">
     <div class="content">
       <div class="title">{{ dataObj.title }}</div>
       <div class="info">
@@ -12,8 +14,8 @@
           v-else
           class="price">￥{{ dataObj.price }}
         </span>
-        <span class="lesson">共{{ dataObj.lesson_num }}节</span>
-        <span class="number">{{ dataObj.student_num }}人学过</span>
+        <span class="lesson">共{{ dataObj.lessonNum }}节</span>
+        <span class="number">{{ dataObj.studentNum }}人学过</span>
       </div>
     </div>
   </div>
@@ -26,6 +28,16 @@ export default {
       default: function() {
         return {}
       }
+    }
+  },
+  methods: {
+    toDetail(id) {
+      this.$router.push({
+        name: 'lessonDetail',
+        query: {
+          id
+        }
+      })
     }
   }
 }
