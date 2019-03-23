@@ -38,7 +38,7 @@ export default {
     getTrainList() {
       this.$axios('/yxs/api/web/course/getRecommendTrainList', {
         params: {
-          type: 1
+          type: ''
         }
       }).then(res => {
         if(res.code == 0) {

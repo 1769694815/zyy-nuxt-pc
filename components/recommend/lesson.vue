@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    this.getRecommendList(13)
+    this.getRecommendList('education')
   },
   methods: {
     getRecommendList(type) {

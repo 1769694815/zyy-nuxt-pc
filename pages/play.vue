@@ -140,7 +140,7 @@ export default {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()
     this.getList()
-    this.getRecommendList(10)
+    this.getRecommendList('zyjk')
   },
   methods: {
     getInfo() {

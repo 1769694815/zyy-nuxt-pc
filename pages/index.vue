@@ -334,9 +334,9 @@ export default {
       this.getCarousel()
       this.getMenuList()
       this.getResearchList()
-      this.getRecommendList(10)
-      this.getRecommendList(11)
-      this.getRecommendList(13)
+      this.getRecommendList('zyjk')
+      this.getRecommendList('career')
+      this.getRecommendList('education')
       this.getDoctorList()
       this.getNewsList()
       this.getTrainList()
@@ -390,13 +390,13 @@ export default {
       }).then(res => {
         if(res.code == 0) {
           switch(type) {
-            case 10:
+            case 'education':
               this.examList = res.data
               break;
-            case 11:
+            case 'career':
               this.theoryList = res.data
               break;
-            case 13:
+            case 'zyjk':
               this.healthList = res.data
               break;
           }
@@ -413,7 +413,11 @@ export default {
     },
     // 首页培训项目
     getTrainList() {
-      this.$axios('/yxs/api/web/course/getRecommendTrainList').then(res => {
+      this.$axios('/yxs/api/web/course/getRecommendTrainList', {
+        params: {
+          type: ''
+        }
+      }).then(res => {
         if(res.code == 0) {
           this.trainList = res.data
         }

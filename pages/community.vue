@@ -120,7 +120,7 @@ export default {
     this.getCarousel()
     this.getChannel()
     this.getResearchList()
-    this.getRecommendList(13)
+    this.getRecommendList('education')
     this.getCourseList()
   },
   methods: {

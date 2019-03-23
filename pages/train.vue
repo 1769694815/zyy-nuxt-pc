@@ -214,21 +214,21 @@ export default {
           name: '全部',
           id: 0
         }]
-        res.data.allTrainCate.map(item => {
-          item.type = 2
-          this.types.push(item)
-        })
+        // res.data.allTrainCate.map(item => {
+        //   item.type = 2
+        //   this.types.push(item)
+        // })
         res.data.allCate.map(item => {
           this.types.push(item)
         })
-        this.changeFirst(res.data.allCate[0], 2)
+        this.changeFirst(res.data.allCate[1], 2)
       })
     },
     // 推荐培训项目
     getTrainList() {
       this.$axios('/yxs/api/web/course/getRecommendTrainList', {
         params: {
-          type: 1
+          type: ''
         }
       }).then(res => {
         if(res.code == 0) {
