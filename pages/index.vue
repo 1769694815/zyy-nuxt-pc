@@ -228,6 +228,7 @@
         <div class="train-imgs">
           <div
             v-for="(item, index) in trainList"
+            v-if="index < 4"
             :key="index"
             class="train-img">
             <img :src="item.middle_picture">
@@ -339,9 +340,9 @@ export default {
       this.getDoctorList()
       this.getNewsList()
       this.getTrainList()
-      this.getCategoryByCode('course_category_health')
-      this.getCategoryByCode('course_category_theory')
-      this.getCategoryByCode('course_category_selflearn')
+      this.getCategoryByCode('zyjk')
+      this.getCategoryByCode('career')
+      this.getCategoryByCode('education')
     // })
   },
   methods: {
@@ -412,11 +413,7 @@ export default {
     },
     // 首页培训项目
     getTrainList() {
-      this.$axios('/yxs/api/web/course/getRecommendTrainList', {
-        params: {
-          type: 1
-        }
-      }).then(res => {
+      this.$axios('/yxs/api/web/course/getRecommendTrainList').then(res => {
         if(res.code == 0) {
           this.trainList = res.data
         }
@@ -439,13 +436,13 @@ export default {
       }).then(res => {
         if(res.code == 0) {
           switch(code) {
-            case 'course_category_health':
+            case 'zyjk':
               this.healthSubList = res.data
               break;
-            case 'course_category_selflearn':
+            case 'education':
               this.examSubList = res.data
               break;
-            case 'course_category_theory':
+            case 'career':
               this.theorySubList = res.data
               break;
           }

@@ -317,13 +317,20 @@ export default {
         }
         .learn, .personal {
           position: relative;
+          cursor: pointer;
           ul {
             position: absolute;
+            left: -10px;
+            z-index: 99;
           }
           li {
             width: 80px;
-            // text-align: center;
+            text-align: center;
             background: #fff;
+            &:hover {
+              background: #3f8a38;
+              color: #fff;
+            }
           }
         }
         .message {
