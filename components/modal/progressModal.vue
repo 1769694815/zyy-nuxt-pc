@@ -94,7 +94,6 @@ export default {
       this.getList()
     },
     getList() {
-      console.log('het')
       this.$axios('/yxs/api/web/user/getRegcordByUserIdAndCousreId', {
         params: {
           userId: this.uid,

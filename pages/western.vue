@@ -158,7 +158,7 @@ export default {
   },
   methods: {
     changeFirst(item, index) {
-      if(item.id != 67) {
+      if(item.id == 53) {
         this.$router.push({
           name: 'train'
         })
@@ -192,9 +192,9 @@ export default {
       this.getList(item, 3)
     },
     getList(item, i) {
-      if(i == 1) {
-        this.classType = item.type ? 2 : 1
-      }
+      // if(i == 1) {
+      //   this.classType = item.type ? 2 : 1
+      // }
       this.$axios('/yxs/api/web/course/more', {
         params: {
           current: this.current,
@@ -209,15 +209,11 @@ export default {
       })
     },
     getCourseType() {
-      this.$axios('/yxs/api/web/course//getCourseType').then(res => {
+      this.$axios('/yxs/api/web/course/getCourseType').then(res => {
         this.types = [{
           name: '全部',
           id: 0
         }]
-        //   res.data.allTrainCate.map(item => {
-        //     item.type = 2
-        //     this.types.push(item)
-        //   })
         res.data.allCate.map(item => {
           this.types.push(item)
         })

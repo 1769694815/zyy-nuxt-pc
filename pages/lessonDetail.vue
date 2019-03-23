@@ -34,7 +34,9 @@
               <div
                 class="b1"
                 @click="toPlay">免费试看</div>
-              <div class="b2">购买课程</div>
+              <div
+                class="b2"
+                @click="buyLesson">购买课程</div>
             </div>
           </div>
         </div>
@@ -105,22 +107,29 @@
         </div>
       </div>
     </div>
+    <buy-modal
+      v-show="showModal"
+      :data-obj="detailData"
+      @hide-modal="hideModal" />
   </div>
 </template>
 
 <script>
-import Navbar from "~/components/navBar.vue";
+import Navbar from "~/components/navBar.vue"
 import Header from '~/components/layout/header.vue'
+import BuyModal from '~/components/modal/buyModal.vue'
 export default {
   components: {
     Navbar,
+    BuyModal,
     'v-header': Header
   },
   data(){
     return{
       tab: 1,
       id: this.$route.query.id,
-      detailData: '',
+      detailData: {},
+      showModal: false,
       navList:[
         {label:"课程概览", value: 1},
         {label:"课程视频", value: 2},
@@ -152,6 +161,12 @@ export default {
           courseId: this.id
         }
       })
+    },
+    hideModal() {
+      this.showModal = false
+    },
+    buyLesson() {
+      this.showModal = true
     }
   }
 };
