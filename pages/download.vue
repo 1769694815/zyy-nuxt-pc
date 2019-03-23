@@ -2,6 +2,7 @@
   <div style="width:100%">
     <v-header />
     <nav-bar :tab-index="tabIndex" />
+   
     <div class="container">
       <div class="c1">
         <div class="content">
@@ -97,6 +98,17 @@
             src="../assets/images/e4.png"
             class="img7">
         </div>
+      </div>
+      <div class="wrap wrap-5">
+        <div class="wrap-right">
+          <div class="title">
+            <span>05</span>不断完善的专业平台
+          </div>
+          <p>更多名师课程，正在加入中</p>
+        </div>
+      </div>
+      <div class="wrap-6">
+        1
       </div>
     </div> 
   </div>
@@ -254,7 +266,12 @@ export default {
       padding-left: 300px;
       padding-top: 80px;
     }
-    
   }
-  
+  .wrap-5 {
+    background: url(../assets/images/bj6.jpg) no-repeat center fixed;
+  }
+  .wrap-6 {
+    height: 500px;
+    background: url(../assets/images/demo.jpg) no-repeat center;
+  }
 </style>
