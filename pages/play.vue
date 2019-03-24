@@ -148,7 +148,7 @@ export default {
   methods: {
     getInfo() {
       this.$axios.post('/yxs/api/web/user/startLearnCourse', {
-        courseId: 118,
+        courseId: this.courseId,
         lessonId: this.lessonId,
         userToken: this.userInfo.userToken
       }).then(res => {

@@ -158,7 +158,7 @@ export default {
   },
   methods: {
     changeFirst(item, index) {
-      if(item.id == 53) {
+      if(item.id != 1) {
         this.$router.push({
           name: 'train'
         })
@@ -214,10 +214,14 @@ export default {
           name: '全部',
           id: 0
         }]
+        res.data.allClassTypeCate.map(item => {
+          item.type = 2
+          this.types.push(item)
+        })
         res.data.allCate.map(item => {
           this.types.push(item)
         })
-        this.changeFirst(res.data.allCate[0], 1)
+        this.changeFirst(res.data.allClassTypeCate[0], 1)
       })
     },
     // 推荐培训项目

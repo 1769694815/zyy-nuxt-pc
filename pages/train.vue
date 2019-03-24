@@ -158,7 +158,7 @@ export default {
   },
   methods: {
     changeFirst(item, index) {
-      if(item.id == 67) {
+      if(item.id == 1) {
         this.$router.push({
           name: 'western'
         })
@@ -214,10 +214,10 @@ export default {
           name: '全部',
           id: 0
         }]
-        // res.data.allTrainCate.map(item => {
-        //   item.type = 2
-        //   this.types.push(item)
-        // })
+        res.data.allClassTypeCate.map(item => {
+          item.type = 2
+          this.types.push(item)
+        })
         res.data.allCate.map(item => {
           this.types.push(item)
         })
