@@ -52,6 +52,7 @@ export default {
     height: 160px;
     background: rgba(98,98,98,1);
     border-radius: 6px;
+    cursor: pointer;
   }
   .content {
     padding: 0 10px;

@@ -26,7 +26,9 @@
           </div>
         </div>
         <div class="tip">*温馨提示：请确认班级，报名成功后可学习该班全部课程。</div>
-        <div class="button">确认报名</div>
+        <div
+          class="button"
+          @click="confirm">确认报名</div>
       </div>
     </div>
   </div>
@@ -50,6 +52,11 @@ export default {
     handleClose() {
       this.showModal = false
       this.$emit('hide-modal')
+    },
+    confirm() {
+      this.$router.push({
+        name: 'payfor'
+      })
     }
   }
 }
@@ -125,6 +132,7 @@ export default {
           font-size: 16px;
           text-align: center;
           border-radius: 4px;
+          cursor: pointer;
         }
       }
       

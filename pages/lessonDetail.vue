@@ -24,7 +24,13 @@
             <div class="des">
               <div class="des-text">
                 <h2 class="des-title">课程介绍 ：</h2>
-                <p class="text">{{ detailData.brife }}</p>
+                <p
+                  class="text"
+                  style="overflow: hidden;
+                      text-overflow: ellipsis;
+                      display: -webkit-box;
+                      -webkit-line-clamp: 2;
+                      -webkit-box-orient: vertical;">{{ detailData.brife }}</p>
               </div>
             </div>
             <div class="price">
@@ -236,7 +242,7 @@ export default {
               font-size: 14px;
             }
             .text{
-              display: block;
+              width: 100%;
               font-size: 14px;
               color: #666666;
               align-items: center;

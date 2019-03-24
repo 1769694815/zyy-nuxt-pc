@@ -9,13 +9,15 @@
       <div class="play-container">
         <div class="play-header">
           <div class="title">{{ info.courseTitle }}</div>
-          <di class="sub">
+          <div class="sub">
             <span>163人学过</span>
             <span>20天后到期,请尽快学完</span>
-          </di>
+          </div>
         </div>
         <div class="play-content">
-          <video-player />
+          <div
+            id="player-con"
+            class="prism-player" />
           <ul class="menu">
             <li
               v-for="(item, index) in info.lessons"
@@ -141,15 +143,40 @@ export default {
     this.getInfo()
     this.getList()
     this.getRecommendList('zyjk')
+    
   },
   methods: {
     getInfo() {
       this.$axios.post('/yxs/api/web/user/startLearnCourse', {
-        courseId: 35,
+        courseId: 118,
         lessonId: this.lessonId,
         userToken: this.userInfo.userToken
       }).then(res => {
+        let info = res.data
         this.info = res.data
+        var player = new Aliplayer({
+          "id": "player-con",
+          "vid": info.videoId,
+          "playauth": info.playAuth,
+          "qualitySort": "asc",
+          "format": "m3u8",
+          "mediaType": "video",
+          "width": "100%",
+          "height": "500px",
+          "autoplay": false,
+          "isLive": false,
+          "cover": info.cover,
+          "rePlay": false,
+          "playsinline": true,
+          "preload": true,
+          "controlBarVisibility": "hover",
+          "useH5Prism": true,
+          "encryptType": 1
+        }, function (player) {
+            player._switchLevel = 0;
+            console.log("播放器创建了。");
+          }
+        );
       })
     },
     getList() {
@@ -203,6 +230,9 @@ export default {
       .play-content {
         display: flex;
         margin-top: 30px;
+        #player-con {
+          width: 952px;
+        }
         .menu {
           width: 330px;
           height: 102px;
@@ -219,6 +249,7 @@ export default {
               font-size: 16px;
             }
             .info {
+              width: 100%;
               margin-left: 14px;
               .foot {
                 display: flex;
@@ -330,4 +361,7 @@ export default {
       }
     }
   }
+</style>
+<style scoped>
+  @import 'https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css';
 </style>

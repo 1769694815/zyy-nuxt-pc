@@ -40,6 +40,7 @@ export default {
       width: 100%;
       height: 100%;
       border-radius: 6px;
+      cursor: pointer;
     }
     .tag {
       position: absolute;

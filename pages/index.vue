@@ -58,7 +58,8 @@
             <li
               v-for="(item, index) in toutiaoList"
               v-if="index < 4"
-              :key="index">
+              :key="index"
+              @click="toToutiaoDetail(item)">
               {{ `【${item.typeName}】${item.title}` }}
             </li>
           </ul>
@@ -352,6 +353,14 @@ export default {
         name: 'toutiao'
       })
     },
+    toToutiaoDetail(item) {
+      this.$router.push({
+        name: 'toutiao-detail',
+        query: {
+          id: item.id
+        }
+      })
+    },
     toService() {
       this.$router.push({
         name: 'service'
@@ -536,6 +545,7 @@ export default {
             color: #666;
             line-height: 22px;
             font-size: 14px;
+            cursor: pointer;
             &:last-child {
               border: none;
             }
@@ -590,6 +600,7 @@ export default {
       font-size: 0;
       img {
         margin-left: 20px;
+        cursor: pointer;
         &:first-child {
           margin: 0;
         }
@@ -603,6 +614,7 @@ export default {
         position: relative;
         width: 224px;
         height: 390px;
+        cursor: pointer;
         .text {
           position: absolute;
           top: 150px;
@@ -677,6 +689,7 @@ export default {
       width: 285px;
       height: 160px;
       border-radius: 6px;
+      cursor: pointer;
     }
     .button {
       margin-top: 30px;

@@ -121,7 +121,7 @@ export default {
         name: 'register'
       })
     },
-    // 登录
+    // 短信登录
     login1() {
       let result = isvalidatemobile(this.form1.phone)
       if(result[0]) {
@@ -138,8 +138,6 @@ export default {
         })
         return
       }
-      // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
-      // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
       this.$axios.post('/admin/api/web/account/login', this.form1).then(res => {
         if(res.code == 0) {
           Cookies.set('zyy_userInfo', res.data, { expires: 30 })
@@ -156,6 +154,7 @@ export default {
         }
       })
     },
+    // 密码登录
     login2() {
       if(!this.form2.userName) {
         this.$message({

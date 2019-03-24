@@ -42,6 +42,7 @@ export default {
     width: 224px;
     height: 126px;
     border-radius: 6px;
+    cursor: pointer;
   }
   .content {
     padding: 16px 10px;

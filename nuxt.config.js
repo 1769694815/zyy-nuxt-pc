@@ -15,6 +15,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      { src: 'https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min.js', type: 'text/javascript'}
     ]
   },
 
@@ -54,6 +57,10 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios'
   ],
+
+  router: {
+    // middleware: 'accessAuth'
+  },
   /*
   ** Axios module configuration
   */
@@ -68,7 +75,7 @@ module.exports = {
     '/api/': {
       // target: 'http://212.64.79.36:8080',
       target: 'http://192.168.2.199:9999',
-      // target: 'http://132.232.173.47:3000/mock/25/yxs/api',
+      // target: 'http://127.0.0.1:9999',
       pathRewrite: { '^/api/': '/', changeOrigin: true }
     }
   },
