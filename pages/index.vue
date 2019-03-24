@@ -273,6 +273,8 @@ import FamousItem from '~/components/index/famousItem.vue'
 import SectionItem from '~/components/index/sectionItem.vue'
 import ToutiaoItem from '~/components/index/toutiaoItem.vue'
 import Header from '~/components/layout/header.vue'
+import Cookies from 'js-cookie'
+import { Base64 } from '~/assets/js/base64.js'
 export default {
   components: {
     'v-nav': Nav,
@@ -301,12 +303,23 @@ export default {
     }
   },
   async asyncData({ $axios }) {
+    // const clientId = 'zyy_web'
+    // const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
+    // const encodeStr = Base64.encode(clientId + ':' + clientSecret);
     // let params = {
     //   username: '',
     //   password: '',
     //   scope: 'server',
     //   grant_type: 'client_credentials'
     // }
+    // console.log('111')
+    // $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
+    // $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
+    // let acsToken = await $axios.post('/auth/oauth/token', params)
+    // console.log('acsToken'. acsToken)
+    // Cookies.set('zyy_accessToken', acsToken)
+    // $axios.setHeader('Authorization', 'Bearer' + acsToken)
+    // return $axios
     // $axios.post('/auth/oauth/token', params).then(res => {
     //   $axios.setHeader('Authorization', 'Bearer' + res.access_token)
     // })
@@ -321,17 +334,39 @@ export default {
     // $axios.setHeader('Authorization', 'Bearer' + data.access_token)
   },
   created() {
-    
+
   }, 
   mounted() {
+    const clientId = 'zyy_web'
+    const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
+    const encodeStr = Base64.encode(clientId + ':' + clientSecret);
     let params = {
       username: '',
       password: '',
       scope: 'server',
       grant_type: 'client_credentials'
     }
-    // this.$axios.post('/auth/oauth/token', params).then(res => {
-    //   this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
+    if(!Cookies.get('zyy_accessToken')) {
+      this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
+      this.$axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
+      this.$axios.post('/auth/oauth/token', params).then(res => {
+        Cookies.set('zyy_accessToken', res.access_token)
+        this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
+        this.getCarousel()
+        this.getMenuList()
+        this.getResearchList()
+        this.getRecommendList('zyjk')
+        this.getRecommendList('career')
+        this.getRecommendList('education')
+        this.getDoctorList()
+        this.getNewsList()
+        this.getTrainList()
+        this.getCategoryByCode('zyjk')
+        this.getCategoryByCode('career')
+        this.getCategoryByCode('education')
+      })
+    } else {
+      this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
       this.getCarousel()
       this.getMenuList()
       this.getResearchList()
@@ -344,7 +379,8 @@ export default {
       this.getCategoryByCode('zyjk')
       this.getCategoryByCode('career')
       this.getCategoryByCode('education')
-    // })
+    }
+    
   },
   methods: {
     // 跳转到头条页面
