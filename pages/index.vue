@@ -234,9 +234,11 @@
         <div class="container-header">
           <h2>培训项目</h2>
           <div class="subnav">
-            <span>职业培训</span>
-            <span>西学中</span>
-            <span class="pos-right">
+            <span @click="$router.push({ name: 'western' })">职业培训</span>
+            <span @click="$router.push({ name: 'western' })">西学中</span>
+            <span
+              class="pos-right"
+              @click="$router.push({ name: 'western' })">
               查看更多
               <i class="iconfont icon-more-right" />
             </span>

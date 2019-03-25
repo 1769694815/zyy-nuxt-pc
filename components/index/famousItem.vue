@@ -1,6 +1,8 @@
 <template>
   <div class="item">
-    <div class="img-box">
+    <div
+      class="img-box"
+      @click="toDetail(dataObj.id)">
       <img :src="dataObj.pic">
     </div>
     <div class="content">
@@ -26,7 +28,7 @@ export default {
   methods: {
     toDetail(id) {
       this.$router.push({
-        name: 'lessonDetail',
+        name: 'doctor-detail',
         query: {
           id
         }

@@ -35,6 +35,7 @@
         class="button"
         @click="payfor">去支付</div>
     </div>
+    <div v-html="payInfo" />
   </div>
 </template>
 <script>
@@ -42,14 +43,16 @@ import Cookies from 'js-cookie'
 export default {
   data() {
     return {
-      userInfo: ''
+      userInfo: '',
+      payInfo: ''
     }
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
+    this.getDetail()
   },
   methods: {
-    payfor() {
+    getDetail() {
       this.$axios.post('/yxs/api/web/user/payOrder', {
         price: 800.00,
         orderSn: '2019032511533759ab',
@@ -57,7 +60,11 @@ export default {
         userToken: this.userInfo.userToken
       }).then(res => {
         console.log(res.data.payInfo)
+        this.payInfo = res.data.payInfo
       })
+    },
+    payfor() {
+      document.punchout_form.submit()
     }
   }
 }
