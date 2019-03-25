@@ -31,7 +31,7 @@ export default function({ $axios, redirect }) {
     $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
     $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
     $axios.post('/auth/oauth/token', params).then(res => {
-      Cookies.set('zyy_accessToken', res.access_token)
+      Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
       $axios.setHeader('Authorization', 'Bearer' + res.access_token)
     })
   } else {

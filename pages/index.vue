@@ -350,7 +350,7 @@ export default {
       this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
       this.$axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
       this.$axios.post('/auth/oauth/token', params).then(res => {
-        Cookies.set('zyy_accessToken', res.access_token)
+        Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
         this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
         this.getCarousel()
         this.getMenuList()
