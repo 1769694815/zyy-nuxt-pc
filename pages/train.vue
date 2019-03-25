@@ -28,7 +28,7 @@
                   v-for="(item, index) in courses"
                   :key="index"
                   :class="{active:secondActive == index}"
-                  @click="changeSecond(item, index)">
+                  @click="changeSecond(item.id, index)">
                   {{ item.name }}
                 </span>
               </td>
@@ -177,23 +177,23 @@ export default {
             this.courses.push(item)
           })
         }
-        this.getList(item, 1)
+        this.getList(item.id, 1)
       }
     },
-    changeSecond(item, index) {
+    changeSecond(id, index) {
       this.secondActive = index
-      if(item.id == 0) {
+      if(id == 0) {
         this.getList('', 2)
       } else {
-        this.getList(item, 2)
+        this.getList(id, 2)
       }
     },
     changeThird(item, index) {
       this.thirdActive = index
       this.orderByClause = index == 0 ? 1 : 2
-      this.getList(item, 3)
+      this.getList(item.id, 3)
     },
-    getList(item, i) {
+    getList(id, i) {
       // if(i == 1) {
       //   this.classType = item.type ? 2 : 1
       // }
@@ -201,7 +201,7 @@ export default {
         params: {
           current: this.current,
           size: this.size,
-          categoryId: item.id || this.categoryId,
+          categoryId: id || this.categoryId,
           orderByClause: this.orderByClause,
           type: this.classType,
           userToken: ''

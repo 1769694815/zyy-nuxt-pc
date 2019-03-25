@@ -93,7 +93,9 @@
         <div class="container-header">
           <h2>名医师承</h2>
           <div class="subnav">
-            <span class="pos-right">
+            <span
+              class="pos-right"
+              @click="$router.push({ name: 'doctor' })">
               查看更多
               <i class="iconfont icon-more-right" />
             </span>
