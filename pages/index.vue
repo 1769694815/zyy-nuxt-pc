@@ -60,7 +60,15 @@
               v-if="index < 4"
               :key="index"
               @click="toToutiaoDetail(item)">
-              {{ `【${item.typeName}】${item.title}` }}
+              <span
+                style="overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                cursor: pointer">
+                {{ `【${item.typeName}】${item.title}` }}
+              </span>
             </li>
           </ul>
         </section>
@@ -75,7 +83,7 @@
           v-if="index < 4"
           :key="index"
           class="list-item">
-          <research-item :data-obj="item"/>
+          <research-item :data-obj="item" />
         </div>
       </div>
     </div>
@@ -510,6 +518,7 @@ export default {
       height: 400px;
       img {
         width: 100%;
+        height: 400px;
       }
     }
     &-content {
@@ -581,7 +590,6 @@ export default {
             color: #666;
             line-height: 22px;
             font-size: 14px;
-            cursor: pointer;
             &:last-child {
               border: none;
             }
@@ -637,8 +645,14 @@ export default {
       img {
         margin-left: 20px;
         cursor: pointer;
+        transition: all 0.3s ease 0s;
+        border-radius: 6px;
         &:first-child {
           margin: 0;
+        }
+        &:hover {
+          transform: translate(0, -5px);
+          box-shadow: 0 5px 12px #999;
         }
       }
     }
@@ -699,10 +713,15 @@ export default {
       margin-top: 24px;
       margin-left: 20px;
       font-size: 0;
+      border-radius: 6px;
+      overflow: hidden;
       cursor: pointer;
       &:hover .text{
         background: #3F8A38;
         color: #fff;
+      }
+      &:hover img {
+        transform: scale(1.1, 1.1);
       }
       &:first-child {
         margin-left: 0;
@@ -724,8 +743,8 @@ export default {
       display: inline-block;
       width: 285px;
       height: 160px;
-      border-radius: 6px;
       cursor: pointer;
+      transition: all 0.3s ease 0s;
     }
     .button {
       margin-top: 30px;

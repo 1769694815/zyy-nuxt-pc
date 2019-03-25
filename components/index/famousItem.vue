@@ -1,6 +1,8 @@
 <template>
   <div class="item">
-    <img :src="dataObj.pic">
+    <div class="img-box">
+      <img :src="dataObj.pic">
+    </div>
     <div class="content">
       <span class="name">{{ dataObj.name }}</span>
       <span class="rank">{{ dataObj.title }}</span>
@@ -38,11 +40,20 @@ export default {
     width: 224px;
     height: 215px;
   }
-  img {
+  .img-box {
     width: 224px;
     height: 126px;
+    overflow: hidden;
     border-radius: 6px;
+    &:hover img {
+      transform: scale(1.1, 1.1);
+    }
+  }
+  img {
+    width: 100%;
+    height: 126px;
     cursor: pointer;
+    transition: all 0.3s ease 0s;
   }
   .content {
     padding: 16px 10px;

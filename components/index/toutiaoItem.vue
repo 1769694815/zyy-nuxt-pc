@@ -36,11 +36,16 @@ export default {
     position: relative;
     width: 224px;
     height: 126px;
+    border-radius: 6px;
+    overflow: hidden;
+    &:hover img {
+      transform: scale(1.1, 1.1);
+    }
     img {
       width: 100%;
       height: 100%;
-      border-radius: 6px;
       cursor: pointer;
+      transition: all 0.3s ease 0s;
     }
     .tag {
       position: absolute;
@@ -61,6 +66,8 @@ export default {
       text-overflow: ellipsis;
       overflow: hidden;
       font-size: 18px;
+      cursor: pointer;
+
     }
     .desc {
       margin-top: 15px;

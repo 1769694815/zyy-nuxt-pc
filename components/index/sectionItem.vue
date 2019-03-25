@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <img
-      :src="dataObj.middle_picture"
-      @click="toDetail(dataObj.id)">
+    <div class="img-box">
+      <img
+        :src="dataObj.middle_picture"
+        @click="toDetail(dataObj.id)">
+    </div>
     <div class="content">
       <div class="title">{{ dataObj.title }}</div>
       <div class="info">
@@ -47,13 +49,22 @@ export default {
     width: 224px;
     height: 183px;
   }
+  .img-box {
+    width: 224px;
+    height: 126px;
+    overflow: hidden;
+    border-radius: 6px;
+    &:hover img {
+      transform: scale(1.1, 1.1);
+    }
+  }
   img {
     display: block;
     width: 224px;
     height: 126px;
     background: rgba(98,98,98,1);
-    border-radius: 6px;
     cursor: pointer;
+    transition: all 0.3s ease 0s;
   }
   .content {
     padding: 0 10px;
