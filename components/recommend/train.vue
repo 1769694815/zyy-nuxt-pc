@@ -87,11 +87,17 @@ export default {
         width: 100%;
         height: 173px;
         font-size: 0;
+        overflow: hidden;
         cursor: pointer;
+        border-radius: 6px;
+        &:hover img {
+          transform: scale(1.1, 1.1);
+        }
         img {
           width: 100%;
           height: 173px;
           border-radius: 6px;
+          transition: all .3s ease 0s;
         }
         &:hover .text{
           background: #3F8A38;

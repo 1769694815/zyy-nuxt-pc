@@ -84,8 +84,14 @@ export default {
         margin-left: 20px;
         width: 285px;
         height: 190px;
+        transition: all .3s ease 0s;
+        cursor: pointer;
         &:nth-child(4n+1) {
           margin-left: 0;
+        }
+        &:hover {
+          transform: translate(0, -8px);
+          box-shadow: 0 5px 10px #999;
         }
         img {
           margin: 0;

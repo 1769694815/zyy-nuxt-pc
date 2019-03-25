@@ -7,7 +7,9 @@
         v-if="index < 3"
         :key="index"
         class="item">
-        <img :src="item.middle_picture">
+        <div class="img-box">
+          <img :src="item.middle_picture">
+        </div>
         <div class="title">{{ item.title }}</div>
         <div class="info">
           <span class="teacher">讲师：{{ item.teacherName }}</span>
@@ -59,10 +61,20 @@ export default {
       &:first-child {
         margin: 0;
       }
+      .img-box {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 6px;
+        cursor: pointer;
+        &:hover img {
+          transform: scale(1.1, 1.1);
+        }
+      }
       img {
         width: 100%;
         height: 173px;
         border-radius: 6px;
+        transition: all .3s ease 0s;
       }
       .title {
         margin: 15px 0 0 10px;

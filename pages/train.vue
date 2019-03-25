@@ -83,7 +83,9 @@
               :key="index" 
               class="train-class"
               @click="toLessonDetail(item.id)">
-              <img v-lazy="item.middle_picture">
+              <div class="img-box">
+                <img v-lazy="item.middle_picture">
+              </div>
               <div class="content">
                 <div class="title">{{ item.title }}</div>
                 <div class="info">
@@ -221,7 +223,7 @@ export default {
         res.data.allCate.map(item => {
           this.types.push(item)
         })
-        this.changeFirst(res.data.allCate[1], 2)
+        this.changeFirst(res.data.allCate[0], 2)
       })
     },
     // 推荐培训项目
@@ -390,12 +392,21 @@ export default {
         &:nth-child(4n + 1){
           margin-left: 0;
         }
+        .img-box {
+          width: 218px;
+          height: 122px;
+          overflow: hidden;
+          border-radius: 6px;
+          cursor: pointer;
+          &:hover img {
+            transform: scale(1.1, 1.1);
+          }
+        }
         img {
-          display: block;
           width: 218px;
           height: 122px;
           background: rgba(98,98,98,1);
-          border-radius: 6px;
+          transition: all 0.3s ease 0s;
         }
         .content {
           padding: 0 10px;

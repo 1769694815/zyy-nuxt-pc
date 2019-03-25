@@ -59,7 +59,7 @@
               v-for="(item, index) in toutiaoList"
               v-if="index < 4"
               :key="index"
-              @click="toToutiaoDetail(item)">
+              @click="toToutiaoDetail(item.id)">
               <span
                 style="overflow: hidden;
                 text-overflow: ellipsis;
@@ -124,9 +124,11 @@
             v-for="(item, index) in healthSubList"
             v-if="index > 0"
             :key="index">
-            <span>{{ item.name }}</span>
+            <span @click="toList">{{ item.name }}</span>
           </span>
-          <span class="pos-right">
+          <span
+            class="pos-right"
+            @click="toList">
             查看更多
             <i class="iconfont icon-more-right" />
           </span>
@@ -159,9 +161,11 @@
             v-for="(item, index) in examSubList"
             v-if="index > 0"
             :key="index">
-            <span>{{ item.name }}</span>
+            <span @click="toList">{{ item.name }}</span>
           </span>
-          <span class="pos-right">
+          <span
+            class="pos-right"
+            @click="toList">
             查看更多
             <i class="iconfont icon-more-right" />
           </span>
@@ -194,9 +198,11 @@
             v-for="(item, index) in theorySubList"
             v-if="index > 0"
             :key="index">
-            <span>{{ item.name }}</span>
+            <span @click="toList">{{ item.name }}</span>
           </span>
-          <span class="pos-right">
+          <span
+            class="pos-right"
+            @click="toList">
             查看更多
             <i class="iconfont icon-more-right" />
           </span>
@@ -239,7 +245,8 @@
             v-for="(item, index) in trainList"
             v-if="index < 4"
             :key="index"
-            class="train-img">
+            class="train-img"
+            @click="toTrainDetail(item)">
             <img :src="item.middle_picture">
             <div class="text">中药炮制工</div>
           </div>
@@ -260,7 +267,8 @@
             v-for="(item, index) in toutiaoList"
             v-if="index < 6"
             :key="index"
-            class="toutiao-item">
+            class="toutiao-item"
+            @click="toToutiaoDetail(item.id)">
             <toutiao-item :data-obj="item"/>
           </div>
         </div>
@@ -397,11 +405,11 @@ export default {
         name: 'toutiao'
       })
     },
-    toToutiaoDetail(item) {
+    toToutiaoDetail(id) {
       this.$router.push({
         name: 'toutiao-detail',
         query: {
-          id: item.id
+          id
         }
       })
     },
@@ -503,6 +511,19 @@ export default {
               this.theorySubList = res.data
               break;
           }
+        }
+      })
+    },
+    toList() {
+      this.$router.push({
+        name: 'train'
+      })
+    },
+    toTrainDetail(item) {
+      this.$router.push({
+        name: 'trainDetail',
+        query: {
+          id: item.id
         }
       })
     }
@@ -619,6 +640,10 @@ export default {
         margin-left: 16px;
         font-size: 14px;
         color: #666;
+        cursor: pointer;
+        &:hover {
+          color: #3F8A38;
+        }
       }
       .pos-right {
         position: absolute;
@@ -773,6 +798,7 @@ export default {
       display: inline-block;
       width: 590px;
       margin-bottom: 24px;
+      cursor: pointer;
       &:nth-child(even) {
         margin-left: 20px;
       }

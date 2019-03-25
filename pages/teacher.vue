@@ -3,22 +3,6 @@
     <v-header />
     <nav-bar />
     <nuxt-child class="container" />
-    <!-- <div class="container">
-      <div class="container-left">
-        <ul>
-          <li
-            v-for="(item, index) in leftList"
-            :key="index"
-            :class="tab == (index + 1) ? 'active' : ''"
-            @click="switchTab(index)">
-            {{ item.label }}
-          </li>
-        </ul>
-      </div>
-      <div class="container-right">
-        <nuxt-child />
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
