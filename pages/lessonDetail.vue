@@ -2,7 +2,7 @@
   <div style="width:100%">
     <v-header />
     <div class="lesson-detail">
-      <Navbar/>
+      <Navbar />
       <div class="header">
         <div class="header-content">
           <div class="crumb">
@@ -53,17 +53,33 @@
             <div class="lessondetail-nav">
               <ul>
                 <li
-                  v-for="(item,index) in navList" 
+                  v-for="(item, index) in navList"
                   :key="index" 
-                  :class="tab === (index+1)? 'active' : ''" 
+                  :class="tab === (index + 1) ? 'active' : ''" 
                   @click="switchTab(index)"> {{ item.label }} </li>
               </ul>
             </div>
             <div class="lesson-intronduce">
-              <h1>课程介绍</h1>
-              <div class="text">
-                {{ detailData.brife }}
+              <div v-show="tab == 1">
+                <h1>课程介绍</h1>
+                <div class="text">
+                  {{ detailData.brife }}
+                </div>
               </div>
+              <ul v-show="tab == 2">
+                <li
+                  v-for="(item, index) in detailData.lesson"
+                  :key="index">
+                  <span class="circle" />
+                  <span
+                    v-if="item.isfree"
+                    class="free">免费</span>
+                  <span>医药统计学概论</span>
+                  <div class="right">
+                    时长
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="content-right">
@@ -99,7 +115,7 @@
             <ul>
               <li
                 v-for="(item,index) in detailData.courseList" 
-                :key="index" 
+                :key="index"
                 class="lesson">
                 <img :src="item.pic">
                 <h3>{{ item.title }}</h3>
@@ -137,10 +153,10 @@ export default {
       detailData: {},
       showModal: false,
       navList:[
-        {label:"课程概览", value: 1},
-        {label:"课程视频", value: 2},
-        {label:"评论", value: 3},
-        {label:"笔记", value: 4}
+        { label: "课程概览", value: 1 },
+        { label: "课程视频", value: 2 },
+        { label: "评论", value: 3 }
+        // { label: "笔记", value: 4 }
       ]
     }
   },
@@ -148,8 +164,8 @@ export default {
     this.getDetail()
   },
   methods: {
-    switchTab(index){
-      this.tab = index+1;
+    switchTab(index) {
+      this.tab = index + 1;
     },
     getDetail() {
       this.$axios('/yxs/api/web/course/courseDetail', {
@@ -302,7 +318,7 @@ export default {
       .content-left{
         margin: 20px 0px 53px 40px;
         background: #ffffff;
-        height: 1149px;
+        min-height: 1149px;
         width: 860px;
         float: left;
         .lessondetail-nav{
@@ -343,8 +359,32 @@ export default {
               text-indent: 4px;
             }
           }
+          ul {
+            li {
+              position: relative;
+              height: 50px;
+              line-height: 50px;
+              cursor: pointer;
+              span {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 10px;
+              }
+              .circle {
+                width: 10px;
+                height: 10px;
+                margin-left: 0;
+                border: 2px solid #999;
+                border-radius: 50%;
+                background: #fff;
+              }
+              .right {
+                float: right;
+              }
+            }
+          }
         }
-      }   
+      }
       .content-right{
         margin: 20px 35px 0 0;
         float: right;
@@ -427,6 +467,7 @@ export default {
         }
       }
       .related-class{
+        width: 245px;
         height: 615px;
         float:right;
         background:#ffffff;

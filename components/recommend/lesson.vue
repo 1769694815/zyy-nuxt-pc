@@ -6,7 +6,8 @@
         v-for="(item, index) in recommendLessons"
         v-if="index < 3"
         :key="index"
-        class="item">
+        class="item"
+        @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
         <div class="img-box">
           <img :src="item.middle_picture">
         </div>
@@ -57,6 +58,7 @@ export default {
       padding: 16px;
     }
     .item {
+      cursor: pointer;
       margin-top: 20px;
       &:first-child {
         margin: 0;

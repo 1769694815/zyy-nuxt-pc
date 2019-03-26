@@ -41,6 +41,7 @@
 <script>
 import Cookies from 'js-cookie'
 export default {
+  middleware: 'userAuth',
   data() {
     return {
       userInfo: '',

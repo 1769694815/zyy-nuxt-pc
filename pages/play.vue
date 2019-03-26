@@ -99,6 +99,7 @@ import VideoPlayer from '~/components/video.vue'
 import NavBar from '~/components/navBar.vue'
 import Cookies from 'js-cookie'
 export default {
+  middleware: 'userAuth',
   components: {
     VideoPlayer,
     NavBar,
@@ -143,7 +144,6 @@ export default {
     this.getInfo()
     this.getList()
     this.getRecommendList('zyjk')
-    
   },
   methods: {
     getInfo() {

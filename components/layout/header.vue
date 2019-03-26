@@ -214,9 +214,7 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
-    // let userToken = window.localStorage.getItem('zyy_userToken')
     let userInfo = Cookies.getJSON('zyy_userInfo')
-    console.log('userinfo', userInfo)
     this.rankName = judgeUser()
     if(userInfo) {
       this.userInfo = userInfo

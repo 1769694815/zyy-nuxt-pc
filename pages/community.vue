@@ -11,16 +11,22 @@
             <el-carousel-item
               v-for="(item, index) in carousels"
               :key="index">
-              <img :src="item.url">
+              <img
+                :src="item.url"
+                @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
             </el-carousel-item>
           </el-carousel>
         </div>
         <div class="banner-right">
-          <img
+          <div 
             v-for="(item, index) in rightList"
             v-if="index < 2"
             :key="index"
-            :src="item.middle_picture">
+            class="right-item"
+            @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
+            <img :src="item.middle_picture">
+            <div class="title">{{ item.title }}</div>
+          </div>
         </div>
       </div>
       <div class="flex">
@@ -33,7 +39,9 @@
             <li
               v-for="(item, index) in channels"
               :key="index">
-              <div class="info">
+              <div
+                class="info"
+                @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
                 <div class="date">
                   <div class="day">{{ item.publishedTime.split('-')[1] }}</div>
                   <div class="month">{{ item.publishedTime.split('-')[0] }}月</div>
@@ -52,8 +60,12 @@
           <ul>
             <li
               v-for="(item, index) in healthList"
-              :key="index">
-              <img :src="item.middle_picture">
+              v-if="index < 3"
+              :key="index"
+              @click="$router.push({ name: 'lessonDetail', query: { id: item.id} })">
+              <div class="img-box">
+                <img :src="item.middle_picture">
+              </div>
               <div class="desc">
                 <div class="name">{{ item.title }}</div>
                 <div class="number">{{ item.studentNum }}</div>
@@ -72,7 +84,8 @@
         <ul>
           <li
             v-for="(item, index) in careerList"
-            :key="index">
+            :key="index"
+            @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
             <img :src="item.middlePicture">
             <div class="desc">{{ item.title }}</div>
           </li>
@@ -88,7 +101,8 @@
         <ul>
           <li
             v-for="(item, index) in wisdomList"
-            :key="index">
+            :key="index"
+            @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
             <img :src="item.middlePicture">
             <div class="desc">{{ item.title }}</div>
           </li>
@@ -186,12 +200,37 @@ export default {
     }
     .banner-right {
       margin-left: 20px;
-      img {
+      .right-item {
+        position: relative;
         width: 378px;
         height: 213px;
+        overflow: hidden;
+        cursor: pointer;
         &:last-child {
           margin-top: 22px;
         }
+        &:hover img {
+          transform: scale(1.1, 1.1);
+        }
+        &:hover .title {
+          bottom: 0;
+        }
+      }
+      img {
+        width: 378px;
+        height: 213px;
+        transition: all .3s ease 0s;
+      }
+      .title {
+        position: absolute;
+        bottom: -30px;
+        width: 358px;
+        height: 30px;
+        padding-left: 20px;
+        line-height: 30px;
+        color: #fff;
+        background: rgba(0, 0, 0, .3);
+        transition: all .3s ease 0s;
       }
     }
     .channel {
@@ -227,6 +266,7 @@ export default {
           .info {
             display: flex;
             align-items: center;
+            cursor: pointer;
             .date {
               width: 45px;
               height: 39px;
@@ -249,6 +289,9 @@ export default {
                 margin-top: 8px;
                 font-size: 22px;
                 color: #333;
+                &:hover {
+                  color: #3F8A38;
+                }
               }
             }
           }
@@ -277,9 +320,19 @@ export default {
       ul {
         li {
           margin-bottom: 20px;
+          cursor: pointer;
+          &:hover img {
+            transform: scale(1.1, 1.1);
+          }
+          .img-box {
+            width: 338px;
+            height: 190px;
+            overflow: hidden;
+          }
           img {
             width: 338px;
             height: 190px;
+            transition: all 0.3s ease 0s;
           }
           .desc {
             display: flex;
@@ -289,6 +342,9 @@ export default {
             .name {
               color: #333;
               font-size: 16px;
+              &:hover {
+                color: #3F8A38;
+              }
             }
             .number {
               color: #999;
@@ -331,12 +387,20 @@ export default {
       li {
         flex-shrink: 1;
         margin-left: 20px;
+        cursor: pointer;
+        &:hover img {
+          transform: scale(1.1, 1.1);
+        }
+        &:hover .desc {
+          color: #3F8A38;
+        }
         &:first-child {
           margin-left: 0;
         }
         img {
           width: 225px;
           height: 127px;
+          transition: all .3s ease 0s;
         }
         .desc {
           margin-top: 10px;

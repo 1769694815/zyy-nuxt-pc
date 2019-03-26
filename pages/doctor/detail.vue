@@ -51,14 +51,14 @@ export default {
     }
   },
   mounted() {
-    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     this.getDetail()
   },
   methods: {
     getDetail() {
       let params = {
         doctorId: this.id,
-        userToken: this.userInfo.userToken
+        userToken: this.userInfo.userToken || ''
       }
       this.$axios('/yxs/api/web/doctor/detail', {
         params

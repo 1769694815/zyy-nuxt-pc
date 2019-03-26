@@ -6,7 +6,8 @@
         v-for="(item, index) in recommendTrains"
         v-if="index < 3"
         :key="index"
-        class="item">
+        class="item"
+        @click="$router.push({ name: 'trainDetail', query: { id: item.id }})">
         <div class="train-img">
           <img :src="item.middle_picture">
           <div class="text">中药炮制工</div>
@@ -78,6 +79,7 @@ export default {
       padding: 16px;
       .item {
         margin-top: 24px;
+        cursor: pointer;
         &:first-child {
           margin: 0;
         }
