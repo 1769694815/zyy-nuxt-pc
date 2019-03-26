@@ -1,112 +1,114 @@
 <template>
-  <div style="width:100%; background: #f2f2f2">
+  <div style="width:100%;">
     <v-header />
     <nav-bar :tab-index="tabIndex" />
-    <div class="container">
-      <div class="flex">
-        <div class="banner">
-          <el-carousel
-            height="450px"
-            class="imgs">
-            <el-carousel-item
-              v-for="(item, index) in carousels"
-              :key="index">
-              <img
-                :src="item.url"
-                @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-        <div class="banner-right">
-          <div 
-            v-for="(item, index) in rightList"
-            v-if="index < 2"
-            :key="index"
-            class="right-item"
-            @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
-            <img :src="item.middle_picture">
-            <div class="title">{{ item.title }}</div>
+    <div style="background: #f2f2f2">
+      <div class="container">
+        <div class="flex">
+          <div class="banner">
+            <el-carousel
+              height="450px"
+              class="imgs">
+              <el-carousel-item
+                v-for="(item, index) in carousels"
+                :key="index">
+                <img
+                  :src="item.url"
+                  @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
+              </el-carousel-item>
+            </el-carousel>
           </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="channel">
-          <div class="header">
-            <div class="title">进社区频道</div>
-            <div class="more">更多</div>
-          </div>
-          <ul>
-            <li
-              v-for="(item, index) in channels"
-              :key="index">
-              <div
-                class="info"
-                @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
-                <div class="date">
-                  <div class="day">{{ item.publishedTime.split('-')[1] }}</div>
-                  <div class="month">{{ item.publishedTime.split('-')[0] }}月</div>
-                </div>
-                <div class="right">
-                  <div class="tip">头条通知</div>
-                  <div class="title">{{ item.title }}</div>
-                </div>
-              </div>
-              <p>{{ item.brife }}</p>
-            </li>
-          </ul>
-        </div>
-        <div class="course">
-          <div class="title">推荐课程</div>
-          <ul>
-            <li
-              v-for="(item, index) in healthList"
-              v-if="index < 3"
+          <div class="banner-right">
+            <div 
+              v-for="(item, index) in rightList"
+              v-if="index < 2"
               :key="index"
-              @click="$router.push({ name: 'lessonDetail', query: { id: item.id} })">
-              <div class="img-box">
-                <img :src="item.middle_picture">
-              </div>
-              <div class="desc">
-                <div class="name">{{ item.title }}</div>
-                <div class="number">{{ item.studentNum }}</div>
-              </div>
+              class="right-item"
+              @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
+              <img :src="item.middle_picture">
+              <div class="title">{{ item.title }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="channel">
+            <div class="header">
+              <div class="title">进社区频道</div>
+              <div class="more">更多</div>
+            </div>
+            <ul>
+              <li
+                v-for="(item, index) in channels"
+                :key="index">
+                <div
+                  class="info"
+                  @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
+                  <div class="date">
+                    <div class="day">{{ item.publishedTime.split('-')[1] }}</div>
+                    <div class="month">{{ item.publishedTime.split('-')[0] }}月</div>
+                  </div>
+                  <div class="right">
+                    <div class="tip">头条通知</div>
+                    <div class="title">{{ item.title }}</div>
+                  </div>
+                </div>
+                <p>{{ item.brife }}</p>
+              </li>
+            </ul>
+          </div>
+          <div class="course">
+            <div class="title">推荐课程</div>
+            <ul>
+              <li
+                v-for="(item, index) in healthList"
+                v-if="index < 3"
+                :key="index"
+                @click="$router.push({ name: 'lessonDetail', query: { id: item.id} })">
+                <div class="img-box">
+                  <img :src="item.middle_picture">
+                </div>
+                <div class="desc">
+                  <div class="name">{{ item.title }}</div>
+                  <div class="number">{{ item.studentNum }}</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="wrap">
+          <div class="wrap-item">
+            <div class="text">
+              <div class="title">中医基础课程</div>
+              <div class="subtitle">免费公开课</div>
+            </div>
+          </div>
+          <ul>
+            <li
+              v-for="(item, index) in careerList"
+              :key="index"
+              @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
+              <img :src="item.middlePicture">
+              <div class="desc">{{ item.title }}</div>
             </li>
           </ul>
         </div>
-      </div>
-      <div class="wrap">
-        <div class="wrap-item">
-          <div class="text">
-            <div class="title">中医基础课程</div>
-            <div class="subtitle">免费公开课</div>
+        <div class="wrap">
+          <div class="wrap-item wrap-item-2">
+            <div class="text">
+              <div class="title">智慧树学堂</div>
+              <div class="subtitle">免费公开课</div>
+            </div>
           </div>
+          <ul>
+            <li
+              v-for="(item, index) in wisdomList"
+              :key="index"
+              @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
+              <img :src="item.middlePicture">
+              <div class="desc">{{ item.title }}</div>
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li
-            v-for="(item, index) in careerList"
-            :key="index"
-            @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
-            <img :src="item.middlePicture">
-            <div class="desc">{{ item.title }}</div>
-          </li>
-        </ul>
-      </div>
-      <div class="wrap">
-        <div class="wrap-item wrap-item-2">
-          <div class="text">
-            <div class="title">智慧树学堂</div>
-            <div class="subtitle">免费公开课</div>
-          </div>
-        </div>
-        <ul>
-          <li
-            v-for="(item, index) in wisdomList"
-            :key="index"
-            @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
-            <img :src="item.middlePicture">
-            <div class="desc">{{ item.title }}</div>
-          </li>
-        </ul>
       </div>
     </div>
   </div>
@@ -189,7 +191,7 @@ export default {
     padding-bottom: 30px;
     .flex {
       display: flex;
-      margin-top: 20px;
+      padding-top: 20px;
     }
     .banner {
       flex: 0 0 800px;

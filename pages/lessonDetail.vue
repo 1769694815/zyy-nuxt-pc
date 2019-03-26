@@ -23,14 +23,24 @@
             </div>
             <div class="des">
               <div class="des-text">
-                <h2 class="des-title">课程介绍 ：</h2>
-                <p
+                <h2 class="des-title">课程简介 ：</h2>
+                <div
                   class="text"
-                  style="overflow: hidden;
-                      text-overflow: ellipsis;
-                      display: -webkit-box;
-                      -webkit-line-clamp: 2;
-                      -webkit-box-orient: vertical;">{{ detailData.brife }}</p>
+                  style="width: 100%;
+                    height: 52px;
+                    font-size: 14px;
+                    color: #666666;
+                    align-items: center;
+                    line-height: 26px;
+                    padding-top: 6px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;">
+                  {{ detailData.brife }}
+
+                </div>
               </div>
             </div>
             <div class="price">
@@ -61,7 +71,7 @@
             </div>
             <div class="lesson-intronduce">
               <div v-show="tab == 1">
-                <h1>课程介绍</h1>
+                <!-- <h1>课程介绍</h1> -->
                 <div class="text">
                   {{ detailData.brife }}
                 </div>
@@ -69,14 +79,15 @@
               <ul v-show="tab == 2">
                 <li
                   v-for="(item, index) in detailData.lesson"
-                  :key="index">
+                  :key="index"
+                  @click="$router.push({ name: 'play', query: { courseId: id }})">
                   <span class="circle" />
                   <span
-                    v-if="item.isfree"
+                    v-if="item.free == 2"
                     class="free">免费</span>
-                  <span>医药统计学概论</span>
+                  <span>{{ item.title }}</span>
                   <div class="right">
-                    时长
+                    {{ timestr(item.length) }}
                   </div>
                 </li>
               </ul>
@@ -140,6 +151,7 @@
 import Navbar from "~/components/navBar.vue"
 import Header from '~/components/layout/header.vue'
 import BuyModal from '~/components/modal/buyModal.vue'
+import { formatSeconds } from '~/assets/js/util'
 export default {
   components: {
     Navbar,
@@ -158,6 +170,13 @@ export default {
         { label: "评论", value: 3 }
         // { label: "笔记", value: 4 }
       ]
+    }
+  },
+  computed: {
+    timestr() {
+      return function(time) {
+        return formatSeconds(time)
+      }
     }
   },
   mounted() {
@@ -252,18 +271,24 @@ export default {
           background: rgba(245,245,245,1);
           margin-top: 20px;
           .des-text{
-            padding: 16px 20px 0 17px;       
+            padding: 16px 20px 0 17px;
             .des-title{
               color: #333333;
               font-size: 14px;
             }
             .text{
               width: 100%;
+              height: 52px;
               font-size: 14px;
               color: #666666;
               align-items: center;
               line-height: 26px;
               padding-top: 6px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical; 
             }
           }
         }
@@ -352,6 +377,7 @@ export default {
             font-weight: 700;
           }
           .text{
+            text-indent: 32px;
             color: #666666;
             font-size: 16px;
             line-height: 36px;
@@ -364,7 +390,11 @@ export default {
               position: relative;
               height: 50px;
               line-height: 50px;
+              padding: 0 10px;
               cursor: pointer;
+              &:hover {
+                background: #F5F5F5;
+              }
               span {
                 display: inline-block;
                 vertical-align: middle;
@@ -377,6 +407,15 @@ export default {
                 border: 2px solid #999;
                 border-radius: 50%;
                 background: #fff;
+              }
+              .free {
+                width: 40px;
+                height: 26px;
+                line-height: 26px;
+                color: #fff;
+                text-align: center;
+                background: #3F8A38;
+                border-radius: 4px;
               }
               .right {
                 float: right;
@@ -459,6 +498,7 @@ export default {
         li{
           display: block;
           font-size: 12px;
+          line-height: 16px;
           color: #333333;
           padding-bottom: 25px;
           span{
@@ -512,5 +552,4 @@ export default {
     }
   }
 }
-
 </style>

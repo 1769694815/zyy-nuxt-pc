@@ -31,6 +31,7 @@
 </template>
 <script>
 import PersonalTab from '~/components/mine/personalTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     PersonalTab
@@ -40,6 +41,7 @@ export default {
       tabIndex: 2,
       size: 10,
       current: 1,
+      userInfo: '',
       list: []
     }
   },
@@ -53,13 +55,11 @@ export default {
       })
     },
     getList() {
-      let userToken = localStorage.getItem('zyy_userToken')
-      if(userToken) {
-        this.$axios.setHeader('userToken', userToken)
-      }
+      this.userInfo = Cookies.getJSON('zyy_userInfo')
       let params = {
         size: this.size,
-        current: this.current
+        current: this.current,
+        userToken: this.userInfo.userToken
       }
       this.$axios('/yxs/api/web/user/getOrdersPageByUserId', {
         params

@@ -55,8 +55,8 @@ export default {
   methods: {
     getDetail() {
       this.$axios.post('/yxs/api/web/user/payOrder', {
-        price: 800.00,
-        orderSn: '2019032511533759ab',
+        price: 0.01,
+        orderSn: '201903262022080c22',
         payWay: 'APP_PAY',
         userToken: this.userInfo.userToken
       }).then(res => {

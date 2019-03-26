@@ -100,6 +100,7 @@
 </template>
 <script>
 import PersonalTab from '~/components/mine/personalTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     PersonalTab
@@ -108,6 +109,7 @@ export default {
     return {
       isEdit: false,
       tabIndex: 1,
+      userInfo: '',
       form: {
         userName: '',
         nickName: '',
@@ -121,15 +123,16 @@ export default {
     }
   },
   mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()
   },
   methods: {
     getInfo() {
-      let userToken = localStorage.getItem('zyy_userToken')
-      if(userToken) {
-        this.$axios.setHeader('userToken', userToken)
-      }
-      this.$axios('/admin/api/web/user/info').then(res => {
+      this.$axios('/admin/api/web/user/info', {
+        params: {
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
         this.form = res.data
       })
     },
@@ -151,7 +154,7 @@ export default {
     save() {
       // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
       this.$axios.post('/admin/api/web/user/update', {
-        userToken: localStorage.getItem('zyy_userToken'),
+        userToken: this.userInfo.userToken,
         userName: this.form.userName,
         nickName: this.form.nickName,
         sex: this.form.sex,

@@ -97,6 +97,7 @@ export default {
       line-height: 50px;
       background: #3F8A38;
       color: #fff;
+      border-right: 1px solid #fff;
       .icon-caidan {
         font-size: 20px;
       }

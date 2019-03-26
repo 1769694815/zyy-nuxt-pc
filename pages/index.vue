@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <v-header />
-    <v-nav :tab-index="tabIndex" />
+    <div style="width: 1200px; overflow:hidden; margin: 0 auto; border-right: 1px solid #ddd">
+      <v-nav :tab-index="tabIndex" />
+    </div>
     <!-- 轮播图 -->
     <div class="carousel">
       <el-carousel
