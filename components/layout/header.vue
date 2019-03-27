@@ -86,10 +86,13 @@
       <div class="search">
         <div class="input">
           <input
+            v-model="text"
             type="text"
             placeholder="输入关键词找课程">
         </div>
-        <div class="search-icon">
+        <div
+          class="search-icon"
+          @click="search">
           <img src="~/assets/images/search.png">
         </div>
       </div>
@@ -104,9 +107,12 @@
             src="~/assets/images/fix_logo.png">
           <div class="search">
             <input
+              v-model="text"
               type="text"
               placeholder="输入关键词找课程">
-            <div class="search-icon">
+            <div
+              class="search-icon"
+              @click="search">
               <img src="~/assets/images/search.png">
             </div>
           </div>
@@ -160,6 +166,7 @@ export default {
       dialogVisible: false,
       userInfo: '',
       rankName: '',
+      text: '',
       learnList: [
         {
           label: '我的课程',
@@ -274,6 +281,15 @@ export default {
         name: 'login'
       })
       this.dialogVisible = false
+    },
+    // 搜索
+    search() {
+      this.$router.push({
+        name: 'searchResult',
+        query: {
+          title: this.text
+        }
+      })
     }
   }
 }
@@ -379,6 +395,7 @@ export default {
         width: 72px;
         height: 34px;
         background: #3F8A38;
+        cursor: pointer;
         img {
           display: block;
           width: 20px;
@@ -427,6 +444,7 @@ export default {
           height: 34px;
           line-height: 34px;
           background: #99c04f;
+          cursor: pointer;
           img {
             display: block;
             width: 20px;
