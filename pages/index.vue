@@ -58,7 +58,7 @@
           </div>
           <ul>
             <li
-              v-for="(item, index) in toutiaoList"
+              v-for="(item, index) in stickyList"
               v-if="index < 4"
               :key="index"
               @click="toToutiaoDetail(item.id)">
@@ -258,7 +258,7 @@
           </div>
         </div>
         <div class="button">
-          <span>
+          <span @click="change">
             <i class="iconfont icon-shuaxin" />
             换一批
           </span>
@@ -309,6 +309,8 @@ export default {
   data() {
     return {
       tabIndex: 1,
+      current: 1,
+      size: 4,
       carousels: [],
       infoList: [],
       researchList: [],
@@ -319,6 +321,7 @@ export default {
       rightList: [],
       trainList: [],
       toutiaoList: [],
+      stickyList: [],
       healthSubList: [],
       examSubList: [],
       theorySubList: []
@@ -386,6 +389,7 @@ export default {
         this.getCategoryByCode('zyjk')
         this.getCategoryByCode('career')
         this.getCategoryByCode('education')
+        this.getStickyList()
       })
     } else {
       this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
@@ -401,6 +405,7 @@ export default {
       this.getCategoryByCode('zyjk')
       this.getCategoryByCode('career')
       this.getCategoryByCode('education')
+      this.getStickyList()
     }
     
   },
@@ -482,19 +487,40 @@ export default {
     getTrainList() {
       this.$axios('/yxs/api/web/course/getRecommendTrainList', {
         params: {
-          type: ''
+          type: '',
+          current: this.current,
+          size: this.size
         }
       }).then(res => {
         if(res.code == 0) {
-          this.trainList = res.data
+          if(res.data.records.length == 0) {
+            return
+          } else if(res.data.records.length < 4) {
+            this.current = 0
+            this.trainList = res.data.records
+          } else {
+            this.trainList = res.data.records
+          }
         }
       })
+    },
+    change() {
+      this.current += 1
+      this.getTrainList()
     },
     // 获取首页资讯
     getNewsList() {
       this.$axios('/yxs/api/web/news/recommendList').then(res => {
         if(res.code == 0) {
           this.toutiaoList = res.data
+        }
+      })
+    },
+    // 获取banner资讯
+    getStickyList() {
+      this.$axios('/yxs/api/web/news/stickyList').then(res => {
+        if(res.code == 0) {
+          this.stickyList = res.data
         }
       })
     },
@@ -546,6 +572,7 @@ export default {
       img {
         width: 100%;
         height: 400px;
+        cursor: pointer;
       }
     }
     &-content {
@@ -795,6 +822,10 @@ export default {
         color: #666;
         text-align: center;
         cursor: pointer;
+        &:hover {
+          background: #3F8A38;
+          color: #fff;
+        }
       }
     }
   }

@@ -39,10 +39,14 @@
         <div class="container-title">我的其他课程</div>
         <ul>
           <li
-            v-for="(item,index) in otherList"
+            v-for="(item, index) in otherList"
             :key="index"
             class="list-item">
-            <img :src="item.middlePicture">
+            <div
+              class="img-box"
+              @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
+              <img :src="item.middlePicture">
+            </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <p
@@ -69,7 +73,11 @@
           <li
             v-for="(item, index) in recommendList"
             :key="index">
-            <img :src="item.middle_picture">
+            <div
+              class="img-box"
+              @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
+              <img :src="item.middle_picture">              
+            </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <div class="info">
@@ -111,29 +119,7 @@ export default {
       lessonId: null,
       userInfo: '',
       info: '',
-      menuList: [
-        {
-          chapter: '第一章',
-          name: '绪论',
-          title: '药膳养生师概念',
-          percent: 96,
-          time: 130
-        },
-        {
-          chapter: '第一章',
-          name: '绪论',
-          title: '药膳养生师概念',
-          percent: 96,
-          time: 130
-        },
-        {
-          chapter: '第一章',
-          name: '绪论',
-          title: '药膳养生师概念',
-          percent: 96,
-          time: 130
-        },
-      ],
+      menuList: [],
       otherList: [],
       recommendList: []
     }
@@ -279,15 +265,30 @@ export default {
         &:first-child {
           margin-left: 0;
         }
+        .img-box {
+          width: 224px;
+          height: 126px;
+          border-radius: 6px;
+          overflow: hidden;
+          cursor: pointer;
+          &:hover img {
+            transform: scale(1.1, 1.1);
+          }
+        }
         img {
           width: 224px;
           height: 126px;
           border-radius: 6px;
+          transition: all .3s ease 0s;
         }
         .content {
           padding: 0 10px;
         }
         .title {
+          width: 100%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
           margin-top: 12px;
           font-size: 14px;
           color: #333;
@@ -308,6 +309,9 @@ export default {
           color: #999;
           span {
             display: inline-block;
+            &:last-child {
+              margin-right: 20px;
+            }
           }
         }
       }
@@ -321,10 +325,21 @@ export default {
         &:first-child {
           margin: 0;
         }
+        .img-box {
+          width: 224px;
+          height: 126px;
+          border-radius: 6px;
+          overflow: hidden;
+          cursor: pointer;
+          &:hover img {
+            transform: scale(1.1, 1.1);
+          }
+        }
         img {
           width: 224px;
           height: 126px;
           border-radius: 6px;
+          transition: all .3s ease 0s;
         }
         .content {
           padding: 0 10px;

@@ -14,7 +14,8 @@
         v-for="(item, index) in recommendNews"
         v-if="index < 3"
         :key="index"
-        class="item">
+        class="item"
+        @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
         <span class="circle"/>
         <span>【{{ item.typeName }}】</span>
         <span>{{ item.title }}</span>
@@ -91,6 +92,7 @@ export default {
         line-height: 20px;
         font-size: 0;
         color: #666;
+        cursor: pointer;
       }
       .circle {
         display: inline-block;

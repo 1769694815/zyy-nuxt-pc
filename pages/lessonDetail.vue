@@ -178,7 +178,9 @@
               </li>
             </ul>
           </div>
-          <div class="foot-img">
+          <div
+            class="foot-img"
+            @click="$router.push({ name: 'service'})">
             <img src="~/assets/images/foot-img.jpg">
           </div>
         </div>
