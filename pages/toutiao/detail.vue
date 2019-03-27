@@ -235,7 +235,7 @@ export default {
       .item {
         margin-top: 30px;
         display: flex;
-        .avatar {
+        .avatar img{
           width: 50px;
           height: 50px;
           border-radius: 50%;

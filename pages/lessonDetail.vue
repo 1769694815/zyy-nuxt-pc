@@ -76,7 +76,9 @@
                   {{ detailData.brife }}
                 </div>
               </div>
-              <ul v-show="tab == 2">
+              <ul
+                v-show="tab == 2"
+                class="lesson-list">
                 <li
                   v-for="(item, index) in detailData.lesson"
                   :key="index"
@@ -91,6 +93,48 @@
                   </div>
                 </li>
               </ul>
+              <div
+                v-show="tab == 3"
+                class="rating">
+                <!-- <div class="title">我要评论</div> -->
+                <div class="mine">
+                  <div class="avatar">
+                    <i class="iconfont icon-user" />
+                  </div>
+                  <div class="textarea">
+                    <textarea
+                      v-model="text"
+                      placeholder="输入你的想法..." />
+                    <div
+                      class="button"
+                      @click="createComment">发表评论</div>
+                  </div>
+                </div>
+                <div class="all">
+                  <div class="all-top">
+                    <span>全部评论</span>
+                    <span class="number">{{ commentList.length }}条评论</span>
+                  </div>
+                  <ul class="list">
+                    <li
+                      v-for="(item, index) in commentList"
+                      :key="index"
+                      class="item">
+                      <div class="avatar">
+                        <!-- <i class="iconfont icon-user" /> -->
+                        <img :src="item.avatar">
+                      </div>
+                      <div class="content">
+                        <span class="name">{{ item.user_name }}</span>
+                        <span class="date">{{ item.createTime }}</span>
+                        <p>
+                          {{ item.content }}
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
           <div class="content-right">
@@ -152,6 +196,7 @@ import Navbar from "~/components/navBar.vue"
 import Header from '~/components/layout/header.vue'
 import BuyModal from '~/components/modal/buyModal.vue'
 import { formatSeconds } from '~/assets/js/util'
+import Cookies from 'js-cookie'
 export default {
   components: {
     Navbar,
@@ -164,6 +209,8 @@ export default {
       id: this.$route.query.id,
       detailData: {},
       showModal: false,
+      commentList: [],
+      text: '',
       navList:[
         { label: "课程概览", value: 1 },
         { label: "课程视频", value: 2 },
@@ -180,7 +227,9 @@ export default {
     }
   },
   mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     this.getDetail()
+    this.getComment()
   },
   methods: {
     switchTab(index) {
@@ -208,6 +257,42 @@ export default {
     },
     buyLesson() {
       this.showModal = true
+    },
+    getComment() {
+      let params = {
+        objId: this.id,
+        objType: 1, // 1：课程评论， 2：资讯评论
+        current: 1,
+        size: 10
+      }
+      this.$axios('/yxs/api/web/user/commentList', {
+        params
+      }).then(res => {
+        this.commentList = res.data.records
+      })
+    },
+    // 发表评论
+    createComment() {
+      if(!this.text) {
+        this.$message({
+          message: '请输入评论',
+          type: 'warning'
+        })
+        return
+      }
+      this.$axios.post('/yxs/api/web/user/comment', {
+        objId: this.id,
+        objType: 1, // 1：课程评论， 2：资讯评论
+        content: this.text,
+        userToken: this.userInfo.userToken
+      }).then(res => {
+        this.text = ''
+        this.$message({
+          message: '已评论，待审核',
+          type: 'success'
+        })
+        this.getComment()
+      })
     }
   }
 };
@@ -385,7 +470,7 @@ export default {
               text-indent: 4px;
             }
           }
-          ul {
+          .lesson-list {
             li {
               position: relative;
               height: 50px;
@@ -419,6 +504,98 @@ export default {
               }
               .right {
                 float: right;
+              }
+            }
+          }
+          .rating {
+            .title {
+              font-size: 24px;
+              color: #333;
+            }
+            .mine {
+              display: flex;
+              margin-top: 25px;
+              .avatar {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                .icon-user {
+                  font-size: 50px;
+                  color: #ddd;
+                }
+              }
+              .textarea {
+                flex: 1;
+                display: flex;
+                margin-left: 18px;
+                textarea {
+                  box-sizing: border-box;
+                  flex: 1;
+                  padding: 20px;
+                  font-family: 'MicrosoftYaHei';
+                  font-size: 14px;
+                  border: 4px solid #ddd;
+                  border-right: none;
+                }
+                .button {
+                  width: 40px;
+                  height: 40px;
+                  padding: 30px;
+                  background: #3f8a38;
+                  font-size: 16px;
+                  color: #fff;
+                  line-height: 22px;
+                  letter-spacing: 4px;
+                  cursor: pointer;
+                }
+              }
+            }
+            .all {
+              margin-top: 20px;
+              padding-bottom: 20px;
+              &-top {
+                padding: 15px 0;
+                font-size: 18px;
+                color: #333;
+                border-bottom: 1px solid #ddd;
+                .number {
+                  margin-left: 10px;
+                  font-size: 14px;
+                  color: #3f8a38;
+                }
+              }
+              .item {
+                margin-top: 30px;
+                display: flex;
+                .avatar img{
+                  width: 50px;
+                  height: 50px;
+                  border-radius: 50%;
+                  .icon-user {
+                    font-size: 50px;
+                    color: #ddd;
+                  }
+                }
+                .content {
+                  flex: 1;
+                  margin: 18px 0 0 18px;
+                  background: #fff;
+                  .name {
+                    font-size: 14px;
+                    color: #3f8a38;
+                  }
+                  .date {
+                    margin-left: 12px;
+                    color: #999;
+                    font-size: 12px;
+                  }
+                  p {
+                    margin-top: 10px;
+                    line-height: 30px;
+                    font-size: 14px;
+                    color: #666;
+                  }
+                }
               }
             }
           }
