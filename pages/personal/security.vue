@@ -25,6 +25,7 @@
 </template>
 <script>
 import PersonalTab from '~/components/mine/personalTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     PersonalTab
@@ -32,10 +33,12 @@ export default {
   data() {
     return {
       tabIndex: 3,
-      phone: ''
+      phone: '',
+      userInfo: ''
     }
   },
   mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()
   },
   methods: {
@@ -48,11 +51,11 @@ export default {
       })
     },
     getInfo() {
-      let userToken = localStorage.getItem('zyy_userToken')
-      if(userToken) {
-        this.$axios.setHeader('userToken', userToken)
-      }
-      this.$axios('/admin/api/web/user/info').then(res => {
+      this.$axios('/admin/api/web/user/info', {
+        params: {
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
         this.phone = res.data.phone
       })
     },

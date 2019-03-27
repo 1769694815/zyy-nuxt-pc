@@ -91,12 +91,12 @@ export function formatStr(n) {
 export function formatSeconds(time) {
   if(time < 3600) {
     let min = Math.floor(time / 60)
-    let sec = time % 60
+    let sec = formatStr(time % 60)
     return `${min}:${sec}`
   } else {
     let hours = Math.floor(time / 3600)
     let min = Math.floor((time - hours * 3600) / 60)
-    let sec = time % 60
+    let sec = formatStr(time % 60)
     return `${hours}:${min}:${sec}`
   }
 }

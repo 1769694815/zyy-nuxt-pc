@@ -19,44 +19,53 @@
       <article
         class="htmlContent"
         v-html="info.body" />
-        <!-- 评论 -->
-    <!-- <div class="rating">
-      <div class="title">我要评论</div>
-      <div class="mine">
-        <div class="avatar">
-          <i class="iconfont icon-user" />
+      <!-- 评论 -->
+      <div class="rating">
+        <div class="title">我要评论</div>
+        <div class="mine">
+          <div class="avatar">
+            <i class="iconfont icon-user" />
+          </div>
+          <div class="textarea">
+            <textarea
+              v-model="text"
+              placeholder="输入你的想法..." />
+            <div
+              class="button"
+              @click="createComment">发表评论</div>
+          </div>
         </div>
-        <div class="textarea">
-          <textarea placeholder="输入你的想法..." />
-          <div class="button">发表评论</div>
+        <div class="all">
+          <div class="all-top">
+            <span>全部评论</span>
+            <span class="number">{{ commentList.length }}条评论</span>
+          </div>
+          <ul class="list">
+            <li
+              v-for="(item, index) in commentList"
+              :key="index"
+              class="item">
+              <div class="avatar">
+                <!-- <i class="iconfont icon-user" /> -->
+                <img :src="item.avatar">
+              </div>
+              <div class="content">
+                <span class="name">{{ item.user_name }}</span>
+                <span class="date">{{ item.createTime }}</span>
+                <p>
+                  {{ item.content }}
+                </p>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="all">
-        <div class="all-top">
-          <span>全部评论</span>
-          <span class="number">56条评论</span>
-        </div>
-        <ul class="list">
-          <li class="item">
-            <div class="avatar">
-              <i class="iconfont icon-user" />
-            </div>
-            <div class="content">
-              <span class="name">萌芽熊DooroBear</span>
-              <span class="date">2018-12-11</span>
-              <p>
-                作为藏医学“索瓦日巴”的重要组成部分，“藏医药浴法”以青藏高原的雅砻河谷和宗喀山脉的藏族农牧区为集中传承区域，广泛流布于西藏、青海、四川、甘肃、云南等地的藏区，为保障藏族民众的生命健康和防治疾病发挥着重要作用...
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div> -->
     </div>
   </div>
 </template>
 <script>
 import NavBar from '~/components/navBar.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     NavBar
@@ -64,11 +73,16 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
-      info: {}
+      info: {},
+      text: '',
+      userInfo: '',
+      commentList: []
     }
   },
   mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     this.getDetail()
+    this.getComment()
   },
   methods: {
     getDetail() {
@@ -79,6 +93,42 @@ export default {
         }
       }).then(res => {
         this.info = res.data
+      })
+    },
+    getComment() {
+      let params = {
+        objId: this.id,
+        objType: 2, // 1：课程评论， 2：资讯评论
+        current: 1,
+        size: 10
+      }
+      this.$axios('/yxs/api/web/user/commentList', {
+        params
+      }).then(res => {
+        this.commentList = res.data.records
+      })
+    },
+    // 发表评论
+    createComment() {
+      if(!this.text) {
+        this.$message({
+          message: '请输入评论',
+          type: 'warning'
+        })
+        return
+      }
+      this.$axios.post('/yxs/api/web/user/comment', {
+        objId: this.id,
+        objType: 2, // 1：课程评论， 2：资讯评论
+        content: this.text,
+        userToken: this.userInfo.userToken
+      }).then(res => {
+        this.text = ''
+        this.$message({
+          message: '已评论，待审核',
+          type: 'success'
+        })
+        this.getComment()
       })
     }
   }
@@ -164,6 +214,7 @@ export default {
           color: #fff;
           line-height: 22px;
           letter-spacing: 4px;
+          cursor: pointer;
         }
       }
     }

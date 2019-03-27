@@ -13,9 +13,7 @@
         <section class="content-right">
           <news-section />
           <lesson-section class="section" />
-          <train-section
-            :data-array="recommendTrains"
-            class="section" />
+          <train-section class="section" />
         </section>
       </div>
       <div class="foot-img">
