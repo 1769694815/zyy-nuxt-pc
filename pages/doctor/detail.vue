@@ -5,7 +5,13 @@
         <div class="avatar">
           <img :src="detail.pic">
         </div>
-        <div class="button">+关注</div>
+        <div
+          v-if="detail.focusFlag == 1"
+          class="button">已关注</div>
+        <div
+          v-else
+          class="button"
+          @click="concern(detail.famousDoctorId)">+关注</div>
       </div>
       <div class="right">
         <div>
@@ -13,7 +19,7 @@
           <span class="rank">{{ detail.title }}</span>
         </div>
         <div class="info">
-          <span>关注0人｜粉丝{{ detail.fansNum }}人</span>
+          <span>关注{{ detail.collectionNum }}人｜粉丝{{ detail.fansNum }}人</span>
         </div>
         <div class="intro">
           {{ detail.description }}
@@ -47,7 +53,7 @@ export default {
     return {
       id: this.$route.query.id,
       userInfo: '',
-      detail: ''
+      detail: {}
     }
   },
   mounted() {
@@ -64,6 +70,18 @@ export default {
         params
       }).then(res => {
         this.detail = res.data
+      })
+    },
+    concern(id) {
+      this.$axios.post('/yxs/api/web/user/saveFamousCollection', {
+        famousId: id,
+        userToken: this.userInfo.userToken
+      }).then(res => {
+        this.$message({
+          message: '关注成功',
+          type: 'success'
+        })
+        this.getDetail()
       })
     }
   }

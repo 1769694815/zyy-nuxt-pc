@@ -13,7 +13,7 @@
             <div class="right-title">
               <span class="title"> {{ detailData.title }} </span>
               <div class="share">
-                <span>收藏<i/></span>
+                <span @click="collect">收藏<i/></span>
                 <span>分享<i class="iconfont icon-fenxiang" /></span>
               </div>
             </div>
@@ -238,7 +238,8 @@ export default {
     getDetail() {
       this.$axios('/yxs/api/web/course/courseDetail', {
         params: {
-          id: this.id
+          id: this.id,
+          userToken: this.userInfo.userToken || ''
         }
       }).then(res => {
         this.detailData = res.data
@@ -293,6 +294,19 @@ export default {
         })
         this.getComment()
       })
+    },
+    // 收藏
+    collect() {
+      this.$axios.post('/yxs/api/web/user/saveCourseCollection', {
+        courseId: this.detailData.id,
+        userToken: this.userInfo.userToken
+      }).then(res => {
+        this.$message({
+          message: '收藏成功',
+          type: 'success'
+        })
+        this.getDetail()
+      })
     }
   }
 };
@@ -338,6 +352,7 @@ export default {
             color: #666666;
             span{
               padding-left: 23px;
+              cursor: pointer;
             }
           }
         }

@@ -16,8 +16,11 @@
           <li
             v-for="(item,index) in contentList"
             :key="index"
-            class="list-item">
-            <img :src="item.middlePicture">
+            class="list-item"
+            @click="$router.push({ name: 'lessonDetail', query: {id: item.courseId }})">
+            <div class="img-box">
+              <img :src="item.middlePicture">
+            </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <p
@@ -133,15 +136,33 @@ export default {
         height: 223px;
         margin-left: 30px;
         margin-top: 30px;
+        cursor: pointer;
+        .img-box {
+          width: 243px;
+          height: 146px;
+          border-radius: 6px;
+          overflow: hidden;
+          &:hover img {
+            transform: scale(1.1, 1.1);
+          }
+          &:hover .content .title{
+            color: #3F8A38;
+          }
+        }
         img {
           width: 243px;
           height: 146px;
           border-radius: 6px;
+          transition: all .3s ease 0s;
         }
         .content {
           padding: 0 10px;
         }
         .title {
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           margin-top: 12px;
           font-size: 14px;
           color: #333;
@@ -152,8 +173,8 @@ export default {
           color: #3F8A38;
         }
         .foot {
-          display: flex;
-          justify-content: space-between;
+          // display: flex;
+          // justify-content: space-between;
           position: absolute;
           bottom: 0;
           width: 100%;
@@ -162,6 +183,10 @@ export default {
           color: #999;
           span {
             display: inline-block;
+            &:last-child {
+              float: right;
+              margin-right: 20px;
+            }
           }
         }
       }

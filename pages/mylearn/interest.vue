@@ -26,7 +26,11 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item">
-            <img :src="item.pic">
+            <div
+              class="img-box"
+              @click="$router.push({ name: 'doctor-detail', query: { id: item.famousId }})">
+              <img :src="item.pic">
+            </div>
             <div
               v-show="isEdit"
               class="mask"
@@ -198,10 +202,21 @@ export default {
         height: 190px;
         margin-left: 30px;
         margin-top: 30px;
+        .img-box {
+          width: 243px;
+          height: 136px;
+          border-radius: 6px;
+          overflow: hidden;
+          cursor: pointer;
+          &:hover img {
+            transform: scale(1.1, 1.1);
+          }
+        }
         img {
           width: 243px;
           height: 136px;
           border-radius: 6px;
+          transition: all 0.3s ease 0s;
         }
         .mask {
           position: absolute;

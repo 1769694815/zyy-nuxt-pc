@@ -26,7 +26,11 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item">
-            <img :src="item.middlePicture">
+            <div
+              class="img-box"
+              @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
+              <img :src="item.middlePicture">
+            </div>
             <div
               v-show="isEdit"
               class="mask"
@@ -48,10 +52,17 @@
               </p>
               <div class="foot">
                 <span v-if="item.buystatus">已购买</span>
+                <span v-else>
+                  <span
+                    v-if="item.price == 0"
+                    class="free">免费</span>
+                  <span
+                    v-else
+                    class="price">￥{{ item.price }}
+                  </span>
+                </span>
                 <span
-                  v-else
-                  class="price">￥{{ item.price }}</span>
-                <span :class="item.buystatus ? 'suc' : 'def'">
+                  :class="item.buystatus ? 'suc' : 'def'">
                   {{ item.buystatus ? '立即学习' : '立即购买' }}
                 </span>
               </div>
@@ -209,10 +220,21 @@ export default {
         height: 213px;
         margin-left: 30px;
         margin-top: 30px;
+        .img-box {
+          width: 243px;
+          height: 136px;
+          border-radius: 6px;
+          overflow: hidden;
+          cursor: pointer;
+          &:hover img {
+            transform: scale(1.1, 1.1);
+          }
+        }
         img {
           width: 243px;
           height: 136px;
           border-radius: 6px;
+          transition: all .3s ease 0s;
         }
         .mask {
           position: absolute;
@@ -258,12 +280,17 @@ export default {
           }
           .suc {
             color: #3F8A38;
+            cursor: pointer;
           }
           .def {
             color: #666;
+            cursor: pointer;
           }
           .price {
             color: #FF4400;
+          }
+          .free {
+            color: #3F8A38;
           }
         }
       }

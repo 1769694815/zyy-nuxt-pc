@@ -33,9 +33,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  background: #f6f6f6;
+  margin-top: 20px;
   padding-top: 42px;
   padding-bottom: 30px;
+  background: #f6f6f6;
 }
 .content {
   width: 1200px;
