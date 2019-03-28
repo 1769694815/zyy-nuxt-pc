@@ -153,6 +153,7 @@ export default {
       }
       .img1, .img2 {
         margin-top: 30px;
+        cursor: pointer;
       }
       .img3 {
         margin-top: 20px;
@@ -230,11 +231,12 @@ export default {
     }
     .img2 {
       position: absolute;
+      top: -40px;
       left: -180px;
     }
     .img3 {
       position: absolute;
-      left: -160px;
+      left: 60px;
       top: -60px;
     }
     .img4 {
