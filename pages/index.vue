@@ -18,19 +18,19 @@
       <div class="carousel-content">
         <div class="nav-list">
           <div class="nav-item">
-            <i class="iconfont icon-yisheng"/>
+            <i class="iconfont iconyisheng"/>
             名师医承
           </div>
           <div class="nav-item">
-            <i class="iconfont icon-2jiankangzhishi"/>
+            <i class="iconfont icon2jiankangzhishi"/>
             中医健康
           </div>
           <div class="nav-item">
-            <i class="iconfont icon-document"/>
+            <i class="iconfont iconwendang"/>
             中医药理论
           </div>
           <div class="nav-item">
-            <i class="iconfont icon-paper"/>
+            <i class="iconfont iconkaoshi"/>
             自学考试
           </div>
           <div class="sub-nav">
@@ -38,7 +38,7 @@
             <span>药学</span>
           </div>
           <div class="nav-item">
-            <i class="iconfont icon-xiangmu"/>
+            <i class="iconfont iconxiangmu"/>
             培训项目
           </div>
           <div class="sub-nav">
@@ -53,7 +53,7 @@
               class="more"
               @click="toToutiao">
               <span>更多</span>
-              <i class="iconfont icon-arrowright" />
+              <i class="iconfont iconarrow-right" />
             </div>
           </div>
           <ul>
@@ -99,7 +99,7 @@
               class="pos-right"
               @click="$router.push({ name: 'doctor' })">
               查看更多
-              <i class="iconfont icon-more-right" />
+              <i class="iconfont icongengduo" />
             </span>
           </div>
         </div>
@@ -134,7 +134,7 @@
             class="pos-right"
             @click="toList">
             查看更多
-            <i class="iconfont icon-more-right" />
+            <i class="iconfont icongengduo" />
           </span>
         </div>
       </div>
@@ -171,7 +171,7 @@
             class="pos-right"
             @click="toList">
             查看更多
-            <i class="iconfont icon-more-right" />
+            <i class="iconfont icongengduo" />
           </span>
         </div>
       </div>
@@ -208,7 +208,7 @@
             class="pos-right"
             @click="toList">
             查看更多
-            <i class="iconfont icon-more-right" />
+            <i class="iconfont icongengduo" />
           </span>
         </div>
       </div>
@@ -242,7 +242,7 @@
               class="pos-right"
               @click="$router.push({ name: 'western' })">
               查看更多
-              <i class="iconfont icon-more-right" />
+              <i class="iconfont icongengduo" />
             </span>
           </div>
         </div>
@@ -259,7 +259,7 @@
         </div>
         <div class="button">
           <span @click="change">
-            <i class="iconfont icon-shuaxin" />
+            <i class="iconfont iconrefresh" />
             换一批
           </span>
         </div>
@@ -632,6 +632,10 @@ export default {
             span {
               font-size: 14px;
             }
+            i {
+              margin-left: 2px;
+              font-size: 10px;
+            }
           }
         }
         ul {
@@ -683,8 +687,8 @@ export default {
         right: 0;
         bottom: 0;
         font-size: 12px;
-        .icon-more-right {
-          font-size: 14px;
+        .icongengduo {
+          font-size: 12px;
         }
       }
     }
@@ -807,8 +811,9 @@ export default {
     .button {
       margin-top: 30px;
       text-align: center;
-      .icon-refresh {
-        margin-right: 10px;
+      .iconrefresh {
+        font-size: 14px;
+        margin-right: 6px;
       }
       span {
         display: inline-block;

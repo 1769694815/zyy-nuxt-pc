@@ -13,8 +13,15 @@
             <div class="right-title">
               <span class="title"> {{ detailData.title }} </span>
               <div class="share">
-                <span @click="collect">收藏<i/></span>
-                <span>分享<i class="iconfont icon-fenxiang" /></span>
+                <span
+                  v-if="detailData.collectionStauts == 0"
+                  @click="collect">收藏
+                  <i class="iconfont iconaixin" />
+                </span>
+                <span v-else>收藏
+                  <i class="iconfont iconaixin active" />
+                </span>
+                <span>分享<i class="iconfont iconfenxiang" /></span>
               </div>
             </div>
             <div class="learn-mes">
@@ -141,7 +148,6 @@
             <div class="teacher-title"><span>授课老师</span></div>
             <div
               v-for="(item,index) in detailData.teacherList"
-              v-if="index < 1"
               :key="index"
               class="teacher">
               <img :src="item.pic">
@@ -169,7 +175,8 @@
             <div class="title"><span>相关课程</span></div>
             <ul>
               <li
-                v-for="(item,index) in detailData.courseList" 
+                v-for="(item,index) in detailData.courseList"
+                v-if="index < 3"
                 :key="index"
                 class="lesson">
                 <img :src="item.pic">
@@ -181,7 +188,7 @@
           <div
             class="foot-img"
             @click="$router.push({ name: 'service'})">
-            <img src="~/assets/images/foot-img.jpg">
+            <img src="../assets/images/foot-img.jpg">
           </div>
         </div>
       </div>
@@ -353,8 +360,20 @@ export default {
             font-size: 14px;
             color: #666666;
             span{
+              display: inline-block;
+              vertical-align: middle;
               padding-left: 23px;
               cursor: pointer;
+              i {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 4px;
+                font-size: 14px;
+                color: #b4b4b4;
+              }
+              .active {
+                color: #FF4400;
+              }
             }
           }
         }
@@ -621,7 +640,7 @@ export default {
       .content-right{
         margin: 20px 35px 0 0;
         float: right;
-        height:196px;
+        // height:196px;
         width: 245px;
         background: #fff;
         .teacher-title{
@@ -639,18 +658,18 @@ export default {
         }
         .teacher{
           display: flex;
-          height:127px;
+          // height: 127px;
+          margin: 20px 0;
           align-items: center;
           img{
-            display:block;
+            display: inline-block;
             border-radius: 50%;
-            height:57px;
-            width: 57px;
+            height: 48px;
+            width: 48px;
             margin: 0 12px 0 20px;
           }
           .text{
-            width: 100%;
-           
+            flex: 1;
             .name{
               display: block;
               font-size: 14px;
@@ -702,10 +721,11 @@ export default {
       }
       .related-class{
         width: 245px;
-        height: 615px;
+        max-height: 615px;
         float:right;
         background:#ffffff;
         margin: 20px 35px 0 0;
+        overflow: hidden;
         .title{
           margin: 0 20px;
           border-bottom: 1px solid #E6E6E6;

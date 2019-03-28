@@ -10,8 +10,10 @@
         <div class="play-header">
           <div class="title">{{ info.courseTitle }}</div>
           <div class="sub">
-            <span>163人学过</span>
-            <span>20天后到期,请尽快学完</span>
+            <span>{{ info.studentNum }}人学过</span>
+            <span v-if="info.day > 0">{{ info.day }}天后到期,请尽快学完</span>
+            <span v-if="info.day < 0">永久有效</span>
+            <span v-if="info.day == 0">已到期</span>
           </div>
         </div>
         <div class="play-content">
@@ -27,8 +29,8 @@
                 <!-- <span>{{ item.name }}</span> -->
                 <span>{{ item.lessonTitle }}</span>
                 <div class="foot">
-                  <span>{{ item.learnTime }}分钟</span>
-                  <span>已学完</span>
+                  <span>{{ Math.round(item.length / 60) }}分钟</span>
+                  <span>已学{{ item.result }}</span>
                 </div>
               </div>
             </li>
@@ -106,6 +108,7 @@ import Header from '~/components/layout/header.vue'
 import VideoPlayer from '~/components/video.vue'
 import NavBar from '~/components/navBar.vue'
 import Cookies from 'js-cookie'
+import { formatSeconds } from '~/assets/js/util'
 export default {
   middleware: 'userAuth',
   components: {
@@ -122,6 +125,13 @@ export default {
       menuList: [],
       otherList: [],
       recommendList: []
+    }
+  },
+  computed: {
+    timestr() {
+      return function(time) {
+        return formatSeconds(time)
+      }
     }
   },
   mounted() {

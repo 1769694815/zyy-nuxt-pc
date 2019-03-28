@@ -5,13 +5,13 @@
         <h1>{{ info.title }}</h1>
         <div class="detail">
           <span>{{ info.publishedTime }}</span>
-          <span><i class="iconfont icon-chakan" />
+          <span><i class="iconfont iconchakan" />
             {{ info.hits }}
           </span>
-          <span><i class="iconfont icon-pinglun" />
+          <span><i class="iconfont iconpinglun" />
             265
           </span>
-          <span><i class="iconfont icon-fenxiang" />
+          <span><i class="iconfont iconfenxiang" />
             分享
           </span>
         </div>
@@ -24,7 +24,7 @@
         <div class="title">我要评论</div>
         <div class="mine">
           <div class="avatar">
-            <i class="iconfont icon-user" />
+            <i class="iconfont iconyonghu1" />
           </div>
           <div class="textarea">
             <textarea
@@ -187,7 +187,7 @@ export default {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        .icon-user {
+        .iconyonghu1 {
           font-size: 50px;
           color: #ddd;
         }
@@ -239,7 +239,7 @@ export default {
           width: 50px;
           height: 50px;
           border-radius: 50%;
-          .icon-user {
+          .iconyonghu1 {
             font-size: 50px;
             color: #ddd;
           }

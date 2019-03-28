@@ -28,7 +28,7 @@
           <div class="foot">
             <span>{{ item.publishedtime }}</span>
             <span class="number">
-              <i class="iconfont icon-chakan"/>{{ item.hits }}
+              <i class="iconfont iconchakan"/>{{ item.hits }}
             </span>
           </div>
         </div>
@@ -165,6 +165,11 @@ export default {
           vertical-align: top;
           height: 16px;
           line-height: 16px;
+          i {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 4px;
+          }
         }
       }
     }

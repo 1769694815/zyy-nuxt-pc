@@ -35,7 +35,7 @@
             class="learn"
             @mouseover="learnListShow = true"
             @mouseout="learnListShow = false">我的学习
-            <i class="iconfont icon-arrowright" />
+            <i class="iconfont iconarrow-right" />
             <ul v-show="learnListShow">
               <li
                 v-for="(item, index) in learnList"
@@ -50,7 +50,7 @@
             class="learn"
             @mouseover="teacherListShow = true"
             @mouseout="teacherListShow = false">我的学习
-            <i class="iconfont icon-arrowright" />
+            <i class="iconfont iconarrow-right" />
             <ul v-show="teacherListShow">
               <li
                 v-for="(item, index) in teacherList"
@@ -64,7 +64,7 @@
             class="personal"
             @mouseover="personalListShow = true"
             @mouseout="personalListShow = false">个人中心
-            <i class="iconfont icon-arrowright" />
+            <i class="iconfont iconarrow-right" />
             <ul v-show="personalListShow">
               <li
                 v-for="(item, index) in personalList"
@@ -459,6 +459,7 @@ export default {
           display: inline-block;
           margin-left: 28px;
           color: #fff;
+          cursor: pointer;
         }
         .message {
           position: relative;
@@ -475,8 +476,10 @@ export default {
       }
     }
   }
-  .icon-arrowright {
+  .iconarrow-right {
+    font-size: 12px;
     transform: rotate(90deg);
+    color: #666;
   }
   .fade-leave-active, .fade-enter-active {
     transition: all 0.4s ease;
