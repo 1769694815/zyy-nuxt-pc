@@ -84,6 +84,9 @@ export default {
       line-height: 24px;
       color: #666;
       cursor: pointer;
+      &:hover {
+        color: #3F8A38;
+      }
     }
   }
 }

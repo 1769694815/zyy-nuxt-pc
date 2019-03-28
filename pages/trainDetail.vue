@@ -71,8 +71,9 @@
             <div class="class-intronduce">
               <div
                 v-show="tab == 1"
-                class="htmlContent"
-                v-html="detailData.introducepc" />
+                class="intro">
+                {{ detailData.introducepc }}
+              </div>
               <ul v-show="tab == 2">
                 <li 
                   v-for="(item, index) in courseList "
@@ -388,7 +389,7 @@ export default {
       position: relative;
       .intronduce{
         float: left;
-        margin-top: 30px;
+        margin: 30px 0;
         height: 100%;
         width: 870px;
         background: #ffffff;
@@ -415,6 +416,11 @@ export default {
         }
         .class-intronduce{
           padding: 0 19px 31px 30px;
+          .intro {
+            margin-top: 20px;
+            line-height: 24px;
+            text-indent: 30px;
+          }
           li{
             display: flex;
             margin-top: 30px;

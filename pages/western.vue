@@ -232,7 +232,7 @@ export default {
         }
       }).then(res => {
         if(res.code == 0) {
-          this.recommendTrains = res.data
+          this.recommendTrains = res.data.records
         }
       })
     },
