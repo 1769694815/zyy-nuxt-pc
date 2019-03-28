@@ -311,7 +311,7 @@ export default {
       &-left {
         font-size: 0;
         span {
-          font-size: 12px;
+          font-size: 14px;
         }
         .login {
           margin-left: 30px;

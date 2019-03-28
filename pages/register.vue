@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-header />
-    <nav-bar />
+    <!-- <nav-bar /> -->
     <div class="register">
       <div class="wrap">
         <div class="box">

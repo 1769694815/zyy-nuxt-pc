@@ -136,25 +136,32 @@
         </div>
       </div>
     </div>
+    <buy-modal
+      v-show="showModal"
+      :data-obj="detailData"
+      @hide-modal="hideModal" />
   </div>
 </template>
 
 <script>
 import Navbar from "~/components/navBar.vue";
 import Header from '~/components/layout/header.vue'
+import BuyModal from '~/components/modal/buyModal.vue'
 import Cookies from 'js-cookie'
 export default {
   middleware: 'userAuth',
   components:{
     Navbar,
+    BuyModal,
     'v-header': Header
   },
   data(){
     return {
       tab: 1,
+      showModal: false,
       classIndex: 0,
       id: this.$route.query.id,
-      detailData: '',
+      detailData: {},
       classInfo: '',
       userInfo: '',
       navList:[
@@ -231,7 +238,10 @@ export default {
       this.classIndex = index
       this.classInfo = this.detailData.classList[index]
       this.getList(item.roomId)
-    }
+    },
+    hideModal() {
+      this.showModal = false
+    },
   },
 };
 </script>

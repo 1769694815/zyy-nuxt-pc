@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-header />
-    <nav-bar />
+    <!-- <nav-bar /> -->
     <div class="login">
       <div class="wrap">
         <div class="box">
@@ -237,7 +237,7 @@ export default {
   .login {
     max-width: 1920px;
     height: 580px;
-    background: url('../assets/images/denglu_bg.png');
+    background: url('../assets/images/denglu_bg.png') -180px;
   }
   .wrap {
     position: relative;

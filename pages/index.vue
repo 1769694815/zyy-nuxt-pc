@@ -855,7 +855,10 @@ export default {
     border-radius: 50%;
     background: #fff;
   }
+  .el-carousel__container button {
+    background: #3F8A38;
+  }
   .el-carousel__indicator.is-active .el-carousel__button {
-    background: #99C04F;
+    background: #3F8A38;
   }
 </style>
