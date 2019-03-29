@@ -12,7 +12,9 @@
         <el-carousel-item
           v-for="(item, index) in carousels"
           :key="index">
-          <img :src="item.pic">
+          <img
+            :src="item.pic"
+            @click="toNavigation(item.url)">
         </el-carousel-item>
       </el-carousel>
       <div class="carousel-content">
@@ -46,7 +48,7 @@
             <span>药学</span>
           </div>
         </div>
-        <section class="info-list">
+        <!-- <section class="info-list">
           <div class="info-header">
             <h3>资讯头条</h3>
             <div
@@ -73,6 +75,63 @@
               </span>
             </li>
           </ul>
+        </section> -->
+        <section
+          v-if="userInfo"
+          class="info-list">
+          <div class="avatar">
+            <img
+              v-if="userInfo.avatar"
+              :src="userInfo.avatar">
+            <img
+              v-else
+              src="~/assets/images/user-logo.png">
+          </div>
+          <div class="username">{{ userInfo.userName }}</div>
+          <div
+            class="logout"
+            @click="logout">安全退出</div>
+          <ul>
+            <li @click="$router.push({ name: 'mylearn' })">
+              <img src="~/assets/images/course.png">
+              <div class="text">我的课程({{ courseNum }})</div>
+            </li>
+            <li @click="$router.push({ name: 'mylearn-myclass' })">
+              <img src="~/assets/images/classes.png">
+              <div class="text">我的班级({{ classNum }})</div>
+            </li>
+          </ul>
+          <div
+            ref="download"
+            class="down"
+            @click="downShow = !downShow">下载手机APP随时学习</div>
+          <div
+            v-show="downShow"
+            class="down-logo">
+            <img src="~/assets/images/download-qr.jpg">
+          </div>
+        </section>
+        <section
+          v-else
+          class="info-list">
+          <div class="avatar">
+            <img src="~/assets/images/user-logo.png">
+          </div>
+          <div
+            class="button login"
+            @click="$router.push({ name: 'login' })">立即登录</div>
+          <div
+            class="button"
+            @click="$router.push({ name: 'register' })">免费注册</div>
+          <div
+            ref="download"
+            class="down down-2"
+            @click="downShow = !downShow">下载手机APP随时学习</div>
+          <div
+            v-show="downShow"
+            class="down-logo">
+            <img src="~/assets/images/download-qr.jpg">
+          </div>
         </section>
       </div>
     </div>
@@ -311,6 +370,10 @@ export default {
       tabIndex: 1,
       current: 1,
       size: 4,
+      userInfo: '',
+      downShow: false,
+      courseNum: 0,
+      classNum: 0,
       carousels: [],
       infoList: [],
       researchList: [],
@@ -371,6 +434,8 @@ export default {
       scope: 'server',
       grant_type: 'client_credentials'
     }
+    this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
+    console.log(this.userInfo)
     if(!Cookies.get('zyy_accessToken')) {
       this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
       this.$axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
@@ -407,7 +472,11 @@ export default {
       this.getCategoryByCode('education')
       this.getStickyList()
     }
-    
+    document.addEventListener('click', e => {
+      if(!this.$refs.download.contains(e.target)) {
+        this.downShow = false
+      }
+    })
   },
   methods: {
     // 跳转到头条页面
@@ -558,7 +627,35 @@ export default {
           id: item.id
         }
       })
-    }
+    },
+    logout() {
+      this.$confirm(`确定退出登录吗？`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(res => {
+        Cookies.remove('zyy_userInfo')
+        this.$router.push({
+          name: 'login'
+        })
+      })
+    },
+    toNavigation(url) {
+      window.open(url)
+    },
+    // getCourseNum() {
+    //   let params = {
+    //     size: this.size,
+    //     current: this.current,
+    //     type: this.type,
+    //     userToken: this.userInfo.userToken || ''
+    //   }
+    //   this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
+    //     params
+    //   }).then(res => {
+    //     this.courseNum = res.data.count
+    //   })
+    // }
   }
 }
 </script>
@@ -613,7 +710,92 @@ export default {
         width: 260px;
         height: 330px;
         z-index: 99;
-        background: rgba(255, 255, 255, .8);
+        background: rgba(255, 255, 255, .9);
+        .avatar {
+          margin-top: 30px;
+          text-align: center;
+          img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+          }
+        }
+        .username {
+          margin-top: 10px;
+          font-size: 14px;
+          color: #363636;
+          text-align: center;
+        }
+        .logout {
+          margin-top: 10px;
+          color: #838383;
+          font-size: 12px;
+          text-align: center;
+          cursor: pointer;
+        }
+        ul {
+          display: flex;
+          margin-top: 30px;
+          li {
+            width: 50%;
+            text-align: center;
+            cursor: pointer;
+            .text {
+              margin-top: 16px;
+              font-size: 15px;
+              color: #363636;
+            }
+          }
+        }
+        .button {
+          margin: 13px auto;
+          width: 165px;
+          height: 38px;
+          line-height: 38px;
+          border: 1px solid #99cb64;
+          border-radius: 5px;
+          font-size: 16px;
+          color: #99cb64;
+          text-align: center;
+          cursor: pointer;
+        }
+        .login {
+          margin-top: 30px;
+          background: #99cb64;
+          color: #fff;
+        }
+        .down {
+          margin-top: 50px;
+          text-align: center;
+          cursor: pointer;
+          color: #363636;
+        }
+        .down-2 {
+          color: #99cb64;
+        }
+        .down-logo {
+          position: absolute;
+          bottom: 0;
+          left: -142px;
+          width: 120px;
+          height: 120px;
+          padding: 6px;
+          background: #fff;
+          &:before, &:after {
+            border: solid transparent;
+            content: ' ';
+            height: 0;
+            top: 100%;
+            position: absolute;
+            width: 0;
+          }
+          &:before {
+            border-width: 8px;
+            border-left-color: #fff;
+            top: 90px;
+            right: -14px;
+          }
+        }
         .info-header {
           display: flex;
           justify-content: space-between;
@@ -638,21 +820,21 @@ export default {
             }
           }
         }
-        ul {
-          padding: 0 22px;
-          li {
-            display: flex;
-            align-items: center;
-            height: 70px;
-            border-bottom: 1px solid rgba(0, 0, 0, .2);
-            color: #666;
-            line-height: 22px;
-            font-size: 14px;
-            &:last-child {
-              border: none;
-            }
-          }
-        }
+        // ul {
+        //   padding: 0 22px;
+        //   li {
+        //     display: flex;
+        //     align-items: center;
+        //     height: 70px;
+        //     border-bottom: 1px solid rgba(0, 0, 0, .2);
+        //     color: #666;
+        //     line-height: 22px;
+        //     font-size: 14px;
+        //     &:last-child {
+        //       border: none;
+        //     }
+        //   }
+        // }
       }
     }
   }
