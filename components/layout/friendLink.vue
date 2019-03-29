@@ -63,7 +63,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  margin-top: 20px;
+  // margin-top: 20px;
   padding-top: 42px;
   padding-bottom: 30px;
   background: #f6f6f6;

@@ -9,7 +9,10 @@
       <div class="desc">{{ dataObj.brife }}</div>
       <div class="foot">
         <span class="date">{{ dataObj.publishedtime }}</span>
-        <span class="number">{{ dataObj.hits }}</span>
+        <span class="number">
+          <i class="iconfont iconchakan" />
+          {{ dataObj.hits }}
+        </span>
       </div>
     </div>
   </div>
@@ -84,8 +87,14 @@ export default {
       }
       .number {
         float: right;
+        display: inline-block;
+        line-height: 16px;
         font-size: 12px;
         color: #999;
+        i {
+          display: inline-block;
+          vertical-align: top;
+        }
       }
     }
   }

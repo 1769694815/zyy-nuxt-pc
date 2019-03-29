@@ -25,7 +25,7 @@
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
             class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/">
+            action="/yxs/qiniu/api/upload/8">
             <img
               v-if="form.avatar"
               :src="form.avatar"

@@ -4,13 +4,15 @@
       <div class="header">
         <div class="header-left">
           <span class="title">订单支付</span>
-          <span style="cursor:pointer">返回介绍页</span>
+          <span
+            style="cursor:pointer"
+            @click="window.history.back()">返回介绍页</span>
           <span
             style="cursor:pointer"
             @click="$router.push({ name: 'index' })">首页</span>
         </div>
         <div class="header-right">
-          用户名：
+          用户名：{{ userInfo.userName }}
         </div>
       </div>
     </div>

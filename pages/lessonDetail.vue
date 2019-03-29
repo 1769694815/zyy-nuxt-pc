@@ -278,7 +278,14 @@ export default {
       this.showModal = false
     },
     buyLesson() {
-      this.showModal = true
+      // this.showModal = true
+      this.$router.push({
+        name: 'payfor',
+        // query: {
+        //   itemId: this.itemId,
+        //   price: this.price
+        // }
+      })
     },
     getComment() {
       let params = {
