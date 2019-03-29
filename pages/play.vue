@@ -27,7 +27,9 @@
               <div class="chapter">{{ item.chapter }}</div>
               <div class="info">
                 <!-- <span>{{ item.name }}</span> -->
-                <span>{{ item.lessonTitle }}</span>
+                <span
+                  class="title"
+                  @click="getInfo(item.lessonId)">{{ item.lessonTitle }}</span>
                 <div class="foot">
                   <span>{{ Math.round(item.length / 60) }}分钟</span>
                   <span>已学{{ item.result }}</span>
@@ -142,10 +144,10 @@ export default {
     this.getRecommendList('zyjk')
   },
   methods: {
-    getInfo() {
+    getInfo(lessonId) {
       this.$axios.post('/yxs/api/web/user/startLearnCourse', {
         courseId: this.courseId,
-        lessonId: this.lessonId,
+        lessonId: lessonId || '',
         userToken: this.userInfo.userToken
       }).then(res => {
         let info = res.data
@@ -185,7 +187,7 @@ export default {
       this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
         params
       }).then(res => {
-        this.otherList = res.data
+        this.otherList = res.data.records
       })
     },
     getRecommendList(type) {
@@ -247,6 +249,9 @@ export default {
             .info {
               width: 100%;
               margin-left: 14px;
+              .title {
+                cursor: pointer;
+              }
               .foot {
                 display: flex;
                 justify-content: space-between;

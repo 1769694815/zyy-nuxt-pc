@@ -14,7 +14,8 @@
           <li
             v-for="(item,index) in contentList"
             :key="index"
-            class="list-item">
+            class="list-item"
+            @click="$router.push({ name: 'lessonDetail', query: {id: item.courseId }})">
             <div class="img-box">
               <img :src="item.middlePicture">
             </div>
