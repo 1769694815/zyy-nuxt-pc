@@ -10,8 +10,9 @@
   /* color: #B4B4B4; */
 }
 .foot-img {
-  margin-top: 16px;
-  margin-bottom: 40px;
+  width: 1200px;
+  margin: 16px auto 0;
+  /* margin-bottom: 40px; */
   text-align: center;
   cursor: pointer;
 }

@@ -52,7 +52,7 @@
               :key="index"
               class="common-class"
               @click="toTrainDetail(item.id)">
-              <img :src="item.middlePicture">
+              <img :src="item.middle_picture">
               <div class="info">
                 <div class="title">{{ item.title }}</div>
                 <div

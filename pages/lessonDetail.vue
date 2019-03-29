@@ -30,7 +30,7 @@
             </div>
             <div class="des">
               <div class="des-text">
-                <h2 class="des-title">课程简介 ：</h2>
+                <h2 class="des-title">课程简介：</h2>
                 <div
                   class="text"
                   style="width: 100%;
@@ -46,7 +46,6 @@
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;">
                   {{ detailData.brife }}
-
                 </div>
               </div>
             </div>
@@ -106,7 +105,7 @@
                 <!-- <div class="title">我要评论</div> -->
                 <div class="mine">
                   <div class="avatar">
-                    <i class="iconfont icon-user" />
+                    <i class="iconfont iconyonghu1" />
                   </div>
                   <div class="textarea">
                     <textarea
@@ -140,19 +139,30 @@
                       </div>
                     </li>
                   </ul>
+                  <div
+                    v-show="commentList.length == 0"
+                    style="margin: 20px 0; font-size: 16px;">
+                    暂无评论
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="content-right">
-            <div class="teacher-title"><span>授课老师</span></div>
+            <div class="teacher-title">
+              <span>授课老师</span>
+            </div>
             <div
               v-for="(item,index) in detailData.teacherList"
               :key="index"
               class="teacher">
               <img :src="item.pic">
               <div class="text">
-                <span class="name">{{ item.name }}</span>
+                <span
+                  class="name"
+                  @click="$router.push({ name: 'doctor-detail', query: { id: item.id }})">
+                  {{ item.name }}
+                </span>
                 <span class="fame">{{ item.title }}</span>
               </div>
             </div>
@@ -179,17 +189,19 @@
                 v-if="index < 3"
                 :key="index"
                 class="lesson">
-                <img :src="item.pic">
+                <div class="img-box">
+                  <img :src="item.pic">
+                </div>
                 <h3>{{ item.title }}</h3>
                 <span>{{ item.studentNum }}</span>
               </li>
             </ul>
           </div>
-          <div
-            class="foot-img"
-            @click="$router.push({ name: 'service'})">
-            <img src="../assets/images/foot-img.jpg">
-          </div>
+        </div>
+        <div
+          class="foot-img"
+          @click="$router.push({ name: 'service'})">
+          <img src="../assets/images/foot-img.jpg">
         </div>
       </div>
     </div>
@@ -555,7 +567,7 @@ export default {
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
-                .icon-user {
+                .iconyonghu1 {
                   font-size: 50px;
                   color: #ddd;
                 }
@@ -637,16 +649,16 @@ export default {
           }
         }
       }
-      .content-right{
+      .content-right {
         margin: 20px 35px 0 0;
         float: right;
         // height:196px;
         width: 245px;
         background: #fff;
-        .teacher-title{
+        .teacher-title {
           margin: 0 20px;
           border-bottom: 1px solid #E6E6E6;
-          span{
+          span {
             display: block;
             box-sizing: border-box;
             margin: 35px 0 16px 0;
@@ -656,27 +668,28 @@ export default {
             border-left: 4px solid #3F8A38;
           }
         }
-        .teacher{
+        .teacher {
           display: flex;
           // height: 127px;
           margin: 20px 0;
           align-items: center;
-          img{
+          img {
             display: inline-block;
             border-radius: 50%;
             height: 48px;
             width: 48px;
             margin: 0 12px 0 20px;
           }
-          .text{
+          .text {
             flex: 1;
-            .name{
+            .name {
               display: block;
               font-size: 14px;
               color:#333333;
               margin-bottom: 9px;
+              cursor: pointer;
             }
-            .fame{
+            .fame {
               display: block;
               color: #999999;
               font-size: 12px;
@@ -684,7 +697,7 @@ export default {
           }
         }
       } 
-      .stu-dynamics{
+      .stu-dynamics {
         float: right;
         height: 298px;
         width: 245px;
@@ -721,6 +734,7 @@ export default {
       }
       .related-class{
         width: 245px;
+        min-height: 300px;
         max-height: 615px;
         float:right;
         background:#ffffff;
@@ -744,9 +758,19 @@ export default {
           &lastchild{
             padding-bottom: none;
           }
+          .img-box {
+            height: 115px;
+            width: 205px;
+            overflow: hidden;
+            cursor: pointer;
+            &:hover img {
+              transform: scale(1.1, 1.1);
+            }
+          }
           img{
             height: 115px;
             width: 205px;
+            transition: all .3s ease 0s;
           }
           h3{
             display: block;
@@ -754,6 +778,10 @@ export default {
             font-size: 14px;
             font-weight: 400;
             color: rgba(51,51,51,1);
+            cursor: pointer;
+            &:hover {
+              color: #3F8A38;
+            }
           }
           span{
             color:#999999;
