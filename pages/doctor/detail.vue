@@ -31,7 +31,8 @@
       <ul>
         <li
           v-for="(item,index) in detail.courses"
-          :key="index">
+          :key="index"
+          @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
           <img :src="item.pic">
           <div class="name">{{ item.title }}</div>
           <div class="desc">
@@ -151,12 +152,17 @@ export default {
       ul {
         margin-top: 20px;
         li {
+          display: inline-block;
+          margin-left: 10px;
           width: 270px;
           // height: 220px;
           padding: 10px;
           border: 1px solid #f5f5f5;
           transition: all .3s ease 0s;
           cursor: pointer;
+          &:first-child {
+            margin-left: 0;
+          }
           &:hover {
             transform: translate(0, -5px);
             box-shadow: 0 5px 10px #999;

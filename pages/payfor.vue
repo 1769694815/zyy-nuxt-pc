@@ -16,15 +16,15 @@
     </div>
     <div class="content">
       <div class="num">
-        <span class="title">订单支付：</span>1
+        <span class="title">订单支付：</span>{{ detail.sn }}
       </div>
       <div class="line">
         <div class="line-item">
-          <span class="title">购买商品：</span>1
+          <span class="title">购买商品：</span>{{ detail.title }}
         </div>
         <div class="line-item">
           <span class="title">支付金额：</span>
-          <span class="price">￥669</span>
+          <span class="price">￥{{ detail.price }}</span>
         </div>
       </div>
       <div class="border" />
@@ -45,18 +45,32 @@ export default {
   data() {
     return {
       userInfo: '',
-      payInfo: ''
+      payInfo: '',
+      itemId: this.$route.query.itemId,
+      price: this.$route.query.price,
+      detail: ''
     }
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
-    this.getDetail()
+    this.getInfo()
   },
   methods: {
+    getInfo() {
+      this.$axios.post('/yxs/api/web/user/createOrder', {
+        itemType: 2,
+        itemId: this.itemId,
+        price: this.price,
+        userToken: this.userInfo.userToken
+      }).then(res => {
+        this.detail = res.data
+        this.getDetail()
+      })
+    },
     getDetail() {
       this.$axios.post('/yxs/api/web/user/payOrder', {
-        price: 0.01,
-        orderSn: '201903262022080c22',
+        price: this.detail.price,
+        orderSn: this.detail.sn,
         payWay: 'APP_PAY',
         userToken: this.userInfo.userToken
       }).then(res => {

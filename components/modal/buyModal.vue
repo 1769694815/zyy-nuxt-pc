@@ -8,20 +8,27 @@
         <div
           class="m-close"
           @click="handleClose">
-          <i class="iconfont icon-guanbixiaoxitishi"/>
+          <i class="iconfont iconguanbi"/>
         </div>
       </div>
       <div class="m-content">
         <div class="info">
           <div class="info-left">
-            <img :src="dataObj.middlePicture">
+            <img :src="detail.pclogo">
           </div>
           <div class="info-right">
             <div class="title">{{ dataObj.title }}</div>
             <div class="price">￥{{ dataObj.price }}</div>
-            <div class="lesson">
+            <div class="lessons">
               班级课程：
-              <span>1</span>
+              <ul v-if="dataObj.courseName">
+                <li
+                  v-for="(item,index) in dataObj.courseName.split(',')"
+                  :key="index"
+                  class="lesson">
+                  {{ item }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -41,11 +48,35 @@ export default {
       default: function() {
         return {}
       }
+    },
+    detail: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    },
+    user: {
+      type: Object,
+      default: function() {
+        return {}
+      }
     }
   },
   data() {
     return {
-      showModal: false
+      showModal: false,
+      itemId: null,
+      price: 0,
+      userInfo: ''
+    }
+  },
+  watch: {
+    dataObj(newVal, oldVal) {
+      this.itemId = newVal.roomId
+      this.price = newVal.price
+    },
+    user(newVal, oldVal) {
+      this.userInfo = newVal
     }
   },
   methods: {
@@ -55,7 +86,11 @@ export default {
     },
     confirm() {
       this.$router.push({
-        name: 'payfor'
+        name: 'payfor',
+        query: {
+          itemId: this.itemId,
+          price: this.price
+        }
       })
     }
   }
@@ -87,6 +122,9 @@ export default {
         background: #3F8A38;
         .m-close {
           cursor: pointer;
+          i {
+            font-size: 12px;
+          }
         }
       }
       .m-content {
@@ -112,8 +150,22 @@ export default {
               color: #ff4400;
               font-weight: 700;
             }
-            .lesson {
+            .lessons {
               margin-top: 24px;
+              ul {
+                margin-top: 10px;
+              }
+              li {
+                float: left;
+                margin-right: 8px;
+                padding: 0 8px;
+                text-align: center;
+                line-height:28px;
+                background:#E2F5E0;
+                font-size: 14px;
+                color:#3F8A38;
+                border-radius: 4px;
+              }
             }
           }
         }

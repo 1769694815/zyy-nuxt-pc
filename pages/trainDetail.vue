@@ -33,9 +33,9 @@
           </div>
           <div class="lessons">
             班级课程：
-            <ul>
+            <ul v-if="classInfo.courseName">
               <li
-                v-for="(item,index) in lessonList.lesson"
+                v-for="(item,index) in classInfo.courseName.split(',')"
                 :key="index"
                 class="lesson">
                 {{ item }}
@@ -51,7 +51,9 @@
           <div
             v-if="classInfo.memberStatus == 0"
             class="bottom">
-            <div class="b3">立即报名</div>
+            <div
+              class="b3"
+              @click="signup">立即报名</div>
           </div>
         </div>
       </div>
@@ -71,9 +73,9 @@
             <div class="class-intronduce">
               <div
                 v-show="tab == 1"
-                class="intro">
-                {{ detailData.introducepc }}
-              </div>
+                class="intro"
+                v-html="detailData.introducepc" />
+              <!-- {{ detailData.introducepc }} -->
               <ul v-show="tab == 2">
                 <li 
                   v-for="(item, index) in courseList "
@@ -138,7 +140,9 @@
     </div>
     <buy-modal
       v-show="showModal"
-      :data-obj="detailData"
+      :data-obj="classInfo"
+      :detail="detailData"
+      :user="userInfo"
       @hide-modal="hideModal" />
   </div>
 </template>
@@ -149,13 +153,12 @@ import Header from '~/components/layout/header.vue'
 import BuyModal from '~/components/modal/buyModal.vue'
 import Cookies from 'js-cookie'
 export default {
-  middleware: 'userAuth',
   components:{
     Navbar,
     BuyModal,
     'v-header': Header
   },
-  data(){
+  data() {
     return {
       tab: 1,
       showModal: false,
@@ -202,18 +205,18 @@ export default {
     }
   },
   mounted() {
-    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     this.getDetail()
   },
   methods:{
     switchTab(index){
-      this.tab=index+1;
+      this.tab = index + 1;
     },
     getDetail() {
       this.$axios('/yxs/api/web/course/trainDetail', {
         params: {
           id: this.id,
-          userToken: this.userInfo.userToken
+          userToken: this.userInfo.userToken || ''
         }
       }).then(res => {
         this.detailData = res.data
@@ -225,7 +228,7 @@ export default {
       this.$axios('/yxs/api/web/course/courseTeaching', {
         params: {
           classroomId: roomId,
-          userToken: this.userInfo.userToken
+          userToken: this.userInfo.userToken || ''
         }
       }).then(res => {
         this.teacherList = res.data.list
@@ -238,6 +241,13 @@ export default {
       this.classIndex = index
       this.classInfo = this.detailData.classList[index]
       this.getList(item.roomId)
+    },
+    signup() {
+      if(this.userInfo) {
+        this.showModal = true
+      } else {
+        this.$router.push({ name: 'login' })
+      }
     },
     hideModal() {
       this.showModal = false
@@ -346,9 +356,10 @@ export default {
         color: #999999;
         .lesson{
           float: left;
-          margin-left: 8px;
+          margin-right: 8px;
+          padding: 0 8px;
           text-align: center;
-          width: 76px;
+          // width: 76px;
           line-height:28px;
           background:#E2F5E0;
           font-size: 14px;
