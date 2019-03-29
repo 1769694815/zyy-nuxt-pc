@@ -455,6 +455,10 @@ export default {
         this.getCategoryByCode('career')
         this.getCategoryByCode('education')
         this.getStickyList()
+        if(this.userInfo) {
+          this.getCourseNum()
+          this.getClassNum()
+        }
       })
     } else {
       this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
@@ -471,6 +475,10 @@ export default {
       this.getCategoryByCode('career')
       this.getCategoryByCode('education')
       this.getStickyList()
+      if(this.userInfo) {
+        this.getCourseNum()
+        this.getClassNum()
+      }
     }
     document.addEventListener('click', e => {
       if(!this.$refs.download.contains(e.target)) {
@@ -643,19 +651,28 @@ export default {
     toNavigation(url) {
       window.open(url)
     },
-    // getCourseNum() {
-    //   let params = {
-    //     size: this.size,
-    //     current: this.current,
-    //     type: this.type,
-    //     userToken: this.userInfo.userToken || ''
-    //   }
-    //   this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
-    //     params
-    //   }).then(res => {
-    //     this.courseNum = res.data.count
-    //   })
-    // }
+    getCourseNum() {
+      let params = {
+        type: 0,
+        userToken: this.userInfo.userToken || ''
+      }
+      this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
+        params
+      }).then(res => {
+        this.courseNum = res.data.total
+      })
+    },
+    getClassNum() {
+      let params = {
+        type: 0,
+        userToken: this.userInfo.userToken
+      }
+      this.$axios('/yxs/api/web/user/getClassroomMemberPageByUserId', {
+        params
+      }).then(res => {
+        this.classNum = res.data.total
+      })
+    }
   }
 }
 </script>

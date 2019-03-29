@@ -96,7 +96,7 @@ export default {
       this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
         params
       }).then(res => {
-        this.contentList = res.data
+        this.contentList = res.data.records
       })
     }
   }
