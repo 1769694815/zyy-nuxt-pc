@@ -30,7 +30,8 @@
               <input
                 v-model="form1.code"
                 type="text"
-                placeholder="验证码">
+                placeholder="验证码"
+                @keyup.enter="login1">
               <div
                 v-show="!timeShow"
                 class="button"
@@ -39,9 +40,11 @@
                 v-show="timeShow"
                 class="button">{{ count }}s后重试</div>
             </div>
-            <div
+            <input
+              type="button"
               class="denglu"
-              @click="login1">登录</div>
+              value="登录"
+              @click="login1">
           </div>
           <div
             v-show="tab === 2"
@@ -58,7 +61,8 @@
               <input
                 v-model="form2.password"
                 type="password"
-                placeholder="密码">
+                placeholder="密码"
+                @keyup.enter="login2">
             </div>
             <el-checkbox
               v-model="form2.checked"
@@ -324,6 +328,8 @@ export default {
           border-radius: 3px;
           background: #f77a0e;
           cursor: pointer;
+          // outline: none;
+          border: none;
         }
         
       }
