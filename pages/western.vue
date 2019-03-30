@@ -69,9 +69,22 @@
                   <span>{{ item.studentNum }}人已报名</span>
                   <span>截止报名：{{ item.closeDate }}</span>
                 </div>
-                <div class="button">立即报名</div>
-                <div class="button">报名结束</div>
-                <div class="button">已加入本班</div>
+                <div
+                  v-if="item.closeStatus == 2"
+                  class="button b2">报名结束</div>
+                <div
+                  v-if="item.closeStatus == 0"
+                  class="button b2">未开始</div>
+                <div
+                  v-if="item.closeStatus == 1 && item.status == 0"
+                  class="button">
+                  立即报名
+                </div>
+                <div
+                  v-if="item.closeStatus == 1 && item.status == 1"
+                  class="button">
+                  已加入本班
+                </div>
               </div>
             </li>
           </ul>
@@ -321,6 +334,7 @@ export default {
         display: flex;
         position: relative;
         margin-top: 30px;
+        cursor: pointer;
         img {
           width: 285px;
           height: 160px;
@@ -333,6 +347,9 @@ export default {
             margin-top: 10px;
             font-size: 18px;
             color: #333;
+            &:hover {
+              color: #3F8A38;
+            }
           }
           .tag {
             margin-top: 20px;
@@ -373,6 +390,10 @@ export default {
             color: #fff;
             background: #3F8A38;
             text-align: center;
+            cursor: pointer;
+          }
+          .b2 {
+            background: #999;
           }
         }
       }

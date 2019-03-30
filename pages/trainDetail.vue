@@ -18,7 +18,10 @@
                 class="enroll-text"
                 @click="changeClass(item, index)">
                 <div
-                  class="enrolls"><span>{{ status(item.teachingMethod) }}</span></div>
+                  :class="item.closeStatus == 1 ? 'active' : ''"
+                  class="enrolls">
+                  <span>{{ status(item.closeStatus) }}</span>
+                </div>
                 <div class="title">{{ item.title }}</div>
                 <div class="time">截止至： {{ item.closeDate }}</div>
               </li>
@@ -43,17 +46,41 @@
             </ul>
           </div>
           <div
-            v-if="classInfo.memberStatus == 1"
-            class="bottom">
-            <div class="b1">已加入本班</div>
-            <div class="b2">继续学习 ></div>
-          </div>
-          <div
-            v-if="classInfo.memberStatus == 0"
+            v-if="!userInfo"
             class="bottom">
             <div
+              v-if="classInfo.closeStatus == 2"
+              class="b1">报名结束</div>
+            <div
+              v-if="classInfo.closeStatus == 0"
+              class="b1">未开始</div>
+            <div
+              v-if="classInfo.closeStatus == 1"
               class="b3"
               @click="signup">立即报名</div>
+          </div>
+          <div
+            v-else
+            class="bottom">
+            <div
+              v-if="classInfo.memberStatus == 1 && classInfo.closeStatus == 1"
+              class="bottom">
+              <div class="b1">已加入本班</div>
+              <div class="b2">继续学习</div>
+            </div>
+            <div
+              v-if="classInfo.memberStatus == 0 && classInfo.closeStatus == 1"
+              class="bottom">
+              <div
+                class="b3"
+                @click="signup">立即报名</div>
+            </div>
+            <div
+              v-if="classInfo.closeStatus == 2"
+              class="b1">报名结束</div>
+            <div
+              v-if="classInfo.closeStatus == 0"
+              class="b1">未开始</div>
           </div>
         </div>
       </div>
@@ -280,7 +307,7 @@ export default {
         ul {
           display: flex;
           width: 680px;
-          overflow-x: scroll;
+          overflow-x: auto;
         }
         li{
           flex: 0 0 284px;
@@ -306,7 +333,12 @@ export default {
             color: #fff;
             transform: rotate(-45deg);
             span {
+              display: inline-block;
+              width: 100%;
               margin-left: 15px;
+            }
+            &.active {
+              background: #3F8A38;
             }
           }
           .title {
