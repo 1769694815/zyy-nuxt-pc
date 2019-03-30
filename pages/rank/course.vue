@@ -127,7 +127,7 @@ export default {
           courseId: id
         }
       }).then(res => {
-        this.rankList = res.data
+        this.rankList = res.data.records
       })
     },
     // 截取百分比

@@ -101,7 +101,7 @@ export default {
           userToken: this.userInfo.userToken
         }
       }).then(res => {
-        this.rightList = res.data
+        this.rightList = res.data.records
       })
     }
   },
