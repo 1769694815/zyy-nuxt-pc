@@ -50,6 +50,7 @@ export default {
       payInfo: '',
       itemId: this.$route.query.itemId,
       price: this.$route.query.price,
+      itemType: this.$route.query.itemType,
       detail: ''
     }
   },
@@ -60,7 +61,7 @@ export default {
   methods: {
     getInfo() {
       this.$axios.post('/yxs/api/web/user/createOrder', {
-        itemType: 2,
+        itemType: this.itemType,
         itemId: this.itemId,
         price: this.price,
         userToken: this.userInfo.userToken

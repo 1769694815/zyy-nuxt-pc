@@ -749,6 +749,9 @@ export default {
           font-size: 12px;
           text-align: center;
           cursor: pointer;
+          &:hover {
+            color: #3F8A38;
+          }
         }
         ul {
           display: flex;
@@ -1055,7 +1058,7 @@ export default {
     background: #fff;
   }
   .el-carousel__container button {
-    background: #3F8A38;
+    background: #999;
   }
   .el-carousel__indicator.is-active .el-carousel__button {
     background: #3F8A38;

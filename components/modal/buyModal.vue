@@ -89,7 +89,8 @@ export default {
         name: 'payfor',
         query: {
           itemId: this.itemId,
-          price: this.price
+          price: this.price,
+          itemType: 2
         }
       })
     }

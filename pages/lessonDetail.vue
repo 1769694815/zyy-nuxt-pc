@@ -52,7 +52,16 @@
             <div class="price">
               价格：<span>{{ detailData.price }}</span> 中医币
             </div>
-            <div class="bottom">
+            <div
+              v-if="!userInfo || detailData.price == 0"
+              class="bottom">
+              <div
+                class="b1"
+                @click="join">免费加入</div>
+            </div>
+            <div
+              v-else
+              class="bottom">
               <div
                 class="b1"
                 @click="toPlay">免费试看</div>
@@ -274,6 +283,20 @@ export default {
         }
       })
     },
+    join() {
+      if(!this.userInfo) {
+        this.$router.push({
+          name: 'login'
+        })
+      } else {
+        this.$router.push({
+          name: 'play',
+          query: {
+            courseId: this.id
+          }
+        })
+      }
+    },
     hideModal() {
       this.showModal = false
     },
@@ -281,10 +304,11 @@ export default {
       // this.showModal = true
       this.$router.push({
         name: 'payfor',
-        // query: {
-        //   itemId: this.itemId,
-        //   price: this.price
-        // }
+        query: {
+          itemId: this.id,
+          price: this.detailData.price,
+          itemType: 1
+        }
       })
     },
     getComment() {
