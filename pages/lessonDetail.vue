@@ -53,21 +53,47 @@
               价格：<span>{{ detailData.price }}</span> 中医币
             </div>
             <div
-              v-if="!userInfo || detailData.price == 0"
+              v-if="!userInfo"
               class="bottom">
               <div
+                v-if="detailData.price == 0"
                 class="b1"
                 @click="join">免费加入</div>
+              <div
+                v-else
+                class="flex">
+                <div
+                  class="b1"
+                  @click="toPlay">免费试看</div>
+                <div
+                  class="b2"
+                  @click="buyLesson">立即购买</div>
+              </div>
             </div>
             <div
               v-else
               class="bottom">
               <div
+                v-if="detailData.memBerStatus == 0 && detailData.price == 0"
                 class="b1"
-                @click="toPlay">免费试看</div>
+                @click="join">
+                免费加入
+              </div>
               <div
+                v-if="detailData.memBerStatus == 0 && detailData.price != 0"
+                class="flex">
+                <div
+                  class="b1"
+                  @click="toPlay">免费试看</div>
+                <div
+                  class="b2"
+                  @click="buyLesson">立即购买</div>
+              </div>
+              <div
+                v-if="detailData.memBerStatus == 1"
                 class="b2"
-                @click="buyLesson">购买课程</div>
+                @click="buyLesson">继续学习
+              </div>
             </div>
           </div>
         </div>
@@ -276,12 +302,18 @@ export default {
       })
     },
     toPlay() {
-      this.$router.push({
-        name: 'play',
-        query: {
-          courseId: this.id
-        }
-      })
+      if(!this.userInfo) {
+        this.$router.push({
+          name: 'login'
+        })
+      } else {
+        this.$router.push({
+          name: 'play',
+          query: {
+            courseId: this.id
+          }
+        })
+      }
     },
     join() {
       if(!this.userInfo) {
@@ -302,14 +334,20 @@ export default {
     },
     buyLesson() {
       // this.showModal = true
-      this.$router.push({
-        name: 'payfor',
-        query: {
-          itemId: this.id,
-          price: this.detailData.price,
-          itemType: 1
-        }
-      })
+      if(!this.userInfo) {
+        this.$router.push({
+          name: 'login'
+        })
+      } else {
+        this.$router.push({
+          name: 'payfor',
+          query: {
+            itemId: this.id,
+            price: this.detailData.price,
+            itemType: 1
+          }
+        })
+      }
     },
     getComment() {
       let params = {
@@ -471,6 +509,9 @@ export default {
           margin-top: 20px;
           line-height:40px;
           display: flex;
+          .flex {
+            display: flex;
+          }
           .b1{
             margin-right: 16px;
             width: 121px;
