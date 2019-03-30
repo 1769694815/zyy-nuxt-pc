@@ -66,7 +66,9 @@
               v-if="classInfo.memberStatus == 1 && classInfo.closeStatus == 1"
               class="bottom">
               <div class="b1">已加入本班</div>
-              <div class="b2">继续学习</div>
+              <div
+                class="b2"
+                @click="toplay">继续学习</div>
             </div>
             <div
               v-if="classInfo.memberStatus == 0 && classInfo.closeStatus == 1"
@@ -275,6 +277,11 @@ export default {
       } else {
         this.$router.push({ name: 'login' })
       }
+    },
+    toplay() {
+      // if(this.userInfo) {
+      //   this.$router.push({ name: 'play' })
+      // }
     },
     hideModal() {
       this.showModal = false

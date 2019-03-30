@@ -51,7 +51,7 @@
               v-for="(item, index) in result"
               :key="index"
               class="common-class"
-              @click="toTrainDetail(item.id)">
+              @click="toTrainDetail(item.categoryId)">
               <img :src="item.middle_picture">
               <div class="info">
                 <div class="title">{{ item.title }}</div>
