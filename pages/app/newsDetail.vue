@@ -16,8 +16,8 @@ export default {
       scope: 'server',
       grant_type: 'client_credentials'
     }
-    this.$axios.post('/auth/oauth/token', params).then(res => {
-      this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
+    this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
+      this.$axios.post('/auth/oauth/token', params).then(res => {
       this.getDetail()
     })
   },

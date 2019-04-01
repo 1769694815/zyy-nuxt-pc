@@ -34,7 +34,7 @@
                 <span>{{ item.studentNum }}成员</span>
                 <span
                   class="rank"
-                  @click="toRank">进度排名></span>
+                  @click="toRank(item.classroomId)">进度排名></span>
               </div>
             </div>
           </li>
@@ -82,7 +82,8 @@ export default {
       this.type = item.value
       this.getList()
     },
-    toRank() {
+    toRank(roomId) {
+      window.localStorage.setItem('zyy_classId', roomId)
       this.$router.push({
         name: 'rank-course'
       })
