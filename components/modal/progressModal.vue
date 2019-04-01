@@ -8,7 +8,7 @@
         <div
           class="m-close"
           @click="handleClose">
-          <i class="iconfont icon-guanbixiaoxitishi"/>
+          <i class="iconfont iconguanbi"/>
         </div>
       </div>
       <div class="m-content">
@@ -134,6 +134,9 @@ export default {
         background: #3F8A38;
         .m-close {
           cursor: pointer;
+          .iconguanbi {
+            font-size: 12px;
+          }
         }
       }
       .m-content {
