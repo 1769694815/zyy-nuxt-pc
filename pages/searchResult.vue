@@ -1,10 +1,14 @@
 <template>
   <div>
-    <v-header />
+    <v-header
+      ref="searchRef"
+      @getList="getList" />
     <div style="width: 1200px; overflow:hidden; margin: 0 auto; border-right: 1px solid #ddd">
-      <v-nav :tab-index="tabIndex" />
+      <v-nav />
     </div>
-    <ul class="train-ul">
+    <ul
+      v-if="result.length > 0"
+      class="train-ul">
       <li
         v-for="(item, index) in result"
         :key="index" 
@@ -29,6 +33,16 @@
         </div>
       </li>
     </ul>
+    <div
+      v-if="result.length == 0"
+      class="nothing">
+      <div class="content">
+        <img src="~/assets/images/nothing.png">
+        <div class="tips">
+          没有找到<span>"{{ title }}"</span>相关的课程
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -41,7 +55,7 @@ export default {
   },
   data() {
     return {
-      title: this.$route.query.title,
+      title: this.$route.query.title || '',
       result: []
     }
   },
@@ -57,10 +71,13 @@ export default {
         }
       })
     },
-    getList() {
+    getList(text, flag) {
+      if(flag) {
+        this.title = text
+      }
       this.$axios('/yxs/api/web/course/getSelectCourseByTitle', {
         params: {
-          title: this.title
+          title: this.title || ''
         }
       }).then(res => {
         this.result = res.data.records
@@ -145,6 +162,23 @@ export default {
           font-size: 12px;
           color: #999;
           float: right;
+        }
+      }
+    }
+  }
+  .nothing {
+    width: 1200px;
+    margin: 150px auto;
+    text-align: center;
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .tips {
+        margin-left: 20px;
+        font-size: 16px;
+        span {
+          color: red;
         }
       }
     }

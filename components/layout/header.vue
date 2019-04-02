@@ -284,12 +284,17 @@ export default {
     },
     // 搜索
     search() {
-      this.$router.push({
-        name: 'searchResult',
-        query: {
-          title: this.text
-        }
-      })
+      let url = location.href
+      if(url.indexOf('searchResult') > -1) {
+        this.$emit('getList', this.text, true)
+      } else {
+        this.$router.push({
+          name: 'searchResult',
+          query: {
+            title: this.text
+          }
+        })
+      }
     }
   }
 }
