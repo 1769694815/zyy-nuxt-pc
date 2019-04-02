@@ -99,13 +99,14 @@ export default {
     height: 50px;
     font-size: 16px;
     .class-center {
+      flex: 0 0 180px;
       width: 180px;
       height: 50px;
       padding-left: 20px;
       line-height: 50px;
       background: #3F8A38;
       color: #fff;
-      border-right: 1px solid #fff;
+      // border-right: 1px solid #fff;
       .icon-caidan {
         font-size: 20px;
       }

@@ -6,13 +6,15 @@
           <span class="title">订单支付</span>
           <span
             style="cursor:pointer"
-            @click="window.history.back()">返回介绍页</span>
+            @click="$router.push({ name: 'lessonDetail', query: { id: itemId }})">返回介绍页</span>
           <span
             style="cursor:pointer"
             @click="$router.push({ name: 'index' })">首页</span>
         </div>
         <div class="header-right">
-          用户名：{{ userInfo.userName }}
+          <span @click="$router.push({ name: 'personal'})">
+            用户名：{{ userInfo.nickName }}
+          </span>
         </div>
       </div>
     </div>
@@ -110,6 +112,14 @@ export default {
         font-size: 16px;
         color: #000;
         font-weight: 700;
+      }
+      &-right {
+        span {
+          cursor: pointer;
+          &:hover {
+            color: #3f8a38;
+          }
+        }
       }
     }
     .content {

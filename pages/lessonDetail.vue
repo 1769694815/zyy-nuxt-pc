@@ -94,7 +94,7 @@
               <div
                 v-if="detailData.memBerStatus == 1"
                 class="b2"
-                @click="buyLesson">继续学习
+                @click="toPlay">继续学习
               </div>
             </div>
           </div>

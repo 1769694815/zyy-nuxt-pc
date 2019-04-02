@@ -11,7 +11,7 @@
           <span
             v-else
             class="welcome">
-            HI，{{ userInfo.userName }}{{ rankName }}，欢迎来到中医药在线学习平台!
+            HI，{{ userInfo.nickName }}{{ rankName }}，欢迎来到中医药在线学习平台!
           </span>
           <span v-show="loginShow">
             <span
