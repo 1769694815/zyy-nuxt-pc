@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="footer-content">
       <div class="footer-left fl">
-        <p>合作电话：0791-88197248 咨询电话：0791-87119966</p>
+        <p>平台合作：0791-88197248 <span style="margin-left: 30px;">咨询电话：0791-87119966</span></p>
         <p>联系地址：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
         <p>课程咨询：江西中医药大学继续教育学院（培训学院）</p>
       </div>

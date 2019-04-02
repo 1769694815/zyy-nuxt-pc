@@ -10,7 +10,7 @@
         @click="$router.push({ name: 'trainDetail', query: { id: item.id }})">
         <div class="train-img">
           <img :src="item.middle_picture">
-          <div class="text">中药炮制工</div>
+          <!-- <div class="text">中药炮制工</div> -->
         </div>
         <div class="info">
           <span class="teacher">讲师：{{ item.fanousrName }}</span>

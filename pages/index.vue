@@ -19,6 +19,12 @@
       </el-carousel>
       <div class="carousel-content">
         <div class="nav-list">
+          <div
+            class="nav-item"
+            @click="$router.push({ name: 'index'})">
+            <i class="iconfont iconyisheng"/>
+            中医研究所
+          </div>
           <div class="nav-item">
             <i class="iconfont iconyisheng"/>
             名师医承
@@ -44,8 +50,8 @@
             培训项目
           </div>
           <div class="sub-nav">
-            <span>中药学</span>
-            <span>药学</span>
+            <span>西学中</span>
+            <span>职业培训</span>
           </div>
         </div>
         <!-- <section class="info-list">
@@ -82,12 +88,16 @@
           <div class="avatar">
             <img
               v-if="userInfo.avatar"
-              :src="userInfo.avatar">
+              :src="userInfo.avatar"
+              @click="$router.push({ name: 'personal'})">
             <img
               v-else
-              src="~/assets/images/user-logo.png">
+              src="~/assets/images/user-logo.png"
+              @click="$router.push({ name: 'personal'})">
           </div>
-          <div class="username">{{ userInfo.userName }}</div>
+          <div
+            class="username"
+            @click="$router.push({ name: 'personal'})">{{ userInfo.nickName }}</div>
           <div
             class="logout"
             @click="logout">安全退出</div>
@@ -172,9 +182,13 @@
           </div>
         </div>
         <div class="imgs">
-          <img src="~/assets/images/famous_1.jpg">
+          <img
+            src="~/assets/images/famous_1.jpg"
+            @click="$router.push({ name: 'doctor' })">
           <img src="~/assets/images/famous_2.jpg">
-          <img src="~/assets/images/famous_3.jpg">
+          <img
+            src="~/assets/images/famous_3.jpg"
+            @click="$router.push({ name: 'community' })">
         </div>
       </div>
     </div>
@@ -313,7 +327,7 @@
             class="train-img"
             @click="toTrainDetail(item)">
             <img :src="item.middle_picture">
-            <div class="text">中药炮制工</div>
+            <!-- <div class="text">中药炮制工</div> -->
           </div>
         </div>
         <div class="button">
@@ -435,7 +449,7 @@ export default {
       grant_type: 'client_credentials'
     }
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
-    console.log(this.userInfo)
+    console.log('userInfo', this.userInfo)
     if(!Cookies.get('zyy_accessToken')) {
       this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
       this.$axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
@@ -704,11 +718,15 @@ export default {
         font-size: 16px;
         z-index: 99;
         .nav-item {
-          margin-top: 30px;
+          margin-top: 26px;
           height: 24px;
           line-height: 24px;
+          cursor: pointer;
           &:first-child {
-            margin-top: 20px;
+            margin-top: 16px;
+          }
+          &:hover {
+            color: #3F8A38;
           }
         }
         .sub-nav {
@@ -728,6 +746,8 @@ export default {
         height: 330px;
         z-index: 99;
         background: rgba(255, 255, 255, .9);
+        box-shadow: 0 10px 20px #666;
+        border-radius: 4px;
         .avatar {
           margin-top: 30px;
           text-align: center;
@@ -735,6 +755,7 @@ export default {
             width: 80px;
             height: 80px;
             border-radius: 50%;
+            cursor: pointer;
           }
         }
         .username {
@@ -764,6 +785,9 @@ export default {
               margin-top: 16px;
               font-size: 15px;
               color: #363636;
+              &:hover {
+                color: #99cb64;
+              }
             }
           }
         }
@@ -785,10 +809,14 @@ export default {
           color: #fff;
         }
         .down {
-          margin-top: 50px;
+          margin-top: 66px;
           text-align: center;
-          cursor: pointer;
           color: #363636;
+          font-size: 12px;
+          cursor: pointer;
+          &:hover {
+            color: #99cb64;
+          }
         }
         .down-2 {
           color: #99cb64;
