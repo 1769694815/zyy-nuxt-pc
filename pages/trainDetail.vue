@@ -11,7 +11,7 @@
         <div class="content-right">
           <div class="enroll-class">
             <ul>
-              <li 
+              <li
                 v-for="(item, index) in detailData.classList"
                 :key="index"
                 :class="classIndex == index ? 'active' : ''"

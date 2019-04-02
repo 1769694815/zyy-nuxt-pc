@@ -81,9 +81,10 @@
             <li
               v-for="(item, index) in result"
               :key="index" 
-              class="train-class"
-              @click="toLessonDetail(item.id)">
-              <div class="img-box">
+              class="train-class">
+              <div
+                class="img-box"
+                @click="toLessonDetail(item.id)">
                 <img v-lazy="item.middle_picture">
               </div>
               <div class="content">

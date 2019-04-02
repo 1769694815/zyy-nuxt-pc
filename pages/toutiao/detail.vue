@@ -80,6 +80,7 @@ export default {
     }
   },
   mounted() {
+    window.scrollTo(0, 0);
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     this.getDetail()
     this.getComment()
