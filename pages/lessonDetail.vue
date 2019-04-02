@@ -18,7 +18,9 @@
                   @click="collect">收藏
                   <i class="iconfont iconaixin" />
                 </span>
-                <span v-else>收藏
+                <span
+                  v-else
+                  @click="cancelCollect">收藏
                   <i class="iconfont iconaixin active" />
                 </span>
                 <span>分享<i class="iconfont iconfenxiang" /></span>
@@ -393,6 +395,21 @@ export default {
       }).then(res => {
         this.$message({
           message: '收藏成功',
+          type: 'success'
+        })
+        this.getDetail()
+      })
+    },
+    // 取消收藏
+    cancelCollect() {
+      this.$axios('/yxs/api/web/user/cancelCourseCollection', {
+        params: {
+          courseId: this.detailData.id,
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
+        this.$message({
+          message: '取消收藏成功',
           type: 'success'
         })
         this.getDetail()
