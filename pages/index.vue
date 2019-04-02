@@ -60,7 +60,7 @@
           </div>
           <div
             class="nav-item"
-            @click="$router.push({ name: 'index', query: {fid: 54}})">
+            @click="$router.push({ name: 'western' })">
             <i class="iconfont iconxiangmu"/>
             培训项目
           </div>
@@ -730,7 +730,7 @@ export default {
         position: absolute;
         top: 0;
         padding: 10px 20px;
-        width: 184px;
+        width: 160px;
         height: 380px;
         background: rgba(0, 0, 0, .7);
         color: #fff;
@@ -753,7 +753,7 @@ export default {
           font-size: 14px;
           opacity: .6;
           span {
-            margin-left: 30px;
+            margin-left: 20px;
             cursor: pointer;
             &:hover {
               color: #3F8A38;
@@ -831,8 +831,8 @@ export default {
           background: #99cb64;
           color: #fff;
         }
-        .down {
-          margin-top: 66px;
+        .down, .down-2 {
+          margin-top: 50px;
           text-align: center;
           color: #363636;
           font-size: 12px;
@@ -840,9 +840,6 @@ export default {
           &:hover {
             color: #99cb64;
           }
-        }
-        .down-2 {
-          color: #99cb64;
         }
         .down-logo {
           position: absolute;

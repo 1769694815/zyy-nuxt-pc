@@ -2,7 +2,7 @@
   <div class="nav-bar">
     <div class="nav">
       <div class="class-center">
-        <i class="iconfont icon-caidan" />
+        <i class="iconfont iconmenu" />
         课程中心
       </div>
       <ul>
@@ -99,7 +99,7 @@ export default {
     height: 50px;
     font-size: 16px;
     .class-center {
-      width: 204px;
+      width: 180px;
       height: 50px;
       padding-left: 20px;
       line-height: 50px;
@@ -123,8 +123,9 @@ export default {
       cursor: pointer;
       box-sizing: border-box;
       &.active {
-        background: #3F8A38;
-        color: #fff;
+        // background: #3F8A38;
+        color: #3F8A38;
+        font-weight: 700;
       }
     }
   }
