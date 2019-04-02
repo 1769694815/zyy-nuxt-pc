@@ -88,7 +88,8 @@
           <input
             v-model="text"
             type="text"
-            placeholder="输入关键词找课程">
+            placeholder="输入关键词找课程"
+            @keyup.enter="search">
         </div>
         <div
           class="search-icon"
@@ -109,7 +110,8 @@
             <input
               v-model="text"
               type="text"
-              placeholder="输入关键词找课程">
+              placeholder="输入关键词找课程"
+              @keyup.enter="search">
             <div
               class="search-icon"
               @click="search">
