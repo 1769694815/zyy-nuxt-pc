@@ -15,8 +15,8 @@
                 <span
                   v-for="(item, index) in types"
                   :key="index"
-                  :class="{active:firstActive == index}"
-                  @click="changeFirst(item, index)">
+                  :class="{active:categoryId == item.id}"
+                  @click="changeFirst(item, index, true)">
                   {{ item.name }}
                 </span>
               </td>
@@ -27,7 +27,7 @@
                 <span
                   v-for="(item, index) in courses"
                   :key="index"
-                  :class="{active:secondActive == index}"
+                  :class="{active:item.id == cid}"
                   @click="changeSecond(item.id, index)">
                   {{ item.name }}
                 </span>
@@ -130,9 +130,11 @@ export default {
       tabIndex: 2,
       current: 1,
       size: 10,
-      categoryId: 10, // 默认10,自学考试id
+      categoryId: this.$route.query.fid || 53, // 默认10,自学考试id
+      cid: this.$route.query.cid || 0,
       orderByClause: 1,
-      firstActive: 2,
+      // firstActive: 2,
+      // firstId: this.$route.query.fid || 53,
       secondActive: 0,
       thirdActive: 0,
       classType: 1,
@@ -159,15 +161,18 @@ export default {
     this.getRecommendLessons()
   },
   methods: {
-    changeFirst(item, index) {
+    changeFirst(item, index, flag) {
+      if(flag) {
+        this.cid = 0
+      }
       if(item.id == 1) {
         this.$router.push({
           name: 'western'
         })
       } else {
         this.categoryId = item.id
-        this.firstActive = index
-        this.secondActive = 0
+        // this.firstActive = index
+        // this.secondActive = 0
         this.courses = [{
           name: '全部',
           id: 0
@@ -177,13 +182,18 @@ export default {
             this.courses.push(item)
           })
         }
-        this.getList(item.id, 1)
+        if(this.cid) {
+          this.getList(this.cid, 2)
+        } else {
+          this.getList(item.id, 1)
+        }
       }
     },
     changeSecond(id, index) {
-      this.secondActive = index
+      // this.secondActive = index
+      this.cid = id
       if(id == 0) {
-        this.getList('', 2)
+        this.getList(this.categoryId, 1)
       } else {
         this.getList(id, 2)
       }
@@ -194,9 +204,6 @@ export default {
       this.getList(item.id, 3)
     },
     getList(id, i) {
-      // if(i == 1) {
-      //   this.classType = item.type ? 2 : 1
-      // }
       this.$axios('/yxs/api/web/course/more', {
         params: {
           current: this.current,
@@ -222,8 +229,11 @@ export default {
         })
         res.data.allCate.map(item => {
           this.types.push(item)
+          if(item.id == this.categoryId) {
+            this.changeFirst(item, 2)
+          }
         })
-        this.changeFirst(res.data.allCate[0], 2)
+        // this.changeFirst(res.data.allCate[0], 2)
       })
     },
     // 推荐培训项目

@@ -73,6 +73,14 @@ export default {
       this.$router.push({
         name: item.path
       })
+      if(index == 2) {
+        this.$router.push({
+          name: item.path,
+          query: {
+            cid: 2
+          }
+        })
+      }
     }
   }
 }

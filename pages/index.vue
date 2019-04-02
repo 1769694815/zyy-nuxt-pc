@@ -21,37 +21,52 @@
         <div class="nav-list">
           <div
             class="nav-item"
-            @click="$router.push({ name: 'index'})">
+            @click="$router.push({ name: 'train', query: {fid: 70}})">
             <i class="iconfont iconyisheng"/>
             中医研究所
           </div>
-          <div class="nav-item">
+          <div
+            class="nav-item"
+            @click="$router.push({ name: 'train', query: {fid: 63}})">
             <i class="iconfont iconyisheng"/>
             名师医承
           </div>
-          <div class="nav-item">
+          <div
+            class="nav-item"
+            @click="$router.push({ name: 'train', query: {fid: 54}})">
             <i class="iconfont icon2jiankangzhishi"/>
             中医健康
           </div>
-          <div class="nav-item">
+          <div
+            class="nav-item"
+            @click="$router.push({ name: 'train', query: {fid: 55}})">
             <i class="iconfont iconwendang"/>
             中医药理论
           </div>
-          <div class="nav-item">
+          <div
+            class="nav-item"
+            @click="$router.push({ name: 'train', query: {fid: 53}})">
             <i class="iconfont iconkaoshi"/>
             自学考试
           </div>
           <div class="sub-nav">
-            <span>中药学</span>
-            <span>药学</span>
+            <span
+              v-for="(item, index) in examSubList"
+              v-if="index > 0"
+              :key="index"
+              @click="toList(53, item.id)">
+              {{ item.name }}
+            </span>
           </div>
-          <div class="nav-item">
+          <div
+            class="nav-item"
+            @click="$router.push({ name: 'index', query: {fid: 54}})">
             <i class="iconfont iconxiangmu"/>
             培训项目
           </div>
           <div class="sub-nav">
-            <span>西学中</span>
-            <span>职业培训</span>
+            <span @click="$router.push({ name: 'western', query: { cid: 3 }})">职业培训</span>
+            <span @click="$router.push({ name: 'western', query: { cid: 2 }})">西学中</span>
           </div>
         </div>
         <!-- <section class="info-list">
@@ -201,11 +216,11 @@
             v-for="(item, index) in healthSubList"
             v-if="index > 0"
             :key="index">
-            <span @click="toList">{{ item.name }}</span>
+            <span @click="toList(54, item.id)">{{ item.name }}</span>
           </span>
           <span
             class="pos-right"
-            @click="toList">
+            @click="toList(54)">
             查看更多
             <i class="iconfont icongengduo" />
           </span>
@@ -238,11 +253,11 @@
             v-for="(item, index) in examSubList"
             v-if="index > 0"
             :key="index">
-            <span @click="toList">{{ item.name }}</span>
+            <span @click="toList(53, item.id)">{{ item.name }}</span>
           </span>
           <span
             class="pos-right"
-            @click="toList">
+            @click="toList(53)">
             查看更多
             <i class="iconfont icongengduo" />
           </span>
@@ -275,11 +290,11 @@
             v-for="(item, index) in theorySubList"
             v-if="index > 0"
             :key="index">
-            <span @click="toList">{{ item.name }}</span>
+            <span @click="toList(55, item.id)">{{ item.name }}</span>
           </span>
           <span
             class="pos-right"
-            @click="toList">
+            @click="toList(55)">
             查看更多
             <i class="iconfont icongengduo" />
           </span>
@@ -309,8 +324,8 @@
         <div class="container-header">
           <h2>培训项目</h2>
           <div class="subnav">
-            <span @click="$router.push({ name: 'western' })">职业培训</span>
-            <span @click="$router.push({ name: 'western' })">西学中</span>
+            <span @click="$router.push({ name: 'western', query: { cid: 3 }})">职业培训</span>
+            <span @click="$router.push({ name: 'western', query: { cid: 2 }})">西学中</span>
             <span
               class="pos-right"
               @click="$router.push({ name: 'western' })">
@@ -637,9 +652,13 @@ export default {
         }
       })
     },
-    toList() {
+    toList(fid, cid) {
       this.$router.push({
-        name: 'train'
+        name: 'train',
+        query: {
+          fid,
+          cid
+        }
       })
     },
     toTrainDetail(item) {
@@ -735,6 +754,10 @@ export default {
           opacity: .6;
           span {
             margin-left: 30px;
+            cursor: pointer;
+            &:hover {
+              color: #3F8A38;
+            }
           }
         }
       }

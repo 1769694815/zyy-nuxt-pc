@@ -27,7 +27,7 @@
                 <span
                   v-for="(item, index) in courses"
                   :key="index"
-                  :class="{active:secondActive == index}"
+                  :class="{active:cid == item.id}"
                   @click="changeSecond(item, index)">
                   {{ item.name }}
                 </span>
@@ -141,7 +141,8 @@ export default {
       tabIndex: 3,
       current: 1,
       size: 10,
-      categoryId: 21, // 默认21,培训项目id
+      categoryId: 1, // 默认21,培训项目id
+      cid: this.$route.query.cid || 0,
       orderByClause: 1,
       firstActive: 1,
       secondActive: 0,
@@ -173,7 +174,10 @@ export default {
     changeFirst(item, index) {
       if(item.id != 1) {
         this.$router.push({
-          name: 'train'
+          name: 'train',
+          query: {
+            fid: item.id
+          }
         })
       } else {
         this.categoryId = item.id
@@ -188,31 +192,33 @@ export default {
             this.courses.push(item)
           })
         }
-        this.getList(item, 1)
+        if(this.cid) {
+          this.getList(this.cid, 2)
+        } else {
+          this.getList(item.id, 1)
+        }
       }
     },
     changeSecond(item, index) {
       this.secondActive = index
+      this.cid = item.id
       if(item.id == 0) {
-        this.getList('', 2)
+        this.getList(this.categoryId, 1)
       } else {
-        this.getList(item, 2)
+        this.getList(item.id, 2)
       }
     },
     changeThird(item, index) {
       this.thirdActive = index
       this.orderByClause = index == 0 ? 1 : 2
-      this.getList(item, 3)
+      this.getList(item.id, 3)
     },
-    getList(item, i) {
-      // if(i == 1) {
-      //   this.classType = item.type ? 2 : 1
-      // }
+    getList(id, i) {
       this.$axios('/yxs/api/web/course/more', {
         params: {
           current: this.current,
           size: this.size,
-          categoryId: item.id || this.categoryId,
+          categoryId: id || this.categoryId,
           orderByClause: this.orderByClause,
           type: this.classType,
           userToken: ''
