@@ -39,8 +39,10 @@
           </ul>
         </div>
       </div>
-      <div class="other-container">
-        <div class="container-title">我的其他课程</div>
+      <div
+        v-if="otherList.length > 0"
+        class="other-container">
+        <div class="container-title">我的其它课程</div>
         <ul>
           <li
             v-for="(item, index) in otherList"
