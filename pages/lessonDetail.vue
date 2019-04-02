@@ -126,7 +126,7 @@
                   @click="$router.push({ name: 'play', query: { courseId: id }})">
                   <span class="circle" />
                   <span
-                    v-if="item.free == 2"
+                    v-if="item.free == 1"
                     class="free">免费</span>
                   <span>{{ item.title }}</span>
                   <div class="right">
