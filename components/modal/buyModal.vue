@@ -29,6 +29,9 @@
                   {{ item }}
                 </li>
               </ul>
+              <ul v-else>
+                <span style="color: #999;">暂无课程</span>
+              </ul>
             </div>
           </div>
         </div>

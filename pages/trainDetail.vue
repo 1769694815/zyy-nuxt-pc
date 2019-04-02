@@ -23,7 +23,7 @@
                   <span>{{ status(item.closeStatus) }}</span>
                 </div>
                 <div class="title">{{ item.title }}</div>
-                <div class="time">截止至： {{ item.closeDate }}</div>
+                <div class="time">截止报名： {{ item.closeDate }}</div>
               </li>
             </ul>
           </div>
@@ -43,6 +43,9 @@
                 class="lesson">
                 {{ item }}
               </li>
+            </ul>
+            <ul v-else>
+              暂无课程
             </ul>
           </div>
           <div
@@ -349,14 +352,16 @@ export default {
             }
           }
           .title {
-            margin-top: 26px;
+            height: 50px;
+            margin-top: 20px;
             margin-left: 28px;
             color: #333;
             font-size: 16px;
+            line-height: 20px;
           }
           .time {
             margin-left: 28px;
-            margin-top: 20px;
+            // margin-top: 20px;
             color: #666;
             font-size: 12px;
           }
