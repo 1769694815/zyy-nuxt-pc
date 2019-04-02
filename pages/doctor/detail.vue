@@ -7,7 +7,8 @@
         </div>
         <div
           v-if="detail.focusFlag == 1"
-          class="button">已关注</div>
+          class="button"
+          @click="cancelConcern(detail.famousDoctorId)">已关注</div>
         <div
           v-else
           class="button"
@@ -73,6 +74,7 @@ export default {
         this.detail = res.data
       })
     },
+    // 关注
     concern(id) {
       this.$axios.post('/yxs/api/web/user/saveFamousCollection', {
         famousId: id,
@@ -80,6 +82,21 @@ export default {
       }).then(res => {
         this.$message({
           message: '关注成功',
+          type: 'success'
+        })
+        this.getDetail()
+      })
+    },
+    // 取消关注
+    cancelConcern(id) {
+      this.$axios('/yxs/api/web/user/cancelFamousCollection', {
+        params: {
+          famousId: id,
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
+        this.$message({
+          message: '取消关注成功',
           type: 'success'
         })
         this.getDetail()
