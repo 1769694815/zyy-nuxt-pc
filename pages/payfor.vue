@@ -34,6 +34,9 @@
       <div class="border" />
       <div class="pay">
         <div class="title">支付方式：</div>
+        <div class="pic">
+          <img src="~/assets/images/pay.png">
+        </div>
       </div>
       <div
         class="button"
@@ -162,6 +165,9 @@ export default {
           font-size: 14px;
           color: #000;
           font-weight: 700;
+        }
+        .pic {
+          margin-top: 20px;
         }
       }
       .button {

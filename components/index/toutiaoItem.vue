@@ -89,7 +89,7 @@ export default {
       margin-top: 24px;
       font-size: 0;
       .date {
-        font-size: 12px;
+        font-size: 13px;
         color: #999;
       }
       .number {

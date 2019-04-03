@@ -7,7 +7,7 @@
         </div>
         <div
           v-if="detail.focusFlag == 1"
-          class="button"
+          class="button btn-2"
           @click="cancelConcern(detail.famousDoctorId)">已关注</div>
         <div
           v-else
@@ -38,8 +38,14 @@
           <div class="name">{{ item.title }}</div>
           <div class="desc">
             <div>
-              <span>{{ item.studentNum }}</span>
-              <span>{{ item.lessonNum }}</span>
+              <span>
+                <i class="iconfont iconuser2" />
+                {{ item.studentNum }}
+              </span>
+              <span>
+                <i class="iconfont iconpinglun" />
+                {{ item.lessonNum }}
+              </span>
             </div>
             <div class="price">{{ item.price == 0 ? '免费' : item.price }}</div>
           </div>
@@ -132,6 +138,9 @@ export default {
           border-radius: 4px;
           cursor: pointer;
         }
+        .btn-2 {
+          background: #999;
+        }
       }
       .right {
         margin-top: 50px;
@@ -198,6 +207,15 @@ export default {
             justify-content: space-between;
             .price {
               color: #4e9713;
+            }
+            span {
+              color: #666;
+              &:last-child {
+                i {
+                  color: #333;
+                }
+                margin-left: 20px;
+              }
             }
           }
         }
