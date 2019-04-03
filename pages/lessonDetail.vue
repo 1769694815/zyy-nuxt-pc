@@ -195,9 +195,7 @@
               class="teacher">
               <img :src="item.pic">
               <div class="text">
-                <span
-                  class="name"
-                  @click="$router.push({ name: 'doctor-detail', query: { id: item.id }})">
+                <span class="name">
                   {{ item.name }}
                 </span>
                 <span class="fame">{{ item.title }}</span>

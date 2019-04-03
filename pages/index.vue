@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <v-header />
-    <div style="width: 1200px; overflow:hidden; margin: 0 auto; border-right: 1px solid #ddd">
+    <div style="width: 1200px; overflow:hidden; margin: 0 auto;">
       <v-nav :tab-index="tabIndex" />
     </div>
     <!-- 轮播图 -->
@@ -29,7 +29,7 @@
             class="nav-item"
             @click="$router.push({ name: 'train', query: {fid: 63}})">
             <i class="iconfont iconyisheng"/>
-            名师医承
+            名医师承
           </div>
           <div
             class="nav-item"
