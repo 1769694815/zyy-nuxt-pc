@@ -263,6 +263,7 @@ export default {
     return{
       tab: 1,
       id: this.$route.query.id,
+      userInfo: '',
       detailData: {},
       showModal: false,
       commentList: [],

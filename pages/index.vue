@@ -509,11 +509,11 @@ export default {
         this.getClassNum()
       }
     }
-    document.addEventListener('click', e => {
-      if(!this.$refs.download.contains(e.target)) {
-        this.downShow = false
-      }
-    })
+    // document.addEventListener('click', e => {
+    //   if(!this.$refs.download.contains(e.target)) {
+    //     this.downShow = false
+    //   }
+    // })
   },
   methods: {
     // 跳转到头条页面

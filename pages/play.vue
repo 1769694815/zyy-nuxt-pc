@@ -231,12 +231,12 @@ export default {
                   "x": 10,
                   "y": 12
                 },
-                // {
-                //   "name": "setting",
-                //   "align": "tr",
-                //   "x": 15,
-                //   "y": 12
-                // },
+                {
+                  "name": "setting",
+                  "align": "tr",
+                  "x": 15,
+                  "y": 12
+                },
                 {
                   "name": "volume",
                   "align": "tr",

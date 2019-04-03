@@ -30,9 +30,10 @@
               v-if="form.avatar"
               :src="form.avatar"
               class="avatar">
-            <i
+            <img
               v-else
-              class="el-icon-plus avatar-uploader-icon" />
+              src="~/assets/images/user-logo.png"
+              class="avatar">
           </el-upload>
         </el-form-item>
         <div class="flex">
@@ -72,9 +73,10 @@
             v-show="form.avatar"
             :src="form.avatar"
             class="avatar">
-          <i
+          <img
             v-show="!form.avatar"
-            class="el-icon-plus avatar-uploader-icon" />
+            src="~/assets/images/user-logo.png"
+            class="avatar">
         </el-form-item>
         <div class="flex">
           <el-form-item
