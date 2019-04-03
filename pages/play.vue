@@ -122,8 +122,9 @@ export default {
   },
   data() {
     return {
-      courseId: null,
+      courseId: this.$route.query.courseId || '',
       lessonId: null,
+      classId: this.$route.query.classId || '',
       userInfo: '',
       info: '',
       menuList: [],
@@ -139,7 +140,6 @@ export default {
     }
   },
   mounted() {
-    this.courseId = this.$route.query.courseId
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()
     this.getList()
@@ -163,7 +163,7 @@ export default {
           "mediaType": "video",
           "width": "100%",
           "height": "500px",
-          "autoplay": false,
+          "autoplay": true,
           "isLive": false,
           "cover": info.cover,
           "rePlay": false,
@@ -254,17 +254,28 @@ export default {
       })
     },
     getList() {
-      let params = {
-        size: 5,
-        current: 1,
-        type: 0,
-        userToken: this.userInfo.userToken
+      if(this.classId) {
+        this.$axios('/yxs/api/web/course/classroomCourse', {
+          params: {
+            classroomId: this.classId,
+            userToken: this.userInfo.userToken
+          }
+        }).then(res => {
+          this.otherList = res.data
+        })
+      } else {
+        let params = {
+          size: 5,
+          current: 1,
+          type: 0,
+          userToken: this.userInfo.userToken
+        }
+        this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
+          params
+        }).then(res => {
+          this.otherList = res.data.records
+        })
       }
-      this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
-        params
-      }).then(res => {
-        this.otherList = res.data.records
-      })
     },
     getRecommendList(type) {
       this.$axios('/yxs/api/web/course/getRecommendList', {

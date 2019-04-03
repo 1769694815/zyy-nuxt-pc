@@ -16,7 +16,7 @@
         </div>
         <div class="info-item">
           <div class="title">登录密码</div>
-          <div class="tel"><i class="iconfont icon-lock" /></div>
+          <div class="tel"><i class="iconfont iconlock" /></div>
           <div class="operate">重置密码</div>
         </div>
       </div>

@@ -1,51 +1,81 @@
 <template>
-  <div class="content-detail">
-    <div class="header">我的订单>订单详情</div>
-    <div class="detail">
-      <div class="item-content">
-        <img src="~/assets/images/wbc.jpg">
-        <div class="item-info">
-          <div class="item-title">大美中医启续篇——时间</div>
-          <div class="item-price">￥180</div>
+  <div>
+    <personal-tab :tab-index="tabIndex" />
+    <div class="content-detail">
+      <div class="header">我的订单>订单详情</div>
+      <div class="detail">
+        <div class="item-content">
+          <img :src="detail.itemPic">
+          <div class="item-info">
+            <div class="item-title">{{ detail.itemName }}</div>
+            <div class="item-price">￥{{ detail.amount }}</div>
+          </div>
         </div>
-      </div>
-      <div class="item-flex">
-        <div class="label">班级课程：</div>
-        <div class="tags">
-          <span>中医药理论</span>
-          <span>药学</span>
+        <div class="item-flex">
+          <div class="label">班级课程：</div>
+          <div
+            v-if="detail.courseName"
+            class="tags">
+            <span
+              v-for="(item, index) in detail.courseName.split(',')"
+              :key="index">
+              {{ item }}
+            </span>
+          </div>
         </div>
-      </div>
-      <div class="item-flex">
-        <div class="label">订单编号：</div>
-        <div class="value">NS2019030655SD</div>
-      </div>
-      <div class="item-flex">
-        <div class="label">创建时间：</div>
-        <div class="value">2019-01-03</div>
-      </div>
-      <div class="item-flex">
-        <div class="label">支付方式：</div>
-        <div class="value">后台添加</div>
-      </div>
-      <div class="item-flex">
-        <div class="label">有效期至：</div>
-        <div class="value">2019-01-03</div>
+        <div class="item-flex">
+          <div class="label">订单编号：</div>
+          <div class="value">{{ detail.sn }}</div>
+        </div>
+        <div class="item-flex">
+          <div class="label">创建时间：</div>
+          <div class="value">{{ detail.createTime }}</div>
+        </div>
+        <div class="item-flex">
+          <div class="label">支付方式：</div>
+          <div class="value">{{ detail.payWay }}</div>
+        </div>
+        <div class="item-flex">
+          <div class="label">有效期至：</div>
+          <div class="value">{{ detail.endDate }}</div>
+        </div>
       </div>
     </div>
   </div>
+  
 </template>
 <script>
+import PersonalTab from '~/components/mine/personalTab.vue'
 export default {
+  components: {
+    PersonalTab
+  },
   data() {
     return {
-
+      tabIndex: 2,
+      id: this.$route.query.id,
+      detail: ''
+    }
+  },
+  mounted() {
+    this.getDetail()
+  },
+  methods: {
+    getDetail() {
+      this.$axios('/yxs/api/web/user/getOrdersById', {
+        params: {
+          id: this.id
+        }
+      }).then(res => {
+        this.detail = res.data
+      })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
   .content-detail {
+    flex: 1;
     padding: 0 18px 20px 18px;
     border: 1px solid #e4ecf3;
     border-radius: 4px;

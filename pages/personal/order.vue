@@ -11,7 +11,7 @@
             v-for="(item, index) in list"
             :key="index"
             class="item"
-            @click="toDetail">
+            @click="toDetail(item.orderId)">
             <div class="item-header">
               <div class="number">订单编号：{{ item.sn }}</div>
               <div class="date">创建时间：{{ item.createTime }}</div>
@@ -49,9 +49,12 @@ export default {
     this.getList()
   },
   methods: {
-    toDetail() {
+    toDetail(id) {
       this.$router.push({
-        name: 'personal-orderDetail'
+        name: 'personal-orderDetail',
+        query: {
+          id
+        }
       })
     },
     getList() {
@@ -107,6 +110,7 @@ export default {
         display: flex;
         padding: 8px;
         background: #f5f5f5;
+        cursor: pointer;
         img {
           width: 150px;
           height: 84px;

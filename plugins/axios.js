@@ -20,14 +20,14 @@ export default function({ $axios, redirect }) {
   });
 
   $axios.onResponse(response => {
-    console.log('response',response.data.code)
-    if(response.data.code == 2) {
-      Cookies.remove('zyy_accessToken')
-      Cookies.remove('zyy_userInfo')
-      redirect('/login')
-    } else {
-      return Promise.resolve(response.data);
-    }
+    // if(response.data.code == 2) {
+    //   Cookies.remove('zyy_accessToken')
+    //   Cookies.remove('zyy_userInfo')
+    //   redirect('/login')
+    // } else {
+    //   return Promise.resolve(response.data);
+    // }
+    return Promise.resolve(response.data);
   });
 
   $axios.onError(error => {

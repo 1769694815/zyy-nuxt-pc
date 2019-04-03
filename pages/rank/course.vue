@@ -25,10 +25,10 @@
       </div>
       <div class="rank-content">
         <ul>
+          <!-- @click="modalShow(item)" -->
           <li
             v-for="(item, index) in rankList"
-            :key="index"
-            @click="modalShow(item)">
+            :key="index">
             <div 
               :class="(index + 1) > 3 ? 'none' : ''"
               class="num" >{{ index + 1 }}</div>

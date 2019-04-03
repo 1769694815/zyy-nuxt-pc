@@ -133,6 +133,7 @@
                   <span>{{ item.title }}</span>
                   <div class="right">
                     {{ timestr(item.length) }}
+                    <i class="iconfont iconshipin" />
                   </div>
                 </li>
               </ul>
@@ -613,6 +614,7 @@ export default {
               line-height: 50px;
               padding: 0 10px;
               cursor: pointer;
+              clear: both;
               &:hover {
                 background: #F5F5F5;
               }
@@ -640,6 +642,13 @@ export default {
               }
               .right {
                 float: right;
+                i {
+                  margin-left: 10px;
+                  display: inline-block;
+                  vertical-align: top;
+                  font-size: 20px;
+                  color: #999;
+                }
               }
             }
           }

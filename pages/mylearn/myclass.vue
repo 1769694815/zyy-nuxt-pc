@@ -17,7 +17,9 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item">
-            <img :src="item.middlePicture">
+            <img
+              :src="item.middlePicture"
+              @click="$router.push({ name: 'play', query: { classId: item.classroomId, courseId: item.courseId }})">
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <div class="desc">
@@ -142,6 +144,7 @@ export default {
           width: 240px;
           height: 135px;
           border-radius: 6px;
+          cursor: pointer;
         }
         .content {
           margin-left: 20px;
