@@ -2,11 +2,17 @@
   <div class="container">
     <div class="left-img">
       <img :src="dataObj.thumb">
-      <!-- <div class="tag">{{ dataObj.type }}</div> -->
+      <div class="tag">{{ dataObj.typeName }}</div>
     </div>
     <div class="content">
       <div class="title">{{ dataObj.title }}</div>
-      <div class="desc">{{ dataObj.brife }}</div>
+      <div
+        class="desc"
+        style="display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;">{{ dataObj.brife }}</div>
       <div class="foot">
         <span class="date">{{ dataObj.publishedtime }}</span>
         <span class="number">
@@ -70,9 +76,10 @@ export default {
       overflow: hidden;
       font-size: 18px;
       cursor: pointer;
-
     }
     .desc {
+      width: 330px;
+      height: 40px;
       margin-top: 15px;
       font-size: 14px;
       line-height: 20px;
@@ -86,7 +93,8 @@ export default {
         color: #999;
       }
       .number {
-        float: right;
+        // float: right;
+        margin-left: 40px;
         display: inline-block;
         line-height: 16px;
         font-size: 12px;

@@ -173,7 +173,7 @@
         </div>
       </div>
     </div>
-    <!-- 名师医承 -->
+    <!-- 名医师承 -->
     <div class="bg-f6">
       <div class="item-container">
         <div class="container-header">

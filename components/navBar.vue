@@ -46,7 +46,7 @@ export default {
           path: 'western'
         },
         {
-          name: '名师医承',
+          name: '名医师承',
           label: 3,
           path: 'doctor'
         },

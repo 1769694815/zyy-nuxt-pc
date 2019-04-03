@@ -38,7 +38,7 @@ export default {
           label: 2
         },
         {
-          name: '名师医承',
+          name: '名医师承',
           label: 3
         },
         {

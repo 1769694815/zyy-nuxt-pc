@@ -4,7 +4,7 @@
     <nav-bar />
     <div class="container">
       <div class="crumb">
-        首页>资讯头条
+        首页><span @click="$router.push({ name: 'toutiao' })">资讯头条</span>
       </div>
       <div class="toutiao-content">
         <div class="content-left">
@@ -62,6 +62,9 @@ export default {
       margin-bottom: 18px;
       font-size: 12px;
       color: #666;
+      span {
+        cursor: pointer;
+      }
     }
     .toutiao-content {
       display: flex;
