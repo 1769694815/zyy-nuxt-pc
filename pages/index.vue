@@ -373,6 +373,41 @@
         src="~/assets/images/foot-img.jpg"
         @click="toService">
     </div>
+    <transition name="fade">
+      <div
+        v-show="fixedShow"
+        class="fix-header">
+        <div class="content">
+          <img
+            class="logo"
+            src="~/assets/images/fix_logo.png">
+          <div class="search">
+            <input
+              v-model="text"
+              type="text"
+              placeholder="输入关键词找课程"
+              @keyup.enter="search">
+            <div
+              class="search-icon"
+              @click="search">
+              <img src="~/assets/images/search.png">
+            </div>
+          </div>
+          <div
+            v-show="tagShow"
+            class="content-right">
+            <div
+              class="learn"
+              @click="toMylearn">我的学习
+            </div>
+            <div
+              class="personal"
+              @click="toPersonal">个人中心
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -400,7 +435,10 @@ export default {
       current: 1,
       size: 4,
       userInfo: '',
+      text: '',
       downShow: false,
+      fixedShow: false,
+      tagShow: false,
       courseNum: 0,
       classNum: 0,
       carousels: [],
@@ -454,6 +492,7 @@ export default {
 
   }, 
   mounted() {
+    window.addEventListener('scroll', this.handleScroll)
     const clientId = 'zyy_web'
     const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
     const encodeStr = Base64.encode(clientId + ':' + clientSecret);
@@ -487,6 +526,7 @@ export default {
         if(this.userInfo) {
           this.getCourseNum()
           this.getClassNum()
+          this.tagShow = true
         }
       })
     } else {
@@ -507,6 +547,7 @@ export default {
       if(this.userInfo) {
         this.getCourseNum()
         this.getClassNum()
+        this.tagShow = true
       }
     }
     // document.addEventListener('click', e => {
@@ -705,6 +746,33 @@ export default {
       }).then(res => {
         this.classNum = res.data.total
       })
+    },
+    handleScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      this.fixedShow = scrollTop > 120 ? true : false
+    },
+    toMylearn() {
+      this.$router.push({
+        name: 'mylearn'
+      })
+    },
+    toPersonal() {
+      this.$router.push({
+        name: 'personal'
+      })
+    },
+    search() {
+      let url = location.href
+      if(url.indexOf('searchResult') > -1) {
+        this.$emit('getList', this.text, true)
+      } else {
+        this.$router.push({
+          name: 'searchResult',
+          query: {
+            title: this.text
+          }
+        })
+      }
     }
   }
 }
@@ -1095,6 +1163,83 @@ export default {
         margin-left: 20px;
       }
     }
+  }
+  .fix-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background: #3F8A38;
+    z-index: 999;
+    overflow: hidden;
+    .content {
+      display: flex;
+      align-items: center;
+      width: 1200px;
+      height: 60px;
+      margin: 0 auto;
+      .logo {
+        display: inline-block;
+        width: 277px;
+        height: 32px;
+      }
+      .search {
+        display: flex;
+        margin-left: 230px;
+        width: 300px;
+        height: 36px;
+        box-sizing: border-box;
+        border: 1px solid #99C04F;
+        border-radius: 4px;
+        input {
+          flex: 1;
+          padding-left: 10px;
+          height: 32px;
+          outline: none;
+          border: none;
+        }
+        .search-icon {
+          width: 36px;
+          height: 34px;
+          line-height: 34px;
+          background: #99c04f;
+          cursor: pointer;
+          img {
+            display: block;
+            width: 20px;
+            height: 20px;
+            margin: 7px;
+          }
+        }
+      }
+      &-right {
+        margin-left: 8px;
+        > div {
+          display: inline-block;
+          margin-left: 28px;
+          color: #fff;
+          cursor: pointer;
+        }
+        .message {
+          position: relative;
+          .dot {
+            position: absolute;
+            top: 6px;
+            right: -6px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ff4400;
+          }
+        }
+      }
+    }
+  }
+  .fade-leave-active, .fade-enter-active {
+    transition: all 0.4s ease;
+  }
+  .fade-leave-to, .fade-enter {
+    height: 0;
   }
   
 </style>

@@ -342,7 +342,6 @@ export default {
     .container-title {
       font-size: 24px;
       color: #333;
-      margin-bottom: 20px;
     }
     .other-container {
       margin-top: 40px;
@@ -353,7 +352,8 @@ export default {
         width: 224px;
         height: 203px;
         margin-left: 20px;
-        &:first-child {
+        margin-top: 20px;
+        &:nth-child(4n+1) {
           margin-left: 0;
         }
         .img-box {
@@ -411,9 +411,10 @@ export default {
       margin-top: 40px;
       li {
         margin-left: 20px;
+        margin-top: 20px;
         display: inline-block;
         width: 224px;
-        &:first-child {
+        &:nth-child(4n+1) {
           margin: 0;
         }
         .img-box {

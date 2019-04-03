@@ -12,7 +12,12 @@
               :class="(index + 1) > 3 ? 'none' : ''"
               class="num" >{{ index + 1 }}</div>
             <div class="box">
-              <img :src="item.avatar">
+              <img
+                v-if="item.avatar"
+                :src="item.avatar">
+              <img
+                v-else
+                src="~/assets/images/xuesheng.png">
               <div class="info">
                 <div class="name">{{ item.name }}</div>
                 <el-progress

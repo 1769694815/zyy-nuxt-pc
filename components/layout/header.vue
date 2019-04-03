@@ -98,7 +98,7 @@
         </div>
       </div>
     </div>
-    <transition name="fade">
+    <!-- <transition name="fade">
       <div
         v-show="fixedShow"
         class="fix-header">
@@ -121,11 +121,6 @@
           <div
             v-show="tagShow"
             class="content-right">
-            <!-- <div
-              class="message"
-              @click="toMynews">我的消息
-              <span class="dot"/>
-            </div> -->
             <div
               class="learn"
               @click="toMylearn">我的学习
@@ -137,7 +132,7 @@
           </div>
         </div>
       </div>
-    </transition>
+    </transition> -->
     <el-dialog
       :visible.sync="dialogVisible"
       :before-close="cancel"
@@ -222,7 +217,7 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
     let userInfo = Cookies.getJSON('zyy_userInfo')
     this.rankName = judgeUser()
     if(userInfo) {

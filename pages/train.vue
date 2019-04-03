@@ -85,7 +85,7 @@
               <div
                 class="img-box"
                 @click="toLessonDetail(item.id)">
-                <img v-lazy="item.middle_picture">
+                <img :src="item.middle_picture">
               </div>
               <div class="content">
                 <div class="title">{{ item.title }}</div>
