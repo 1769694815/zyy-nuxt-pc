@@ -25,7 +25,7 @@
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
             class="avatar-uploader"
-            action="http://212.64.79.36:8080/yxs/qiniu/api/upload/8">
+            action="http://192.168.2.199:9999/admin/api/web/qiniu/api/upload/8">
             <img
               v-if="form.avatar"
               :src="form.avatar"

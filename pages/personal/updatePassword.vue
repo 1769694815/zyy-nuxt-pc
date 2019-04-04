@@ -38,29 +38,27 @@
           @click="next">下一步</div>
       </div>
       <div v-show="secondShow">
-        <!-- <div class="info">
+        <div class="info">
           <div class="info-item">
-            <div class="title">新号码：</div>
+            <div class="title">新密码: </div>
             <div class="tel">
-              <el-input
-                v-model="newMobile"
-                style="width: 222px;" />
+              <el-input v-model="password" />
             </div>
           </div>
           <div class="info-item">
-            <div class="title">输入验证码：</div>
+            <div class="title">确认新密码: </div>
             <div class="tel">
-              <el-input v-model="validNum2" />
+              <el-input v-model="validNum1" />
             </div>
             <div
-              v-show="!timeShow2"
+              v-show="!timeShow"
               class="operate"
-              @click="getCode2">获取短信</div>
+              @click="getCode">获取短信</div>
             <div
-              v-show="timeShow2"
-              class="operate">已发送，{{ count2 }}秒后重试</div>
+              v-show="timeShow"
+              class="operate">已发送，{{ count }}秒后重试</div>
           </div>
-        </div> -->
+        </div>
         <div
           class="button"
           @click="submit">确认提交
