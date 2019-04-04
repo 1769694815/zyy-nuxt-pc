@@ -81,6 +81,14 @@ export default {
           }
         })
       }
+      if(index == 1) {
+        this.$router.push({
+          name: item.path,
+          query: {
+            fid: 53
+          }
+        })
+      }
     }
   }
 }

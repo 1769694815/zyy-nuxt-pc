@@ -24,8 +24,10 @@
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
+            :data="uploadToken"
             class="avatar-uploader"
-            action="https://api.zyyzx.com.cn/yxs/qiniu/api/upload/8/">
+            action="http://upload.qiniup.com">
+            <!-- http://up.qiniup.com -->
             <img
               v-if="form.avatar"
               :src="form.avatar"
@@ -112,6 +114,10 @@ export default {
       isEdit: false,
       tabIndex: 1,
       userInfo: '',
+      uploadToken: {
+        key: '',
+        token: ''
+      },
       form: {
         userName: '',
         nickName: '',
@@ -140,18 +146,29 @@ export default {
     },
     // 上传成功
     handleAvatarSuccess(res, file) {
+      // console.log(res)
       this.form.avatar = URL.createObjectURL(file.raw);
+      // this.form.avatar = 'https://files.jzjxedu.com/' + res.key
+      // console.log(URL.createObjectURL(file.raw))
     },
     // 上传前
-    beforeAvatarUpload() {
-      
+    beforeAvatarUpload(file) {
+      console.log('file', file)
+      this.uploadToken.key=`upload_pic_${file.name}?`+ Date.parse(new Date())
     },
     // 监听地区
     handleChange() {
 
     },
+
+    getToken() {
+      this.$axios('/admin/api/qiniu/tokenupload').then(res => {
+        this.uploadToken.token = res.data.accessKey
+      })
+    },
     edit() {
       this.isEdit = true
+      this.getToken()
     },
     save() {
       // this.$axios.setHeader('Content-Type', 'application/json', ['post'])

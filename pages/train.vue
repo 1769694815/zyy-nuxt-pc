@@ -131,7 +131,7 @@ export default {
       tabIndex: 2,
       current: 1,
       size: 30,
-      categoryId: this.$route.query.fid || 53, // 默认10,自学考试id
+      categoryId: this.$route.query.fid || 53, // 默认53,自学考试id
       cid: this.$route.query.cid || 0,
       orderByClause: 1,
       // firstActive: 2,
