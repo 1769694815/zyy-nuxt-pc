@@ -214,14 +214,16 @@ export default {
           }
         }
         .text {
-          margin-top: 28px;
+          width: 100px;
+          margin-top: 16px;
           margin-left: 20px;
           font-size: 16px;
           color: #999;
         }
         .like {
-          margin-top: 28px;
-          margin-left: 20px;
+          // float: right;
+          margin-top: 16px;
+          // margin-left: 20px;
           span {
             color: #B3B3B3;
           }

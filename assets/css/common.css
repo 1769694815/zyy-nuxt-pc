@@ -12,8 +12,11 @@
 .foot-img {
   width: 1200px;
   margin: 16px auto 0;
-  /* margin-bottom: 40px; */
+  padding-bottom: 30px;
   text-align: center;
+  /* cursor: pointer; */
+}
+.foot-img img {
   cursor: pointer;
 }
 
