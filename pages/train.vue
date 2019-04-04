@@ -130,7 +130,7 @@ export default {
     return {
       tabIndex: 2,
       current: 1,
-      size: 10,
+      size: 30,
       categoryId: this.$route.query.fid || 53, // 默认10,自学考试id
       cid: this.$route.query.cid || 0,
       orderByClause: 1,
@@ -281,7 +281,7 @@ export default {
 <style lang="scss" scoped>
   .train-container {
     width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     .crumb {
       margin-top: 28px;
       margin-bottom: 18px;

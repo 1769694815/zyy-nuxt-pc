@@ -13,8 +13,8 @@
           <!-- <div class="text">中药炮制工</div> -->
         </div>
         <div class="info">
-          <span class="teacher">讲师：{{ item.fanousrName }}</span>
-          <span class="lesson">共{{ item.lessonNum }}节</span>
+          <!-- <span class="teacher">讲师：{{ item.fanousrName }}</span>
+          <span class="lesson">共{{ item.lessonNum }}节</span> -->
           <span class="number">{{ item.studentNum }}人学过</span>
         </div>
       </div>
@@ -122,7 +122,7 @@ export default {
         }
       }
       .info {
-        margin: 12px 0 0 10px;
+        margin: 12px 0 10px 10px;
         font-size: 0;
         .teacher {
           display: inline-block;
@@ -137,7 +137,7 @@ export default {
         .number {
           font-size: 12px;
           color: #999;
-          float: right;
+          // float: right;
         }
       }
     }

@@ -55,6 +55,8 @@ export default {
   },
   data() {
     return {
+      size: 50,
+      current: 1,
       title: this.$route.query.title || '',
       result: []
     }
@@ -77,6 +79,8 @@ export default {
       }
       this.$axios('/yxs/api/web/course/getSelectCourseByTitle', {
         params: {
+          size: this.size,
+          current: this.current,
           title: this.title || ''
         }
       }).then(res => {

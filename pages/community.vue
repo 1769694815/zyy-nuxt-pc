@@ -34,7 +34,11 @@
           <div class="channel">
             <div class="header">
               <div class="title">进社区频道</div>
-              <div class="more">更多</div>
+              <div
+                class="more"
+                @click="$router.push({ name: 'toutiao' })">
+                更多<i class="iconfont icongengduo" />
+              </div>
             </div>
             <ul>
               <li
@@ -255,6 +259,11 @@ export default {
           margin-right: 24px;
           font-size: 14px;
           color: #666;
+          cursor: pointer;
+          i {
+            margin-left: 4px;
+            font-size: 14px;
+          }
         }
       }
       ul {

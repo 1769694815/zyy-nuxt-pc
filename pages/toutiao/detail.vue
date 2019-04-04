@@ -58,6 +58,11 @@
               </div>
             </li>
           </ul>
+          <div
+            v-show="commentList.length == 0"
+            style="margin: 20px 0; font-size: 16px;">
+            暂无评论
+          </div>
         </div>
       </div>
     </div>
