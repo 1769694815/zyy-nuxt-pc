@@ -8,8 +8,8 @@
             style="cursor: pointer"
             @click="firstShow = true; secondShow = false; thirdShow = false">
             安全设置
-          </span>>验证原号码
-          <span v-show="secondShow || thirdShow">>设置新号码</span>
+          </span>>验证手机号
+          <span v-show="secondShow || thirdShow">>设置新密码</span>
           <span v-show="thirdShow">>修改成功</span>
         </div>
       </div>
@@ -38,7 +38,7 @@
           @click="next">下一步</div>
       </div>
       <div v-show="secondShow">
-        <div class="info">
+        <!-- <div class="info">
           <div class="info-item">
             <div class="title">新号码：</div>
             <div class="tel">
@@ -60,7 +60,7 @@
               v-show="timeShow2"
               class="operate">已发送，{{ count2 }}秒后重试</div>
           </div>
-        </div>
+        </div> -->
         <div
           class="button"
           @click="submit">确认提交

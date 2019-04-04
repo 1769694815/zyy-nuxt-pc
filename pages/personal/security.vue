@@ -11,13 +11,15 @@
           <div class="tel">{{ phone }}</div>
           <div
             class="operate"
-            @click="update">修改
+            @click="updateMobile">修改
           </div>
         </div>
         <div class="info-item">
           <div class="title">登录密码</div>
           <div class="tel"><i class="iconfont iconlock" /></div>
-          <div class="operate">重置密码</div>
+          <div
+            class="operate"
+            @click="updatePassword">重置密码</div>
         </div>
       </div>
     </div>
@@ -42,13 +44,21 @@ export default {
     this.getInfo()
   },
   methods: {
-    update() {
+    updateMobile() {
       this.$router.push({
         name: 'personal-updateMobile',
         query: {
           phone: this.phone
         }
       })
+    },
+    updatePassword() {
+      // this.$router.push({
+      //   name: 'personal-updatePassword',
+      //   query: {
+      //     phone: this.phone
+      //   }
+      // })
     },
     getInfo() {
       this.$axios('/admin/api/web/user/info', {
