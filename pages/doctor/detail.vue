@@ -82,6 +82,12 @@ export default {
     },
     // 关注
     concern(id) {
+      if(!this.userInfo) {
+        this.$router.push({
+          name: 'login'
+        })
+        return
+      }
       this.$axios.post('/yxs/api/web/user/saveFamousCollection', {
         famousId: id,
         userToken: this.userInfo.userToken

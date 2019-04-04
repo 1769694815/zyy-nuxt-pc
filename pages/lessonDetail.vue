@@ -389,9 +389,15 @@ export default {
     },
     // 收藏
     collect() {
+      if(!this.userInfo) {
+        this.$router.push({
+          name: 'login'
+        })
+        return
+      }
       this.$axios.post('/yxs/api/web/user/saveCourseCollection', {
         courseId: this.detailData.id,
-        userToken: this.userInfo.userToken
+        userToken: this.userInfo.userToken || ''
       }).then(res => {
         this.$message({
           message: '收藏成功',
@@ -405,7 +411,7 @@ export default {
       this.$axios('/yxs/api/web/user/cancelCourseCollection', {
         params: {
           courseId: this.detailData.id,
-          userToken: this.userInfo.userToken
+          userToken: this.userInfo.userToken || ''
         }
       }).then(res => {
         this.$message({
