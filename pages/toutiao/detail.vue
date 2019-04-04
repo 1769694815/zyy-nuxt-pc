@@ -9,7 +9,7 @@
             {{ info.hits }}
           </span>
           <span><i class="iconfont iconpinglun" />
-            265
+            {{ commentList.length }}
           </span>
           <span><i class="iconfont iconfenxiang" />
             分享
