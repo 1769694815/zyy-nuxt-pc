@@ -26,10 +26,10 @@
                   class="progress" />
               </div>
               <div class="text">已学{{ item.result }}</div>
-              <div class="like">
+              <!-- <div class="like">
                 <i class="iconfont icon-aixin" />
                 <span>{{ item.watchNum }}</span>
-              </div>
+              </div> -->
             </div>
           </li>
         </ul>
