@@ -162,7 +162,17 @@
     </div>
     <!-- 中医研究所 -->
     <div class="item-container bg-ff">
-      <h2>中医研究所</h2>
+      <div class="container-header">
+        <h2>中医研究所</h2>
+        <div class="subnav">
+          <span
+            class="pos-right"
+            @click="$router.push({ name: 'train', query: { fid: 70 }})">
+            查看更多
+            <i class="iconfont icongengduo" />
+          </span>
+        </div>
+      </div>
       <div class="list">
         <div
           v-for="(item, index) in researchList"
@@ -172,9 +182,15 @@
           <research-item :data-obj="item" />
         </div>
       </div>
+      <div class="button">
+        <span @click="change1">
+          <i class="iconfont iconrefresh" />
+          换一批
+        </span>
+      </div>
     </div>
     <!-- 名医师承 -->
-    <div class="bg-f6">
+    <div class="bg-f6"> 
       <div class="item-container">
         <div class="container-header">
           <h2>名医师承</h2>
@@ -346,7 +362,7 @@
           </div>
         </div>
         <div class="button">
-          <span @click="change">
+          <span @click="change2">
             <i class="iconfont iconrefresh" />
             换一批
           </span>
@@ -432,7 +448,8 @@ export default {
   data() {
     return {
       tabIndex: 1,
-      current: 1,
+      current1: 1,
+      current2: 1,
       size: 4,
       userInfo: '',
       text: '',
@@ -594,9 +611,22 @@ export default {
     },
     // 获取首页中医研究所
     getResearchList() {
-      this.$axios('/yxs/api/web/doctor/recommendCourseList').then(res => {
+      this.$axios('/yxs/api/web/doctor/recommendCourseList', {
+        params: {
+          current: this.current1,
+          size: this.size
+        }
+      }).then(res => {
         if(res.code == 0) {
-          this.researchList = res.data
+          if(res.data.records.length == 0) {
+            return
+          } else if(res.data.records.length < 4) {
+            this.current1 = 0
+            this.researchList = res.data.records
+          } else {
+            this.researchList = res.data.records
+          }
+          // this.researchList = res.data
         }
       })
     },
@@ -635,7 +665,7 @@ export default {
       this.$axios('/yxs/api/web/course/getRecommendTrainList', {
         params: {
           type: '',
-          current: this.current,
+          current: this.current2,
           size: this.size
         }
       }).then(res => {
@@ -643,7 +673,7 @@ export default {
           if(res.data.records.length == 0) {
             return
           } else if(res.data.records.length < 4) {
-            this.current = 0
+            this.current2 = 0
             this.trainList = res.data.records
           } else {
             this.trainList = res.data.records
@@ -651,8 +681,12 @@ export default {
         }
       })
     },
-    change() {
-      this.current += 1
+    change1() {
+      this.current1 += 1,
+      this.getResearchList()
+    },
+    change2() {
+      this.current2 += 1
       this.getTrainList()
     },
     // 获取首页资讯
@@ -706,7 +740,7 @@ export default {
       this.$router.push({
         name: 'trainDetail',
         query: {
-          id: item.id
+          id: item.trainId
         }
       })
     },
@@ -1020,6 +1054,7 @@ export default {
         }
       }
     }
+
     .imgs {
       font-size: 0;
       img {
@@ -1082,6 +1117,34 @@ export default {
   .bg-f6 {
     background: #f6f6f6;
     padding-bottom: 39px;
+  }
+  .bg-ff {
+    .button {
+      margin-top: -50px;
+      margin-bottom: 30px;
+      text-align: center;
+      .iconrefresh {
+        font-size: 14px;
+        margin-right: 6px;
+      }
+      span {
+        display: inline-block;
+        width: 160px;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #fff;
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+          background: #3F8A38;
+          color: #fff;
+        }
+      }
+    }
   }
   .train {
     margin-top: 40px;

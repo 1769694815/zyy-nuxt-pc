@@ -162,7 +162,7 @@ export default {
     getResearchList() {
       this.$axios('/yxs/api/web/doctor/recommendCourseList').then(res => {
         if(res.code == 0) {
-          this.rightList = res.data
+          this.rightList = res.data.records
         }
       })
     },
@@ -260,6 +260,9 @@ export default {
           font-size: 14px;
           color: #666;
           cursor: pointer;
+          &:hover {
+            color: #3F8A38;
+          }
           i {
             margin-left: 4px;
             font-size: 14px;
