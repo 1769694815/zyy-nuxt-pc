@@ -218,7 +218,9 @@
           <img
             src="~/assets/images/famous_1.jpg"
             @click="$router.push({ name: 'doctor' })">
-          <img src="~/assets/images/famous_2.jpg">
+          <img
+            src="~/assets/images/famous_3.png"
+            @click="$router.push({ name: 'western' })">
           <img
             src="~/assets/images/famous_3.jpg"
             @click="$router.push({ name: 'community' })">

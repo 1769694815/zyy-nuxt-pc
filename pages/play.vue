@@ -31,6 +31,7 @@
           <ul class="menu">
             <li
               v-for="(item, index) in info.lessons"
+              ref="menu"
               :key="index"
               :class="playIndex == index ? 'active' : ''">
               <!-- <div class="chapter">111</div> -->
@@ -173,7 +174,7 @@ export default {
       }).then(res => {
         let info = res.data
         this.info = res.data
-        var player = new Aliplayer({
+        let player = new Aliplayer({
           "id": "player-con",
           "vid": info.videoId,
           "playauth": info.playAuth,
@@ -268,6 +269,21 @@ export default {
         }, function (player) {
             player._switchLevel = 0;
             console.log("播放器创建了。");
+            // let _video = this.$refs.menu
+            // player.on('play', function(e) {
+            //   _video.removeEventListener('click', play);
+            //   _video.addEventListener('click', pause);
+            // });
+            // player.on('pause', function(e) {
+            //   _video.removeEventListener('click', pause);
+            //   _video.addEventListener('click', play)
+            // });
+            // function play() {
+            //   if (player) player.play();
+            // }
+            // function pause() {
+            //   if (player) player.pause();
+            // }
           }
         );
       })

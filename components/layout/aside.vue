@@ -1,0 +1,177 @@
+<template>
+  <div class="aside">
+    <ul>
+      <li>
+        <div class="item">
+          <i class="iconfont iconzixun" />
+          <div class="text">课程咨询</div>
+        </div>
+        <div class="content">
+          <div class="tab">
+            <i class="iconfont iconqq" />
+            <span>自考处袁主任</span>
+          </div>
+          <div class="tab">
+            <i class="iconfont iconqq" />
+            <span>自考处陈主任</span>
+          </div>
+        </div>
+      </li>
+      <li class="item">
+        <div>
+          <i class="iconfont iconwoshou" />
+          <div class="text">平台服务</div>
+        </div>
+        <div class="content c2">
+          <div class="tab">
+            <i class="iconfont iconbaozhang" />
+            <span>服务与保障</span>
+          </div>
+          <div class="tab">
+            <i class="iconfont iconkefu" />
+            <span>在线客服</span>
+          </div>
+          <div class="tab">
+            <i class="iconfont icondianhua" />
+            <span>0791-88197248</span>
+          </div>
+        </div>
+      </li>
+      <li class="item">
+        <div>
+          <i class="iconfont iconweixin" />
+          <div class="text">关注微信</div>
+        </div>
+        <div class="content c3">
+          <img src="~/assets/images/weixin.png">
+        </div>
+      </li>
+      <li class="item">
+        <div>
+          <i class="iconfont iconshouji" />
+          <div class="text">手机APP</div>
+        </div>
+        <div class="content c3">
+          <img src="~/assets/images/download-qr.jpg">
+        </div>
+      </li>
+      <li
+        class="item"
+        @click="toTop">
+        <div>
+          <i class="iconfont iconhuidaodingbu" />
+          <div class="text">返回顶部</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      timer: null
+    }
+  },
+  methods: {
+    toTop() {
+      let osTop, ispeed
+      let timer = setInterval(function () {
+        osTop = document.documentElement.scrollTop || document.body.scrollTop
+        ispeed = Math.floor(-osTop / 5)
+        document.documentElement.scrollTop = document.body.scrollTop = osTop + ispeed
+        if (osTop == 0) {
+          clearInterval(timer)
+        }
+      }, 30)
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+  .aside {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 9999;
+    background: #fff;
+    box-shadow: -1px 0 5px #ccc;
+    ul {
+      display: flex;
+      flex-direction: column;
+      margin-top: 170px;
+      li {
+        position: relative;
+        width: 100%;
+        height: 108px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-bottom: 1px solid #e5e5e5;
+        cursor: pointer;
+        &:last-child {
+          border: none;
+        }
+        &:hover {
+          background: #4e9713;
+          color: #fff;
+          i {
+            color: #fff;
+          }
+          .text {
+            display: block;
+          }
+          .content {
+            display: block;
+          }
+        }
+        i {
+          font-size: 28px;
+          color: #4e9713;
+        }
+        .text {
+          display: none;
+          padding: 6px;
+          font-size: 14px;
+          line-height: 20px;
+        }
+        .content {
+          position: absolute;
+          display: none;
+          width: 186px;
+          height: 124px;
+          right: 50px;
+          top: 0;
+          text-align: left;
+          background: #4e9713;
+          .tab {
+            margin: 20px 24px;
+            width: 138px;
+            height: 32px;
+            line-height: 32px;
+            background: #fff;
+            color: #666;
+            font-size: 14px;
+            border-radius: 4px;
+            i {
+              margin-left: 10px;
+              font-size: 16px;
+              color: #666;
+            }
+          }
+        }
+        .c2 {
+          height: 178px;
+        }
+        .c3 {
+          width: 120px;
+          padding: 10px;
+        }
+      }
+    }
+  }
+</style>

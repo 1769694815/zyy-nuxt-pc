@@ -2,6 +2,7 @@
   <div>
     <nuxt/>
     <friend-link/>
+    <v-aside />
     <v-footer/>
   </div>
 </template>
@@ -9,10 +10,12 @@
 <script>
 import Footer from '~/components/layout/footer.vue'
 import FriendLink from '~/components/layout/friendLink.vue'
+import Aside from '~/components/layout/aside.vue'
 import { Base64 } from '~/assets/js/base64.js'
 export default {
   components: {
     'v-footer': Footer,
+    'v-aside': Aside,
     FriendLink
   }
 }
