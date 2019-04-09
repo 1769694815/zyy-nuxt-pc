@@ -12,7 +12,12 @@
         <span class="rank">{{ dataObj.famousTitle }}</span>
         <span class="number">{{ dataObj.student_num }}人学过</span>
       </div>
-      <p>{{ dataObj.des }}</p>
+      <p
+        style="display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;">{{ dataObj.description }}</p>
     </div>
   </div>
 </template>

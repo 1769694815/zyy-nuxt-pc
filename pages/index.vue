@@ -376,15 +376,23 @@
     <div class="item-container">
       <div class="container-header">
         <h2>资讯头条</h2>
-        <div class="toutiao">
-          <div
-            v-for="(item, index) in toutiaoList"
-            v-if="index < 6"
-            :key="index"
-            class="toutiao-item"
-            @click="toToutiaoDetail(item.id)">
-            <toutiao-item :data-obj="item"/>
-          </div>
+        <div class="subnav">
+          <span
+            class="pos-right"
+            @click="$router.push({ name: 'toutiao' })">
+            查看更多
+            <i class="iconfont icongengduo" />
+          </span>
+        </div>
+      </div>
+      <div class="toutiao">
+        <div
+          v-for="(item, index) in toutiaoList"
+          v-if="index < 6"
+          :key="index"
+          class="toutiao-item"
+          @click="toToutiaoDetail(item.id)">
+          <toutiao-item :data-obj="item"/>
         </div>
       </div>
     </div>
@@ -1124,7 +1132,7 @@ export default {
   }
   .bg-ff {
     .button {
-      margin-top: -50px;
+      margin-top: -20px;
       margin-bottom: 30px;
       text-align: center;
       .iconrefresh {
