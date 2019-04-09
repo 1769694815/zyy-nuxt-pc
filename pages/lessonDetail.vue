@@ -52,7 +52,7 @@
               </div>
             </div>
             <div class="price">
-              价格：<span>{{ detailData.price }}</span> 中医币
+              价格：<span>￥{{ detailData.price }}</span>
             </div>
             <div
               v-if="!userInfo"
