@@ -20,16 +20,25 @@
           <div
             id="player-con"
             class="prism-player" />
+          <div
+            v-show="maskShow"
+            class="mask">
+            <p>亲爱的学员，购买该课程才可以观看全部视频哦~</p>
+            <div
+              class="buy-btn"
+              @click="buyLesson">立即购买</div>
+          </div>
           <ul class="menu">
             <li
               v-for="(item, index) in info.lessons"
-              :key="index">
-              <div class="chapter">{{ item.chapter }}</div>
+              :key="index"
+              :class="playIndex == index ? 'active' : ''">
+              <!-- <div class="chapter">111</div> -->
               <div class="info">
                 <!-- <span>{{ item.name }}</span> -->
                 <span
                   class="title"
-                  @click="getInfo(item.lessonId)">{{ item.lessonTitle }}</span>
+                  @click="getInfo(item.lessonId, item.free, index)">{{ item.lessonTitle }}</span>
                 <div class="foot">
                   <span>{{ Math.round(item.length / 60) }}分钟</span>
                   <span>已学{{ item.result }}</span>
@@ -122,6 +131,7 @@ export default {
   },
   data() {
     return {
+      maskShow: false,
       courseId: this.$route.query.courseId || '',
       lessonId: null,
       classId: this.$route.query.classId || '',
@@ -129,7 +139,9 @@ export default {
       info: '',
       menuList: [],
       otherList: [],
-      recommendList: []
+      recommendList: [],
+      playIndex: 0,
+      player: null,
     }
   },
   computed: {
@@ -146,7 +158,14 @@ export default {
     this.getRecommendList('zyjk')
   },
   methods: {
-    getInfo(lessonId) {
+    getInfo(lessonId, free, index) {
+      this.playIndex = index || 0
+      console.log(free)
+      if(free == 2) {
+        this.maskShow = true
+        return
+      }
+      this.maskShow = false
       this.$axios.post('/yxs/api/web/user/startLearnCourse', {
         courseId: this.courseId,
         lessonId: lessonId || '',
@@ -286,6 +305,22 @@ export default {
         this.recommendList = res.data
       })
     },
+    buyLesson() {
+      if(!this.userInfo) {
+        this.$router.push({
+          name: 'login'
+        })
+      } else {
+        this.$router.push({
+          name: 'payfor',
+          query: {
+            itemId: this.courseId,
+            price: this.info.price,
+            itemType: 1
+          }
+        })
+      }
+    },
   }
 }
 </script>
@@ -313,10 +348,36 @@ export default {
         }
       }
       .play-content {
+        position: relative;
         display: flex;
         margin-top: 30px;
         #player-con {
           width: 952px;
+        }
+        .mask {
+          position: absolute;
+          width: 952px;
+          height: 500px;
+          text-align: center;
+          background: rgba(0, 0, 0, .6);
+          z-index: 999;
+          p {
+            margin-top: 190px;
+            font-size: 18px;
+            color: #fff;
+          }
+          .buy-btn {
+            margin: 40px auto;
+            width: 120px;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            background: #3F8A38;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+          }
         }
         .menu {
           width: 330px;
@@ -330,6 +391,9 @@ export default {
             padding: 30px 0;
             color: #C1C1C1;
             border-bottom: 1px solid #2A2A2A;
+            &.active {
+              color: #3F8A38;
+            }
             .chapter {
               font-size: 16px;
             }
