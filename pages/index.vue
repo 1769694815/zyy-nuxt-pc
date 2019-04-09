@@ -161,7 +161,9 @@
       </div>
     </div>
     <!-- 中医研究所 -->
-    <div class="item-container bg-ff">
+    <div
+      v-if="researchList.length > 0"
+      class="item-container bg-ff">
       <div class="container-header">
         <h2>中医研究所</h2>
         <div class="subnav">

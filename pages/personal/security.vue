@@ -53,12 +53,12 @@ export default {
       })
     },
     updatePassword() {
-      // this.$router.push({
-      //   name: 'personal-updatePassword',
-      //   query: {
-      //     phone: this.phone
-      //   }
-      // })
+      this.$router.push({
+        name: 'personal-updatePassword',
+        query: {
+          phone: this.phone
+        }
+      })
     },
     getInfo() {
       this.$axios('/admin/api/web/user/info', {

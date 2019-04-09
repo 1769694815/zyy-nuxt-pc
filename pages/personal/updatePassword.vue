@@ -42,21 +42,18 @@
           <div class="info-item">
             <div class="title">新密码: </div>
             <div class="tel">
-              <el-input v-model="password" />
+              <el-input
+                v-model="password"
+                type="password" />
             </div>
           </div>
           <div class="info-item">
             <div class="title">确认新密码: </div>
             <div class="tel">
-              <el-input v-model="validNum1" />
+              <el-input
+                v-model="newPassword"
+                type="password" />
             </div>
-            <div
-              v-show="!timeShow"
-              class="operate"
-              @click="getCode">获取短信</div>
-            <div
-              v-show="timeShow"
-              class="operate">已发送，{{ count }}秒后重试</div>
           </div>
         </div>
         <div
@@ -69,10 +66,10 @@
           <div class="title">修改成功</div>
           <p>
             <span>{{ leftTime }}s后</span>
-            自动返回安全设置首页，如未跳转可点击
+            自动跳转登录页面，如未跳转可点击
             <span
               class="back"
-              @click="back">返回>
+              @click="back">去登录>
             </span>
           </p>
         </div>
@@ -83,6 +80,7 @@
 <script>
 import PersonalTab from '~/components/mine/personalTab.vue'
 import { isvalidatemobile, validatenull } from '~/assets/js/util'
+import Cookies from 'js-cookie'
 export default {
   components: {
     PersonalTab
@@ -100,12 +98,15 @@ export default {
       leftTime: 3,
       phone: this.$route.query.phone,
       timeShow: false,
-      timer2: null,
       timer3: null,
-      timeShow2: false,
       count: null,
-      count2: null
+      password: '',
+      newPassword: '',
+      userInfo: ''
     }
+  },
+  mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
   },
   methods: {
     // 获取验证码
@@ -149,47 +150,9 @@ export default {
         })
       }
     },
-    getCode2() {
-      let result = isvalidatemobile(this.newMobile)
-      if(result[0]) {
-        this.$message({
-          message: result[1],
-          type: 'warning'
-        })
-      } else {
-        this.$axios.post('/admin/api/account/code', {
-          phone: this.newMobile
-        }).then(res => {
-          console.log(res)
-          if(res.code == 0) {
-            this.$message({
-              message: '已发送验证码，请查收！',
-              type: 'success'
-            })
-            const TIME_COUNT = 60
-            if(!this.timer2) {
-              this.count2 = TIME_COUNT
-              this.timeShow2 = true
-              this.timer2 = setInterval(() => {
-                if(this.count2 > 0 && this.count2 <= TIME_COUNT) {
-                  this.count2 --
-                } else {
-                  this.timeShow2 = false
-                  clearInterval(this.timer2)
-                  this.timer2 = null
-                }
-              }, 1000)
-            }
-          } else {
-            this.$message({
-              message: data.message,
-              type: 'error'
-            })
-          }
-        })
-      }
-    },
     next() {
+      this.firstShow = false
+      this.secondShow = true
       if(!this.validNum1) {
         this.$message({
           message: '请输入验证码',
@@ -213,9 +176,24 @@ export default {
       })
     },
     submit() {
-      this.$axios.post('/admin/api/web/user/changePhone', {
-        phone: this.newMobile,
-        code: this.validNum2
+      if(this.password || this.newPassword) {
+        this.$message({
+          message: '密码不能为空',
+          type: 'warning'
+        })
+        return
+      }
+      if(this.password != this.newPassword) {
+        this.$message({
+          message: '两次输入密码不一致',
+          type: 'warning'
+        })
+        return
+      }
+      this.$axios.post('/admin/api/web/user/setPassword', {
+        password: this.password,
+        passConfirm: this.newPassword,
+        userToken: this.userInfo.userToken
       }).then(res => {
         if(res.code == 0) {
           this.firstShow = false
@@ -228,8 +206,10 @@ export default {
               // this.thirdShow = false
               // this.leftTime = 3
               clearInterval(this.timer)
+              Cookies.remove('zyy_userInfo')
+              Cookies.remove('zyy_accessToken')
               this.$router.push({
-                name: 'personal-security'
+                name: 'login'
               })
             }
             this.leftTime --
@@ -241,12 +221,13 @@ export default {
           })
         }
       })
-      
     },
     back() {
       clearInterval(this.timer3)
+      Cookies.remove('zyy_userInfo')
+      Cookies.remove('zyy_accessToken')
       this.$router.push({
-        name: 'personal-security'
+        name: 'login'
       })
     }
   }
