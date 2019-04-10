@@ -28,7 +28,14 @@
             </ul>
           </div>
           <div class="bill">
-            <span>培训费：<span class="price">￥{{ classInfo.price }}</span></span>
+            <span>培训费：
+              <span
+                v-if="classInfo.price != 0"
+                class="price">￥{{ classInfo.price }}</span>
+              <span
+                v-else
+                class="price">免费</span>
+            </span>
             <span class="count">{{ classInfo.count }}人已报名</span>
           </div>
           <div class="way">
@@ -489,6 +496,7 @@ export default {
         }
         .class-intronduce{
           padding: 0 19px 31px 30px;
+          min-height: 200px;
           .intro {
             margin-top: 20px;
             line-height: 24px;
@@ -532,7 +540,8 @@ export default {
         margin-top:30px;
         .teacher{
           width: 300px;
-          height: 100%;
+          // height: 100%;
+          min-height: 100px;
           padding-bottom: 30px;
           background: #ffffff;
           .teacher-title{

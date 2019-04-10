@@ -64,7 +64,14 @@
                     {{ tag }}
                   </span>
                 </div>
-                <div class="price">￥{{ item.price }}</div>
+                <div
+                  v-if="item.price == 0"
+                  class="price">免费
+                </div>
+                <div
+                  v-else
+                  class="price">￥{{ item.price }}
+                </div>
                 <div class="foot">
                   <span>{{ item.studentNum }}人已报名</span>
                   <span>截止报名：{{ item.closeDate }}</span>

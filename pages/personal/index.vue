@@ -183,11 +183,16 @@ export default {
       }).then(res => {
         if(res.code == 0) {
           this.isEdit = false
-          this.getInfo()
           this.$message({
             message: '保存成功',
             type: 'success'
           })
+          this.userInfo.avatar = res.data.avatar
+          this.userInfo.nickName = res.data.nickName
+          this.userInfo.userName = res.data.userName
+          Cookies.set('zyy_userInfo', this.userInfo)
+          this.getInfo()
+          // window.reload()
         } else {
           this.$message({
             message: res.msg,
