@@ -124,7 +124,7 @@ import NavBar from '~/components/navBar.vue'
 import Cookies from 'js-cookie'
 import { formatSeconds } from '~/assets/js/util'
 export default {
-  middleware: 'userAuth',
+  // middleware: 'userAuth',
   components: {
     VideoPlayer,
     NavBar,
@@ -268,22 +268,8 @@ export default {
           ]
         }, function (player) {
             player._switchLevel = 0;
+            player.seek(info.startDuration)
             console.log("播放器创建了。");
-            // let _video = this.$refs.menu
-            // player.on('play', function(e) {
-            //   _video.removeEventListener('click', play);
-            //   _video.addEventListener('click', pause);
-            // });
-            // player.on('pause', function(e) {
-            //   _video.removeEventListener('click', pause);
-            //   _video.addEventListener('click', play)
-            // });
-            // function play() {
-            //   if (player) player.play();
-            // }
-            // function pause() {
-            //   if (player) player.pause();
-            // }
           }
         );
       })
@@ -337,6 +323,17 @@ export default {
         })
       }
     },
+    stopStudy() {
+      this.$axios.post('/yxs/api/web/user/finishStudy', {
+        courseId: this.courseId,
+        lessonId: this.lessonId,
+        classId: this.classId || '',
+        studyLogId: this.info.studyLogId,
+        playDuration: this.info.startDuration
+      }).then(res => {
+
+      })
+    }
   }
 }
 </script>

@@ -1328,6 +1328,9 @@ export default {
   .el-carousel__container button {
     background: #999;
   }
+  .el-carousel__arrow.el-carousel__arrow--right {
+    right: 70px;
+  }
   .el-carousel__indicator.is-active .el-carousel__button {
     background: #3F8A38;
   }

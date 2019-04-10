@@ -28,7 +28,7 @@
             </ul>
           </div>
           <div class="bill">
-            <span class="price">￥{{ classInfo.price }}</span>
+            <span>培训费：<span class="price">￥{{ classInfo.price }}</span></span>
             <span class="count">{{ classInfo.count }}人已报名</span>
           </div>
           <div class="way">
@@ -161,7 +161,12 @@
                 <li 
                   v-for="(item,index) in memberList"
                   :key="index">
-                  <img :src="item.pic">
+                  <img
+                    v-if="item.avatar"
+                    :src="item.avatar">
+                  <img
+                    v-else
+                    src="~/assets/images/user-logo.png">
                   {{ item.userName }}
                 </li>
               </ul>
@@ -368,19 +373,22 @@ export default {
         }
       }
       .bill{
-        width:312px;
+        width: 312px;
         margin-top: 24px;
         height: 24px;
+        color: #999;
         .price{
-          float: left;
+          display: inline-block;
+          // float: left;
           font-size: 24px;
           color: #ff4400;
           font-weight: 700;
         }
         .count{
+          float: right;
+          display: inline-block;
           font-size: 14px;
           color: #333333;
-          float: right;
         }
       }
       .way{
