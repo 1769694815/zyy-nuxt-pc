@@ -151,8 +151,6 @@ export default {
       }
     },
     next() {
-      this.firstShow = false
-      this.secondShow = true
       if(!this.validNum1) {
         this.$message({
           message: '请输入验证码',

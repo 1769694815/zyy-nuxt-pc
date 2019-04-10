@@ -795,7 +795,7 @@ export default {
     },
     handleScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      this.fixedShow = scrollTop > 120 ? true : false
+      this.fixedShow = scrollTop > 1000 ? true : false
     },
     toMylearn() {
       this.$router.push({

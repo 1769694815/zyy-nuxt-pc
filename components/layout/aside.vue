@@ -56,6 +56,7 @@
         </div>
       </li>
       <li
+        v-show="scrollShow"
         class="item"
         @click="toTop">
         <div>
@@ -70,7 +71,18 @@
 export default {
   data() {
     return {
-      timer: null
+      scrollShow: false
+    }
+  },
+  mounted() {
+    let vm = this
+    window.onscroll = function() {
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+      if(scrollTop > 120) {
+        vm.scrollShow = true
+      } else {
+        vm.scrollShow = false
+      }
     }
   },
   methods: {
@@ -142,7 +154,7 @@ export default {
         .content {
           position: absolute;
           display: none;
-          width: 186px;
+          width: 190px;
           height: 124px;
           right: 50px;
           top: 0;
@@ -150,13 +162,20 @@ export default {
           background: #4e9713;
           .tab {
             margin: 20px 24px;
-            width: 138px;
+            width: 148px;
             height: 32px;
             line-height: 32px;
             background: #fff;
             color: #666;
             font-size: 14px;
             border-radius: 4px;
+            &:hover {
+              color: #4e9713;
+              font-weight: 700;
+              i {
+                color: #4e9713;
+              }
+            }
             i {
               margin-left: 10px;
               font-size: 16px;
