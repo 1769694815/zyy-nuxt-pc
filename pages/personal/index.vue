@@ -154,7 +154,7 @@ export default {
     // 上传前
     beforeAvatarUpload(file) {
       console.log('file', file)
-      this.uploadToken.key=`upload_pic_${file.name}?`+ Date.parse(new Date())
+      this.uploadToken.key=`upload_pic_${Date.parse(new Date())}${file.name}`
     },
     // 监听地区
     handleChange() {
@@ -178,7 +178,7 @@ export default {
         nickName: this.form.nickName,
         sex: this.form.sex,
         birthday: this.form.birthday,
-        avatar: this.form.avatar,
+        avatar: this.uploadToken.key,
         address: this.form.address
       }).then(res => {
         if(res.code == 0) {

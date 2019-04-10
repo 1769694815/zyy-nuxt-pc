@@ -112,7 +112,7 @@
                 <li 
                   v-for="(item, index) in courseList "
                   :key="index">
-                  <img :src="item.middle_picture">
+                  <img :src="item.middlePicture">
                   <div class="class-right">
                     {{ item.title }}
                     <div class="price">
@@ -488,8 +488,10 @@ export default {
           }
           li{
             display: flex;
+            align-items: center;
             margin-top: 30px;
             img{
+              flex: 0 0 218px;
               width: 218px;
               height: 122px;
               border-radius: 6px;
