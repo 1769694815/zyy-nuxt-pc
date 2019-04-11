@@ -36,6 +36,9 @@ export default function({ $axios, redirect }) {
       Cookies.remove('zyy_accessToken')
       redirect('/')
     }
+    if(code == 404) {
+      redirect('/status/404')
+    }
     return Promise.reject(error);
   });
 

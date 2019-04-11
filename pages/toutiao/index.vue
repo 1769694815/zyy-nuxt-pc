@@ -170,6 +170,7 @@ export default {
             display: inline-block;
             vertical-align: top;
             margin-right: 4px;
+            color: #aaa;
           }
         }
       }

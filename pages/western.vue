@@ -294,7 +294,7 @@ export default {
 <style lang="scss" scoped>
   .train-container {
     width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     .crumb {
       margin-top: 28px;
       margin-bottom: 18px;
