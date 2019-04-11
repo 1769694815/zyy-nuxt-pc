@@ -52,7 +52,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .lesson-container {
-    height: 700px;
+    // height: 700px;
     background: #f6f6f6;
     .list {
       padding: 16px;
@@ -74,7 +74,7 @@ export default {
       }
       img {
         width: 100%;
-        height: 123px;
+        // height: 123px;
         border-radius: 6px;
         transition: all .3s ease 0s;
       }

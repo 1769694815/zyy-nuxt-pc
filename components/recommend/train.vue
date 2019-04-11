@@ -53,7 +53,7 @@ export default {
 <style lang="scss" scoped>
   .train-section {
     // width: 340px;
-    height: 622px;
+    // height: 622px;
     background: #f6f6f6;
     .tag {
       padding-top: 13px;
@@ -87,7 +87,7 @@ export default {
       .train-img {
         position: relative;
         width: 100%;
-        height: 123px;
+        // height: 123px;
         font-size: 0;
         overflow: hidden;
         cursor: pointer;
@@ -97,7 +97,7 @@ export default {
         }
         img {
           width: 100%;
-          height: 123px;
+          // height: 123px;
           border-radius: 6px;
           transition: all .3s ease 0s;
         }
