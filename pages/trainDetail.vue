@@ -119,7 +119,9 @@
                 <li 
                   v-for="(item, index) in courseList "
                   :key="index">
-                  <img :src="item.middlePicture">
+                  <img
+                    :src="item.middlePicture"
+                    @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
                   <div class="class-right">
                     {{ item.title }}
                     <div class="price">
@@ -173,7 +175,7 @@
                     :src="item.avatar">
                   <img
                     v-else
-                    src="~/assets/images/user-logo.png">
+                    src="~/assets/images/xuesheng.png">
                   {{ item.userName }}
                 </li>
               </ul>
@@ -512,6 +514,7 @@ export default {
               height: 122px;
               border-radius: 6px;
               margin-right: 19px;
+              cursor: pointer;
             }
             .class-right{
               color:#333333;

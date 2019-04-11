@@ -401,6 +401,7 @@
         src="~/assets/images/foot-img.jpg"
         @click="toService">
     </div>
+    <friend-link />
     <transition name="fade">
       <div
         v-show="fixedShow"
@@ -446,6 +447,7 @@ import FamousItem from '~/components/index/famousItem.vue'
 import SectionItem from '~/components/index/sectionItem.vue'
 import ToutiaoItem from '~/components/index/toutiaoItem.vue'
 import Header from '~/components/layout/header.vue'
+import FriendLink from '~/components/layout/friendLink.vue'
 import Cookies from 'js-cookie'
 import { Base64 } from '~/assets/js/base64.js'
 export default {
@@ -455,7 +457,8 @@ export default {
     ResearchItem,
     FamousItem,
     SectionItem,
-    ToutiaoItem
+    ToutiaoItem,
+    FriendLink
   },
   data() {
     return {

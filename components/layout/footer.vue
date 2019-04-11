@@ -2,9 +2,15 @@
   <div class="footer">
     <div class="footer-content">
       <div class="footer-left fl">
-        <p>平台合作：0791-88197248 <span style="margin-left: 30px;">咨询电话：0791-87119966</span></p>
-        <p>联系地址：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
+        <p>平台合作：0791-88197248 <span style="margin-left: 30px;">课程咨询：0791-87119966</span></p>
+        <p>合作地址：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
         <p>课程咨询：江西中医药大学继续教育学院（培训学院）</p>
+        <div class="link">
+          <span @click="$router.push({ name: 'about' })">关于我们</span>
+          <span @click="$router.push({ name: 'service' })">服务与保障</span>
+          <span @click="$router.push({ name: 'download' })">下载APP</span>
+          <span @click="$router.push({ name: 'index' })">返回首页</span>
+        </div>
       </div>
       <div class="footer-right fr">
         <div class="item">
@@ -33,17 +39,30 @@ export default {
 <style lang="scss" scoped>
   .footer {
     background: #3e3e3e;
-    height: 153px;
+    height: 163px;
     color: #B5B5B5;
     &-content {
       width: 1200px;
-      height: 153px;
+      height: 163px;
       margin: 0 auto;
     }
     &-left {
       margin-top: 31px;
       p {
         line-height: 30px;
+      }
+      .link {
+        margin-top: 10px;
+        span {
+          margin-left: 10px;
+          cursor: pointer;
+          &:hover {
+            color: #3f8a38;
+          }
+          &:first-child {
+            margin: 0;
+          }
+        }
       }
     }
     &-right {
