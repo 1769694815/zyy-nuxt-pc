@@ -108,7 +108,15 @@
         </div>
       </div>
       <div class="wrap-6">
-        1
+        <div class="content">
+          <div class="c-left">
+            <img src="~/assets/images/g1.png">
+            <img src="~/assets/images/g2.png">
+          </div>
+          <div class="c-right">
+            <img src="~/assets/images/download-qr.jpg">
+          </div>
+        </div>
       </div>
     </div> 
   </div>
@@ -273,7 +281,25 @@ export default {
     background: url(../assets/images/bj6.jpg) no-repeat center fixed;
   }
   .wrap-6 {
+    position: relative;
     height: 500px;
     background: url(../assets/images/demo.jpg) no-repeat center;
+    .content {
+      position: absolute;
+      display: flex;
+      left: 900px;
+      top: 200px;
+      .c-left {
+        img {
+          display: block;
+          margin-top: 15px;
+          cursor: pointer;
+        }
+      }
+      .c-right {
+        margin-top: 15px;
+        margin-left: 20px;
+      }
+    }
   }
 </style>
