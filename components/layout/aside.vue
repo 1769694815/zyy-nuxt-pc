@@ -23,11 +23,15 @@
           <div class="text">平台服务</div>
         </div>
         <div class="content c2">
-          <div class="tab">
+          <div
+            class="tab"
+            @click="toService">
             <i class="iconfont iconbaozhang" />
             <span>服务与保障</span>
           </div>
-          <div class="tab">
+          <div
+            class="tab"
+            @click="openCustomer">
             <i class="iconfont iconkefu" />
             <span>在线客服</span>
           </div>
@@ -96,6 +100,15 @@ export default {
           clearInterval(timer)
         }
       }, 30)
+    },
+    openCustomer() {
+      window.open('http://p.qiao.baidu.com/cps/chat?siteId=12747992&userId=26713079&cp=http%3A%2F%2Fwww.jzjxedu.com%2F&cr=&cw=')
+    },
+    toService() {
+      let url = this.$router.resolve({
+        name: 'service'
+      })
+      window.open(url.href, '_blank')
     }
   }
 }
