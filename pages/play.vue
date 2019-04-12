@@ -163,7 +163,6 @@ export default {
       let _this = this
       if(_this.player) {
         _this.player.pause()
-        // this.stopStudy()
       }
       this.playIndex = index || 0
       if(free == 2) {
@@ -280,6 +279,7 @@ export default {
             player.seek(info.startDuration)
             console.log("播放器创建了。", player);
             player.on('pause', _this.stopStudy)
+            player.on('ended', _this.stopStudy)
             // function hello () {
             //   console.log('hello')
             // }
@@ -338,13 +338,15 @@ export default {
     },
     stopStudy() {
       this.player.pause()
+      let time = this.player.getCurrentTime()
+      console.log('time', time)
       this.$axios.post('/yxs/api/web/user/finishStudy', {
         courseId: this.courseId,
         lessonId: this.info.lessonId,
         classId: this.classId || '',
         studyLogId: this.info.studyLogId,
         userToken: this.userInfo.userToken,
-        playDuration: 60
+        playDuration: Math.floor(time)
       }).then(res => {
         console.log('123')
       })

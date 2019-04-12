@@ -15,7 +15,7 @@
         v-if="index < 3"
         :key="index"
         class="item"
-        @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
+        @click="toDetail(item.id)">
         <span class="circle"/>
         <span>【{{ item.typeName }}】</span>
         <span>{{ item.title }}</span>
@@ -45,6 +45,15 @@ export default {
         }
       })
     },
+    toDetail(id) {
+      let url = this.$router.resolve({ 
+        name: 'toutiao-detail',
+        query: {
+          id
+        }
+      })
+      window.open(url.href, '_blank')
+    }
   }
 }
 </script>
