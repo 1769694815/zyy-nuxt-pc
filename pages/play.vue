@@ -11,9 +11,9 @@
           <div class="title">{{ info.courseTitle }}</div>
           <div class="sub">
             <span>{{ info.studentNum }}人学过</span>
-            <span v-if="info.day > 0">{{ info.day }}天后到期,请尽快学完</span>
+            <!-- <span v-if="info.day > 0">{{ info.day }}天后到期,请尽快学完</span>
             <span v-if="info.day < 0">永久有效</span>
-            <span v-if="info.day == 0">已到期</span>
+            <span v-if="info.day == 0">已到期</span> -->
           </div>
         </div>
         <div class="play-content">

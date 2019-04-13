@@ -174,7 +174,7 @@ export default {
       })
     },
     submit() {
-      if(this.password || this.newPassword) {
+      if(!this.password || !this.newPassword) {
         this.$message({
           message: '密码不能为空',
           type: 'warning'

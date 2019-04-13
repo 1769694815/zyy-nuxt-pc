@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const appConfig = require('./config/app.config')
 
 module.exports = {
   mode: 'universal',
@@ -7,11 +8,13 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: '中医药在线' || pkg.name,
+    title: `${appConfig.meta.title}`,
+    titleTemplate: `%s | ${appConfig.meta.title}`,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'keywords', name: 'keywords', content: appConfig.meta.keywords },
+      { hid: 'description', name: 'description', content: appConfig.meta.description }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -73,8 +76,8 @@ module.exports = {
 
   proxy: {
     '/api/': {
-      // target: 'http://212.64.79.36:8080',
-      target: 'http://192.168.2.199:9999',
+      target: 'http://212.64.79.36:8080',
+      // target: 'http://192.168.2.199:9999',
       pathRewrite: { '^/api/': '/', changeOrigin: true }
     }
   },

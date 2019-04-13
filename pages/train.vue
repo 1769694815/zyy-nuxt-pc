@@ -128,6 +128,7 @@ export default {
   },
   data() {
     return {
+      title: '自学考试',
       tabIndex: 2,
       current: 1,
       size: 30,
@@ -154,6 +155,11 @@ export default {
         }
       ],
       result: []
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   mounted() {

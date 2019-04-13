@@ -3,7 +3,9 @@
     <v-header />
     <div class="lesson-detail">
       <Navbar />
-      <div class="header">
+      <div
+        v-if="detailData"
+        class="header">
         <div class="header-content">
           <div class="crumb">
             首页>课程详情
@@ -265,7 +267,7 @@ export default {
       tab: 1,
       id: this.$route.query.id,
       userInfo: '',
-      detailData: {},
+      detailData: '',
       showModal: false,
       commentList: [],
       text: '',
@@ -427,6 +429,7 @@ export default {
 
 <style lang="scss" scoped>
 .lesson-detail{
+  min-height: 500px;
   .header{
     width: 100%;
     height: 388px;
