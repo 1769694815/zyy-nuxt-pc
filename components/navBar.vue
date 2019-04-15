@@ -70,24 +70,28 @@ export default {
   },
   methods: {
     changeTab(item, index) {
-      this.$router.push({
+      let url
+      url = this.$router.resolve({
         name: item.path
       })
+      window.open(url.href, '_blank')
       if(index == 2) {
-        this.$router.push({
+        url = this.$router.resolve({
           name: item.path,
           query: {
             cid: 2
           }
         })
+        window.open(url.href, '_blank')
       }
       if(index == 1) {
-        this.$router.push({
+        url =this.$router.resolve({
           name: item.path,
           query: {
             fid: 53
           }
         })
+        window.open(url.href, '_blank')
       }
     }
   }

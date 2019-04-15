@@ -59,9 +59,10 @@ export default {
   methods: {
     changeTab(item, index) {
       this.tab = index
-      this.$router.push({
+      let url = this.$router.resolve({
         name: item.path
       })
+      window.open(url.href, '_blank')
     }
   }
 }

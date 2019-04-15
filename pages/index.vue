@@ -21,31 +21,31 @@
         <div class="nav-list">
           <div
             class="nav-item"
-            @click="$router.push({ name: 'train', query: {fid: 70}})">
+            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 70}}))">
             <i class="iconfont iconyisheng"/>
             中医研究所
           </div>
           <div
             class="nav-item"
-            @click="$router.push({ name: 'train', query: {fid: 63}})">
+            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 63}}))">
             <i class="iconfont iconyisheng"/>
             名医师承
           </div>
           <div
             class="nav-item"
-            @click="$router.push({ name: 'train', query: {fid: 54}})">
+            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 54}}))">
             <i class="iconfont icon2jiankangzhishi"/>
             中医健康
           </div>
           <div
             class="nav-item"
-            @click="$router.push({ name: 'train', query: {fid: 55}})">
+            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 55}}))">
             <i class="iconfont iconwendang"/>
             中医药理论
           </div>
           <div
             class="nav-item"
-            @click="$router.push({ name: 'train', query: {fid: 53}})">
+            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 53}}))">
             <i class="iconfont iconkaoshi"/>
             自学考试
           </div>
@@ -60,13 +60,13 @@
           </div>
           <div
             class="nav-item"
-            @click="$router.push({ name: 'western' })">
+            @click="openNewPage($router.resolve({ name: 'western' }))">
             <i class="iconfont iconxiangmu"/>
             培训项目
           </div>
           <div class="sub-nav">
-            <span @click="$router.push({ name: 'western', query: { cid: 3 }})">职业培训</span>
-            <span @click="$router.push({ name: 'western', query: { cid: 2 }})">西学中</span>
+            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 3 }}))">职业培训</span>
+            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 2 }}))">西学中</span>
           </div>
         </div>
         <!-- <section class="info-list">
@@ -104,24 +104,24 @@
             <img
               v-if="userInfo.avatar"
               :src="userInfo.avatar"
-              @click="$router.push({ name: 'personal'})">
+              @click="openNewPage($router.resolve({ name: 'personal'}))">
             <img
               v-else
               src="~/assets/images/user-logo.png"
-              @click="$router.push({ name: 'personal'})">
+              @click="openNewPage($router.resolve({ name: 'personal'}))">
           </div>
           <div
             class="username"
-            @click="$router.push({ name: 'personal'})">{{ userInfo.nickName }}</div>
+            @click="openNewPage($router.resolve({ name: 'personal'}))">{{ userInfo.nickName }}</div>
           <div
             class="logout"
             @click="logout">安全退出</div>
           <ul>
-            <li @click="$router.push({ name: 'mylearn' })">
+            <li @click="openNewPage($router.resolve({ name: 'mylearn' }))">
               <img src="~/assets/images/course.png">
               <div class="text">我的课程({{ courseNum }})</div>
             </li>
-            <li @click="$router.push({ name: 'mylearn-myclass' })">
+            <li @click="openNewPage($router.resolve({ name: 'mylearn-myclass' }))">
               <img src="~/assets/images/classes.png">
               <div class="text">我的班级({{ classNum }})</div>
             </li>
@@ -144,10 +144,10 @@
           </div>
           <div
             class="button login"
-            @click="$router.push({ name: 'login' })">立即登录</div>
+            @click="openNewPage($router.resolve({ name: 'login' }))">立即登录</div>
           <div
             class="button"
-            @click="$router.push({ name: 'register' })">免费注册</div>
+            @click="openNewPage($router.resolve({ name: 'register' }))">免费注册</div>
           <div
             ref="download"
             class="down down-2"
@@ -169,7 +169,7 @@
         <div class="subnav">
           <span
             class="pos-right"
-            @click="$router.push({ name: 'train', query: { fid: 70 }})">
+            @click="openNewPage($router.resolve({ name: 'train', query: { fid: 70 }}))">
             查看更多
             <i class="iconfont icongengduo" />
           </span>
@@ -199,7 +199,7 @@
           <div class="subnav">
             <span
               class="pos-right"
-              @click="$router.push({ name: 'doctor' })">
+              @click="openNewPage($router.resolve({ name: 'doctor' }))">
               查看更多
               <i class="iconfont icongengduo" />
             </span>
@@ -217,13 +217,13 @@
         <div class="imgs">
           <img
             src="~/assets/images/famous_1.jpg"
-            @click="$router.push({ name: 'doctor' })">
+            @click="openNewPage($router.resolve({ name: 'doctor' }))">
           <img
             src="~/assets/images/famous_3.png"
-            @click="$router.push({ name: 'western' })">
+            @click="openNewPage($router.resolve({ name: 'western' }))">
           <img
             src="~/assets/images/famous_3.jpg"
-            @click="$router.push({ name: 'community' })">
+            @click="openNewPage($router.resolve({ name: 'community' }))">
         </div>
       </div>
     </div>
@@ -344,11 +344,11 @@
         <div class="container-header">
           <h2>培训项目</h2>
           <div class="subnav">
-            <span @click="$router.push({ name: 'western', query: { cid: 3 }})">职业培训</span>
-            <span @click="$router.push({ name: 'western', query: { cid: 2 }})">西学中</span>
+            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 3 }}))">职业培训</span>
+            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 2 }}))">西学中</span>
             <span
               class="pos-right"
-              @click="$router.push({ name: 'western' })">
+              @click="toNewPage('western')">
               查看更多
               <i class="iconfont icongengduo" />
             </span>
@@ -379,7 +379,7 @@
         <div class="subnav">
           <span
             class="pos-right"
-            @click="$router.push({ name: 'toutiao' })">
+            @click="toNewPage('toutiao')">
             查看更多
             <i class="iconfont icongengduo" />
           </span>
@@ -399,7 +399,7 @@
     <div class="foot-img">
       <img
         src="~/assets/images/foot-img.jpg"
-        @click="toService">
+        @click="toNewPage('service')">
     </div>
     <friend-link />
     <transition name="fade">
@@ -427,11 +427,11 @@
             class="content-right">
             <div
               class="learn"
-              @click="toMylearn">我的学习
+              @click="toNewPage('mylearn')">我的学习
             </div>
             <div
               class="personal"
-              @click="toPersonal">个人中心
+              @click="toNewPage('personal')">个人中心
             </div>
           </div>
         </div>
@@ -589,24 +589,14 @@ export default {
     // })
   },
   methods: {
-    // 跳转到头条页面
-    toToutiao() {
-      this.$router.push({
-        name: 'toutiao'
-      })
-    },
     toToutiaoDetail(id) {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'toutiao-detail',
         query: {
           id
         }
       })
-    },
-    toService() {
-      this.$router.push({
-        name: 'service'
-      })
+      window.open(url.href, '_blank')
     },
     // 获取轮播
     getCarousel() {
@@ -697,7 +687,11 @@ export default {
       })
     },
     change1() {
-      this.current1 += 1,
+      if(this.current1 == 3) {
+        this.current1 = 1
+      } else {
+        this.current1 += 1
+      }
       this.getResearchList()
     },
     change2() {
@@ -743,21 +737,23 @@ export default {
       })
     },
     toList(fid, cid) {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'train',
         query: {
           fid,
           cid
         }
       })
+      window.open(url.href, '_blank')
     },
     toTrainDetail(item) {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'trainDetail',
         query: {
           id: item.trainId
         }
       })
+      window.open(url.href, '_blank')
     },
     logout() {
       this.$confirm(`确定退出登录吗？`, '提示', {
@@ -800,28 +796,26 @@ export default {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       this.fixedShow = scrollTop > 1000 ? true : false
     },
-    toMylearn() {
-      this.$router.push({
-        name: 'mylearn'
-      })
-    },
-    toPersonal() {
-      this.$router.push({
-        name: 'personal'
-      })
-    },
     search() {
       let url = location.href
       if(url.indexOf('searchResult') > -1) {
         this.$emit('getList', this.text, true)
       } else {
-        this.$router.push({
+        let link = this.$router.resolve({
           name: 'searchResult',
           query: {
             title: this.text
           }
         })
+        window.open(link.href, '_blank')
       }
+    },
+    toNewPage(name) {
+      let url = this.$router.resolve({ name: name })
+      window.open(url.href, '_blank')
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }
