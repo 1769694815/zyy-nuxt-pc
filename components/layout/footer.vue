@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="copyright">
-      版权所有：Copyright 2018 jzjxedu.com. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备11016584号&nbsp;&nbsp;&nbsp;&nbsp;
+      版权所有：Copyright 2018 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备11016584号&nbsp;&nbsp;&nbsp;&nbsp;
       技术支持：<a href="http://www.yunduancn.com/">云端科技</a>
     </div>
   </div>
