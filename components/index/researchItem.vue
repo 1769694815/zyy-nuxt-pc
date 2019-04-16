@@ -38,12 +38,13 @@ export default {
   },
   methods: {
     toDetail(id) {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'lessonDetail',
         query: {
           id
         }
       })
+      window.open(url.href, '_blank')
     }
   }
 }

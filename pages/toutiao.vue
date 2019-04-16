@@ -46,9 +46,10 @@ export default {
   },
   methods: {
     toService() {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'service'
       })
+      window.open(url.href, '_blank')
     }
   }
 }

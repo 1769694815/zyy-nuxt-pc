@@ -66,13 +66,13 @@ export default {
       this.getList()
     },
     toDetail(id) {
-      console.log('id', id)
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'toutiao-detail',
         query: {
           id: id
         }
       })
+      window.open(url.href, '_blank')
     },
     getNavList() {
       this.$axios('/yxs/api/web/news/getAllCategory').then(res => {

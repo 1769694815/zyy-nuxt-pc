@@ -33,7 +33,7 @@
         <li
           v-for="(item,index) in detail.courses"
           :key="index"
-          @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
+          @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId }}))">
           <img :src="item.pic">
           <div class="name">{{ item.title }}</div>
           <div class="desc">
@@ -113,6 +113,9 @@ export default {
         })
         this.getDetail()
       })
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }

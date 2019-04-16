@@ -7,7 +7,7 @@
         v-if="index < 3"
         :key="index"
         class="item"
-        @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
+        @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.id }}))">
         <div class="img-box">
           <img :src="item.middle_picture">
         </div>
@@ -47,6 +47,9 @@ export default {
         }
       })
     },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
+    }
   }
 }
 </script>

@@ -28,7 +28,7 @@
             class="list-item">
             <div
               class="img-box"
-              @click="$router.push({ name: 'doctor-detail', query: { id: item.famousId }})">
+              @click="openNewPage($router.resolve({ name: 'doctor-detail', query: { id: item.famousId }}))">
               <img :src="item.pic">
             </div>
             <div
@@ -139,6 +139,9 @@ export default {
       }).then(res => {
         this.contentList = res.data.records
       })
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }

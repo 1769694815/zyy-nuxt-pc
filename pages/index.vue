@@ -133,7 +133,7 @@
           <div
             v-show="downShow"
             class="down-logo">
-            <img src="~/assets/images/download-qr.jpg">
+            <img src="~/assets/images/download-qr.png">
           </div>
         </section>
         <section
@@ -155,7 +155,7 @@
           <div
             v-show="downShow"
             class="down-logo">
-            <img src="~/assets/images/download-qr.jpg">
+            <img src="~/assets/images/download-qr.png">
           </div>
         </section>
       </div>
@@ -973,6 +973,9 @@ export default {
             border-left-color: #fff;
             top: 90px;
             right: -14px;
+          }
+          img {
+            width: 120px;
           }
         }
         .info-header {

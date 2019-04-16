@@ -272,21 +272,23 @@ export default {
     },
     // 进课程详情
     toLessonDetail(id) {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'lessonDetail',
         query: {
           id
         }
       })
+      window.open(url.href, '_blank')
     },
     // 进培训详情
     toTrainDetail(id) {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'trainDetail',
         query: {
           id
         }
       })
+      window.open(url.href, '_blank')
     }
   }
 }

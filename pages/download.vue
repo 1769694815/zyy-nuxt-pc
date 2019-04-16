@@ -12,12 +12,16 @@
             src="../assets/images/img1.png">
           <div class="box">
             <div class="box-left">
-              <img
-                class="img2"
-                src="../assets/images/img2.png">
-              <img
-                class="img3"
-                src="../assets/images/img3.png">
+              <a href="https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8">
+                <img
+                  class="img2"
+                  src="../assets/images/img2.png">
+              </a>
+              <a href="https://files.jzjxedu.com/app-release.apk">
+                <img
+                  class="img3"
+                  src="../assets/images/img3.png">
+              </a>
             </div>
             <div class="box-right">
               <img src="../assets/images/weixin.png">
@@ -110,11 +114,17 @@
       <div class="wrap-6">
         <div class="content">
           <div class="c-left">
-            <img src="~/assets/images/g1.png">
-            <img src="~/assets/images/g2.png">
+            <a href="https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8">
+              <img src="~/assets/images/g1.png">
+            </a>
+            <a href="https://files.jzjxedu.com/app-release.apk">
+              <img src="~/assets/images/g2.png">
+            </a>
           </div>
           <div class="c-right">
-            <img src="~/assets/images/download-qr.jpg">
+            <img
+              style="width: 120px;"
+              src="~/assets/images/download-qr.png">
           </div>
         </div>
       </div>
@@ -131,7 +141,9 @@ export default {
   },
   data() {
     return {
-      tabIndex: 6
+      tabIndex: 6,
+      androidUrl: 'https://files.jzjxedu.com/app-release.apk',
+      iosUrl: 'https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8'
     }
   }
 }
@@ -299,6 +311,10 @@ export default {
       .c-right {
         margin-top: 15px;
         margin-left: 20px;
+        img {
+          width: 120px;
+          height: 120px;
+        }
       }
     }
   }

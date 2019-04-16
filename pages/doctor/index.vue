@@ -30,12 +30,13 @@ export default {
       })
     },
     toDetail(id) {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'doctor-detail',
         query: {
           id
         }
       })
+      window.open(url.href, '_blank')
     }
   }
 }

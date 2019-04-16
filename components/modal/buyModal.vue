@@ -88,7 +88,7 @@ export default {
       this.$emit('hide-modal')
     },
     confirm() {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'payfor',
         query: {
           itemId: this.itemId,
@@ -96,6 +96,7 @@ export default {
           itemType: 2
         }
       })
+      window.open(url.href, '_blank')
     }
   }
 }

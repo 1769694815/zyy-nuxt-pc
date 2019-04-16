@@ -17,7 +17,7 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item"
-            @click="$router.push({ name: 'lessonDetail', query: {id: item.courseId }})">
+            @click="openNewPage($router.resolve({ name: 'lessonDetail', query: {id: item.courseId }}))">
             <div class="img-box">
               <img :src="item.middlePicture">
             </div>
@@ -98,6 +98,9 @@ export default {
       }).then(res => {
         this.contentList = res.data.records
       })
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }

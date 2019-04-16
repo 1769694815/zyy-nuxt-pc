@@ -60,7 +60,7 @@
             class="list-item">
             <div
               class="img-box"
-              @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
+              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId }}))">
               <img :src="item.middlePicture">
             </div>
             <div class="content">
@@ -91,7 +91,7 @@
             :key="index">
             <div
               class="img-box"
-              @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
+              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.id }}))">
               <img :src="item.middle_picture">              
             </div>
             <div class="content">
@@ -326,7 +326,7 @@ export default {
           name: 'login'
         })
       } else {
-        this.$router.push({
+        let url = this.$router.resolve({
           name: 'payfor',
           query: {
             itemId: this.courseId,
@@ -334,6 +334,7 @@ export default {
             itemType: 1
           }
         })
+        window.open(url.href, '_blank')
       }
     },
     stopStudy() {
@@ -353,6 +354,9 @@ export default {
     },
     hello() {
       console.log('hello')
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }
@@ -461,7 +465,7 @@ export default {
         height: 203px;
         margin-left: 20px;
         margin-top: 20px;
-        &:nth-child(4n+1) {
+        &:nth-child(5n+1) {
           margin-left: 0;
         }
         .img-box {

@@ -14,7 +14,7 @@
       </div>
       <div class="footer-right fr">
         <div class="item">
-          <img src="~/assets/images/download-qr.jpg">
+          <img src="~/assets/images/download-qr.png">
           <div class="text">扫码下载app</div>
         </div>
         <div class="item">
@@ -75,8 +75,8 @@ export default {
         }
       }
       img {
-        width: 90px;
-        height: 90px;
+        width: 100px;
+        height: 100px;
         border-radius: 4px;
       }
       .text {

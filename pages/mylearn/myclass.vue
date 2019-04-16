@@ -19,7 +19,7 @@
             class="list-item">
             <img
               :src="item.middlePicture"
-              @click="$router.push({ name: 'play', query: { classId: item.classroomId, courseId: item.courseId }})">
+              @click="openNewPage($router.resolve({ name: 'play', query: { classId: item.classroomId, courseId: item.courseId }}))">
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <div class="desc">
@@ -86,9 +86,10 @@ export default {
     },
     toRank(roomId) {
       window.localStorage.setItem('zyy_classId', roomId)
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'rank-course'
       })
+      window.open(url.href, '_blank')
     },
     getList() {
       let params = {
@@ -102,6 +103,9 @@ export default {
       }).then(res => {
         this.contentList = res.data.records
       })
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }

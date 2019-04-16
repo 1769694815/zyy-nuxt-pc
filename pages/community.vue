@@ -14,7 +14,7 @@
                 :key="index">
                 <img
                   :src="item.url"
-                  @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
+                  @click="openNewPage($router.resolve({ name: 'toutiao-detail', query: { id: item.id } }))">
               </el-carousel-item>
             </el-carousel>
           </div>
@@ -24,7 +24,7 @@
               v-if="index < 2"
               :key="index"
               class="right-item"
-              @click="$router.push({ name: 'lessonDetail', query: { id: item.courseId }})">
+              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId }}))">
               <img :src="item.middle_picture">
               <div class="title">{{ item.title }}</div>
             </div>
@@ -36,7 +36,7 @@
               <div class="title">进社区频道</div>
               <div
                 class="more"
-                @click="$router.push({ name: 'toutiao' })">
+                @click="openNewPage($router.resolve({ name: 'toutiao' }))">
                 更多<i class="iconfont icongengduo" />
               </div>
             </div>
@@ -46,7 +46,7 @@
                 :key="index">
                 <div
                   class="info"
-                  @click="$router.push({ name: 'toutiao-detail', query: { id: item.id } })">
+                  @click="openNewPage($router.resolve({ name: 'toutiao-detail', query: { id: item.id } }))">
                   <div class="date">
                     <div class="day">{{ item.publishedTime.split('-')[1] }}</div>
                     <div class="month">{{ item.publishedTime.split('-')[0] }}月</div>
@@ -67,7 +67,7 @@
                 v-for="(item, index) in healthList"
                 v-if="index < 3"
                 :key="index"
-                @click="$router.push({ name: 'lessonDetail', query: { id: item.id} })">
+                @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.id} }))">
                 <div class="img-box">
                   <img :src="item.middle_picture">
                 </div>
@@ -90,7 +90,7 @@
             <li
               v-for="(item, index) in careerList"
               :key="index"
-              @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
+              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.id }}))">
               <img :src="item.middlePicture">
               <div class="desc">{{ item.title }}</div>
             </li>
@@ -107,7 +107,7 @@
             <li
               v-for="(item, index) in wisdomList"
               :key="index"
-              @click="$router.push({ name: 'lessonDetail', query: { id: item.id }})">
+              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.id }}))">
               <img :src="item.middlePicture">
               <div class="desc">{{ item.title }}</div>
             </li>
@@ -184,6 +184,9 @@ export default {
         this.careerList = res.data.career
         this.wisdomList = res.data.wisdom
       })
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }
@@ -202,6 +205,7 @@ export default {
       width: 800px;
       img {
         width: 100%;
+        cursor: pointer;
       }
     }
     .banner-right {

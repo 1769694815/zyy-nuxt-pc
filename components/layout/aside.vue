@@ -7,14 +7,20 @@
           <div class="text">课程咨询</div>
         </div>
         <div class="content">
-          <div class="tab">
+          <a
+            href="tencent://message/?uin=563100824"
+            target="_blank"
+            class="tab">
             <i class="iconfont iconqq" />
             <span>自考处袁主任</span>
-          </div>
-          <div class="tab">
+          </a>
+          <a
+            href="tencent://message/?uin=452493787"
+            target="_blank"
+            class="tab">
             <i class="iconfont iconqq" />
             <span>自考处陈主任</span>
-          </div>
+          </a>
         </div>
       </li>
       <li class="item">
@@ -56,7 +62,7 @@
           <div class="text">手机APP</div>
         </div>
         <div class="content c3">
-          <img src="~/assets/images/download-qr.jpg">
+          <img src="~/assets/images/download-qr.png">
         </div>
       </li>
       <li
@@ -173,6 +179,10 @@ export default {
           top: 0;
           text-align: left;
           background: #4e9713;
+          a {
+            display: block;
+            text-decoration: none;
+          }
           .tab {
             margin: 20px 24px;
             width: 148px;
@@ -202,6 +212,9 @@ export default {
         .c3 {
           width: 120px;
           padding: 10px;
+          img {
+            width: 120px;
+          }
         }
       }
     }

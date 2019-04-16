@@ -196,7 +196,12 @@
               v-for="(item,index) in detailData.teacherList"
               :key="index"
               class="teacher">
-              <img :src="item.pic">
+              <img
+                v-if="item.pic"
+                :src="item.pic">
+              <img
+                v-else
+                src="~/assets/images/xuesheng.png">
               <div class="text">
                 <span class="name">
                   {{ item.name }}
@@ -238,7 +243,7 @@
         </div>
         <div
           class="foot-img"
-          @click="$router.push({ name: 'service'})">
+          @click="openNewPage($router.resolve({ name: 'service'}))">
           <img src="../assets/images/foot-img.jpg">
         </div>
       </div>
@@ -311,12 +316,13 @@ export default {
           name: 'login'
         })
       } else {
-        this.$router.push({
+        let url = this.$router.resolve({
           name: 'play',
           query: {
             courseId: this.id
           }
         })
+        window.open(url.href, '_blank')
       }
     },
     join() {
@@ -325,12 +331,13 @@ export default {
           name: 'login'
         })
       } else {
-        this.$router.push({
+        let url = this.$router.resolve({
           name: 'play',
           query: {
             courseId: this.id
           }
         })
+        window.open(url.href, '_blank')
       }
     },
     hideModal() {
@@ -422,6 +429,9 @@ export default {
         })
         this.getDetail()
       })
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 };
@@ -617,6 +627,7 @@ export default {
             }
           }
           .lesson-list {
+            padding-bottom: 20px;
             li {
               position: relative;
               height: 50px;
