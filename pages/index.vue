@@ -230,17 +230,17 @@
     <!-- 中医健康 -->
     <div class="item-container">
       <div class="container-header">
-        <h2>中医健康</h2>
+        <h2>中医大讲堂</h2>
         <div class="subnav">
           <span
             v-for="(item, index) in healthSubList"
             v-if="index > 0"
             :key="index">
-            <span @click="toList(54, item.id)">{{ item.name }}</span>
+            <span @click="toList(76, item.id)">{{ item.name }}</span>
           </span>
           <span
             class="pos-right"
-            @click="toList(54)">
+            @click="toList(76)">
             查看更多
             <i class="iconfont icongengduo" />
           </span>
@@ -545,13 +545,13 @@ export default {
         this.getCarousel()
         this.getMenuList()
         this.getResearchList()
-        this.getRecommendList('zyjk')
+        this.getRecommendList('zydjt')
         this.getRecommendList('career')
         this.getRecommendList('education')
         this.getDoctorList()
         this.getNewsList()
         this.getTrainList()
-        this.getCategoryByCode('zyjk')
+        this.getCategoryByCode('zydjt')
         this.getCategoryByCode('career')
         this.getCategoryByCode('education')
         this.getStickyList()
@@ -566,13 +566,13 @@ export default {
       this.getCarousel()
       this.getMenuList()
       this.getResearchList()
-      this.getRecommendList('zyjk')
+      this.getRecommendList('zydjt')
       this.getRecommendList('career')
       this.getRecommendList('education')
       this.getDoctorList()
       this.getNewsList()
       this.getTrainList()
-      this.getCategoryByCode('zyjk')
+      this.getCategoryByCode('zydjt')
       this.getCategoryByCode('career')
       this.getCategoryByCode('education')
       this.getStickyList()
@@ -650,7 +650,7 @@ export default {
             case 'career':
               this.theoryList = res.data
               break;
-            case 'zyjk':
+            case 'zydjt':
               this.healthList = res.data
               break;
           }
@@ -723,7 +723,7 @@ export default {
       }).then(res => {
         if(res.code == 0) {
           switch(code) {
-            case 'zyjk':
+            case 'zydjt':
               this.healthSubList = res.data
               break;
             case 'education':

@@ -70,9 +70,13 @@ export default {
   .content {
     padding: 0 10px;
     .title {
+      width: 100%;
       margin-top: 15px;
       font-size: 14px;
       color: #333;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
     .info {
       margin-top: 9px;

@@ -66,12 +66,13 @@ export default {
   },
   methods: {
     toLessonDetail(id) {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'lessonDetail',
         query: {
           id
         }
       })
+      window.open(url.href, '_blank')
     },
     getList(text, flag) {
       if(flag) {
@@ -93,6 +94,7 @@ export default {
 <style lang="scss" scoped>
   .train-ul {
     width: 1200px;
+    min-height: 600px;
     margin: 0 auto;
     overflow: hidden;
   }

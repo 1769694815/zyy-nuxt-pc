@@ -127,7 +127,7 @@
                 <li
                   v-for="(item, index) in detailData.lesson"
                   :key="index"
-                  @click="$router.push({ name: 'play', query: { courseId: id }})">
+                  @click="toPlay">
                   <span class="circle" />
                   <span
                     v-if="item.free == 1"
@@ -201,7 +201,7 @@
                 :src="item.pic">
               <img
                 v-else
-                src="~/assets/images/xuesheng.png">
+                src="~/assets/images/teacher.png">
               <div class="text">
                 <span class="name">
                   {{ item.name }}

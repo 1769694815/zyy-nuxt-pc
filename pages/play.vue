@@ -581,6 +581,6 @@ export default {
     }
   }
 </style>
-<style scoped>
+<style lang="css">
   @import 'https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css';
 </style>
