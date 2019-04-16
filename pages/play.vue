@@ -525,7 +525,7 @@ export default {
         margin-top: 20px;
         display: inline-block;
         width: 224px;
-        &:nth-child(4n+1) {
+        &:nth-child(5n+1) {
           margin: 0;
         }
         .img-box {
@@ -547,6 +547,9 @@ export default {
         .content {
           padding: 0 10px;
           .title {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
             margin-top: 12px;
             font-size: 14px;
             color: #333;

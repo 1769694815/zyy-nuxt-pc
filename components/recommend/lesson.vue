@@ -13,7 +13,7 @@
         </div>
         <div class="title">{{ item.title }}</div>
         <div class="info">
-          <span class="teacher">讲师：{{ item.teacherName }}</span>
+          <!-- <span class="teacher">讲师：{{ item.teacherName }}</span> -->
           <span class="lesson">共{{ item.lessonNum }}节</span>
           <span class="number">{{ item.studentNum }}人学过</span>
         </div>
@@ -97,7 +97,7 @@ export default {
           color: #3F8A38;
         }
         .lesson {
-          margin-left: 12px;
+          // margin-left: 12px;
           font-size: 12px;
           color: #999;
         }
