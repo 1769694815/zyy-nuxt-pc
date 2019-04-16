@@ -340,7 +340,6 @@ export default {
     stopStudy() {
       this.player.pause()
       let time = this.player.getCurrentTime()
-      console.log('time', time)
       this.$axios.post('/yxs/api/web/user/finishStudy', {
         courseId: this.courseId,
         lessonId: this.info.lessonId,
@@ -582,5 +581,5 @@ export default {
   }
 </style>
 <style lang="css">
-  @import 'https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css';
+  /* @import 'https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css'; */
 </style>

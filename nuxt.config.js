@@ -17,7 +17,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: appConfig.meta.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css' }
     ],
     script: [
       { src: 'https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min.js', type: 'text/javascript'}

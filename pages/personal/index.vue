@@ -41,9 +41,10 @@
         <div class="flex">
           <el-form-item
             label="用户名">
-            <el-input v-model="form.userName" />
+            <span>{{ form.userName }}</span>
+            <!-- <el-input v-model="form.userName" /> -->
           </el-form-item>
-          <span>可修改一次</span>
+          <!-- <span>可修改一次</span> -->
         </div>
         <el-form-item label="昵称">
           <el-input v-model="form.nickName" />
