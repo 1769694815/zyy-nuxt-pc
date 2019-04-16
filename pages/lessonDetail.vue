@@ -269,6 +269,7 @@ export default {
   },
   data(){
     return{
+      title: '',
       tab: 1,
       id: this.$route.query.id,
       userInfo: '',
@@ -282,6 +283,11 @@ export default {
         { label: "评论", value: 3 }
         // { label: "笔记", value: 4 }
       ]
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   computed: {
@@ -308,6 +314,7 @@ export default {
         }
       }).then(res => {
         this.detailData = res.data
+        this.title = this.detailData.title + '_自学考试'
       })
     },
     toPlay() {

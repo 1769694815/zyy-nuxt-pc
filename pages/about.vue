@@ -33,6 +33,7 @@ export default {
   },
   data() {
     return {
+      title: '关于我们',
       tabIndex: 7,
       carousels: [
         {
@@ -57,6 +58,11 @@ export default {
           pic: require('~/assets/images/about7.jpg')
         },
       ]
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   }
 }

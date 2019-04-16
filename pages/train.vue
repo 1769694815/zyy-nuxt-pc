@@ -169,6 +169,7 @@ export default {
   },
   methods: {
     changeFirst(item, index, flag) {
+      this.title = item.name
       if(flag) {
         this.cid = 0
       }

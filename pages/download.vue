@@ -141,9 +141,15 @@ export default {
   },
   data() {
     return {
+      title: '下载App',
       tabIndex: 6,
       androidUrl: 'https://files.jzjxedu.com/app-release.apk',
       iosUrl: 'https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8'
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   }
 }

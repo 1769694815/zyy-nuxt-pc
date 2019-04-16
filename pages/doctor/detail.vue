@@ -59,9 +59,15 @@ import Cookies from 'js-cookie'
 export default {
   data() {
     return {
+      title: '名医师承',
       id: this.$route.query.id,
       userInfo: '',
       detail: {}
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   mounted() {
@@ -78,6 +84,7 @@ export default {
         params
       }).then(res => {
         this.detail = res.data
+        this.title = res.data.name + '_名医师承'
       })
     },
     // 关注

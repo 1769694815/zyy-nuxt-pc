@@ -127,6 +127,7 @@ export default {
   },
   data() {
     return {
+      title: '中医药进社区',
       tabIndex: 5,
       channels: [],
       rightList: [],
@@ -134,6 +135,11 @@ export default {
       careerList: [],
       wisdomList: [],
       carousels: []
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   mounted() {

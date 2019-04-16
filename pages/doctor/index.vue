@@ -17,7 +17,13 @@
 export default {
   data() {
     return {
+      title: '名医师承',
       list: []
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   mounted() {

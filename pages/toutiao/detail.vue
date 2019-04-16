@@ -77,11 +77,17 @@ export default {
   },
   data() {
     return {
+      title: '资讯头条',
       id: this.$route.query.id,
       info: {},
       text: '',
       userInfo: '',
       commentList: []
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   mounted() {
@@ -99,6 +105,7 @@ export default {
         }
       }).then(res => {
         this.info = res.data
+        this.title = res.data.title + '_资讯头条'
       })
     },
     getComment() {

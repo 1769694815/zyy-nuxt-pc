@@ -46,6 +46,7 @@
 export default {
   data() {
     return {
+      title: '资讯头条',
       tab: 1,
       size: 10,
       current: 1,
@@ -53,6 +54,11 @@ export default {
       total: 0,
       navList: [],
       listData: [],
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   mounted() {
@@ -63,6 +69,7 @@ export default {
     switchTab(index, item) {
       this.tab = index + 1
       this.type = item.id
+      this.title = item.name + '_资讯头条'
       this.getList()
     },
     toDetail(id) {

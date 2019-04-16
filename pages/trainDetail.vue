@@ -206,6 +206,7 @@ export default {
   },
   data() {
     return {
+      title: '',
       tab: 1,
       showModal: false,
       classIndex: 0,
@@ -226,6 +227,11 @@ export default {
         {src: require('~/assets/images/wbc.jpg')}
       ],
       lessonList: []
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   computed:{
@@ -267,6 +273,7 @@ export default {
       }).then(res => {
         this.detailData = res.data
         this.classInfo = res.data.classList[0]
+        this.title = this.classInfo.title + '_培训项目'
         this.getList(res.data.classList[0].roomId)
       })
     },
@@ -286,6 +293,7 @@ export default {
     changeClass(item, index) {
       this.classIndex = index
       this.classInfo = this.detailData.classList[index]
+      this.title = this.classInfo.title + '_培训项目'
       this.getList(item.roomId)
     },
     signup() {

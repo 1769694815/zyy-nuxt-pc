@@ -145,6 +145,7 @@ export default {
   },
   data() {
     return {
+      title: '培训项目',
       tabIndex: 3,
       current: 1,
       size: 10,
@@ -170,6 +171,11 @@ export default {
         }
       ],
       result: []
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   mounted() {
