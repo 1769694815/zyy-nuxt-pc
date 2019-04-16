@@ -108,6 +108,7 @@ export default {
 <style lang="scss" scoped>
   .mylearn-right{
     width: 850px;
+    min-height: 569px;
     border: 1px solid rgba(228, 236, 243, 1);
     border-radius: 4px;
     box-sizing: border-box;

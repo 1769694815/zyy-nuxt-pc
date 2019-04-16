@@ -209,6 +209,7 @@ export default {
     flex: 1;
     border: 1px solid #e4ecf3;
     border-radius: 4px;
+    min-height: 569px;
   }
   .header {
     display: flex;

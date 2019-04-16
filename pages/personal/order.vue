@@ -75,6 +75,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .content {
+    min-height: 569px;
     flex: 1;
     padding: 0 15px;
     border: 1px solid #e4ecf3;

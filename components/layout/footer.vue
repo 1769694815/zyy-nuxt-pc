@@ -6,10 +6,10 @@
         <p>合作地址：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
         <p>课程咨询：江西中医药大学继续教育学院（培训学院）</p>
         <div class="link">
-          <span @click="$router.push({ name: 'about' })">关于我们</span>
-          <span @click="$router.push({ name: 'service' })">服务与保障</span>
-          <span @click="$router.push({ name: 'download' })">下载APP</span>
-          <span @click="$router.push({ name: 'index' })">返回首页</span>
+          <span @click="openNewPage($router.resolve({ name: 'about' }))">关于我们</span>
+          <span @click="openNewPage($router.resolve({ name: 'service' }))">服务与保障</span>
+          <span @click="openNewPage($router.resolve({ name: 'download' }))">下载APP</span>
+          <span @click="openNewPage($router.resolve({ name: 'index' }))">返回首页</span>
         </div>
       </div>
       <div class="footer-right fr">
@@ -33,6 +33,11 @@
 export default {
   data() {
     return {}
+  },
+  methods: {
+    openNewPage(url) {
+      window.open(url.href, '_blank')
+    }
   }
 }
 </script>

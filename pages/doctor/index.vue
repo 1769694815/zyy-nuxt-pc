@@ -44,6 +44,7 @@ export default {
 <style lang="scss" scoped>
   .container {
     width: 1200px;
+    min-height: 600px;
     margin: 0 auto;
     h1 {
       position: relative;
