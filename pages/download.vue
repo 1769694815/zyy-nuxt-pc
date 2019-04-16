@@ -24,7 +24,7 @@
               </a>
             </div>
             <div class="box-right">
-              <img src="../assets/images/weixin.png">
+              <img src="../assets/images/download-qr.png">
               <div class="text">扫码下载中医药在线APP</div>
             </div>
           </div>
@@ -192,6 +192,7 @@ export default {
           margin-left: 30px;
           text-align: center;
           img {
+            width: 120px;
             margin-left: 20px;
           }
           .text {

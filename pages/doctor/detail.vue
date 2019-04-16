@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="list">
-      <div class="title">主讲课程</div>
+      <div class="title">名师课程</div>
       <ul>
         <li
           v-for="(item,index) in detail.courses"
@@ -134,6 +134,7 @@ export default {
     .content {
       display: flex;
       margin-top: 20px;
+      padding-bottom: 20px;
       background: #f5f9fc;
       .left {
         margin: 40px;
@@ -182,19 +183,20 @@ export default {
       }
     }
     .list {
-      padding: 10px 20px;
+      // padding: 10px 10px;
       margin-top: 40px;
-      border: 1px solid #f5f5f5;
+      // border: 1px solid #f5f5f5;
       margin-bottom: 30px;
       .title {
         font-size: 16px;
         line-height: 30px;
-        border-bottom: 1px solid #f5f5f5;
+        // border-bottom: 1px solid #f5f5f5;
       }
       ul {
-        margin-top: 20px;
+        // margin-top: 20px;
         li {
           display: inline-block;
+          margin-top: 20px;
           margin-left: 10px;
           width: 270px;
           // height: 220px;
@@ -202,7 +204,7 @@ export default {
           border: 1px solid #f5f5f5;
           transition: all .3s ease 0s;
           cursor: pointer;
-          &:first-child {
+          &:nth-child(4n+1) {
             margin-left: 0;
           }
           &:hover {

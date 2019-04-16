@@ -26,10 +26,10 @@
                 <span>共{{ item.lessonNum }}门</span>
                 <span style="margin-left: 20px">已学{{ item.result }}</span>
               </div>
-              <p v-if="item.dayCount != 0">
+              <p v-if="item.dayCount != 0 && item.dayCount < 60">
                 {{ item.dayCount }}天后到期
               </p>
-              <p v-else>
+              <p v-if="item.dayCount <= 0">
                 已到期
               </p>
               <div class="foot">

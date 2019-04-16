@@ -13,7 +13,7 @@
         </div>
         <div class="header-right">
           <span @click="$router.push({ name: 'personal'})">
-            用户名：{{ userInfo.nickName }}
+            {{ userInfo.nickName }}
           </span>
         </div>
       </div>

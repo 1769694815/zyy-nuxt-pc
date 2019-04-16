@@ -171,6 +171,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .right-container {
+    width: 850px;
     border: 1px solid #E4ECF3;
     .top {
       display: flex;
@@ -180,7 +181,7 @@ export default {
     }
   }
   #lineCharts {
-    width: 850px;
+    width: 820px;
     height: 260px;
     padding: 0 15px;
   }
