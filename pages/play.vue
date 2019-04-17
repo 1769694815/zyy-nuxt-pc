@@ -4,7 +4,7 @@
     <nav-bar />
     <div class="container">
       <div class="crumb">
-        首页>课程中心>自学考试>中药学
+        首页>课程中心>{{ info.courseTitle }}
       </div>
       <div class="play-container">
         <div class="play-header">
@@ -132,6 +132,7 @@ export default {
   },
   data() {
     return {
+      title: '',
       maskShow: false,
       courseId: this.$route.query.courseId || '',
       lessonId: null,
@@ -143,6 +144,11 @@ export default {
       recommendList: [],
       playIndex: 0,
       player: null
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   },
   computed: {

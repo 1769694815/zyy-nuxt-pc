@@ -811,7 +811,6 @@ export default {
               font-size: 14px;
               color:#333333;
               margin-bottom: 9px;
-              cursor: pointer;
             }
             .fame {
               display: block;
