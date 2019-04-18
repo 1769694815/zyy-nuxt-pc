@@ -37,14 +37,14 @@
               <input
                 v-model="form.password"
                 type="password"
-                placeholder="设置您的密码">
+                placeholder="请输入6-16位数字加字母">
             </div>
             <div class="input">
               <span class="img1" />
               <input
                 v-model="form.password2"
                 type="password"
-                placeholder="确认您的密码">
+                placeholder="请输入6-16位数字加字母">
             </div>
             <div
               class="denglu"
@@ -97,6 +97,7 @@ export default {
     },
     // 注册
     register() {
+      let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
       let result = isvalidatemobile(this.form.phone)
       if(result[0]) {
         this.$message({
@@ -115,6 +116,13 @@ export default {
       if(!this.form.password || !this.form.password2) {
         this.$message({
           message: '密码不能为空',
+          type: 'warning'
+        })
+        return
+      }
+      if(!reg.test(this.form.password)) {
+        this.$message({
+          message: '请输入6-16位数字加字母密码',
           type: 'warning'
         })
         return

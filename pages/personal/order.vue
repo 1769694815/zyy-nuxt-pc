@@ -45,6 +45,11 @@ export default {
       list: []
     }
   },
+  head() {
+    return {
+      title: '个人中心'
+    }
+  },
   mounted() {
     this.getList()
   },

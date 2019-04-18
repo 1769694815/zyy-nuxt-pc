@@ -462,6 +462,7 @@ export default {
   },
   data() {
     return {
+      title: '中医药在线',
       tabIndex: 1,
       current1: 1,
       current2: 1,
@@ -489,36 +490,13 @@ export default {
       theorySubList: []
     }
   },
+  head() {
+    return {
+      title: this.title
+    }
+  },
   async asyncData({ $axios }) {
-    // const clientId = 'zyy_web'
-    // const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
-    // const encodeStr = Base64.encode(clientId + ':' + clientSecret);
-    // let params = {
-    //   username: '',
-    //   password: '',
-    //   scope: 'server',
-    //   grant_type: 'client_credentials'
-    // }
-    // console.log('111')
-    // $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
-    // $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
-    // let acsToken = await $axios.post('/auth/oauth/token', params)
-    // console.log('acsToken'. acsToken)
-    // Cookies.set('zyy_accessToken', acsToken)
-    // $axios.setHeader('Authorization', 'Bearer' + acsToken)
-    // return $axios
-    // $axios.post('/auth/oauth/token', params).then(res => {
-    //   $axios.setHeader('Authorization', 'Bearer' + res.access_token)
-    // })
-    // let params = {
-    //   username: '',
-    //   password: '',
-    //   scope: 'server',
-    //   grant_type: 'client_credentials'
-    // }
-    // let data = await $axios.post('/auth/oauth/token', params)
-    // console.log(data)
-    // $axios.setHeader('Authorization', 'Bearer' + data.access_token)
+    
   },
   created() {
 

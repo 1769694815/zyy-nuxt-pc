@@ -16,10 +16,9 @@
           <li
             v-for="(item,index) in contentList"
             :key="index"
-            class="list-item">
-            <img
-              :src="item.middlePicture"
-              @click="openNewPage($router.resolve({ name: 'play', query: { classId: item.classroomId, courseId: item.courseId }}))">
+            class="list-item"
+            @click="openNewPage($router.resolve({ name: 'play', query: { classId: item.classroomId, courseId: item.courseId }}))">
+            <img :src="item.middlePicture">
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <div class="desc">
@@ -36,7 +35,7 @@
                 <span>{{ item.studentNum }}成员</span>
                 <span
                   class="rank"
-                  @click="toRank(item.classroomId)">进度排名></span>
+                  @click.stop="toRank(item.classroomId)">进度排名></span>
               </div>
             </div>
           </li>
@@ -66,6 +65,11 @@ export default {
       size: 10,
       current: 1,
       contentList: []
+    }
+  },
+  head() {
+    return {
+      title: '我的班级'
     }
   },
   mounted() {
@@ -145,6 +149,7 @@ export default {
         vertical-align: top;
         height: 135px;
         margin-bottom: 30px;
+        cursor: pointer;
         img {
           width: 240px;
           height: 135px;

@@ -39,6 +39,11 @@ export default {
       userInfo: ''
     }
   },
+  head() {
+    return {
+      title: '个人中心'
+    }
+  },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()

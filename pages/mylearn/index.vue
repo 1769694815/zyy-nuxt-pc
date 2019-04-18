@@ -70,6 +70,11 @@ export default {
       contentList: []
     }
   },
+  head() {
+    return {
+      title: '我的课程'
+    }
+  },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     if(!this.userInfo) {

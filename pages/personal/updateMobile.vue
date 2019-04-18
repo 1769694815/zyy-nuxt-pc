@@ -109,6 +109,11 @@ export default {
       count2: null
     }
   },
+  head() {
+    return {
+      title: '个人中心'
+    }
+  },
   methods: {
     // 获取验证码
     getCode() {

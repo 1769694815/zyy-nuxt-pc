@@ -57,6 +57,11 @@ export default {
       contentList: []
     }
   },
+  head() {
+    return {
+      title: '学习时长'
+    }
+  },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     if(!this.userInfo) {
@@ -152,11 +157,11 @@ export default {
         this.contentList = res.data.detailList
         let xData = []
         let yData = []
-        this.todayTime = res.data.studyTimeList[0].learnTime
-        this.todayTime = res.data.weekLearnTime
+        this.todayTime = Math.round(res.data.studyTimeList[0].learnTime / 60)
+        this.totalTime = Math.round(res.data.weekLearnTime / 60)
         res.data.studyTimeList.map(item => {
           xData.unshift(item.date)
-          yData.unshift(item.learnTime)
+          yData.unshift(Math.round(item.learnTime / 60))
         })
         xData[6] = '今天'
         this.initCharts(xData, yData)

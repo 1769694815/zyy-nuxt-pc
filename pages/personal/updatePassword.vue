@@ -44,7 +44,8 @@
             <div class="tel">
               <el-input
                 v-model="password"
-                type="password" />
+                type="password"
+                placeholder="请输入6-16位数字加字母" />
             </div>
           </div>
           <div class="info-item">
@@ -52,7 +53,8 @@
             <div class="tel">
               <el-input
                 v-model="newPassword"
-                type="password" />
+                type="password"
+                placeholder="请输入6-16位数字加字母" />
             </div>
           </div>
         </div>
@@ -103,6 +105,11 @@ export default {
       password: '',
       newPassword: '',
       userInfo: ''
+    }
+  },
+  head() {
+    return {
+      title: '个人中心'
     }
   },
   mounted() {
@@ -174,9 +181,17 @@ export default {
       })
     },
     submit() {
+      let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
       if(!this.password || !this.newPassword) {
         this.$message({
           message: '密码不能为空',
+          type: 'warning'
+        })
+        return
+      }
+      if(!reg.test(this.password)) {
+        this.$message({
+          message: '请输入6-16位数字加字母密码',
           type: 'warning'
         })
         return

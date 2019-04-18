@@ -131,6 +131,11 @@ export default {
       options: []
     }
   },
+  head() {
+    return {
+      title: '个人中心'
+    }
+  },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()

@@ -19,7 +19,7 @@
             target="_blank"
             class="tab">
             <i class="iconfont iconqq" />
-            <span>自考处陈主任</span>
+            <span>自考处陈老师</span>
           </a>
         </div>
       </li>

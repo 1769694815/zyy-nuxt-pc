@@ -8,7 +8,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: `${appConfig.meta.title}`,
+    title: '中医药在线',
     titleTemplate: `%s_${appConfig.meta.title}`,
     meta: [
       { charset: 'utf-8' },
@@ -77,9 +77,9 @@ module.exports = {
 
   proxy: {
     '/api/': {
-      // target: 'http://212.64.79.36:8080',
+      target: 'http://212.64.79.36:8080',
       // target: 'http://192.168.2.199:9999',
-      target: 'http://api.zyyzx.com.cn',
+      // target: 'http://api.zyyzx.com.cn',
       pathRewrite: { '^/api/': '/', changeOrigin: true }
     }
   },

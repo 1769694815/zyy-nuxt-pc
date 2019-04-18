@@ -99,6 +99,11 @@ export default {
       contentList: []
     }
   },
+  head() {
+    return {
+      title: '我的收藏'
+    }
+  },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     if(!this.userInfo) {

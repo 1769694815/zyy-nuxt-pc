@@ -52,7 +52,7 @@
       <div
         v-if="otherList.length > 0"
         class="other-container">
-        <div class="container-title">我的其它课程</div>
+        <div class="container-title">{{ classId ? '本班课程' : '我的其它课程' }}</div>
         <ul>
           <li
             v-for="(item, index) in otherList"
@@ -179,6 +179,7 @@ export default {
       this.$axios.post('/yxs/api/web/user/startLearnCourse', {
         courseId: this.courseId,
         lessonId: lessonId || '',
+        classId: this.classId,
         userToken: this.userInfo.userToken
       }).then(res => {
         let info = res.data

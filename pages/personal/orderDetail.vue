@@ -57,6 +57,11 @@ export default {
       detail: ''
     }
   },
+  head() {
+    return {
+      title: '个人中心'
+    }
+  },
   mounted() {
     this.getDetail()
   },
