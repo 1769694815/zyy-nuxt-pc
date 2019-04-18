@@ -68,7 +68,7 @@
             class="list-item">
             <div
               class="img-box"
-              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId }}))">
+              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId, classId: classId }}))">
               <img :src="item.middlePicture">
             </div>
             <div class="content">
@@ -296,6 +296,9 @@ export default {
               console.log("播放器创建了。", player);
               player.on('pause', _this.stopStudy)
               player.on('ended', _this.stopStudy)
+              player.on('play', function() {
+                _this.playFlag = true
+              })
               // function hello () {
               //   console.log('hello')
               // }

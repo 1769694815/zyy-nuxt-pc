@@ -272,6 +272,7 @@ export default {
       title: '',
       tab: 1,
       id: this.$route.query.id,
+      classId: this.$route.query.classId || '',
       userInfo: '',
       detailData: '',
       showModal: false,
@@ -310,6 +311,7 @@ export default {
       this.$axios('/yxs/api/web/course/courseDetail', {
         params: {
           id: this.id,
+          classId: this.classId,
           userToken: this.userInfo.userToken || ''
         }
       }).then(res => {
