@@ -23,7 +23,7 @@
             </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
-              <p
+              <!-- <p
                 v-if="item.dayCount != 0 && item.dayCount < 60"
                 class="desc">
                 {{ item.dayCount }}天后到期
@@ -32,7 +32,7 @@
                 v-if="item.dayCount <= 0"
                 class="desc">
                 已到期
-              </p>
+              </p> -->
               <div class="foot">
                 <span>已学{{ item.result }}</span>
                 <span>共{{ item.lessonNum }}节</span>
@@ -142,7 +142,7 @@ export default {
         display: inline-block;
         vertical-align: top;
         width: 243px;
-        height: 223px;
+        height: 200px;
         margin-left: 30px;
         margin-top: 30px;
         cursor: pointer;
@@ -187,7 +187,7 @@ export default {
           position: absolute;
           bottom: 0;
           width: 100%;
-          margin-top: 10px;
+          // margin-top: 10px;
           font-size: 12px;
           color: #999;
           span {

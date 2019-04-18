@@ -42,7 +42,7 @@
             授课方式：<span>{{ teachMethod }}</span>
           </div>
           <div class="lessons">
-            班级课程：
+            <span>班级课程：</span>
             <ul v-if="classInfo.courseName">
               <li
                 v-for="(item,index) in classInfo.courseName.split(',')"
@@ -419,13 +419,19 @@ export default {
       .lessons{
         position: relative;
         display: flex;
-        margin: 12px 12px 0 0;
-        line-height: 28px;
+        margin-top: 6px;
+        // line-height: 28px;
         font-size: 14px;
         color: #999999;
+        span {
+          display: inline-block;
+          width: 72px;
+          margin-top: 12px;
+        }
         .lesson{
           float: left;
           margin-right: 8px;
+          margin-top: 6px;
           padding: 0 8px;
           text-align: center;
           // width: 76px;

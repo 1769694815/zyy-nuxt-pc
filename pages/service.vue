@@ -22,6 +22,7 @@
             class="imgs">
             <el-carousel-item
               v-for="(item, index) in carousels"
+              v-if="index < 5"
               :key="index">
               <img :src="item.pic">
             </el-carousel-item>
@@ -72,9 +73,10 @@ export default {
       })
     },
     toDoctor() {
-      this.$router.push({
+      let url = this.$router.resolve({
         name: 'doctor'
       })
+      window.open(url.href, '_blank')
     }
   }
 }
@@ -139,9 +141,9 @@ export default {
     }
   }
   .pic-3 { 
-    height: 460px;
+    // height: 460px;
     padding-top: 90px;
-    padding-bottom: 50px;
+    padding-bottom: 40px;
     background: #f7f7f7;
     text-align: center;
     .title {
@@ -155,7 +157,8 @@ export default {
       font-size: 14px;
     }
     img {
-      margin-top: 60px;
+      display: block;
+      margin: 60px auto;
     }
   }
 </style>

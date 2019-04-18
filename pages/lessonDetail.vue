@@ -49,7 +49,7 @@
                     display: -webkit-box;
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;">
-                  {{ detailData.brife }}
+                  {{ detailData.brife ? detailData.brife : '暂无简介' }}
                 </div>
               </div>
             </div>
@@ -117,9 +117,11 @@
             <div class="lesson-intronduce">
               <div v-show="tab == 1">
                 <!-- <h1>课程介绍</h1> -->
-                <div class="text">
-                  {{ detailData.brife }}
-                </div>
+                <div
+                  v-if="detailData.about"
+                  class="text"
+                  v-html="detailData.about" />
+                <div v-else>暂无介绍</div>
               </div>
               <ul
                 v-show="tab == 2"
@@ -279,7 +281,7 @@ export default {
       commentList: [],
       text: '',
       navList:[
-        { label: "课程概览", value: 1 },
+        { label: "课程介绍", value: 1 },
         { label: "课程视频", value: 2 },
         { label: "评论", value: 3 }
         // { label: "笔记", value: 4 }

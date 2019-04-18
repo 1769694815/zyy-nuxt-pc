@@ -37,17 +37,15 @@
           <img :src="item.pic">
           <div class="name">{{ item.title }}</div>
           <div class="desc">
+            <div class="price">{{ item.price == 0 ? '免费' : item.price }}</div>
             <div>
-              <span>
-                <i class="iconfont iconuser2" />
-                {{ item.studentNum }}
-              </span>
-              <span>
+              <i class="iconfont iconuser2" />
+              {{ item.studentNum }}人学过
+              <!-- <span>
                 <i class="iconfont iconpinglun" />
                 {{ item.lessonNum }}
-              </span>
+              </span> -->
             </div>
-            <div class="price">{{ item.price == 0 ? '免费' : item.price }}</div>
           </div>
         </li>
       </ul>
@@ -223,6 +221,7 @@ export default {
           .desc {
             display: flex;
             justify-content: space-between;
+            color: #999;
             .price {
               color: #4e9713;
             }

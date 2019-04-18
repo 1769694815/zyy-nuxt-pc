@@ -21,7 +21,9 @@
         <div class="play-content">
           <div
             id="player-con"
-            class="prism-player" />
+            class="prism-player"
+            @click.stop="changePlay"
+            @dblclick="changeScreen" />
           <div
             v-show="maskShow"
             class="mask">
@@ -151,7 +153,8 @@ export default {
       recommendList: [],
       playIndex: 0,
       player: null,
-      playFlag: true 
+      playFlag: true ,
+      timer: null
     }
   },
   head() {
@@ -167,6 +170,7 @@ export default {
     }
   },
   mounted() {
+    window.scrollTo(0, 200)
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()
     this.getList()
@@ -490,7 +494,7 @@ export default {
         userToken: this.userInfo.userToken,
         playDuration: Math.floor(time)
       }).then(res => {
-        console.log('123')
+        
       })
     },
     hello() {
@@ -498,6 +502,18 @@ export default {
     },
     openNewPage(url) {
       window.open(url.href, '_blank')
+    },
+    changePlay() {
+      this.playFlag ? this.player.pause() : this.player.play()
+      this.playFlag = !this.playFlag
+    },
+    changeScreen() {
+      let flag = this.player.fullscreenService.getIsFullScreen()
+      if(!flag) {
+        this.player.fullscreenService.requestFullScreen()
+      } else {
+        this.player.fullscreenService.cancelFullScreen()
+      }
     }
   }
 }
@@ -531,6 +547,7 @@ export default {
         margin-top: 30px;
         #player-con {
           width: 952px;
+          cursor: pointer;
         }
         .mask {
           position: absolute;
@@ -570,12 +587,23 @@ export default {
             color: #C1C1C1;
             border-bottom: 1px solid #2A2A2A;
             &.active {
-              color: #3F8A38;
+              .title, i {
+                color: #3F8A38;
+              }
+              i {
+                display: block;
+              }
             }
             &:hover {
-              color: #3F8A38;
+              .title, i {
+                color: #3F8A38;
+              }
+              i {
+                display: block;
+              }
             }
             i {
+              display: none;
               margin-top: 5px;
             }
             .chapter {
