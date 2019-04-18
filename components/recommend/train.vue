@@ -7,7 +7,7 @@
         v-if="index < 3"
         :key="index"
         class="item"
-        @click="openNewPage($router.resolve({ name: 'trainDetail', query: { id: item.id }}))">
+        @click="openNewPage($router.resolve({ name: 'trainDetail', query: { id: item.trainId }}))">
         <div class="train-img">
           <img :src="item.middle_picture">
           <!-- <div class="text">中药炮制工</div> -->

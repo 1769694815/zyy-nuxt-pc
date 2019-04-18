@@ -57,6 +57,11 @@ export default {
       carousels: []
     }
   },
+  head() {
+    return {
+      title: '服务与保障'
+    }
+  },
   mounted() {
     this.getBanners()
   },

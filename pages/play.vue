@@ -8,7 +8,9 @@
       </div>
       <div class="play-container">
         <div class="play-header">
-          <div class="title">{{ info.courseTitle }}</div>
+          <div class="title">
+            {{ info.courseTitle }}
+          </div>
           <div class="sub">
             <span>{{ info.studentNum }}人学过</span>
             <!-- <span v-if="info.day > 0">{{ info.day }}天后到期,请尽快学完</span>
@@ -35,6 +37,12 @@
               :key="index"
               :class="playIndex == index ? 'active' : ''">
               <!-- <div class="chapter">111</div> -->
+              <i
+                v-if="playIndex == index && playFlag"
+                class="iconfont iconbofang" />
+              <i 
+                v-else 
+                class="iconfont iconzanting" />
               <div class="info">
                 <!-- <span>{{ item.name }}</span> -->
                 <span
@@ -132,7 +140,6 @@ export default {
   },
   data() {
     return {
-      title: '',
       maskShow: false,
       courseId: this.$route.query.courseId || '',
       lessonId: null,
@@ -143,12 +150,13 @@ export default {
       otherList: [],
       recommendList: [],
       playIndex: 0,
-      player: null
+      player: null,
+      playFlag: true 
     }
   },
   head() {
     return {
-      title: this.title
+      title: this.info.courseTitle
     }
   },
   computed: {
@@ -176,123 +184,246 @@ export default {
         return
       }
       this.maskShow = false
-      this.$axios.post('/yxs/api/web/user/startLearnCourse', {
-        courseId: this.courseId,
-        lessonId: lessonId || '',
-        classId: this.classId,
-        userToken: this.userInfo.userToken
-      }).then(res => {
-        let info = res.data
-        this.info = res.data
-        if(_this.player) {
-          _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
-          // _this.player.dispose();
-        } else {
-          _this.player = new Aliplayer({
-            "id": "player-con",
-            "vid": info.videoId,
-            "playauth": info.playAuth,
-            "qualitySort": "asc",
-            "format": "m3u8",
-            "mediaType": "video",
-            "width": "100%",
-            "height": "500px",
-            "autoplay": true,
-            "isLive": false,
-            "cover": info.cover,
-            "rePlay": false,
-            "playsinline": true,
-            "preload": true,
-            "controlBarVisibility": "hover",
-            "seeking": info.startDuration,
-            "useH5Prism": true,
-            "encryptType": 1,
-            "skinLayout": [
-              {
-                "name": "bigPlayButton",
-                "align": "blabs",
-                "x": 30,
-                "y": 80
-              },
-              {
-                "name": "H5Loading",
-                "align": "cc"
-              },
-              {
-                "name": "errorDisplay",
-                "align": "tlabs",
-                "x": 0,
-                "y": 0
-              },
-              {
-                "name": "infoDisplay"
-              },
-              {
-                "name": "tooltip",
-                "align": "blabs",
-                "x": 0,
-                "y": 56
-              },
-              {
-                "name": "thumbnail"
-              },
-              {
-                "name": "controlBar",
-                "align": "blabs",
-                "x": 0,
-                "y": 0,
-                "children": [
-                  {
-                    "name": "progress",
-                    "align": "blabs",
-                    "x": 0,
-                    "y": 44
-                  },
-                  {
-                    "name": "playButton",
-                    "align": "tl",
-                    "x": 15,
-                    "y": 12
-                  },
-                  {
-                    "name": "timeDisplay",
-                    "align": "tl",
-                    "x": 10,
-                    "y": 7
-                  },
-                  {
-                    "name": "fullScreenButton",
-                    "align": "tr",
-                    "x": 10,
-                    "y": 12
-                  },
-                  {
-                    "name": "setting",
-                    "align": "tr",
-                    "x": 15,
-                    "y": 12
-                  },
-                  {
-                    "name": "volume",
-                    "align": "tr",
-                    "x": 5,
-                    "y": 10
-                  }
-                ]
-              }
-            ]
-          }, function (player) {
-            player._switchLevel = 0;
-            player.seek(info.startDuration)
-            console.log("播放器创建了。", player);
-            player.on('pause', _this.stopStudy)
-            player.on('ended', _this.stopStudy)
-            // function hello () {
-            //   console.log('hello')
-            // }
-          });
-        }
-      })
+      if(this.classId) {
+        this.$axios.post('/yxs/api/web/user/startLearnClass', {
+          // courseId: this.courseId,
+          lessonId: lessonId || '',
+          classId: this.classId,
+          userToken: this.userInfo.userToken
+        }).then(res => {
+          let info = res.data
+          this.info = res.data
+          if(_this.player) {
+            _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
+            // _this.player.dispose();
+          } else {
+            _this.player = new Aliplayer({
+              "id": "player-con",
+              "vid": info.videoId,
+              "playauth": info.playAuth,
+              "qualitySort": "asc",
+              "format": "m3u8",
+              "mediaType": "video",
+              "width": "100%",
+              "height": "500px",
+              "autoplay": true,
+              "isLive": false,
+              "cover": info.cover,
+              "rePlay": false,
+              "playsinline": true,
+              "preload": true,
+              "controlBarVisibility": "hover",
+              "seeking": info.startDuration,
+              "useH5Prism": true,
+              "encryptType": 1,
+              "skinLayout": [
+                {
+                  "name": "bigPlayButton",
+                  "align": "blabs",
+                  "x": 30,
+                  "y": 80
+                },
+                {
+                  "name": "H5Loading",
+                  "align": "cc"
+                },
+                {
+                  "name": "errorDisplay",
+                  "align": "tlabs",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "name": "infoDisplay"
+                },
+                {
+                  "name": "tooltip",
+                  "align": "blabs",
+                  "x": 0,
+                  "y": 56
+                },
+                {
+                  "name": "thumbnail"
+                },
+                {
+                  "name": "controlBar",
+                  "align": "blabs",
+                  "x": 0,
+                  "y": 0,
+                  "children": [
+                    {
+                      "name": "progress",
+                      "align": "blabs",
+                      "x": 0,
+                      "y": 44
+                    },
+                    {
+                      "name": "playButton",
+                      "align": "tl",
+                      "x": 15,
+                      "y": 12
+                    },
+                    {
+                      "name": "timeDisplay",
+                      "align": "tl",
+                      "x": 10,
+                      "y": 7
+                    },
+                    {
+                      "name": "fullScreenButton",
+                      "align": "tr",
+                      "x": 10,
+                      "y": 12
+                    },
+                    {
+                      "name": "setting",
+                      "align": "tr",
+                      "x": 15,
+                      "y": 12
+                    },
+                    {
+                      "name": "volume",
+                      "align": "tr",
+                      "x": 5,
+                      "y": 10
+                    }
+                  ]
+                }
+              ]
+            }, function (player) {
+              player._switchLevel = 0;
+              player.seek(info.startDuration)
+              console.log("播放器创建了。", player);
+              player.on('pause', _this.stopStudy)
+              player.on('ended', _this.stopStudy)
+              // function hello () {
+              //   console.log('hello')
+              // }
+            });
+          }
+        })
+      } else {
+        this.$axios.post('/yxs/api/web/user/startLearnCourse', {
+          courseId: this.courseId,
+          lessonId: lessonId || '',
+          classId: this.classId,
+          userToken: this.userInfo.userToken
+        }).then(res => {
+          let info = res.data
+          this.info = res.data
+          if(_this.player) {
+            _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
+            // _this.player.dispose();
+          } else {
+            _this.player = new Aliplayer({
+              "id": "player-con",
+              "vid": info.videoId,
+              "playauth": info.playAuth,
+              "qualitySort": "asc",
+              "format": "m3u8",
+              "mediaType": "video",
+              "width": "100%",
+              "height": "500px",
+              "autoplay": true,
+              "isLive": false,
+              "cover": info.cover,
+              "rePlay": false,
+              "playsinline": true,
+              "preload": true,
+              "controlBarVisibility": "hover",
+              "seeking": info.startDuration,
+              "useH5Prism": true,
+              "encryptType": 1,
+              "skinLayout": [
+                {
+                  "name": "bigPlayButton",
+                  "align": "blabs",
+                  "x": 30,
+                  "y": 80
+                },
+                {
+                  "name": "H5Loading",
+                  "align": "cc"
+                },
+                {
+                  "name": "errorDisplay",
+                  "align": "tlabs",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "name": "infoDisplay"
+                },
+                {
+                  "name": "tooltip",
+                  "align": "blabs",
+                  "x": 0,
+                  "y": 56
+                },
+                {
+                  "name": "thumbnail"
+                },
+                {
+                  "name": "controlBar",
+                  "align": "blabs",
+                  "x": 0,
+                  "y": 0,
+                  "children": [
+                    {
+                      "name": "progress",
+                      "align": "blabs",
+                      "x": 0,
+                      "y": 44
+                    },
+                    {
+                      "name": "playButton",
+                      "align": "tl",
+                      "x": 15,
+                      "y": 12
+                    },
+                    {
+                      "name": "timeDisplay",
+                      "align": "tl",
+                      "x": 10,
+                      "y": 7
+                    },
+                    {
+                      "name": "fullScreenButton",
+                      "align": "tr",
+                      "x": 10,
+                      "y": 12
+                    },
+                    {
+                      "name": "setting",
+                      "align": "tr",
+                      "x": 15,
+                      "y": 12
+                    },
+                    {
+                      "name": "volume",
+                      "align": "tr",
+                      "x": 5,
+                      "y": 10
+                    }
+                  ]
+                }
+              ]
+            }, function (player) {
+              player._switchLevel = 0;
+              player.seek(info.startDuration)
+              console.log("播放器创建了。", player);
+              player.on('pause', _this.stopStudy)
+              player.on('ended', _this.stopStudy)
+              player.on('play', function() {
+                _this.playFlag = true
+              })
+              // function hello () {
+              //   console.log('hello')
+              // }
+            });
+          }
+        })
+      }
     },
     getList() {
       if(this.classId) {
@@ -346,6 +477,7 @@ export default {
     },
     stopStudy() {
       this.player.pause()
+      this.playFlag = false
       let time = this.player.getCurrentTime()
       this.$axios.post('/yxs/api/web/user/finishStudy', {
         courseId: this.courseId,
@@ -431,11 +563,17 @@ export default {
           li {
             display: flex;
             margin: 0 30px;
-            padding: 30px 0;
+            padding: 20px 0;
             color: #C1C1C1;
             border-bottom: 1px solid #2A2A2A;
             &.active {
               color: #3F8A38;
+            }
+            &:hover {
+              color: #3F8A38;
+            }
+            i {
+              margin-top: 5px;
             }
             .chapter {
               font-size: 16px;
@@ -444,6 +582,7 @@ export default {
               width: 100%;
               margin-left: 14px;
               .title {
+                line-height: 24px;
                 cursor: pointer;
               }
               .foot {
