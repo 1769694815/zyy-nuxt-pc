@@ -129,14 +129,12 @@
 </template>
 <script>
 import Header from '~/components/layout/header.vue'
-import VideoPlayer from '~/components/video.vue'
 import NavBar from '~/components/navBar.vue'
 import Cookies from 'js-cookie'
 import { formatSeconds } from '~/assets/js/util'
 export default {
   // middleware: 'userAuth',
   components: {
-    VideoPlayer,
     NavBar,
     'v-header': Header
   },
@@ -175,7 +173,14 @@ export default {
     this.getInfo()
     this.getList()
     this.getRecommendList('zyjk')
+    window.onbeforeunload = function() {
+      this.stopStudy()
+    }
   },
+  // beforeDestroy() {
+  //   console.log('123123123')
+  //   this.stopStudy()
+  // },
   methods: {
     getInfo(lessonId, free, index) {
       let _this = this
@@ -486,7 +491,7 @@ export default {
     stopStudy() {
       this.player.pause()
       this.playFlag = false
-      let time = this.player.getCurrentTime()
+      let time = this.player.getCurrentTime() || 0
       this.$axios.post('/yxs/api/web/user/finishStudy', {
         courseId: this.courseId,
         lessonId: this.info.lessonId,
@@ -517,15 +522,16 @@ export default {
       }
     },
     changeVideo(courseId) {
-      // this.$router.push({
-      //   name: 'play',
-      //   query: {
-      //     courseId: courseId,
-      //     classId: this.classId
-      //   }
-      // })
-      this.courseId = courseId
-      this.getInfo()
+      let url = this.$router.resolve({
+        name: 'play',
+        query: {
+          courseId: courseId,
+          classId: this.classId
+        }
+      })
+      window.open(url.href, '_blank')
+      // this.courseId = courseId
+      // this.getInfo()
     }
   }
 }

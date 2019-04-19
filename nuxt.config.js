@@ -35,7 +35,6 @@ module.exports = {
   */
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    'video.js/dist/video-js.css',
     '@/assets/css/reset.css',
     '@/assets/css/common.css',
     '@/assets/css/htmlContent.css',
@@ -49,7 +48,6 @@ module.exports = {
     '@/plugins/element-ui',
     '@/plugins/echarts',
     '@/plugins/axios',
-    { src: '@/plugins/video-player', ssr: false },
     { src: '@/static/font/iconfont.js', ssr: false },
     { src: '@/plugins/vue-lazyload.js', ssr: false }
   ],

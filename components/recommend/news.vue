@@ -22,7 +22,7 @@
               {{ item.brife }}
               <!-- <span class="detail">[详细]</span> -->
             </div>
-          </div> 
+          </div>
         </div>
         <div v-else>
           <span class="circle"/>

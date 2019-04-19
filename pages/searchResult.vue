@@ -6,35 +6,40 @@
     <div style="width: 1200px; overflow:hidden; margin: 0 auto; border-right: 1px solid #ddd">
       <v-nav />
     </div>
-    <ul
-      v-if="result.length > 0"
-      class="train-ul">
-      <li
-        v-for="(item, index) in result"
-        :key="index" 
-        class="train-class"
-        @click="toLessonDetail(item.id)">
-        <div class="img-box">
-          <img :src="item.middle_picture">
-        </div>
-        <div class="content">
-          <div class="title">{{ item.title }}</div>
-          <div class="info">
-            <span
-              v-if="item.price == 0"
-              class="free">免费
-            </span>
-            <span
-              v-else
-              class="price">￥{{ item.price }}
-            </span>
-            <span class="number">{{ item.student_num }}人学过</span>
-          </div>
-        </div>
-      </li>
-    </ul>
     <div
-      v-if="result.length == 0"
+      v-if="result.length > 0"
+      class="list">
+      <div class="desc">
+        为您找到{{ total }}条内容
+      </div>
+      <ul class="train-ul">
+        <li
+          v-for="(item, index) in result"
+          :key="index" 
+          class="train-class"
+          @click="toLessonDetail(item.id)">
+          <div class="img-box">
+            <img :src="item.middle_picture">
+          </div>
+          <div class="content">
+            <div class="title">{{ item.title }}</div>
+            <div class="info">
+              <span
+                v-if="item.price == 0"
+                class="free">免费
+              </span>
+              <span
+                v-else
+                class="price">￥{{ item.price }}
+              </span>
+              <span class="number">{{ item.student_num }}人学过</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div
+      v-else
       class="nothing">
       <div class="content">
         <img src="~/assets/images/nothing.png">
@@ -58,7 +63,8 @@ export default {
       size: 50,
       current: 1,
       title: this.$route.query.title || '',
-      result: []
+      result: [],
+      total: 0
     }
   },
   mounted() {
@@ -86,17 +92,21 @@ export default {
         }
       }).then(res => {
         this.result = res.data.records
+        this.total = res.data.total
       })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-  .train-ul {
+  .list {
     width: 1200px;
     min-height: 600px;
     margin: 0 auto;
     overflow: hidden;
+    .desc {
+      margin-top: 20px;
+    }
   }
   .train-class {
     width: 218px;
