@@ -1,26 +1,36 @@
 <template>
   <section class="news-container">
     <tag :text="['资', '讯']" />
-    <!-- <div class="title">{{ dataObj[0].title }}</div> -->
-    <!-- <div class="content">
-      <img :src="dataObj[0].thumb">
-      <div class="desc">
-        {{ dataObj[0].brife }}
-        <span class="detail">[详细]</span>
-      </div>
-    </div> -->
-    <div class="list">
-      <div
+    <ul class="list">
+      <li
         v-for="(item, index) in recommendNews"
-        v-if="index < 3"
+        v-if="index < 4"
         :key="index"
         class="item"
         @click="toDetail(item.id)">
-        <span class="circle"/>
-        <span>【{{ item.typeName }}】</span>
-        <span>{{ item.title }}</span>
-      </div>
-    </div>
+        <div v-if="index == 0">
+          <div class="title">{{ item.title }}</div>
+          <div class="content">
+            <img :src="item.thumb">
+            <div
+              class="desc"
+              style="display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                    text-overflow: ellipsis;">
+              {{ item.brife }}
+              <!-- <span class="detail">[详细]</span> -->
+            </div>
+          </div> 
+        </div>
+        <div v-else>
+          <span class="circle"/>
+          <span>【{{ item.typeName }}】</span>
+          <span>{{ item.title }}</span>
+        </div>
+      </li>
+    </ul>
   </section>
 </template>
 <script>
@@ -62,20 +72,21 @@ export default {
     width: 340px;
     height: 365px;
     background: #f6f6f6;
+    overflow: hidden;
     .title {
       width: 300px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      margin-top: 18px;
-      margin-left: 14px;
+      // margin-top: 18px;
+      // margin-left: 14px;
       font-size: 16px;
       color: #333;
     }
     .content {
       position: relative;
       display: flex;
-      padding: 14px 20px 0 14px;
+      padding: 10px 10px 0 0;
       align-items: center;
       img {
         width: 130px;
@@ -84,7 +95,7 @@ export default {
       .desc {
         margin-left: 12px;
         font-size: 14px;
-        line-height: 24px;
+        line-height: 20px;
         color: #999;
       }
       .detail {

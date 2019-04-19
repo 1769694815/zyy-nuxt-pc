@@ -70,7 +70,7 @@
             class="list-item">
             <div
               class="img-box"
-              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId, classId: classId }}))">
+              @click="changeVideo(item.courseId)">
               <img :src="item.middlePicture">
             </div>
             <div class="content">
@@ -193,6 +193,7 @@ export default {
           // courseId: this.courseId,
           lessonId: lessonId || '',
           classId: this.classId,
+          courseId: this.courseId,
           userToken: this.userInfo.userToken
         }).then(res => {
           let info = res.data
@@ -514,6 +515,17 @@ export default {
       } else {
         this.player.fullscreenService.cancelFullScreen()
       }
+    },
+    changeVideo(courseId) {
+      // this.$router.push({
+      //   name: 'play',
+      //   query: {
+      //     courseId: courseId,
+      //     classId: this.classId
+      //   }
+      // })
+      this.courseId = courseId
+      this.getInfo()
     }
   }
 }
