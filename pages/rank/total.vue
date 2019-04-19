@@ -8,8 +8,8 @@
             v-for="(item, index) in rankList"
             :key="index">
             <div 
-              :class="(index + 1) > 3 ? 'none' : ''"
-              class="num" >{{ index + 1 }}</div>
+              :class="(size * (current - 1) + index + 1) > 3 ? 'none' : ''"
+              class="num" >{{ size * (current - 1) + index + 1 }}</div>
             <div class="box">
               <img
                 v-if="item.avatar"
@@ -34,6 +34,12 @@
           </li>
         </ul>
       </div>
+      <Pagination
+        :size="size"
+        :current="current"
+        :total="total"
+        @sizeChange="sizeChange"
+        @currentChange="currentChange" />
       <progress-modal
         v-show="showModal"
         :left-list="navList"
@@ -45,14 +51,19 @@
 <script>
 import ProgressModal from '~/components/modal/progressModal.vue'
 import LeftTab from '~/components/mine/rankLeftTab.vue'
+import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
 export default {
   components: {
     ProgressModal,
-    LeftTab
+    LeftTab,
+    Pagination
   },
   data() {
     return {
+      size: 15,
+      current: 1,
+      total: 0,
       tab: 1,
       tabIndex: 1,
       showModal: false,
@@ -95,11 +106,14 @@ export default {
     getList() {
       this.$axios('/yxs/api/web/user/classRanking', {
         params: {
+          size: this.size,
+          current: this.current,
           classId: this.classId,
           userToken: this.userInfo.userToken
         }
       }).then(res => {
         this.rankList = res.data.records
+        this.total = res.data.total
       })
     },
     // 截取百分比
@@ -107,6 +121,13 @@ export default {
       if(str) {
         return parseFloat(str.slice(0, -1))
       }
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      this.current = val
+      this.getList()
     }
   }
 }

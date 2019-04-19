@@ -173,9 +173,9 @@ export default {
     this.getInfo()
     this.getList()
     this.getRecommendList('zyjk')
-    window.onbeforeunload = function() {
-      this.stopStudy()
-    }
+    // window.onbeforeunload = function() {
+    //   this.stopStudy()
+    // }
   },
   // beforeDestroy() {
   //   console.log('123123123')

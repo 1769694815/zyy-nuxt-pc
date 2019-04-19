@@ -30,8 +30,8 @@
             v-for="(item, index) in rankList"
             :key="index">
             <div 
-              :class="(index + 1) > 3 ? 'none' : ''"
-              class="num" >{{ index + 1 }}</div>
+              :class="(size * (current - 1) + index + 1) > 3 ? 'none' : ''"
+              class="num" >{{ size * (current - 1) + index + 1 }}</div>
             <div class="box">
               <img
                 v-if="item.avatar"
@@ -56,14 +56,12 @@
           </li>
         </ul>
       </div>
-      <!-- <el-pagination
-        :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
-        :total="400"
-        layout="total, sizes, prev, pager, next, jumper"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange" /> -->
+      <Pagination
+        :size="size"
+        :current="current"
+        :total="total"
+        @sizeChange="sizeChange"
+        @currentChange="currentChange" />
       <progress-modal
         v-show="showModal"
         :left-list="navList"
@@ -75,19 +73,25 @@
 <script>
 import ProgressModal from '~/components/modal/progressModal.vue'
 import LeftTab from '~/components/mine/rankLeftTab.vue'
+import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
 export default {
   components: {
     ProgressModal,
-    LeftTab
+    LeftTab,
+    Pagination
   },
   data() {
     return {
+      size: 15,
+      current: 1,
+      total: 0,
       tab: 1,
       tabIndex: 2,
       showModal: false,
       classId: null,
       userId: null,
+      courseId: null,
       userInfo: '',
       navList: [],
       rankList: []
@@ -107,6 +111,8 @@ export default {
   methods: {
     switchTab(item, index){
       this.tab = index + 1;
+      this.current = 1,
+      this.courseId = item.courseId
       this.getRankList(item.courseId)
     },
     modalShow(item) {
@@ -129,6 +135,7 @@ export default {
         this.navList = res.data
         if(res.data && res.data.length > 0) {
           this.getRankList(res.data[0].courseId)
+          this.courseId = res.data[0].courseId
         }
       })
     },
@@ -136,11 +143,14 @@ export default {
     getRankList(id) {
       this.$axios('/yxs/api/web/user/ranking', {
         params: {
+          size: this.size,
+          current: this.current,
           userToken: this.userInfo.userToken,
           courseId: id
         }
       }).then(res => {
         this.rankList = res.data.records
+        this.total = res.data.total
       })
     },
     // 截取百分比
@@ -148,6 +158,13 @@ export default {
       if(str) {
         return parseFloat(str.slice(0, -1))
       }
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      this.current = val
+      this.getRankList(this.courseId)
     }
   }
 }

@@ -3,7 +3,7 @@
     <v-header
       ref="searchRef"
       @getList="getList" />
-    <div style="width: 1200px; overflow:hidden; margin: 0 auto; border-right: 1px solid #ddd">
+    <div style="width: 1200px; overflow:hidden; margin: 0 auto;">
       <v-nav />
     </div>
     <div
@@ -15,7 +15,7 @@
       <ul class="train-ul">
         <li
           v-for="(item, index) in result"
-          :key="index" 
+          :key="index"
           class="train-class"
           @click="toLessonDetail(item.id)">
           <div class="img-box">
@@ -48,19 +48,27 @@
         </div>
       </div>
     </div>
+    <Pagination
+      :size="size"
+      :current="current"
+      :total="total"
+      @sizeChange="sizeChange"
+      @currentChange="currentChange" />
   </div>
 </template>
 <script>
 import Nav from '~/components/navBar.vue'
 import Header from '~/components/layout/header.vue'
+import Pagination from '~/components/pagination.vue'
 export default {
   components: {
     'v-nav': Nav,
-    'v-header': Header
+    'v-header': Header,
+    Pagination
   },
   data() {
     return {
-      size: 50,
+      size: 25,
       current: 1,
       title: this.$route.query.title || '',
       result: [],
@@ -94,6 +102,13 @@ export default {
         this.result = res.data.records
         this.total = res.data.total
       })
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      this.current = val
+      this.getList()
     }
   }
 }
@@ -112,7 +127,7 @@ export default {
     width: 218px;
     display: inline-block;
     align-items: center;
-    margin: 20px 0;
+    margin: 10px 0;
     margin-left: 19px;
     overflow: hidden;
     &:nth-child(5n + 1){
