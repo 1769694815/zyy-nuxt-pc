@@ -36,7 +36,7 @@
             v-show="nextShow"
             class="next-mask">
             <div class="content">
-              <div class="title">视频播放完毕，<span>{{ time }}</span>秒后自动进入下一节</div>
+              <div class="title">您已学完本节，<span>{{ time }}</span>秒后自动进入下一节</div>
               <div class="button">
                 <span @click="agian">再学一遍</span>
                 <span
@@ -98,7 +98,7 @@
             </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
-              <p
+              <!-- <p
                 v-if="item.dayCount != 0"
                 class="desc">
                 {{ item.dayCount }}天后到期
@@ -107,7 +107,7 @@
                 v-else
                 class="desc">
                 已到期
-              </p>
+              </p> -->
               <div class="foot">
                 <span>已学{{ item.result }}</span>
                 <span>共{{ item.lessonNum }}节</span>
@@ -679,13 +679,13 @@ export default {
           align-items: center;
           z-index: 999;
           .content {
-            width: 400px;
+            width: 100%;
             height: 200px;
             margin: 0 auto;
-            background: #fff;
             .title {
               margin-top: 40px;
-              font-size: 16px;
+              font-size: 24px;
+              color: #fff;
               span {
                 display: inline-block;
                 margin: 0 5px;
@@ -696,11 +696,12 @@ export default {
               margin-top: 60px;
               span {
                 display: inline-block;
-                width: 100px;
-                height: 30px;
-                line-height: 30px;
+                width: 120px;
+                height: 40px;
+                line-height: 40px;
+                font-size: 18px;
                 text-align: center;
-                color: #3F8A38;
+                color: #fff;
                 border: 1px solid #3F8A38;
                 border-radius: 4px;
                 cursor: pointer;
@@ -779,7 +780,7 @@ export default {
         display: inline-block;
         vertical-align: top;
         width: 224px;
-        height: 203px;
+        height: 180px;
         margin-left: 20px;
         margin-top: 20px;
         &:nth-child(5n+1) {
