@@ -18,7 +18,7 @@
           </div>
           <div class="info-right">
             <div class="title">{{ dataObj.title }}</div>
-            <div class="price">￥{{ dataObj.price }}</div>
+            <div class="price">&yen;{{ dataObj.price }}</div>
             <div class="lessons">
               班级课程：
               <ul v-if="dataObj.courseName">

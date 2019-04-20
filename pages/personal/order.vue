@@ -20,7 +20,7 @@
               <img :src="item.itemPic">
               <div class="item-info">
                 <div class="item-title">{{ item.itemName }}</div>
-                <div class="item-price">￥{{ item.amount }}</div>
+                <div class="item-price">&yen;{{ item.amount }}</div>
               </div>
             </div>
           </li>

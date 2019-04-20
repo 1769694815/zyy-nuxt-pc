@@ -30,7 +30,7 @@
               </span>
               <span
                 v-else
-                class="price">￥{{ item.price }}
+                class="price">&yen;{{ item.price }}
               </span>
               <span class="number">{{ item.student_num }}人学过</span>
             </div>

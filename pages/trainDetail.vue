@@ -31,7 +31,7 @@
             <span>培训费：
               <span
                 v-if="classInfo.price != 0"
-                class="price">￥{{ classInfo.price }}</span>
+                class="price">&yen;{{ classInfo.price }}</span>
               <span
                 v-else
                 class="price">免费</span>
@@ -125,7 +125,7 @@
                   <div class="class-right">
                     {{ item.title }}
                     <div class="price">
-                      ￥{{ item.price }}
+                      &yen;{{ item.price }}
                       <span>{{ item.student_num }}人学过</span>
                     </div>
                     <p>{{ item.brife }}</p>

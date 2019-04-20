@@ -64,7 +64,7 @@
                     {{ tag }}
                   </span>
                 </div>
-                <div class="price">￥{{ item.price }}</div>
+                <div class="price">&yen;{{ item.price }}</div>
                 <div class="foot">
                   <span>{{ item.studentNum }}人已报名</span>
                   <span>截止报名：{{ item.closeDate }}</span>
@@ -96,7 +96,7 @@
                   </span>
                   <span
                     v-else
-                    class="price">￥{{ item.price }}
+                    class="price">&yen;{{ item.price }}
                   </span>
                   <span class="number">{{ item.student_num }}人学过</span>
                 </div>

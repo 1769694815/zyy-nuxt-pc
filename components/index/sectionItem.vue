@@ -14,7 +14,7 @@
         </span>
         <span
           v-else
-          class="price">￥{{ dataObj.price }}
+          class="price">&yen;{{ dataObj.price }}
         </span>
         <span class="lesson">共{{ dataObj.lessonNum }}节</span>
         <span class="number">{{ dataObj.studentNum }}人学过</span>

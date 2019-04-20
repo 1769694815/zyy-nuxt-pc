@@ -18,7 +18,7 @@
               <span
                 v-else
                 class="price">
-                ￥{{ item.price }}
+                &yen;{{ item.price }}
               </span>
               <span class="lesson">共{{ item.lessonNum }}节</span>
               <span class="number">{{ item.studentNum }}人学过</span>

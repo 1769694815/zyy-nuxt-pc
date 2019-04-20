@@ -28,7 +28,7 @@
         </div>
         <div class="line-item">
           <span class="title">支付金额：</span>
-          <span class="price">￥{{ detail.price }}</span>
+          <span class="price">&yen;{{ detail.price }}</span>
         </div>
       </div>
       <div class="border" />

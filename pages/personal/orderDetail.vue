@@ -8,7 +8,7 @@
           <img :src="detail.itemPic">
           <div class="item-info">
             <div class="item-title">{{ detail.itemName }}</div>
-            <div class="item-price">￥{{ detail.amount }}</div>
+            <div class="item-price">&yen;{{ detail.amount }}</div>
           </div>
         </div>
         <div class="item-flex">

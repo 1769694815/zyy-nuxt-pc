@@ -54,7 +54,7 @@
               </div>
             </div>
             <div class="price">
-              价格：<span>￥{{ detailData.price }}</span>
+              价格：<span>&yen;{{ detailData.price }}</span>
             </div>
             <div
               v-if="!userInfo"

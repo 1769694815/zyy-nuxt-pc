@@ -25,7 +25,7 @@
           </div>
         </el-scrollbar>
         <div class="bill">
-          <span class="price">￥{{ lessonList.price }}</span>
+          <span class="price">&yen;{{ lessonList.price }}</span>
           <span class="count">{{ lessonList.count }}人已报名</span>
         </div>
         <div class="way">
@@ -125,7 +125,7 @@
             <img :src="lessonList.src">
             <div class="top-right">
               <h1>{{ lessonList.title }}</h1>
-              <span class="price">￥{{ lessonList.price }}</span>
+              <span class="price">&yen;{{ lessonList.price }}</span>
               <div class="lesson">
                 班级课程： 
                 <ul>

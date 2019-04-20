@@ -50,7 +50,7 @@
                 <span v-if="item.buystatus">已购买</span>
                 <span
                   v-else
-                  class="price">￥{{ item.price }}</span>
+                  class="price">&yen;{{ item.price }}</span>
                 <span :class="item.buystatus ? 'suc' : 'def'">
                   {{ item.buystatus ? '立即学习' : '立即购买' }}
                 </span>

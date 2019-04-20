@@ -138,7 +138,7 @@
                 <span
                   v-else
                   class="price">
-                  ￥{{ item.price }}
+                  &yen;{{ item.price }}
                 </span>
                 <span class="lesson">共{{ item.lessonNum }}节</span>
                 <span class="number">{{ item.studentNum }}人学过</span>
@@ -222,6 +222,7 @@ export default {
       }
       this.maskShow = false
       this.nextShow = false
+      this.lastShow = false
       if(this.classId) {
         this.$axios.post('/yxs/api/web/user/startLearnClass', {
           // courseId: this.courseId,

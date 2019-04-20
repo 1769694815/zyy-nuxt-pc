@@ -58,7 +58,7 @@
                     class="free">免费</span>
                   <span
                     v-else
-                    class="price">￥{{ item.price }}
+                    class="price">&yen;{{ item.price }}
                   </span>
                 </span>
                 <span
