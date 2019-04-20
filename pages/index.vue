@@ -652,20 +652,18 @@ export default {
           size: this.size
         }
       }).then(res => {
-        if(res.code == 0) {
-          if(res.data.records.length == 0) {
-            return
-          } else if(res.data.records.length < 4) {
-            this.current2 = 0
-            this.trainList = res.data.records
-          } else {
-            this.trainList = res.data.records
-          }
+        if(res.data.records.length == 0) {
+          return
+        } else if(res.data.records.length < 4) {
+          this.current2 = 0
+          this.trainList = res.data.records
+        } else {
+          this.trainList = res.data.records
         }
       })
     },
     change1() {
-      if(this.current1 == 3) {
+      if(this.current1 == 2) {
         this.current1 = 1
       } else {
         this.current1 += 1

@@ -73,7 +73,7 @@
               @click="login2">登录</div>
           </div>
           <div class="text">
-            <span>收不到验证码</span>
+            <span @click="modalShow">收不到验证码</span>
             <span @click="toRegister">注册账户</span>
           </div>
           <p><em /><span>其他方式登录</span><em /></p>
@@ -84,17 +84,22 @@
         </div>
       </div>
     </div>
+    <login-modal
+      v-show="showModal"
+      @hide-modal="hideModal" />
   </div>
 </template>
 <script>
 import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
+import LoginModal from '~/components/modal/loginModal.vue'
 import { isvalidatemobile, validatenull } from '~/assets/js/util'
 import Cookies from 'js-cookie'
 export default {
   components: {
     NavBar,
-    'v-header': Header
+    'v-header': Header,
+    LoginModal
   },
   data() {
     return {
@@ -102,6 +107,7 @@ export default {
       timer: null,
       count: null,
       timeShow: false,
+      showModal: false,
       form1: {
         type: 'MOBILE',
         phone: '',
@@ -233,6 +239,12 @@ export default {
           }
         })
       }
+    },
+    modalShow() {
+      this.showModal = true
+    },
+    hideModal() {
+      this.showModal = false
     }
   }
 }
