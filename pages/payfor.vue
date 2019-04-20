@@ -48,7 +48,7 @@
 <script>
 import Cookies from 'js-cookie'
 export default {
-  middleware: 'userAuth',
+  // middleware: 'userAuth',
   data() {
     return {
       userInfo: '',
@@ -61,6 +61,11 @@ export default {
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+    }
     this.getInfo()
   },
   methods: {

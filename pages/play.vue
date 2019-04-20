@@ -32,15 +32,38 @@
               class="buy-btn"
               @click="buyLesson">立即购买</div>
           </div>
+          <div
+            v-show="nextShow"
+            class="next-mask">
+            <div class="content">
+              <div class="title">视频播放完毕，<span>{{ time }}</span>秒后自动进入下一节</div>
+              <div class="button">
+                <span @click="agian">再学一遍</span>
+                <span
+                  class="next"
+                  @click="next">学下一节</span>
+              </div>
+            </div>
+          </div>
+          <div
+            v-show="lastShow"
+            class="next-mask">
+            <div class="content">
+              <div class="title">您已学完最后一节课时啦，你的坚持终将会有回报！</div>
+              <div class="button">
+                <span @click="agian">再学一遍</span>
+              </div>
+            </div>
+          </div>
           <ul class="menu">
             <li
               v-for="(item, index) in info.lessons"
               ref="menu"
               :key="index"
-              :class="playIndex == index ? 'active' : ''">
+              :class="lessonId == item.lessonId ? 'active' : ''">
               <!-- <div class="chapter">111</div> -->
               <i
-                v-if="playIndex == index && playFlag"
+                v-if="lessonId == item.lessonId && playFlag"
                 class="iconfont iconbofang" />
               <i 
                 v-else 
@@ -102,7 +125,7 @@
             <div
               class="img-box"
               @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.id }}))">
-              <img :src="item.middle_picture">              
+              <img :src="item.middle_picture">
             </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
@@ -141,6 +164,8 @@ export default {
   data() {
     return {
       maskShow: false,
+      nextShow: false,
+      lastShow: false,
       courseId: this.$route.query.courseId || '',
       lessonId: null,
       classId: this.$route.query.classId || '',
@@ -152,6 +177,7 @@ export default {
       playIndex: 0,
       player: null,
       playFlag: true ,
+      time: 0,
       timer: null
     }
   },
@@ -170,6 +196,11 @@ export default {
   mounted() {
     window.scrollTo(0, 200)
     this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+    }
     this.getInfo()
     this.getList()
     this.getRecommendList('zyjk')
@@ -177,22 +208,20 @@ export default {
     //   this.stopStudy()
     // }
   },
-  // beforeDestroy() {
-  //   console.log('123123123')
-  //   this.stopStudy()
-  // },
   methods: {
     getInfo(lessonId, free, index) {
       let _this = this
+      this.playIndex = index || 0
+      this.lessonId = lessonId
       if(_this.player) {
         _this.player.pause()
       }
-      this.playIndex = index || 0
       if(free == 2) {
         this.maskShow = true
         return
       }
       this.maskShow = false
+      this.nextShow = false
       if(this.classId) {
         this.$axios.post('/yxs/api/web/user/startLearnClass', {
           // courseId: this.courseId,
@@ -203,117 +232,121 @@ export default {
         }).then(res => {
           let info = res.data
           this.info = res.data
-          if(_this.player) {
-            _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
-            // _this.player.dispose();
-          } else {
-            _this.player = new Aliplayer({
-              "id": "player-con",
-              "vid": info.videoId,
-              "playauth": info.playAuth,
-              "qualitySort": "asc",
-              "format": "m3u8",
-              "mediaType": "video",
-              "width": "100%",
-              "height": "500px",
-              "autoplay": true,
-              "isLive": false,
-              "cover": info.cover,
-              "rePlay": false,
-              "playsinline": true,
-              "preload": true,
-              "controlBarVisibility": "hover",
-              "seeking": info.startDuration,
-              "useH5Prism": true,
-              "encryptType": 1,
-              "skinLayout": [
-                {
-                  "name": "bigPlayButton",
-                  "align": "blabs",
-                  "x": 30,
-                  "y": 80
-                },
-                {
-                  "name": "H5Loading",
-                  "align": "cc"
-                },
-                {
-                  "name": "errorDisplay",
-                  "align": "tlabs",
-                  "x": 0,
-                  "y": 0
-                },
-                {
-                  "name": "infoDisplay"
-                },
-                {
-                  "name": "tooltip",
-                  "align": "blabs",
-                  "x": 0,
-                  "y": 56
-                },
-                {
-                  "name": "thumbnail"
-                },
-                {
-                  "name": "controlBar",
-                  "align": "blabs",
-                  "x": 0,
-                  "y": 0,
-                  "children": [
-                    {
-                      "name": "progress",
-                      "align": "blabs",
-                      "x": 0,
-                      "y": 44
-                    },
-                    {
-                      "name": "playButton",
-                      "align": "tl",
-                      "x": 15,
-                      "y": 12
-                    },
-                    {
-                      "name": "timeDisplay",
-                      "align": "tl",
-                      "x": 10,
-                      "y": 7
-                    },
-                    {
-                      "name": "fullScreenButton",
-                      "align": "tr",
-                      "x": 10,
-                      "y": 12
-                    },
-                    {
-                      "name": "setting",
-                      "align": "tr",
-                      "x": 15,
-                      "y": 12
-                    },
-                    {
-                      "name": "volume",
-                      "align": "tr",
-                      "x": 5,
-                      "y": 10
-                    }
-                  ]
-                }
-              ]
-            }, function (player) {
-              player._switchLevel = 0;
-              player.seek(info.startDuration)
-              console.log("播放器创建了。", player);
-              player.on('pause', _this.stopStudy)
-              player.on('ended', _this.stopStudy)
-              player.on('play', function() {
-                _this.playFlag = true
-              })
-              // function hello () {
-              //   console.log('hello')
-              // }
-            });
+          this.lessonId = res.data.lessonId
+          for(let i in info.lessons) {
+            if(info.lessons[i].lessonId == this.lessonId) {
+              this.playIndex = i
+              console.log('playIndex', i)
+              break
+            }
           }
+          console.log('lessonId', lessonId)
+          if(_this.player) {
+            _this.player.dispose()
+          }
+          _this.player = new Aliplayer({
+            "id": "player-con",
+            "vid": info.videoId,
+            "playauth": info.playAuth,
+            "qualitySort": "asc",
+            "format": "m3u8",
+            "mediaType": "video",
+            "width": "100%",
+            "height": "500px",
+            "autoplay": true,
+            "isLive": false,
+            "cover": info.cover,
+            "rePlay": false,
+            "playsinline": true,
+            "preload": true,
+            "controlBarVisibility": "hover",
+            "seeking": info.startDuration,
+            "useH5Prism": true,
+            "encryptType": 1,
+            "skinLayout": [
+              {
+                "name": "bigPlayButton",
+                "align": "blabs",
+                "x": 30,
+                "y": 80
+              },
+              {
+                "name": "H5Loading",
+                "align": "cc"
+              },
+              {
+                "name": "errorDisplay",
+                "align": "tlabs",
+                "x": 0,
+                "y": 0
+              },
+              {
+                "name": "infoDisplay"
+              },
+              {
+                "name": "tooltip",
+                "align": "blabs",
+                "x": 0,
+                "y": 56
+              },
+              {
+                "name": "thumbnail"
+              },
+              {
+                "name": "controlBar",
+                "align": "blabs",
+                "x": 0,
+                "y": 0,
+                "children": [
+                  {
+                    "name": "progress",
+                    "align": "blabs",
+                    "x": 0,
+                    "y": 44
+                  },
+                  {
+                    "name": "playButton",
+                    "align": "tl",
+                    "x": 15,
+                    "y": 12
+                  },
+                  {
+                    "name": "timeDisplay",
+                    "align": "tl",
+                    "x": 10,
+                    "y": 7
+                  },
+                  {
+                    "name": "fullScreenButton",
+                    "align": "tr",
+                    "x": 10,
+                    "y": 12
+                  },
+                  {
+                    "name": "setting",
+                    "align": "tr",
+                    "x": 15,
+                    "y": 12
+                  },
+                  {
+                    "name": "volume",
+                    "align": "tr",
+                    "x": 5,
+                    "y": 10
+                  }
+                ]
+              }
+            ]
+          }, function (player) {
+            player._switchLevel = 0;
+            player.seek(info.startDuration)
+            console.log("播放器创建了。", player);
+            player.on('pause', _this.stopStudy)
+            player.on('ended', _this.endedHandle)
+            player.on('play', function() {
+              _this.playFlag = true
+            })
+          });
         })
       } else {
         this.$axios.post('/yxs/api/web/user/startLearnCourse', {
@@ -324,117 +357,121 @@ export default {
         }).then(res => {
           let info = res.data
           this.info = res.data
-          if(_this.player) {
-            _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
-            // _this.player.dispose();
-          } else {
-            _this.player = new Aliplayer({
-              "id": "player-con",
-              "vid": info.videoId,
-              "playauth": info.playAuth,
-              "qualitySort": "asc",
-              "format": "m3u8",
-              "mediaType": "video",
-              "width": "100%",
-              "height": "500px",
-              "autoplay": true,
-              "isLive": false,
-              "cover": info.cover,
-              "rePlay": false,
-              "playsinline": true,
-              "preload": true,
-              "controlBarVisibility": "hover",
-              "seeking": info.startDuration,
-              "useH5Prism": true,
-              "encryptType": 1,
-              "skinLayout": [
-                {
-                  "name": "bigPlayButton",
-                  "align": "blabs",
-                  "x": 30,
-                  "y": 80
-                },
-                {
-                  "name": "H5Loading",
-                  "align": "cc"
-                },
-                {
-                  "name": "errorDisplay",
-                  "align": "tlabs",
-                  "x": 0,
-                  "y": 0
-                },
-                {
-                  "name": "infoDisplay"
-                },
-                {
-                  "name": "tooltip",
-                  "align": "blabs",
-                  "x": 0,
-                  "y": 56
-                },
-                {
-                  "name": "thumbnail"
-                },
-                {
-                  "name": "controlBar",
-                  "align": "blabs",
-                  "x": 0,
-                  "y": 0,
-                  "children": [
-                    {
-                      "name": "progress",
-                      "align": "blabs",
-                      "x": 0,
-                      "y": 44
-                    },
-                    {
-                      "name": "playButton",
-                      "align": "tl",
-                      "x": 15,
-                      "y": 12
-                    },
-                    {
-                      "name": "timeDisplay",
-                      "align": "tl",
-                      "x": 10,
-                      "y": 7
-                    },
-                    {
-                      "name": "fullScreenButton",
-                      "align": "tr",
-                      "x": 10,
-                      "y": 12
-                    },
-                    {
-                      "name": "setting",
-                      "align": "tr",
-                      "x": 15,
-                      "y": 12
-                    },
-                    {
-                      "name": "volume",
-                      "align": "tr",
-                      "x": 5,
-                      "y": 10
-                    }
-                  ]
-                }
-              ]
-            }, function (player) {
-              player._switchLevel = 0;
-              player.seek(info.startDuration)
-              console.log("播放器创建了。", player);
-              player.on('pause', _this.stopStudy)
-              player.on('ended', _this.stopStudy)
-              player.on('play', function() {
-                _this.playFlag = true
-              })
-              // function hello () {
-              //   console.log('hello')
-              // }
-            });
+          this.lessonId = res.data.lessonId
+          for(let i in info.lessons) {
+            if(info.lessons[i].lessonId == this.lessonId) {
+              console.log('playIndex', i)
+              this.playIndex = i
+              break
+            }
           }
+          if(_this.player) {
+            // _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth, info.startDuration);
+            _this.player.dispose()
+          }
+          _this.player = new Aliplayer({
+            "id": "player-con",
+            "vid": info.videoId,
+            "playauth": info.playAuth,
+            "qualitySort": "asc",
+            "format": "m3u8",
+            "mediaType": "video",
+            "width": "100%",
+            "height": "500px",
+            "autoplay": true,
+            "isLive": false,
+            "cover": info.cover,
+            "rePlay": false,
+            "playsinline": true,
+            "preload": true,
+            "controlBarVisibility": "hover",
+            "seeking": info.startDuration,
+            "useH5Prism": true,
+            "encryptType": 1,
+            "skinLayout": [
+              {
+                "name": "bigPlayButton",
+                "align": "blabs",
+                "x": 30,
+                "y": 80
+              },
+              {
+                "name": "H5Loading",
+                "align": "cc"
+              },
+              {
+                "name": "errorDisplay",
+                "align": "tlabs",
+                "x": 0,
+                "y": 0
+              },
+              {
+                "name": "infoDisplay"
+              },
+              {
+                "name": "tooltip",
+                "align": "blabs",
+                "x": 0,
+                "y": 56
+              },
+              {
+                "name": "thumbnail"
+              },
+              {
+                "name": "controlBar",
+                "align": "blabs",
+                "x": 0,
+                "y": 0,
+                "children": [
+                  {
+                    "name": "progress",
+                    "align": "blabs",
+                    "x": 0,
+                    "y": 44
+                  },
+                  {
+                    "name": "playButton",
+                    "align": "tl",
+                    "x": 15,
+                    "y": 12
+                  },
+                  {
+                    "name": "timeDisplay",
+                    "align": "tl",
+                    "x": 10,
+                    "y": 7
+                  },
+                  {
+                    "name": "fullScreenButton",
+                    "align": "tr",
+                    "x": 10,
+                    "y": 12
+                  },
+                  {
+                    "name": "setting",
+                    "align": "tr",
+                    "x": 15,
+                    "y": 12
+                  },
+                  {
+                    "name": "volume",
+                    "align": "tr",
+                    "x": 5,
+                    "y": 10
+                  }
+                ]
+              }
+            ]
+          }, function (player) {
+            player._switchLevel = 0;
+            player.seek(info.startDuration)
+            console.log("播放器创建了。", player);
+            player.on('pause', _this.stopStudy)
+            player.on('ended', _this.endedHandle)
+            player.on('play', function() {
+              _this.playFlag = true
+            })
+          });
         })
       }
     },
@@ -450,7 +487,7 @@ export default {
         })
       } else {
         let params = {
-          size: 5,
+          size: 10,
           current: 1,
           type: 0,
           userToken: this.userInfo.userToken
@@ -503,8 +540,47 @@ export default {
         
       })
     },
-    hello() {
-      console.log('hello')
+    endedHandle() {
+      let _this = this
+      this.stopStudy()
+      _this.player.dispose()
+      this.nextShow = true
+      const TIME_COUNT = 6
+      if(this.playIndex == this.info.lessons.length - 1) {
+        this.lastShow = true
+        return
+      }
+      if(!this.timer) {
+        this.time = TIME_COUNT
+        this.timer = setInterval(() => {
+          if(this.time > 0) {
+            this.time --
+          } else {
+            this.nextShow = false
+            this.playIndex ++
+            let item = this.info.lessons[this.playIndex]
+            this.getInfo(item.lessonId, item.free, this.playIndex)
+            clearInterval(this.timer)
+            this.timer = null
+          }
+        }, 1000)
+      }
+    },
+    agian() {
+      this.nextShow = false
+      this.lastShow = false
+      clearInterval(this.timer)
+      this.timer = null
+      let item = this.info.lessons[this.playIndex]
+      this.getInfo(item.lessonId, item.free, this.playIndex)
+    },
+    next() {
+      this.nextShow = false
+      clearInterval(this.timer)
+      this.timer = null
+      this.playIndex ++
+      let item = this.info.lessons[this.playIndex]
+      this.getInfo(item.lessonId, item.free, this.playIndex)
     },
     openNewPage(url) {
       window.open(url.href, '_blank')
@@ -590,6 +666,52 @@ export default {
             font-size: 16px;
             cursor: pointer;
             border-radius: 4px;
+          }
+        }
+        .next-mask {
+          position: absolute;
+          width: 952px;
+          height: 500px;
+          text-align: center;
+          background: rgba(0, 0, 0, .6);
+          display: flex;
+          align-items: center;
+          z-index: 999;
+          .content {
+            width: 400px;
+            height: 200px;
+            margin: 0 auto;
+            background: #fff;
+            .title {
+              margin-top: 40px;
+              font-size: 16px;
+              span {
+                display: inline-block;
+                margin: 0 5px;
+                color: #3F8A38;
+              }
+            }
+            .button {
+              margin-top: 60px;
+              span {
+                display: inline-block;
+                width: 100px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                color: #3F8A38;
+                border: 1px solid #3F8A38;
+                border-radius: 4px;
+                cursor: pointer;
+                &:last-child {
+                  margin-left: 20px;
+                }
+              }
+              .next {
+                background: #3F8A38;
+                color: #fff;
+              }
+            }
           }
         }
         .menu {

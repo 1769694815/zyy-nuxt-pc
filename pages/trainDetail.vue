@@ -52,7 +52,7 @@
               </li>
             </ul>
             <ul v-else>
-              暂无课程
+              <span class="nocourse">暂无课程</span>
             </ul>
           </div>
           <div

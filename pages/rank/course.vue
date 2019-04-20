@@ -163,6 +163,7 @@ export default {
       this.size = val
     },
     currentChange(val) {
+      window.scrollTo(0, 0)
       this.current = val
       this.getRankList(this.courseId)
     }
