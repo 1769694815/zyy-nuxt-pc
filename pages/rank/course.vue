@@ -47,11 +47,20 @@
                   color="linear-gradient(-90deg,rgba(145,189,53,1),rgba(63,138,56,1))"
                   class="progress" />
               </div>
-              <div class="text">已学{{ item.result }}</div>
-              <!-- <div class="like">
-                <i class="iconfont icon-aixin" />
-                <span>{{ item.watchNum }}</span>
-              </div> -->
+              <!-- <div class="text">已学{{ item.result }}</div> -->
+              <div
+                v-if="item.result == '100%'"
+                class="text">已学完</div>
+              <div
+                v-else-if="item.result == '0%'"
+                class="text">未学习</div>
+              <div
+                v-else
+                class="text">已学{{ item.result }}</div>
+                <!-- <div class="like">
+                  <i class="iconfont icon-aixin" />
+                  <span>{{ item.watchNum }}</span>
+                </div> -->
             </div>
           </li>
         </ul>

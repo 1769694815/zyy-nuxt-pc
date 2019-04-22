@@ -55,10 +55,12 @@
               </div>
             </div>
           </div>
-          <ul class="menu">
+          <ul
+            ref="menu"
+            class="menu">
             <li
               v-for="(item, index) in info.lessons"
-              ref="menu"
+              ref="menuli"
               :key="index"
               :class="lessonId == item.lessonId ? 'active' : ''">
               <!-- <div class="chapter">111</div> -->
@@ -72,10 +74,14 @@
                 <!-- <span>{{ item.name }}</span> -->
                 <span
                   class="title"
-                  @click="getInfo(item.lessonId, item.free, index)">{{ item.lessonTitle }}</span>
+                  @click="getInfo(item.lessonId, item.free, index, true)">{{ item.lessonTitle }}</span>
                 <div class="foot">
                   <span>{{ Math.round(item.length / 60) }}分钟</span>
-                  <span>已学{{ item.result }}</span>
+                  <span
+                    v-if="item.result == '100%'"
+                    class="complete">已学完</span>
+                  <span v-else-if="item.result == '0%'">未学习</span>
+                  <span v-else>已学{{ item.result }}</span>
                 </div>
               </div>
             </li>
@@ -109,7 +115,11 @@
                 已到期
               </p> -->
               <div class="foot">
-                <span>已学{{ item.result }}</span>
+                <span
+                  v-if="item.result == '100%'"
+                  class="complete">已学完</span>
+                <span v-else-if="item.result == '0%'">未学习</span>
+                <span v-else>已学{{ item.result }}</span>
                 <span>共{{ item.lessonNum }}节</span>
               </div>
             </div>
@@ -209,7 +219,7 @@ export default {
     // }
   },
   methods: {
-    getInfo(lessonId, free, index) {
+    getInfo(lessonId, free, index, flag) {
       let _this = this
       this.playIndex = index || 0
       this.lessonId = lessonId
@@ -236,7 +246,13 @@ export default {
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
-              console.log('playIndex', i)
+              if(i > 0 && !flag) { // 不是点击切换
+                this.$nextTick(() => {
+                  let top = _this.$refs.menuli[i].getBoundingClientRect().top
+                  let height = _this.$refs.menuli[i].clientHeight
+                  this.$refs.menu.scrollTo(0, top - height - 30)
+                })
+              }
               break
             }
           }
@@ -360,8 +376,14 @@ export default {
           this.lessonId = res.data.lessonId
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
-              console.log('playIndex', i)
               this.playIndex = i
+              if(i > 0 && !flag) { // 不是点击切换
+                this.$nextTick(() => {
+                  let top = _this.$refs.menuli[i].getBoundingClientRect().top
+                  let height = _this.$refs.menuli[i].clientHeight
+                  this.$refs.menu.scrollTo(0, top - height - 30)
+                })
+              }
               break
             }
           }
@@ -644,12 +666,12 @@ export default {
         display: flex;
         margin-top: 30px;
         #player-con {
-          width: 952px;
+          width: 932px;
           cursor: pointer;
         }
         .mask {
           position: absolute;
-          width: 952px;
+          width: 932px;
           height: 500px;
           text-align: center;
           background: rgba(0, 0, 0, .6);
@@ -674,7 +696,7 @@ export default {
         }
         .next-mask {
           position: absolute;
-          width: 952px;
+          width: 932px;
           height: 500px;
           text-align: center;
           background: rgba(0, 0, 0, .6);
@@ -720,11 +742,11 @@ export default {
           }
         }
         .menu {
-          width: 330px;
+          width: 350px;
           height: 102px;
           background: #131313;
           height: 500px;
-          overflow: auto;
+          overflow-y: scroll;
           li {
             display: flex;
             margin: 0 30px;

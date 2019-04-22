@@ -53,8 +53,15 @@
                 </div>
               </div>
             </div>
-            <div class="price">
+            <div
+              v-if="detailData.price > 0"
+              class="price">
               价格：<span>&yen;{{ detailData.price }}</span>
+            </div>
+            <div
+              v-else
+              class="price free">
+              价格：<span>免费</span>
             </div>
             <div
               v-if="!userInfo"
@@ -550,6 +557,11 @@ export default {
             font-size: 24px;
             color: #FF4400;
             font-weight: 700;
+          }
+        }
+        .free {
+          span {
+            color: #3F8A38;
           }
         }
         .bottom{

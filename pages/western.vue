@@ -148,7 +148,7 @@ export default {
       title: '培训项目',
       tabIndex: 3,
       current: 1,
-      size: 10,
+      size: 20,
       categoryId: 1, // 默认21,培训项目id
       cid: this.$route.query.cid || 0,
       orderByClause: 1,

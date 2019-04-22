@@ -34,7 +34,11 @@
                 已到期
               </p> -->
               <div class="foot">
-                <span>已学{{ item.result }}</span>
+                <span
+                  v-if="item.result == '100%'"
+                  class="complete">已学完</span>
+                <span v-else-if="item.result == '0%'">未学习</span>
+                <span v-else>已学{{ item.result }}</span>
                 <span>共{{ item.lessonNum }}节</span>
               </div>
             </div>
