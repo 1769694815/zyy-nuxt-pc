@@ -225,7 +225,6 @@ export default {
       this.lastShow = false
       if(this.classId) {
         this.$axios.post('/yxs/api/web/user/startLearnClass', {
-          // courseId: this.courseId,
           lessonId: lessonId || '',
           classId: this.classId,
           courseId: this.courseId,
@@ -545,12 +544,18 @@ export default {
       let _this = this
       this.stopStudy()
       _this.player.dispose()
-      this.nextShow = true
-      const TIME_COUNT = 6
       if(this.playIndex == this.info.lessons.length - 1) {
         this.lastShow = true
         return
       }
+      this.playIndex ++
+      let item = this.info.lessons[this.playIndex]
+      if(item && item.free == 2) {
+        this.maskShow = true
+        return
+      }
+      this.nextShow = true
+      const TIME_COUNT = 6
       if(!this.timer) {
         this.time = TIME_COUNT
         this.timer = setInterval(() => {
@@ -558,8 +563,6 @@ export default {
             this.time --
           } else {
             this.nextShow = false
-            this.playIndex ++
-            let item = this.info.lessons[this.playIndex]
             this.getInfo(item.lessonId, item.free, this.playIndex)
             clearInterval(this.timer)
             this.timer = null
@@ -653,7 +656,7 @@ export default {
           z-index: 999;
           p {
             margin-top: 190px;
-            font-size: 18px;
+            font-size: 24px;
             color: #fff;
           }
           .buy-btn {
@@ -664,7 +667,7 @@ export default {
             text-align: center;
             background: #3F8A38;
             color: #fff;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             border-radius: 4px;
           }
@@ -903,5 +906,8 @@ export default {
   }
 </style>
 <style lang="css">
-  /* @import 'https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css'; */
+  .prism-time-display .duration {
+    color: #f5f5f5;
+    font-weight: 500;
+  }
 </style>

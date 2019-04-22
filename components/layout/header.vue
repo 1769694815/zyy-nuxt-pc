@@ -13,6 +13,11 @@
             class="welcome">
             HI，{{ userInfo.nickName }}，欢迎来到中医药在线学习平台!
           </span>
+          <span class="link">
+            <a
+              href="http://www.tcmlll.cn/"
+              target="_blank">访问旧版</a>
+          </span>
           <span v-show="loginShow">
             <span
               class="login"
@@ -314,6 +319,14 @@ export default {
         font-size: 0;
         span {
           font-size: 14px;
+        }
+        .link {
+          margin-left: 30px;
+          cursor: hover;
+          a {
+            text-decoration: none;
+            color: #666;
+          }
         }
         .login {
           margin-left: 30px;

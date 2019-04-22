@@ -10,6 +10,11 @@
           <span @click="openNewPage($router.resolve({ name: 'service' }))">服务与保障</span>
           <span @click="openNewPage($router.resolve({ name: 'download' }))">下载APP</span>
           <span @click="openNewPage($router.resolve({ name: 'index' }))">返回首页</span>
+          <span>
+            <a
+              href="http://www.tcmlll.cn/"
+              target="_blank">访问旧版</a>
+          </span>
         </div>
       </div>
       <div class="footer-right fr">
@@ -66,6 +71,12 @@ export default {
           }
           &:first-child {
             margin: 0;
+          }
+          &:last-child {
+            a {
+              color: #b5b5b5;
+              text-decoration: none;
+            }
           }
         }
       }
