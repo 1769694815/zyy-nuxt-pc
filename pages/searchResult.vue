@@ -122,6 +122,7 @@ export default {
     overflow: hidden;
     .desc {
       margin-top: 20px;
+      margin-bottom: 10px;
     }
   }
   .train-class {

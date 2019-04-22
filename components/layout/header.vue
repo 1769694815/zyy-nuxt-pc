@@ -271,7 +271,17 @@ export default {
       })
     },
     logout() {
-      this.dialogVisible = true
+      // this.dialogVisible = true
+      this.$confirm(`确定退出登录吗？`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(res => {
+        Cookies.remove('zyy_userInfo')
+        this.$router.push({
+          name: 'login'
+        })
+      })
     },
     cancel() {
       this.dialogVisible = false
@@ -326,6 +336,9 @@ export default {
           a {
             text-decoration: none;
             color: #666;
+            &:hover {
+              text-decoration: underline;
+            }
           }
         }
         .login {
