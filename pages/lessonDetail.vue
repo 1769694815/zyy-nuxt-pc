@@ -245,7 +245,10 @@
                   <img :src="item.pic">
                 </div>
                 <h3>{{ item.title }}</h3>
-                <span>{{ item.studentNum }}</span>
+                <span>
+                  <i class="iconfont iconspbofang" />
+                  {{ item.studentNum }}
+                </span>
               </li>
             </ul>
           </div>

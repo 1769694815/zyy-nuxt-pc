@@ -120,6 +120,12 @@
               </div>
             </li>
           </ul>
+          <Pagination
+            :size="size"
+            :current="current"
+            :total="total"
+            @sizeChange="sizeChange"
+            @currentChange="currentChange" />
         </div>
         <div class="content-right">
           <lesson-section :data-array="recommendLessons" />
@@ -136,19 +142,22 @@ import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
 import LessonSection from '~/components/recommend/lesson.vue'
 import TrainSection from '~/components/recommend/train.vue'
+import Pagination from '~/components/pagination.vue'
 export default {
   components: {
     NavBar,
     LessonSection,
     TrainSection,
-    'v-header': Header
+    'v-header': Header,
+    Pagination
   },
   data() {
     return {
       title: '培训项目',
       tabIndex: 3,
       current: 1,
-      size: 20,
+      size: 15,
+      total: 0,
       categoryId: 1, // 默认21,培训项目id
       cid: this.$route.query.cid || 0,
       orderByClause: 1,
@@ -238,6 +247,7 @@ export default {
         }
       }).then(res => {
         this.result = res.data.list.records
+        this.total = res.data.list.total
       })
     },
     getCourseType() {
@@ -295,6 +305,14 @@ export default {
         }
       })
       window.open(url.href, '_blank')
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      window.scrollTo(0, 0)
+      this.current = val
+      this.getList()
     }
   }
 }
@@ -303,7 +321,7 @@ export default {
   .train-container {
     width: 1200px;
     min-height: 600px;
-    margin: 0 auto 30px;
+    margin: 0 auto;
     .crumb {
       margin-top: 28px;
       margin-bottom: 18px;
