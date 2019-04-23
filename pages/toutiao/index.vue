@@ -90,7 +90,7 @@ export default {
     },
     getList(flag) {
       if(flag) {
-        this.size += 1
+        this.current += 1
       }
       this.$axios('/yxs/api/web/news/getArticleMore', {
         params: {
@@ -99,7 +99,7 @@ export default {
           type: this.type
         }
       }).then(res => {
-        this.listData = res.data.records
+        this.listData = [...this.listData,...res.data.records]
         this.total = res.data.records.length
       })
     }
@@ -150,6 +150,7 @@ export default {
       .info {
         flex: 1;
         .title {
+          line-height: 24px;
           font-size: 18px;
           color: #333;
         }
