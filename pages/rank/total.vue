@@ -18,18 +18,31 @@
                 v-else
                 src="~/assets/images/xuesheng.png">
               <div class="info">
-                <div class="name">{{ item.name }}</div>
+                <div class="name">
+                  <span>{{ item.userName }}</span>
+                  <span style="margin-left: 20px;font-size: 12px;color: #999">
+                    (真实姓名：{{ item.realName ? item.realName : '未填写' }})
+                  </span>
+                </div>
                 <el-progress
                   :percentage="sliceStr(item.result)"
                   :show-text="false"
                   color="linear-gradient(-90deg,rgba(145,189,53,1),rgba(63,138,56,1))"
                   class="progress" />
               </div>
-              <div class="text">已学{{ item.result }}</div>
-              <!-- <div class="like">
-                <i class="iconfont icon-aixin" />
-                <span>{{ item.watchNum }}</span>
-              </div> -->
+              <div
+                v-if="item.result == '100%'"
+                class="text">已学完</div>
+              <div
+                v-else-if="item.result == '0%'"
+                class="text">未学习</div>
+              <div
+                v-else
+                class="text">已学{{ item.result }}</div>
+                <!-- <div class="like">
+                  <i class="iconfont icon-aixin" />
+                  <span>{{ item.watchNum }}</span>
+                </div> -->
             </div>
           </li>
         </ul>

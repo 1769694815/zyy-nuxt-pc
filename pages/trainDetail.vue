@@ -304,9 +304,10 @@ export default {
       }
     },
     toplay() {
-      // if(this.userInfo) {
-      //   this.$router.push({ name: 'play' })
-      // }
+      if(this.userInfo) {
+        let url = this.$router.resolve({ name: 'play', query: { classId: this.classInfo.roomId }})
+        window.open(url.href, '_blank')
+      }
     },
     hideModal() {
       this.showModal = false

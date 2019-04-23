@@ -40,7 +40,12 @@
                 v-else
                 src="~/assets/images/xuesheng.png">
               <div class="info">
-                <div class="name">{{ item.userName }}</div>
+                <div class="name">
+                  <span>{{ item.userName }}</span>
+                  <span style="margin-left: 20px;font-size: 12px;color: #999">
+                    (真实姓名：{{ item.realName ? item.realName : '未填写' }})
+                  </span>
+                </div>
                 <el-progress
                   :percentage="sliceStr(item.result)"
                   :show-text="false"
