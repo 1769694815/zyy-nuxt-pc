@@ -388,7 +388,7 @@ export default {
         current: 1,
         size: 10
       }
-      this.$axios('/yxs/api/web/user/commentList', {
+      this.$axios('/yxs/api/web/course/commentList', {
         params
       }).then(res => {
         this.commentList = res.data.records

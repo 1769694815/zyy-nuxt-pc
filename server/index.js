@@ -3,7 +3,7 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
-const host = process.env.HOST || '192.168.1.104'
+const host = process.env.HOST || '192.168.2.96'
 const port = process.env.PORT || 3001
 
 app.set('port', port)
