@@ -33,6 +33,9 @@
           </div>
         </div>
       </div>
+      <div
+        v-if="listData.length == 0"
+        style="margin-top: 30px; font-size: 16px; text-align: center">暂无相关内容</div>
     </div>
     <div
       v-show="total >= 10"
@@ -74,6 +77,7 @@ export default {
       this.type = item.id
       this.title = item.name + '_资讯头条'
       this.current = 1
+      this.total = 0
       this.listData = []
       this.getList()
     },

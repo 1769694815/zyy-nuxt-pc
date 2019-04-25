@@ -37,7 +37,7 @@ export default function({ $axios, redirect }) {
       redirect('/')
     }
     if(code == 404) {
-      redirect('/status/404')
+      // redirect('/status/404')
     }
     return Promise.reject(error);
   });

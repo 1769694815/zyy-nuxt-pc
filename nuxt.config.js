@@ -22,6 +22,7 @@ module.exports = {
     ],
     script: [
       { src: 'https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min.js', type: 'text/javascript'}
+      // { src: 'https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-flash-min.js', type: 'text/javascript'}
     ]
   },
 

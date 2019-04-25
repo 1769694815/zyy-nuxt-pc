@@ -158,7 +158,7 @@ export default {
         }
       })
     },
-    // banner图
+    // 
     getChannel() {
       this.$axios('/yxs/api/web/news/community').then(res => {
         this.channels = res.data
