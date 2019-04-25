@@ -61,7 +61,10 @@ export default {
       title: this.title
     }
   },
-  mounted() {
+  // asyncData({ params }) {
+  //   console.log('params', params)
+  // },
+  mounted() { 
     window.scrollTo(0, 0);
     this.getNavList()
   },
