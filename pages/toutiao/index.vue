@@ -35,7 +35,7 @@
       </div>
     </div>
     <div
-      v-show="total == 10"
+      v-show="total >= 10"
       class="btn-more"
       @click="getList(true)">
       显示更多
@@ -73,6 +73,8 @@ export default {
       this.tab = index + 1
       this.type = item.id
       this.title = item.name + '_资讯头条'
+      this.current = 1
+      this.listData = []
       this.getList()
     },
     toDetail(id) {
