@@ -83,6 +83,14 @@ export function formatStamp(time) {
   let d = formatStr(date.getDate())
   return `${y}-${m}-${d}`
 }
+
+export function formatStamp2(date) {
+  let y = date.getFullYear()
+  let m = formatStr(date.getMonth() + 1)
+  let d = formatStr(date.getDate())
+  return `${y}-${m}-${d}`
+}
+
 export function formatStr(n) {
   return n > 9 ? n : (0 + '' + n)
 }
