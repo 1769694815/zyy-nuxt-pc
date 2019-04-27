@@ -6,7 +6,9 @@
         <li
           v-for="(item, index) in contentList"
           :key="index">
-          <img :src="item.middlePicture">
+          <img
+            :src="item.middlePicture"
+            @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId }}))">
           <div class="content">
             <div class="title">{{ item.title }}</div>
             <div class="info">
@@ -67,8 +69,11 @@ export default {
       this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
         params
       }).then(res => {
-        this.contentList = res.data
+        this.contentList = res.data.records
       })
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }
@@ -76,6 +81,7 @@ export default {
 <style lang="scss" scoped>
   .teacher {
     width: 850px;
+    min-height: 500px;
     padding-bottom: 30px;
     border: 1px solid rgba(228, 236, 243, 1);
     border-radius: 4px;
@@ -88,6 +94,7 @@ export default {
         width: 243px;
         height: 136px;
         border-radius: 6px;
+        cursor: pointer;
       }
       .content {
         padding: 0 10px;
