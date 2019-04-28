@@ -143,7 +143,7 @@ export default {
     min-height: 500px;
     border: 1px solid rgba(228, 236, 243, 1);
     border-radius: 4px;
-    box-sizing: border-box;
+    box-sizing: border-box; 
     .header {
       display: flex;
       justify-content: space-between;

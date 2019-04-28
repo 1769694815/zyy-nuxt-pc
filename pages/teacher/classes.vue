@@ -27,7 +27,7 @@
                 <span>{{ item.studentNum }}成员</span>
                 <span
                   class="rank"
-                  @click="toRank(item.classroomId)">进度排名></span>
+                  @click="toRank(item.classroomId)">班级管理></span>
               </div>
               <div class="foot">
                 班级有效期：{{ formatStamp(item.startTime) }}至 {{ formatStamp(item.endTime) }}

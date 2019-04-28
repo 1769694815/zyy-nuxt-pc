@@ -32,7 +32,7 @@ export default {
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
-    if(this.userInfo.roleName == 'zyy_lecturer') {
+    if(this.userInfo.roleName == 'zyy_headmaster') {
       this.text = '返回在教课程'
     } else {
       this.text = '返回我的班级'
@@ -45,7 +45,7 @@ export default {
       })
     },
     back() {
-      if(this.userInfo.roleName == 'zyy_lecturer') {
+      if(this.userInfo.roleName == 'zyy_headmaster') {
         this.$router.push({
           name: 'teacher-classes'
         })

@@ -187,6 +187,7 @@ export default {
 <style lang="scss" scoped>
   .right-content {
     flex: 1;
+    min-height: 500px;
     padding-bottom: 30px;
     border: 1px solid #E4ECF3;
     box-sizing: border-box;
