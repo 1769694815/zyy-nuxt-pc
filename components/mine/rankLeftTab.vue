@@ -1,14 +1,26 @@
 <template>
-  <ul>
-    <li @click="back">{{ text }}</li>
-    <li
-      v-for="(item, index) in list"
-      :key="index"
-      :class="tabIndex == (index + 1) ? 'active' : ''"
-      @click="change(item)">
-      {{ item.label }}
-    </li>
-  </ul>
+  <div>
+    <ul v-if="userInfo.roleName != 'zyy_headmaster'">
+      <li @click="back">{{ text }}</li>
+      <li
+        v-for="(item, index) in studentList"
+        :key="index"
+        :class="tabIndex == (index + 1) ? 'active' : ''"
+        @click="change(item)">
+        {{ item.label }}
+      </li>
+    </ul>
+    <ul v-else>
+      <li @click="back">{{ text }}</li>
+      <li
+        v-for="(item, index) in list"
+        :key="index"
+        :class="tabIndex == (index + 1) ? 'active' : ''"
+        @click="change(item)">
+        {{ item.label }}
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 import Cookies from 'js-cookie'
@@ -24,8 +36,13 @@ export default {
   data() {
     return {
       text: '',
-      list: [
+      userInfo: '',
+      studentList: [
         { label: '本班总计排名', name: 'rank-total' },
+        { label: '本班课程排名', name: 'rank-course' }
+      ],
+      list: [
+        { label: '本班学员管理', name: 'rank-manage' },
         { label: '本班课程排名', name: 'rank-course' }
       ]
     }

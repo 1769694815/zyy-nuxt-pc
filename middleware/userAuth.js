@@ -1,7 +1,8 @@
 import Cookies from 'js-cookie'
 
 export default function({ redirect }) {
-  if(!Cookies.getJSON('zyy_userInfo')) {
+  let info = Cookies.getJSON('zyy_userInfo')
+  if(!info) {
     return redirect('/login')
   }
 }

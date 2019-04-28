@@ -257,6 +257,13 @@ export default {
       this.$router.push({
         name: 'login'
       })
+      return
+    }
+    if(this.userInfo.roleName != 'zyy_headmaster') {
+      this.$router.push({
+        name: 'index'
+      })
+      return
     }
     this.getTableData()
   },
