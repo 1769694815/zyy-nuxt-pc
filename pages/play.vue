@@ -244,6 +244,7 @@ export default {
           this.info = res.data
           this.lessonId = res.data.lessonId
           for(let i in info.lessons) {
+            console.log('i', i)
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
               if(i > 0 && !flag) { // 不是点击切换
@@ -570,8 +571,10 @@ export default {
         this.lastShow = true
         return
       }
-      this.playIndex ++
-      let item = this.info.lessons[this.playIndex]
+      // this.playIndex ++
+      let index = parseInt(this.playIndex) + 1
+      let item = this.info.lessons[index]
+      console.log('item', item)
       if(item && item.free == 2) {
         this.maskShow = true
         return
@@ -580,11 +583,12 @@ export default {
       const TIME_COUNT = 6
       if(!this.timer) {
         this.time = TIME_COUNT
-        this.timer = setInterval(() => {
+        _this.timer = setInterval(() => {
           if(this.time > 0) {
             this.time --
           } else {
             this.nextShow = false
+            this.playIndex ++
             this.getInfo(item.lessonId, item.free, this.playIndex)
             clearInterval(this.timer)
             this.timer = null
