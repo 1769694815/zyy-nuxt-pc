@@ -565,8 +565,11 @@ export default {
     },
     endedHandle() {
       let _this = this
+      let flag = this.player.fullscreenService.getIsFullScreen()
+      if(flag) {
+        this.player.fullscreenService.cancelFullScreen()
+      }
       this.stopStudy()
-      _this.player.dispose()
       if(this.playIndex == this.info.lessons.length - 1) {
         this.lastShow = true
         return
@@ -587,6 +590,7 @@ export default {
           if(this.time > 0) {
             this.time --
           } else {
+            _this.player.dispose()
             this.nextShow = false
             this.playIndex ++
             this.getInfo(item.lessonId, item.free, this.playIndex)
@@ -935,5 +939,8 @@ export default {
   .prism-time-display .duration {
     color: #f5f5f5;
     font-weight: 500;
+  }
+  .prism-big-play-btn.pause {
+    display: none !important;
   }
 </style>
