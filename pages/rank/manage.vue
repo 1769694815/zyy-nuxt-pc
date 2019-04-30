@@ -1,74 +1,90 @@
 <template>
   <div>
     <left-tab :tab-index="tabIndex" />
-    <div class="right-content">
-      <div class="rank-content">
-        <ul>
-          <li
-            v-for="(item, index) in rankList"
-            :key="index">
-            <div 
-              :class="(size * (current - 1) + index + 1) > 3 ? 'none' : ''"
-              class="num" >{{ size * (current - 1) + index + 1 }}</div>
-            <div class="box">
-              <img
-                v-if="item.avatar"
-                :src="item.avatar">
-              <img
-                v-else
-                src="~/assets/images/xuesheng.png">
-              <div class="info">
-                <div class="name">
-                  <span>{{ item.userName }}</span>
-                  <span style="margin-left: 20px;font-size: 12px;color: #999">
-                    (真实姓名：{{ item.realName ? item.realName : '未填写' }})
-                  </span>
-                </div>
-                <el-progress
-                  :percentage="sliceStr(item.result)"
-                  :show-text="false"
-                  color="linear-gradient(-90deg,rgba(145,189,53,1),rgba(63,138,56,1))"
-                  class="progress" />
-              </div>
-              <div
-                v-if="item.result == '100%'"
-                class="text">已学完</div>
-              <div
-                v-else-if="item.result == '0%'"
-                class="text">未学习</div>
-              <div
-                v-else
-                class="text">已学{{ item.result }}</div>
-                <!-- <div class="like">
-                  <i class="iconfont icon-aixin" />
-                  <span>{{ item.watchNum }}</span>
-                </div> -->
-            </div>
-          </li>
-        </ul>
-      </div>
+    <div
+      id="manage"
+      class="right-content">
+      <el-form
+        :inline="true"
+        :model="form">
+        <el-form-item>
+          <el-input
+            v-model="input3"
+            placeholder="输入用户名/真实姓名/手机号查找学员">
+            <template slot="append">
+              <el-button
+                slot="append"
+                icon="el-icon-search" />
+            </template>
+          </el-input>
+        </el-form-item>
+        <el-button class="default">手动添加学员</el-button>
+        <el-button>批量导入学员</el-button>
+        <el-button>导出学员</el-button>
+      </el-form>
+      <el-table
+        :data="tableData"
+        :row-style="tableRowStyle"
+        :header-cell-style="tableHeader"
+        border>
+        <el-table-column
+          prop="id"
+          label="班级排名"
+          align="center"
+          width="80" />
+        <el-table-column
+          prop="userName"
+          label="学员用户名"
+          align="center" />
+        <el-table-column
+          prop="realName"
+          label="真实姓名"
+          align="center" />
+        <el-table-column
+          prop="phone"
+          label="手机号"
+          align="center" />
+        <el-table-column
+          :formatter="payFormatter"
+          prop="joinType"
+          label="加入方式"
+          align="center" />
+        <el-table-column
+          :formatter="typeFormatter"
+          prop="createTime"
+          label="加入时间"
+          align="center"
+          width="100" />
+        <el-table-column
+          prop="result"
+          label="学习总进度"
+          align="center"
+          show-overflow-tooltip />
+        <el-table-column
+          :formatter="dateFormatter"
+          prop="remark"
+          label="备注"
+          align="center"
+          width="100" />
+        <el-table-column
+          label="操作"
+          align="center" />
+      </el-table>
       <Pagination
         :size="size"
         :current="current"
         :total="total"
         @sizeChange="sizeChange"
         @currentChange="currentChange" />
-      <progress-modal
-        v-show="showModal"
-        :left-list="navList"
-        :user-id="userId"
-        @hide-modal="hideModal" />
     </div>
   </div>
 </template>
 <script>
-import ProgressModal from '~/components/modal/progressModal.vue'
 import LeftTab from '~/components/mine/rankLeftTab.vue'
 import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
 export default {
   components: {
-    ProgressModal,
     LeftTab,
     Pagination
   },
@@ -82,50 +98,49 @@ export default {
       showModal: false,
       classId: null,
       userId: null,
-      navList: [],
-      rankList: []
+      tableData: []
     }
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.classId = window.localStorage.getItem('zyy_classId')
     this.getList()
-    this.getCourseList()
+    // this.getCourseList()
   },
   methods: {
     switchTab(index){
       this.tab = index + 1;
     },
-    modalShow(item) {
-      this.userId = item.userId
-      this.showModal = true
-      document.body.style.overflow = 'hidden'
-    },
-    hideModal() {
-      this.showModal = false
-      document.body.style.overflow = ''
-    },
+    // modalShow(item) {
+    //   this.userId = item.userId
+    //   this.showModal = true
+    //   document.body.style.overflow = 'hidden'
+    // },
+    // hideModal() {
+    //   this.showModal = false
+    //   document.body.style.overflow = ''
+    // },
     // 获取课程列表
-    getCourseList() {
-      this.$axios('/yxs/api/web/user/getRecordByClassId', {
-        params: {
-          userToken: this.userInfo.userToken,
-          classId: this.classId
-        }
-      }).then(res => {
-        this.navList = res.data
-      })
-    },
+    // getCourseList() {
+    //   this.$axios('/yxs/api/web/user/getRecordByClassId', {
+    //     params: {
+    //       userToken: this.userInfo.userToken,
+    //       classId: this.classId
+    //     }
+    //   }).then(res => {
+    //     this.navList = res.data
+    //   })
+    // },
     getList() {
-      this.$axios('/yxs/api/web/user/classRanking', {
+      this.$axios('/yxs/api/web/user/memberList', {
         params: {
           size: this.size,
           current: this.current,
-          classId: this.classId,
+          classroomId: this.classId,
           userToken: this.userInfo.userToken
         }
       }).then(res => {
-        this.rankList = res.data.records
+        this.tableData = res.data.records
         this.total = res.data.total
       })
     },
@@ -142,6 +157,14 @@ export default {
       window.scrollTo(0, 0)
       this.current = val
       this.getList()
+    },
+    tableRowStyle({ row, rowIndex, column, columnIndex }){
+      if(columnIndex == 0) {
+        return 'color: #3f8a38'
+      }
+    },
+    tableHeader({ row, rowIndex }) {
+      return 'color: #333;font-weight: 700;'
     }
   }
 }
@@ -150,7 +173,7 @@ export default {
   .right-content {
     flex: 1;
     min-height: 500px;
-    padding-bottom: 30px;
+    padding: 20px;
     border: 1px solid #E4ECF3;
     box-sizing: border-box;
     .header {
@@ -270,5 +293,25 @@ export default {
         }
       }
     }
+  }
+</style>
+<style>
+  #manage .el-input {
+    width: 350px;
+  }
+  #manage .el-input-group__append .el-button.el-button--default {
+    width: 30px;
+    background: #3f8a38;
+    text-align: center;
+  }
+  #manage .el-input-group__append .el-button i {
+    /* width: 30px; */
+    margin-left: -8px;
+    font-size: 18px;
+    color: #fff;
+  }
+  #manage .default {
+    background: #3f8a38;
+    color: #fff;
   }
 </style>

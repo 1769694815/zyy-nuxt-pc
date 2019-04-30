@@ -3,7 +3,9 @@
     <v-header />
     <div class="container">
       <Navbar />
-      <div class="content">
+      <div
+        id="finance"
+        class="content">
         <left-tab :tab-index="tabIndex" />
         <div class="content-right">
           <el-form
@@ -374,13 +376,13 @@ export default {
   }
 </style>
 <style>
-  .el-table {
+  #finance .el-table {
     min-height: 500px;
   }
-  .el-input.el-input--suffix input {
+  #finance .el-input.el-input--suffix input {
     width: 130px !important;
   }
-  .el-input input {
+  #finance .el-input input {
     width: 160px;
   }
 </style>

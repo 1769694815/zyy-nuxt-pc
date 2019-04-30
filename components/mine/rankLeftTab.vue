@@ -77,7 +77,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   ul {
-    width: 270px;
+    width: 160px;
     padding: 20px 0;
     margin-right: 20px;
     height: 185px;

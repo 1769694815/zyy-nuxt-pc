@@ -23,11 +23,12 @@ export default {
 <style lang="scss" scoped>
   .container {
     display: flex;
-    width: 1140px;
+    width: 1200px;
     margin: 30px auto;
   }
   .container-left {
-    width: 270px;
+    flex: 0 0 160px;
+    width: 160px;
     padding: 20px 0;
     height: 110px;
     border: 1px solid #e4ecf3;
