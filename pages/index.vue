@@ -248,11 +248,11 @@
       </div>
       <div class="container-content">
         <div class="left-img">
-          <img src="~/assets/images/img_1.jpg">
-          <div class="text">
+          <img src="~/assets/images/img_1.png">
+          <!-- <div class="text">
             <div class="title">中医知识分享</div>
             <div class="sub-title">免费更新</div>
-          </div>
+          </div> -->
         </div>
         <div class="right-list">
           <div
@@ -285,11 +285,11 @@
       </div>
       <div class="container-content">
         <div class="left-img">
-          <img src="~/assets/images/img_2.jpg">
-          <div class="text">
+          <img src="~/assets/images/img_3.png">
+          <!-- <div class="text">
             <div class="title">考试课程辅导</div>
             <div class="sub-title">无死角</div>
-          </div>
+          </div> -->
         </div>
         <div class="right-list">
           <div
@@ -322,11 +322,11 @@
       </div>
       <div class="container-content">
         <div class="left-img">
-          <img src="~/assets/images/img_3.jpg">
-          <div class="text">
+          <img src="~/assets/images/img_2.png">
+          <!-- <div class="text">
             <div class="title">培训理论知识</div>
             <div class="sub-title">深入解析</div>
-          </div>
+          </div> -->
         </div>
         <div class="right-list">
           <div
