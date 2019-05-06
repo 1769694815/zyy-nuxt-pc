@@ -37,14 +37,14 @@ export default {
         },
         {
           name: '江西省卫生和计划生育委员会',
-          url: 'http://www.jxhfpc.gov.cn'
+          url: 'http://hc.jiangxi.gov.cn'
         },
         {
           name: '江西卫生计生人才人事网',
           url: 'http://www.gwrcw.com'
         },
         {
-          name: '南昌网站建设',
+          name: '学习平台建设',
           url: 'http://www.yunduancn.com'
         },
         {
