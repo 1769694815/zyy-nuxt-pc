@@ -112,6 +112,9 @@
         </div>
       </div>
       <div class="wrap-6">
+        <img
+          src="~/assets/images/d_logo2.png"
+          class="d-logo">
         <div class="content">
           <div class="c-left">
             <a href="https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8">
@@ -302,7 +305,12 @@ export default {
   .wrap-6 {
     position: relative;
     height: 500px;
-    background: url(../assets/images/demo.jpg) no-repeat center;
+    background: url(../assets/images/d_bj7.jpg) no-repeat center;
+    .d-logo {
+      position: absolute;
+      left: 900px;
+      top: 110px;
+    }
     .content {
       position: absolute;
       display: flex;
