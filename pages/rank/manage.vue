@@ -9,7 +9,7 @@
         :model="form">
         <el-form-item>
           <el-input
-            v-model="input3"
+            v-model="searchText"
             placeholder="输入用户名/真实姓名/手机号查找学员">
             <template slot="append">
               <el-button
@@ -35,7 +35,8 @@
         <el-table-column
           prop="userName"
           label="学员用户名"
-          align="center" />
+          align="center"
+          width="100" />
         <el-table-column
           prop="realName"
           label="真实姓名"
@@ -43,14 +44,15 @@
         <el-table-column
           prop="phone"
           label="手机号"
-          align="center" />
-        <el-table-column
-          :formatter="payFormatter"
-          prop="joinType"
-          label="加入方式"
-          align="center" />
+          align="center"
+          width="112" />
         <el-table-column
           :formatter="typeFormatter"
+          prop="joinType"
+          label="加入方式"
+          align="center"
+          width="140" />
+        <el-table-column
           prop="createTime"
           label="加入时间"
           align="center"
@@ -61,14 +63,30 @@
           align="center"
           show-overflow-tooltip />
         <el-table-column
-          :formatter="dateFormatter"
           prop="remark"
           label="备注"
           align="center"
           width="100" />
         <el-table-column
           label="操作"
-          align="center" />
+          align="center"
+          width="150">
+          <template slot-scope="scope">
+            <el-button
+              v-if="scope.row.locked == 1"
+              type="primary"
+              size="small"
+              @click="lockPower(scope.row)">冻结学员观看权限</el-button>
+            <el-button
+              v-else
+              type="primary"
+              size="small"
+              @click="lockPower(scope.row)">解除冻结观看</el-button>
+            <el-button
+              type="text"
+              size="small">添加备注</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <Pagination
         :size="size"
@@ -98,7 +116,9 @@ export default {
       showModal: false,
       classId: null,
       userId: null,
-      tableData: []
+      tableData: [],
+      form: {},
+      searchText: ''
     }
   },
   mounted() {
@@ -165,6 +185,74 @@ export default {
     },
     tableHeader({ row, rowIndex }) {
       return 'color: #333;font-weight: 700;'
+    },
+    // 日期格式化
+    dateFormatter(row, column) {
+      let date = new Date(row.payTime)
+      let y = date.getFullYear()
+      let m = date.getMonth() + 1
+      let d = date.getDate()
+      let hh = this.formatStr(date.getHours())
+      let mm = this.formatStr(date.getMinutes())
+      let ss = this.formatStr(date.getSeconds())
+      return ` ${y}-${m}-${d} ${hh}:${mm}:${ss}`
+    },
+    formatStr(time) {
+      return time > 9 ? time : '0'+time
+    },
+    typeFormatter(row, column) {
+      let str = row.joinType
+      let status = ''
+      switch(row.status) {
+        case '1':
+          status = '审核中'
+          break;
+        case '2':
+          status = '加入成功'
+          break;
+        case '3':
+          status = '未通过'
+          break;
+      }
+      let locked = row.locked == 2 ? '已冻结' : ''
+      return str + '\n' + status + '' + locked
+    },
+    lockPower(row) {
+      if(row.locked == 1) {
+        this.$confirm(`冻结学员${row.userName}的本班课程观看权限后，该学员账户将不再显示本班相关信息，确定冻结？`, '提示', {
+          confirmButtonText: '确定冻结',
+          cancelButtonText: '取消冻结',
+          type: 'warning'
+        }).then(() => {
+          this.$axios('/yxs/api/web/user/lockMember', {
+            params: {
+              userToken: this.userInfo.userToken,
+              lock: 2,
+              id: parseInt(row.id)
+            }
+          }).then(res => {
+            this.$message({
+              type: 'success',
+              message: '冻结成功!'
+            })
+            this.getList()
+          })
+        })
+      } else {
+        this.$axios('/yxs/api/web/user/lockMember', {
+          params: {
+            userToken: this.userInfo.userToken,
+            lock: 1,
+            id: parseInt(row.id)
+          }
+        }).then(res => {
+          this.$message({
+            type: 'success',
+            message: '解冻成功!'
+          })
+          this.getList()
+        })
+      }
     }
   }
 }

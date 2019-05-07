@@ -80,7 +80,7 @@ export default {
     toRank(id) {
       window.localStorage.setItem('zyy_classId', id)
       this.$router.push({
-        name: 'rank-course'
+        name: 'rank-manage'
       })
     },
     getList() {
