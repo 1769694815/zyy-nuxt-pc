@@ -20,10 +20,8 @@
         </div>
         <div class="play-content">
           <div
-            id="player-con"
-            class="prism-player"
-            @click.stop="changePlay"
-            @dblclick="changeScreen" />
+            id="J_prismPlayer"
+            class="prism-player" />
           <div
             v-show="maskShow"
             class="mask">
@@ -244,7 +242,6 @@ export default {
           this.info = res.data
           this.lessonId = res.data.lessonId
           for(let i in info.lessons) {
-            console.log('i', i)
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
               if(i > 0 && !flag) { // 不是点击切换
@@ -257,12 +254,11 @@ export default {
               break
             }
           }
-          console.log('lessonId', lessonId)
           if(_this.player) {
-            _this.player.dispose()
+            // _this.player.dispose()
           }
           _this.player = new Aliplayer({
-            "id": "player-con",
+            "id": "J_prismPlayer",
             "vid": info.videoId,
             "playauth": info.playAuth,
             "qualitySort": "asc",
@@ -277,8 +273,7 @@ export default {
             "playsinline": true,
             "preload": true,
             "controlBarVisibility": "hover",
-            "seeking": info.startDuration,
-            "useH5Prism": true,
+            "useFlashPrism": true,
             "encryptType": 1,
             "skinLayout": [
               {
@@ -288,28 +283,6 @@ export default {
                 "y": 80
               },
               {
-                "name": "H5Loading",
-                "align": "cc"
-              },
-              {
-                "name": "errorDisplay",
-                "align": "tlabs",
-                "x": 0,
-                "y": 0
-              },
-              {
-                "name": "infoDisplay"
-              },
-              {
-                "name": "tooltip",
-                "align": "blabs",
-                "x": 0,
-                "y": 56
-              },
-              {
-                "name": "thumbnail"
-              },
-              {
                 "name": "controlBar",
                 "align": "blabs",
                 "x": 0,
@@ -317,53 +290,90 @@ export default {
                 "children": [
                   {
                     "name": "progress",
-                    "align": "blabs",
+                    "align": "tlabs",
                     "x": 0,
-                    "y": 44
+                    "y": 0
                   },
                   {
                     "name": "playButton",
                     "align": "tl",
                     "x": 15,
-                    "y": 12
+                    "y": 26
+                  },
+                  {
+                    "name": "nextButton",
+                    "align": "tl",
+                    "x": 10,
+                    "y": 26
                   },
                   {
                     "name": "timeDisplay",
                     "align": "tl",
                     "x": 10,
-                    "y": 7
+                    "y": 24
                   },
                   {
                     "name": "fullScreenButton",
                     "align": "tr",
                     "x": 10,
-                    "y": 12
+                    "y": 25
                   },
                   {
-                    "name": "setting",
+                    "name": "streamButton",
                     "align": "tr",
-                    "x": 15,
-                    "y": 12
+                    "x": 10,
+                    "y": 23
                   },
                   {
                     "name": "volume",
                     "align": "tr",
-                    "x": 5,
-                    "y": 10
+                    "x": 10,
+                    "y": 25
+                  }
+                ]
+              },
+              {
+                "name": "fullControlBar",
+                "align": "tlabs",
+                "x": 0,
+                "y": 0,
+                "children": [
+                  {
+                    "name": "fullTitle",
+                    "align": "tl",
+                    "x": 25,
+                    "y": 6
+                  },
+                  {
+                    "name": "fullNormalScreenButton",
+                    "align": "tr",
+                    "x": 24,
+                    "y": 13
+                  },
+                  {
+                    "name": "fullTimeDisplay",
+                    "align": "tr",
+                    "x": 10,
+                    "y": 12
+                  },
+                  {
+                    "name": "fullZoom",
+                    "align": "cc"
                   }
                 ]
               }
             ]
           }, function (player) {
-            player._switchLevel = 0;
-            player.seek(info.startDuration)
-            console.log("播放器创建了。", player);
-            player.on('pause', _this.stopStudy)
-            player.on('ended', _this.endedHandle)
-            player.on('play', function() {
-              _this.playFlag = true
-            })
+            console.log("播放器创建了。");            
           });
+          _this.player.on('ready',function(e) {
+            _this.player.seek(info.startDuration)
+          })
+          _this.player.on('pause', _this.stopStudy)
+          _this.player.on('ended', _this.endedHandle)
+          _this.player.on('play', function() {
+            _this.playFlag = true
+          })
         })
       } else {
         this.$axios.post('/yxs/api/web/user/startLearnCourse', {
@@ -375,6 +385,10 @@ export default {
           let info = res.data
           this.info = res.data
           this.lessonId = res.data.lessonId
+          if(_this.player) {
+            // _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
+            // _this.player.dispose()
+          }
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
@@ -388,12 +402,8 @@ export default {
               break
             }
           }
-          if(_this.player) {
-            // _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth, info.startDuration);
-            _this.player.dispose()
-          }
           _this.player = new Aliplayer({
-            "id": "player-con",
+            "id": "J_prismPlayer",
             "vid": info.videoId,
             "playauth": info.playAuth,
             "qualitySort": "asc",
@@ -408,8 +418,7 @@ export default {
             "playsinline": true,
             "preload": true,
             "controlBarVisibility": "hover",
-            "seeking": info.startDuration,
-            "useH5Prism": true,
+            "useFlashPrism": true,
             "encryptType": 1,
             "skinLayout": [
               {
@@ -419,28 +428,6 @@ export default {
                 "y": 80
               },
               {
-                "name": "H5Loading",
-                "align": "cc"
-              },
-              {
-                "name": "errorDisplay",
-                "align": "tlabs",
-                "x": 0,
-                "y": 0
-              },
-              {
-                "name": "infoDisplay"
-              },
-              {
-                "name": "tooltip",
-                "align": "blabs",
-                "x": 0,
-                "y": 56
-              },
-              {
-                "name": "thumbnail"
-              },
-              {
                 "name": "controlBar",
                 "align": "blabs",
                 "x": 0,
@@ -448,53 +435,90 @@ export default {
                 "children": [
                   {
                     "name": "progress",
-                    "align": "blabs",
+                    "align": "tlabs",
                     "x": 0,
-                    "y": 44
+                    "y": 0
                   },
                   {
                     "name": "playButton",
                     "align": "tl",
                     "x": 15,
-                    "y": 12
+                    "y": 26
+                  },
+                  {
+                    "name": "nextButton",
+                    "align": "tl",
+                    "x": 10,
+                    "y": 26
                   },
                   {
                     "name": "timeDisplay",
                     "align": "tl",
                     "x": 10,
-                    "y": 7
+                    "y": 24
                   },
                   {
                     "name": "fullScreenButton",
                     "align": "tr",
                     "x": 10,
-                    "y": 12
+                    "y": 25
                   },
                   {
-                    "name": "setting",
+                    "name": "streamButton",
                     "align": "tr",
-                    "x": 15,
-                    "y": 12
+                    "x": 10,
+                    "y": 23
                   },
                   {
                     "name": "volume",
                     "align": "tr",
-                    "x": 5,
-                    "y": 10
+                    "x": 10,
+                    "y": 25
+                  }
+                ]
+              },
+              {
+                "name": "fullControlBar",
+                "align": "tlabs",
+                "x": 0,
+                "y": 0,
+                "children": [
+                  {
+                    "name": "fullTitle",
+                    "align": "tl",
+                    "x": 25,
+                    "y": 6
+                  },
+                  {
+                    "name": "fullNormalScreenButton",
+                    "align": "tr",
+                    "x": 24,
+                    "y": 13
+                  },
+                  {
+                    "name": "fullTimeDisplay",
+                    "align": "tr",
+                    "x": 10,
+                    "y": 12
+                  },
+                  {
+                    "name": "fullZoom",
+                    "align": "cc"
                   }
                 ]
               }
             ]
           }, function (player) {
-            player._switchLevel = 0;
-            player.seek(info.startDuration)
-            console.log("播放器创建了。", player);
-            player.on('pause', _this.stopStudy)
-            player.on('ended', _this.endedHandle)
-            player.on('play', function() {
-              _this.playFlag = true
-            })
+            console.log("播放器创建了。");
           });
+          _this.player.on('ready',function(e) {
+            _this.player.seek(info.startDuration)
+          })
+          _this.player.on('pause', _this.stopStudy)
+          _this.player.on('ended', _this.endedHandle)
+          _this.player.on('play', function() {
+            _this.playFlag = true
+          })
         })
       }
     },
@@ -564,11 +588,10 @@ export default {
       })
     },
     endedHandle() {
-      let _this = this
-      let flag = this.player.fullscreenService.getIsFullScreen()
-      if(flag) {
-        this.player.fullscreenService.cancelFullScreen()
-      }
+      // let flag = this.player.fullscreenService.getIsFullScreen()
+      // if(flag) {
+      //   this.player.fullscreenService.cancelFullScreen()
+      // }
       this.stopStudy()
       if(this.playIndex == this.info.lessons.length - 1) {
         this.lastShow = true
@@ -577,7 +600,6 @@ export default {
       // this.playIndex ++
       let index = parseInt(this.playIndex) + 1
       let item = this.info.lessons[index]
-      console.log('item', item)
       if(item && item.free == 2) {
         this.maskShow = true
         return
@@ -586,11 +608,11 @@ export default {
       const TIME_COUNT = 6
       if(!this.timer) {
         this.time = TIME_COUNT
-        _this.timer = setInterval(() => {
+        this.timer = setInterval(() => {
           if(this.time > 0) {
             this.time --
           } else {
-            _this.player.dispose()
+            // _this.player.dispose()
             this.nextShow = false
             this.playIndex ++
             this.getInfo(item.lessonId, item.free, this.playIndex)
@@ -619,18 +641,6 @@ export default {
     openNewPage(url) {
       window.open(url.href, '_blank')
     },
-    changePlay() {
-      this.playFlag ? this.player.pause() : this.player.play()
-      this.playFlag = !this.playFlag
-    },
-    changeScreen() {
-      let flag = this.player.fullscreenService.getIsFullScreen()
-      if(!flag) {
-        this.player.fullscreenService.requestFullScreen()
-      } else {
-        this.player.fullscreenService.cancelFullScreen()
-      }
-    },
     changeVideo(courseId) {
       let url = this.$router.resolve({
         name: 'play',
@@ -640,8 +650,6 @@ export default {
         }
       })
       window.open(url.href, '_blank')
-      // this.courseId = courseId
-      // this.getInfo()
     }
   }
 }
@@ -673,7 +681,7 @@ export default {
         position: relative;
         display: flex;
         margin-top: 30px;
-        #player-con {
+        #J_prismPlayer {
           width: 932px;
           cursor: pointer;
         }
