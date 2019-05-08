@@ -18,7 +18,9 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-button class="default">手动添加学员</el-button>
+        <el-button
+          class="default"
+          @click="stuModalShow = true">手动添加学员</el-button>
         <el-button>批量导入学员</el-button>
         <el-button>导出学员</el-button>
       </el-form>
@@ -84,7 +86,8 @@
               @click="lockPower(scope.row)">解除冻结观看</el-button>
             <el-button
               type="text"
-              size="small">添加备注</el-button>
+              size="small"
+              @click="showTipModal(scope.row)">添加备注</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -95,16 +98,30 @@
         @sizeChange="sizeChange"
         @currentChange="currentChange" />
     </div>
+    <tip-modal
+      v-show="tipModalShow"
+      :data-obj="tipData"
+      :user="userInfo"
+      @hide-modal="hideTipModal" />
+    <stu-modal
+      v-show="stuModalShow"
+      :data-obj="tipData"
+      :user="userInfo"
+      @hide-modal="hideStuModal" />
   </div>
 </template>
 <script>
 import LeftTab from '~/components/mine/rankLeftTab.vue'
 import Pagination from '~/components/pagination.vue'
+import TipModal from '~/components/modal/addTipModal.vue'
+import StuModal from '~/components/modal/addStuModal.vue'
 import Cookies from 'js-cookie'
 export default {
   components: {
     LeftTab,
-    Pagination
+    Pagination,
+    TipModal,
+    StuModal
   },
   data() {
     return {
@@ -116,9 +133,13 @@ export default {
       showModal: false,
       classId: null,
       userId: null,
+      userInfo: {},
       tableData: [],
       form: {},
-      searchText: ''
+      searchText: '',
+      tipModalShow: false,
+      stuModalShow: false,
+      tipData: {}
     }
   },
   mounted() {
@@ -131,26 +152,6 @@ export default {
     switchTab(index){
       this.tab = index + 1;
     },
-    // modalShow(item) {
-    //   this.userId = item.userId
-    //   this.showModal = true
-    //   document.body.style.overflow = 'hidden'
-    // },
-    // hideModal() {
-    //   this.showModal = false
-    //   document.body.style.overflow = ''
-    // },
-    // 获取课程列表
-    // getCourseList() {
-    //   this.$axios('/yxs/api/web/user/getRecordByClassId', {
-    //     params: {
-    //       userToken: this.userInfo.userToken,
-    //       classId: this.classId
-    //     }
-    //   }).then(res => {
-    //     this.navList = res.data
-    //   })
-    // },
     getList() {
       this.$axios('/yxs/api/web/user/memberList', {
         params: {
@@ -201,7 +202,7 @@ export default {
       return time > 9 ? time : '0'+time
     },
     typeFormatter(row, column) {
-      let str = row.joinType
+      let str = row.joinType || '加入方式'
       let status = ''
       switch(row.status) {
         case '1':
@@ -215,11 +216,12 @@ export default {
           break;
       }
       let locked = row.locked == 2 ? '已冻结' : ''
-      return str + '\n' + status + '' + locked
+      return str + '\n' + status + ' ' + locked
     },
+    // 冻结/解冻权限
     lockPower(row) {
       if(row.locked == 1) {
-        this.$confirm(`冻结学员${row.userName}的本班课程观看权限后，该学员账户将不再显示本班相关信息，确定冻结？`, '提示', {
+        this.$confirm(`冻结学员${row.userName}的本班课程观看权限后，该学员账户将不再显示本班相关信息，确定冻结？`, '温馨提示', {
           confirmButtonText: '确定冻结',
           cancelButtonText: '取消冻结',
           type: 'warning'
@@ -253,6 +255,18 @@ export default {
           this.getList()
         })
       }
+    },
+    showTipModal(row) {
+      this.tipData = row
+      this.tipModalShow = true
+    },
+    hideTipModal() {
+      this.tipModalShow = false
+      this.getList()
+    },
+    hideStuModal() {
+      this.stuModalShow = false
+      this.getList()
     }
   }
 }
@@ -401,5 +415,11 @@ export default {
   #manage .default {
     background: #3f8a38;
     color: #fff;
+  }
+  #manage .el-table .cell {
+    white-space: pre-line;
+  }
+  #manage .el-table--border::after, .el-table--group::after, .el-table::before {
+    background: transparent;
   }
 </style>
