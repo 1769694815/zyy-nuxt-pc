@@ -5,7 +5,7 @@
     class="mask-container">
     <div class="m-container">
       <div class="m-header">
-        <div class="m-title">添加学员</div>
+        <div class="m-title">批量导入学员</div>
         <div
           class="m-close"
           @click="handleClose">
@@ -16,14 +16,18 @@
         <div class="info">
           <el-form
             :model="form"
-            :rules="rules"
             label-width="100px">
-            <el-form-item
-              label="手机号:"
-              prop="phone">
-              <el-input
-                v-model="form.phone"
-                placeholder="必填，请输入11位手机号码" />
+            <el-form-item label="选择文件:">
+              <el-upload
+                :on-change="handleChange"
+                :file-list="fileList"
+                class="upload-demo"
+                action="https://jsonplaceholder.typicode.com/posts/" >
+                <el-button
+                  size="small"
+                  type="primary">点击上传</el-button>
+              </el-upload>
+              <span class="down">下载模板示例</span>
             </el-form-item>
             <el-form-item label="支付金额:">
               <el-input
@@ -37,12 +41,9 @@
                 maxlength="10" />
             </el-form-item>
           </el-form>
-          <div class="tip">
-            <span>注释：</span>添加后，要超级管理员审核通过才能正式加入本班哦~
-          </div>
           <div
             class="button"
-            @click="confirm">确定添加</div>
+            @click="confirm">添加到本班</div>
         </div>
       </div>
     </div>
@@ -65,18 +66,6 @@ export default {
     }
   },
   data() {
-    const validateMobile = (rule, value, callback) => {
-      if (value) {
-        const reg = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
-        if (reg.test(value) === false) {
-          callback(new Error("请输入正确的11位手机号码"));
-        } else {
-          callback();
-        }
-      } else {
-        callback(new Error("请输入手机号码"));
-      }
-    };
     return {
       showModal: false,
       info: {},
@@ -86,11 +75,6 @@ export default {
         phone: '',
         price: '',
         text: ''
-      },
-      rules: {
-        phone: [
-          { required: true, trigger: 'blur', validator: validateMobile }
-        ]
       }
     }
   },
@@ -149,12 +133,12 @@ export default {
         padding: 0 20px;
         .info {
           margin-top: 50px;
-          .tip {
-            margin: 20px 0 10px 60px;
-            color: #999;
-            span {
-              color: #d21500;
-            }
+          .down {
+            color: #3F8A38;
+            cursor: pointer;
+          }
+          .upload-demo {
+            display: flex;
           }
         }
         .button {

@@ -21,7 +21,7 @@
         <el-button
           class="default"
           @click="stuModalShow = true">手动添加学员</el-button>
-        <el-button>批量导入学员</el-button>
+        <el-button @click="lotModalShow = true">批量导入学员</el-button>
         <el-button>导出学员</el-button>
       </el-form>
       <el-table
@@ -108,6 +108,11 @@
       :data-obj="tipData"
       :user="userInfo"
       @hide-modal="hideStuModal" />
+    <lot-modal
+      v-show="lotModalShow"
+      :data-obj="tipData"
+      :user="userInfo"
+      @hide-modal="hideLotModal" />
   </div>
 </template>
 <script>
@@ -115,13 +120,15 @@ import LeftTab from '~/components/mine/rankLeftTab.vue'
 import Pagination from '~/components/pagination.vue'
 import TipModal from '~/components/modal/addTipModal.vue'
 import StuModal from '~/components/modal/addStuModal.vue'
+import LotModal from '~/components/modal/lotStuModal.vue'
 import Cookies from 'js-cookie'
 export default {
   components: {
     LeftTab,
     Pagination,
     TipModal,
-    StuModal
+    StuModal,
+    LotModal
   },
   data() {
     return {
@@ -139,6 +146,7 @@ export default {
       searchText: '',
       tipModalShow: false,
       stuModalShow: false,
+      lotModalShow: false,
       tipData: {}
     }
   },
@@ -266,6 +274,10 @@ export default {
     },
     hideStuModal() {
       this.stuModalShow = false
+      this.getList()
+    },
+    hideLotModal() {
+      this.lotModalShow = false
       this.getList()
     }
   }
