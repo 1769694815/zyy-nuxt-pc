@@ -15,6 +15,7 @@
       <div class="m-content">
         <div class="info">
           <el-form
+            ref="form"
             :model="form"
             :rules="rules"
             label-width="100px">
@@ -27,12 +28,12 @@
             </el-form-item>
             <el-form-item label="支付金额:">
               <el-input
-                v-model="form.price"
+                v-model="form.accout"
                 placeholder="如未填写，则默认本班当前设定价格￥5000" />元 
             </el-form-item>
             <el-form-item label="备注:">
               <el-input
-                v-model="text"
+                v-model="form.remark"
                 placeholder="可备注学员加入本班的来源，仅限10个文字"
                 maxlength="10" />
             </el-form-item>
@@ -51,12 +52,6 @@
 <script>
 export default {
   props: {
-    dataObj: {
-      type: Object,
-      default: function() {
-        return {}
-      }
-    },
     user: {
       type: Object,
       default: function() {
@@ -79,13 +74,13 @@ export default {
     };
     return {
       showModal: false,
+      classId: '',
       info: {},
-      text: '',
       userInfo: {},
       form: {
         phone: '',
-        price: '',
-        text: ''
+        accout: '',
+        remark: ''
       },
       rules: {
         phone: [
@@ -95,21 +90,36 @@ export default {
     }
   },
   watch: {
-    dataObj(newVal, oldVal) {
-      this.info = newVal
-      this.text = newVal.remark
-    },
     user(newVal, oldVal) {
       this.userInfo = newVal
     }
   },
+  mounted() {
+    this.classId = window.localStorage.getItem('zyy_classId')
+  },
   methods: {
     handleClose() {
+      this.$refs.form.resetFields()
       this.showModal = false
       this.$emit('hide-modal')
     },
     confirm() {
-      
+      this.$refs.form.validate((valid) => {
+        if(valid) {
+          let params = {
+            userToken: this.userInfo.userToken,
+            classroomId: this.classId
+          }
+          Object.assign(params, this.form)
+          this.$axios.post('/yxs/api/web/user/addMember', params).then(res => {
+            this.$message({
+              type: 'success',
+              message: '添加成功'
+            })
+            this.$emit('hide-modal')
+          })
+        }
+      })
     }
   }
 }

@@ -36,7 +36,7 @@
             </el-form-item>
             <el-form-item label="备注:">
               <el-input
-                v-model="text"
+                v-model="form.remark"
                 placeholder="可备注学员加入本班的来源，仅限10个文字"
                 maxlength="10" />
             </el-form-item>
@@ -72,16 +72,14 @@ export default {
       text: '',
       userInfo: {},
       form: {
-        phone: '',
         price: '',
-        text: ''
+        remark: ''
       }
     }
   },
   watch: {
     dataObj(newVal, oldVal) {
       this.info = newVal
-      this.text = newVal.remark
     },
     user(newVal, oldVal) {
       this.userInfo = newVal
