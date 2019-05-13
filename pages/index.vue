@@ -401,7 +401,7 @@
         src="~/assets/images/foot-img.jpg"
         @click="toNewPage('service')">
     </div>
-    <friend-link />
+    <friend-link :link-list="friendLinkList" />
     <transition name="fade">
       <div
         v-show="fixedShow"
@@ -487,7 +487,8 @@ export default {
       stickyList: [],
       healthSubList: [],
       examSubList: [],
-      theorySubList: []
+      theorySubList: [],
+      friendLinkList: []
     }
   },
   head() {
@@ -533,6 +534,7 @@ export default {
         this.getCategoryByCode('career')
         this.getCategoryByCode('education')
         this.getStickyList()
+        this.getFriendList()
         if(this.userInfo) {
           this.getCourseNum()
           this.getClassNum()
@@ -554,6 +556,7 @@ export default {
       this.getCategoryByCode('career')
       this.getCategoryByCode('education')
       this.getStickyList()
+      this.getFriendList()
       if(this.userInfo) {
         this.getCourseNum()
         this.getClassNum()
@@ -575,6 +578,12 @@ export default {
         }
       })
       window.open(url.href, '_blank')
+    },
+    // 获取友链
+    getFriendList() {
+      this.$axios('/yxs/api/web/getFriendsName').then(res => {
+        this.friendLinkList = res.data
+      })
     },
     // 获取轮播
     getCarousel() {

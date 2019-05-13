@@ -4,7 +4,7 @@
       <div class="title">友情链接</div>
       <ul class="schools">
         <li
-          v-for="(item, index) in schools"
+          v-for="(item, index) in linkList"
           :key="index"
           class="school"
           @click="toLink(item.url)">
@@ -16,6 +16,14 @@
 </template>
 <script>
 export default {
+  props: {
+    linkList: {
+      type: Array,
+      default: function() {
+        return []
+      }
+    }
+  },
   data() {
     return {
       schools: [
@@ -54,9 +62,17 @@ export default {
       ]
     }
   },
+  mounted() {
+    // this.getList()
+  },
   methods: {
     toLink(url) {
       window.open(url)
+    },
+    getFriendList() {
+      this.$axios('/yxs/api/web/getFriendsName').then(res => {
+        console.log(res)
+      })
     }
   }
 }
