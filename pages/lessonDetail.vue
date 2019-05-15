@@ -122,14 +122,15 @@
               </ul>
             </div>
             <div class="lesson-intronduce">
+              <!-- 课程介绍 -->
               <div v-show="tab == 1">
-                <!-- <h1>课程介绍</h1> -->
                 <div
                   v-if="detailData.about"
                   class="text"
                   v-html="detailData.about" />
                 <div v-else>暂无介绍</div>
               </div>
+              <!-- 课程视频 -->
               <ul
                 v-show="tab == 2"
                 class="lesson-list">
@@ -148,8 +149,24 @@
                   </div>
                 </li>
               </ul>
+              <!-- 模拟习题 -->
+              <div v-show="tab == 3">
+                <div
+                  class="btn-item"
+                  @click="openPractice">
+                  <i class="iconfont iconlianxiti" />
+                  <span>练习题</span>
+                </div>
+                <div
+                  class="btn-item"
+                  @click="openExam">
+                  <i class="iconfont iconkaoshi" />
+                  <span>模拟考试</span>
+                </div>
+              </div>
+              <!-- 评论 -->
               <div
-                v-show="tab == 3"
+                v-show="tab == 4"
                 class="rating">
                 <!-- <div class="title">我要评论</div> -->
                 <div class="mine">
@@ -293,7 +310,8 @@ export default {
       navList:[
         { label: "课程介绍", value: 1 },
         { label: "课程视频", value: 2 },
-        { label: "评论", value: 3 }
+        { label: "模拟习题", value: 3 },
+        { label: "评论", value: 4 }
         // { label: "笔记", value: 4 }
       ]
     }
@@ -453,7 +471,27 @@ export default {
     },
     openNewPage(url) {
       window.open(url.href, '_blank')
-    }
+    },
+    openPractice() {
+      let url = this.$router.resolve({
+        name: 'practice',
+        query: {
+          title: this.detailData.title,
+          courseId: this.detailData.id
+        }
+      })
+      window.open(url.href, '_blank')
+    },
+    openExam() {
+      let url = this.$router.resolve({
+        name: 'exam',
+        query: {
+          title: this.detailData.title,
+          courseId: this.detailData.id
+        }
+      })
+      window.open(url.href, '_blank')
+    } 
   }
 };
 </script>
@@ -644,13 +682,13 @@ export default {
             font-weight: 700;
           }
           .text{
-            text-indent: 32px;
-            color: #666666;
-            font-size: 16px;
-            line-height: 36px;
-            p{
-              text-indent: 4px;
-            }
+            // text-indent: 32px;
+            // color: #666666;
+            // font-size: 16px;
+            // line-height: 36px;
+            // p{
+            //   text-indent: 4px;
+            // }
           }
           .lesson-list {
             padding-bottom: 20px;
@@ -696,6 +734,22 @@ export default {
                   color: #999;
                 }
               }
+            }
+          }
+          .btn-item {
+            width: 200px;
+            height: 40px;
+            margin: 20px 0;
+            line-height: 40px;
+            border: 1px solid #3F8A38;
+            font-size: 16px;
+            color: #3F8A38;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            &:hover {
+              background: #3F8A38;
+              color: #fff;
             }
           }
           .rating {
