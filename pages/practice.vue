@@ -17,12 +17,13 @@
                 justify="space-between">
                 <el-form-item label="搜索题目:">
                   <el-input 
-                    v-model="formInline.question"
-                    placeholder="输入关键词搜索题目" />
+                    v-model="formInline.stem"
+                    placeholder="输入关键词搜索题目"
+                    clearable />
                 </el-form-item>
                 <el-form-item label="习题范围:">
                   <el-select
-                    v-model="formInline.range"
+                    v-model="formInline.lessonId"
                     placeholder="选择题目范围">
                     <el-option
                       v-for="item in lessonList"
@@ -36,17 +37,18 @@
                 type="flex"
                 justify="space-between">
                 <el-form-item label="难易程度:">
-                  <el-radio-group v-model="formInline.level">
-                    <el-radio label="1">全部</el-radio>
-                    <el-radio label="2">简单</el-radio>
-                    <el-radio label="3">一般</el-radio>
-                    <el-radio label="4">较难</el-radio>
+                  <el-radio-group v-model="formInline.difficulty">
+                    <el-radio label="">全部</el-radio>
+                    <el-radio label="1">简单</el-radio>
+                    <el-radio label="2">一般</el-radio>
+                    <el-radio label="3">较难</el-radio>
                   </el-radio-group>
                 </el-form-item>
                 <el-button
                   type="primary"
                   icon="el-icon-search"
-                  style="float:right;height:40px;">搜索</el-button>
+                  style="float:right;height:40px;"
+                  @click="getList">搜索</el-button>
               </el-row>
             </el-form>
             <ul class="type">
@@ -239,9 +241,14 @@
             </div>
           </div>
         </div>
-        <!-- <div class="content-right">
-          模拟试卷
-        </div> -->
+        <div class="content-right">
+          <div
+            class="button"
+            @click="clear">清空重做</div>
+          <div
+            class="button primary"
+            @click="toExam">生成模拟试卷</div>
+        </div>
       </div>
     </div>
   </div>
@@ -258,8 +265,9 @@ export default {
       courseId: this.$route.query.courseId || '',
       type: 1,
       formInline: {
-        question: '',
-        range: ''
+        stem: '',
+        lessonId: '',
+        difficulty: ''
       },
       form: {
         item1: [],
@@ -284,7 +292,10 @@ export default {
       this.$axios('/yxs/api/web/question/questionCourseList', {
         params: {
           courseId: 59,
-          type: this.type
+          type: this.type,
+          stem: this.formInline.stem,
+          difficulty: this.formInline.difficulty,
+          lessonId: this.formInline.lessonId
         }
       }).then(res => {
         console.log(res)
@@ -316,6 +327,34 @@ export default {
       } else {
         nextEl.style.display = 'block'
       }
+    },
+    clear() {
+      this.$confirm('确定清空重做吗？', '温馨提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.form.item1 = []
+      }).catch(() => {
+
+      });
+    },
+    toExam() {
+      this.$confirm('将为您随机抽取50道题生成模拟试卷，题库不足将全部题目生成试卷，答题限时120分钟', '温馨提示', {
+        confirmButtonText: '继续生成',
+        cancelButtonText: '稍后再说',
+        type: 'warning'
+      }).then(() => {
+        this.$router.push({
+          name: 'exam',
+          query: {
+            title: this.title,
+            courseId: this.courseId
+          }
+        })
+      }).catch(() => {
+               
+      });
     }
   }
 }
@@ -338,7 +377,7 @@ export default {
       margin: 0 auto;
     }
     .content-left {
-      width: 100%;
+      width: 860px;
       .top {
         height: 290px;
         padding-top: 30px;
@@ -417,19 +456,43 @@ export default {
       }
     }
     .content-right {
+      position: sticky;
+      top: 0;
       width: 260px;
+      height: 300px;
       margin-left: 20px;
       background: #fff;
+      .button {
+        width: 230px;
+        height: 40px;
+        margin: 30px auto;
+        line-height: 40px;
+        color: #fff;
+        background: #3f8a38;
+        border-radius: 4px;
+        text-align: center;
+        cursor: pointer;
+        box-sizing: border-box;
+        &.primary {
+          background: #fff;
+          color: #3f8a38;
+          border: 1px solid #3f8a38;
+        }
+      }
     }
   }
 </style>
 
 <style>
   .top .el-form {
-    width: 1070px;
+    width: 780px;
     margin: 40px auto 10px;
   }
   .top .el-input {
     width: 300px;
+  }
+  .top .el-button.el-button--primary {
+    background: #3f8a38;
+    border-color: #3f8a38;
   }
 </style>

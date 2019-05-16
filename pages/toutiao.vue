@@ -18,7 +18,7 @@
       </div>
       <div class="foot-img">
         <img
-          src="~/assets/images/foot-img.jpg"
+          src="~/assets/images/foot-img.png"
           @click="toService">
       </div>
     </div>

@@ -273,7 +273,7 @@
         <div
           class="foot-img"
           @click="openNewPage($router.resolve({ name: 'service'}))">
-          <img src="../assets/images/foot-img.jpg">
+          <img src="../assets/images/foot-img.png">
         </div>
       </div>
     </div>
@@ -303,7 +303,7 @@ export default {
       id: this.$route.query.id,
       classId: this.$route.query.classId || '',
       userInfo: '',
-      detailData: '',
+      detailData: {},
       showModal: false,
       commentList: [],
       text: '',
@@ -692,7 +692,7 @@ export default {
             // text-indent: 32px;
             // color: #666666;
             // font-size: 16px;
-            // line-height: 36px;
+            line-height: 30px;
             // p{
             //   text-indent: 4px;
             // }
