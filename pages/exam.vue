@@ -195,7 +195,7 @@
                   <th>不定性选择（10题）</th>
                   <th>判断题（10题）</th>
                   <th>填空题（10题）</th>
-                  <th>总得分（120）</th>
+                  <th>总得分（100）</th>
                 </thead>
                 <tr style="color: red">
                   <td>得分</td>
@@ -206,7 +206,10 @@
                   <td>0分</td>
                   <td
                     rowspan="4"
-                    style="vertical-align:middle;">{{ result.sunScore || 0 }}分</td>
+                    style="vertical-align:middle;">
+                    {{ result.sunScore || 0 }}分
+                    <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime / 60) }}分钟</div>
+                  </td>
                 </tr>
                 <tr>
                   <td>答对</td>
@@ -377,7 +380,7 @@ export default {
     getList() {
       this.$axios('/yxs/api/web/user/createSimulatedVolume', {
         params: {
-          courseId: 59,
+          courseId: this.courseId,
           userToken: this.userInfo.userToken
         }
       }).then(res => {
@@ -388,7 +391,7 @@ export default {
     getLessonList() {
       this.$axios('/yxs/course/getLessonList', {
         params: {
-          courseId: '59'
+          courseId: this.courseId
         }
       }).then(res => {
         this.lessonList = res.data
@@ -420,7 +423,7 @@ export default {
         }
         lists[i] = { "questionId": ele.id, "answer": this.form.item1[i] }
       })
-      this.$confirm(`亲爱的学员，您本次答题耗时50分钟，漏答${ sum }题`, '温馨提示', {
+      this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((7200 - this.leftTime) / 60) }分钟，漏答${ sum }题`, '温馨提示', {
         confirmButtonText: '我要交卷',
         cancelButtonText: '再检查一遍',
         type: 'warning'
@@ -428,7 +431,7 @@ export default {
         this.$axios.post('/yxs/api/web/user/submitSimulatedVolume', {
           userToken: this.userInfo.userToken,
           paperId: this.paperId,
-          answerTime: 600,
+          answerTime: 7200 - this.leftTime,
           lists
         }).then(res => {
           this.$message({
@@ -441,10 +444,7 @@ export default {
           this.result = res.data
         })
       }).catch(() => {
-        // this.$message({
-        //   type: 'info',
-        //   message: '已取消删除'
-        // });
+
       });
     },
     toPractice() {

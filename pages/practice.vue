@@ -291,7 +291,7 @@ export default {
     getList() {
       this.$axios('/yxs/api/web/question/questionCourseList', {
         params: {
-          courseId: 59,
+          courseId: this.courseId,
           type: this.type,
           stem: this.formInline.stem,
           difficulty: this.formInline.difficulty,
@@ -305,7 +305,7 @@ export default {
     getLessonList() {
       this.$axios('/yxs/course/getLessonList', {
         params: {
-          courseId: 59
+          courseId: this.courseId
         }
       }).then(res => {
         this.lessonList = res.data
