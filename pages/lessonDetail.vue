@@ -25,7 +25,14 @@
                   @click="cancelCollect">收藏
                   <i class="iconfont iconaixin active" />
                 </span>
-                <span>分享<i class="iconfont iconfenxiang" /></span>
+                <span class="fenxiang">分享<i class="iconfont iconfenxiang" />
+                  <span
+                    class="social-share"
+                    data-sites="weibo,qzone,qq,wechat"
+                    data-title="中医药在线"
+                    data-wechat-qrcode-title="请打开微信扫一扫"
+                    data-wechat-qrcode-helper="<p>打开微信扫一下</p><p>二维码便可将本文分享至朋友圈。</p>" />
+                </span>
               </div>
             </div>
             <div class="learn-mes">
@@ -329,6 +336,14 @@ export default {
     }
   },
   mounted() {
+    // socialShare('.social-share', {
+    //   title: '',
+    //   description: '',
+    //   sites: ['qzone', 'qq', 'weibo', 'wechat'],
+    //   disabled: ['google', 'facebook', 'twitter', 'douban'],
+    //   wechatQrcodeTitle: "微信扫一扫：分享", // 微信二维码提示文字
+    //   wechatQrcodeHelper: '<p>微信里点扫一扫</p><p>二维码便可将本文分享至朋友圈。</p>'
+    // });
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     this.getDetail()
     this.getComment()
@@ -546,6 +561,7 @@ export default {
               display: inline-block;
               vertical-align: middle;
               padding-left: 23px;
+              height: 60px;
               cursor: pointer;
               i {
                 display: inline-block;
@@ -558,10 +574,22 @@ export default {
                 color: #FF4400;
               }
             }
+            .fenxiang {
+              &:hover .social-share{
+                display: block;
+              }
+            }
+            .social-share {
+              display: none;
+              position: absolute;
+              right: -60px;
+              top: 20px;
+            }
           }
         }
         .learn-mes{
           display: flex;
+          position: relative;
           font-size: 14px;
           color:#999999;
           margin-top: 13px;
@@ -997,4 +1025,11 @@ export default {
     }
   }
 }
+</style>
+<style>
+  .social-share .social-share-icon {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
 </style>
