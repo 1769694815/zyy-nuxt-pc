@@ -50,7 +50,7 @@ export default {
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     if(this.userInfo.roleName == 'zyy_headmaster') {
-      this.text = '返回在教课程'
+      this.text = '返回在教班级'
     } else {
       this.text = '返回我的班级'
     }

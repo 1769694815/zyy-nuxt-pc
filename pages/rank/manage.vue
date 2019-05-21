@@ -10,19 +10,24 @@
         <el-form-item>
           <el-input
             v-model="searchText"
-            placeholder="输入用户名/真实姓名/手机号查找学员">
+            placeholder="输入用户名/真实姓名/手机号查找学员"
+            clearable>
             <template slot="append">
               <el-button
                 slot="append"
-                icon="el-icon-search" />
+                icon="el-icon-search"
+                @click="getList" />
             </template>
           </el-input>
         </el-form-item>
+        <el-button style="float: right;margin-left: 10px">导出学员</el-button>
+        <el-button
+          style="float: right"
+          @click="lotModalShow = true">批量导入学员</el-button>
         <el-button
           class="default"
+          style="float: right"
           @click="stuModalShow = true">手动添加学员</el-button>
-        <el-button @click="lotModalShow = true">批量导入学员</el-button>
-        <el-button>导出学员</el-button>
       </el-form>
       <el-table
         :data="tableData"
@@ -166,7 +171,8 @@ export default {
           size: this.size,
           current: this.current,
           classroomId: this.classId,
-          userToken: this.userInfo.userToken
+          userToken: this.userInfo.userToken,
+          userName: this.searchText
         }
       }).then(res => {
         this.tableData = res.data.records
