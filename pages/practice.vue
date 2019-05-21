@@ -242,12 +242,14 @@
           </div>
         </div>
         <div class="content-right">
-          <div
-            class="button"
-            @click="clear">清空重做</div>
-          <div
-            class="button primary"
-            @click="toExam">生成模拟试卷</div>
+          <div class="btns">
+            <div
+              class="button"
+              @click="clear">清空重做</div>
+            <div
+              class="button primary"
+              @click="toExam">生成模拟试卷</div>
+          </div>
         </div>
       </div>
     </div>
@@ -393,19 +395,17 @@ export default {
           border-top: 1px solid #e6e6e6;
           li {
             display: inline-block;
-            margin-left: 20px;
+            margin-left: 30px;
             height: 32px;
-            padding: 0 12px;
             line-height: 32px;
             font-size: 16px;
-            border-radius: 16px;
             cursor: pointer;
             &:first-child {
               margin-left: 0;
             }
             &:hover, &.active {
-              background: #3f8a38;
-              color: #fff;
+              // background: #3f8a38;
+              border-bottom: 2px solid #3f8a38;
             }
           }
         }
@@ -462,6 +462,9 @@ export default {
       height: 300px;
       margin-left: 20px;
       background: #fff;
+      .btns {
+        margin-top: 90px;
+      }
       .button {
         width: 230px;
         height: 40px;

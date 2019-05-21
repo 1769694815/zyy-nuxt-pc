@@ -575,7 +575,7 @@ export default {
               }
             }
             .fenxiang {
-              &:hover .social-share{
+              &:hover .social-share {
                 display: block;
               }
             }
