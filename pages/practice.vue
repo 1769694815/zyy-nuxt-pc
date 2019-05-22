@@ -81,8 +81,8 @@
                     <el-radio
                       v-for="(option, index) in item.optionContent"
                       :key="index"
-                      :label="letterArray[index]"
-                      style="display: block;margin-left: 0; line-height:30px;">{{ letterArray[index] }}: {{ option }}</el-radio>
+                      :label="option.name"
+                      style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}</el-radio>
                   </el-radio-group>
                   <div class="analyse">
                     <div
@@ -224,8 +224,11 @@
                     {{ index + 1 }}、{{ item.stem }}
                   </p>
                   <el-input
+                    v-for="(option, idx) in item.answer"
                     v-model="form.item5[index]"
-                    placeholder="请输入你的答案" />
+                    :key="idx"
+                    :placeholder="'请输入第'+(idx+1)+'个空的答案'"
+                    style="margin-top: 10px" />
                   <div class="analyse">
                     <div
                       class="text"
@@ -233,7 +236,13 @@
                       解析<i class="iconfont iconarrow-right"/>
                     </div>
                     <div class="desc">
-                      {{ item.analysis }}
+                      答案：
+                      <div
+                        v-for="(option, idx) in item.answer"
+                        :key="idx">
+                        <span>第{{ idx + 1 }}个空：{{ option.join(',') }}</span>
+                      </div>
+                      <div>解析：{{ item.analysis }}</div>
                     </div>
                   </div>
                 </li>
@@ -272,11 +281,11 @@ export default {
         difficulty: ''
       },
       form: {
-        item1: [],
-        item2: [[]],
-        item3: [],
-        item4: [],
-        item5: []
+        item1: [],  // 单选题
+        item2: [[]], // 多选题
+        item3: [], // 不定项选择题
+        item4: [], // 判断题
+        item5: []  // 填空题
       },
       list: [],
       lessonList: [],

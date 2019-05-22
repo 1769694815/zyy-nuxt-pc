@@ -22,6 +22,7 @@
     "js-cookie": "^2.2.0",
     "nuxt": "^2.0.0",
     "qs": "^6.6.0",
+    "social-share.js": "^1.0.16",
     "vue-lazyload": "^1.2.6",
     "vue-video-player": "^5.0.2"
   },
