@@ -119,7 +119,7 @@
                       :key="index"
                       :label="option"
                       style="display: block;margin-left: 0; line-height:30px;">
-                      {{ letterArray[index] }}: {{ option }}</el-checkbox>
+                      {{ option.name }}: {{ option.content }}</el-checkbox>
                   </el-checkbox-group>
                   <div class="analyse">
                     <div
@@ -240,7 +240,7 @@
                       <div
                         v-for="(option, idx) in item.answer"
                         :key="idx">
-                        <span>第{{ idx + 1 }}个空：{{ option.join(',') }}</span>
+                        <span>第{{ idx + 1 }}个空：{{ option }}</span>
                       </div>
                       <div>解析：{{ item.analysis }}</div>
                     </div>
@@ -282,7 +282,7 @@ export default {
       },
       form: {
         item1: [],  // 单选题
-        item2: [[]], // 多选题
+        item2: [], // 多选题
         item3: [], // 不定项选择题
         item4: [], // 判断题
         item5: []  // 填空题
@@ -311,6 +311,11 @@ export default {
       }).then(res => {
         console.log(res)
         this.list = res.data.newList
+        if(this.type == 2) {
+          for(let i in this.list) {
+            this.form.item2[i] = []
+          }
+        }
       })
     },
     getLessonList() {
