@@ -19,4 +19,4 @@ export default function({ $axios, req, res }) {
   if(token) {
     $axios.setHeader('Authorization', 'Bearer' + token)
   }
-}8
+}
