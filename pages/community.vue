@@ -12,9 +12,11 @@
               <el-carousel-item
                 v-for="(item, index) in carousels"
                 :key="index">
-                <img
-                  :src="item.url"
-                  @click="openNewPage($router.resolve({ name: 'toutiao-detail', query: { id: item.id } }))">
+                <nuxt-link
+                  :to="{ name: 'toutiao-id', params: { id: item.id }}"
+                  target="_blank">
+                  <img :src="item.url">
+                </nuxt-link>
               </el-carousel-item>
             </el-carousel>
           </div>
@@ -44,17 +46,19 @@
               <li
                 v-for="(item, index) in channels"
                 :key="index">
-                <div
-                  class="info"
-                  @click="openNewPage($router.resolve({ name: 'toutiao-detail', query: { id: item.id } }))">
-                  <div class="date">
-                    <div class="day">{{ item.publishedTime.split('-')[1] }}</div>
-                    <div class="month">{{ item.publishedTime.split('-')[0] }}月</div>
-                  </div>
-                  <div class="right">
-                    <div class="tip">头条通知</div>
-                    <div class="title">{{ item.title }}</div>
-                  </div>
+                <div class="info">
+                  <nuxt-link
+                    :to="{ name: 'toutiao-id', params: { id: item.id }}"
+                    target="_blank">
+                    <div class="date">
+                      <div class="day">{{ item.publishedTime.split('-')[1] }}</div>
+                      <div class="month">{{ item.publishedTime.split('-')[0] }}月</div>
+                    </div>
+                    <div class="right">
+                      <div class="tip">头条通知</div>
+                      <div class="title">{{ item.title }}</div>
+                    </div>
+                  </nuxt-link>
                 </div>
                 <p>{{ item.brife }}</p>
               </li>
@@ -288,9 +292,13 @@ export default {
             border-bottom: none;
           }
           .info {
-            display: flex;
-            align-items: center;
+            // display: flex;
+            // align-items: center;
             cursor: pointer;
+            a {
+              display: flex;
+              align-items: center;
+            }
             .date {
               width: 45px;
               height: 39px;
@@ -306,6 +314,9 @@ export default {
                 margin-top: 4px;
                 font-size: 12px;
               }
+            }
+            .tip {
+              color: #333;
             }
             .right {
               margin-left: 14px;

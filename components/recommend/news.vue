@@ -6,29 +6,32 @@
         v-for="(item, index) in recommendNews"
         v-if="index < 4"
         :key="index"
-        class="item"
-        @click="toDetail(item.id)">
-        <div v-if="index == 0">
-          <div class="title">{{ item.title }}</div>
-          <div class="content">
-            <img :src="item.thumb">
-            <div
-              class="desc"
-              style="display: -webkit-box;
-                    -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 3;
-                    overflow: hidden;
-                    text-overflow: ellipsis;">
-              {{ item.brife }}
-              <!-- <span class="detail">[详细]</span> -->
+        class="item">
+        <nuxt-link
+          :to="{ name: 'toutiao-id', params: { id: item.id }}"
+          target="_blank">
+          <div v-if="index == 0">
+            <div class="title">{{ item.title }}</div>
+            <div class="content">
+              <img :src="item.thumb">
+              <div
+                class="desc"
+                style="display: -webkit-box;
+                      -webkit-box-orient: vertical;
+                      -webkit-line-clamp: 3;
+                      overflow: hidden;
+                      text-overflow: ellipsis;">
+                {{ item.brife }}
+                <!-- <span class="detail">[详细]</span> -->
+              </div>
             </div>
           </div>
-        </div>
-        <div v-else>
-          <span class="circle"/>
-          <span>【{{ item.typeName }}】</span>
-          <span>{{ item.title }}</span>
-        </div>
+          <div v-else>
+            <span class="circle"/>
+            <span>【{{ item.typeName }}】</span>
+            <span>{{ item.title }}</span>
+          </div>
+        </nuxt-link>
       </li>
     </ul>
   </section>
@@ -54,15 +57,6 @@ export default {
           this.recommendNews = res.data
         }
       })
-    },
-    toDetail(id) {
-      let url = this.$router.resolve({ 
-        name: 'toutiao-detail',
-        query: {
-          id
-        }
-      })
-      window.open(url.href, '_blank')
     }
   }
 }

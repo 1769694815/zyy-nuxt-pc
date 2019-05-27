@@ -390,9 +390,12 @@
           v-for="(item, index) in toutiaoList"
           v-if="index < 6"
           :key="index"
-          class="toutiao-item"
-          @click="toToutiaoDetail(item.id)">
-          <toutiao-item :data-obj="item"/>
+          class="toutiao-item">
+          <nuxt-link
+            :to="{ name: 'toutiao-id', params: { id: item.id }}"
+            target="_blank">
+            <toutiao-item :data-obj="item"/>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -570,15 +573,6 @@ export default {
     // })
   },
   methods: {
-    toToutiaoDetail(id) {
-      let url = this.$router.resolve({
-        name: 'toutiao-detail',
-        query: {
-          id
-        }
-      })
-      window.open(url.href, '_blank')
-    },
     // 获取友链
     getFriendList() {
       this.$axios('/yxs/api/web/getFriendsName').then(res => {

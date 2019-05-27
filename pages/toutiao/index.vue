@@ -13,25 +13,28 @@
       <div
         v-for="(item, index) in listData"
         :key="index"
-        class="list-item"
-        @click="toDetail(item.articleId)">
-        <img :src="item.thumb">
-        <div class="info">
-          <div class="title">{{ item.title }}</div>
-          <p
-            class="desc"
-            style="overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;">{{ item.brife }}</p>
-          <div class="foot">
-            <span>{{ item.publishedtime }}</span>
-            <span class="number">
-              <i class="iconfont iconchakan"/>{{ item.hits }}
-            </span>
+        class="list-item">
+        <nuxt-link
+          :to="{ name: 'toutiao-id', params: { id: item.articleId }}"
+          target="_blank">
+          <img :src="item.thumb">
+          <div class="info">
+            <div class="title">{{ item.title }}</div>
+            <p
+              class="desc"
+              style="overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;">{{ item.brife }}</p>
+            <div class="foot">
+              <span>{{ item.publishedtime }}</span>
+              <span class="number">
+                <i class="iconfont iconchakan"/>{{ item.hits }}
+              </span>
+            </div>
           </div>
-        </div>
+        </nuxt-link>
       </div>
       <div
         v-if="listData.length == 0"
@@ -64,10 +67,10 @@ export default {
       title: this.title
     }
   },
-  // asyncData({ params }) {
-  //   console.log('params', params)
-  // },
-  mounted() { 
+  asyncData({ params }) {
+    console.log('params', params)
+  },
+  mounted() {
     window.scrollTo(0, 0);
     this.getNavList()
   },
@@ -80,15 +83,6 @@ export default {
       this.total = 0
       this.listData = []
       this.getList()
-    },
-    toDetail(id) {
-      let url = this.$router.resolve({
-        name: 'toutiao-detail',
-        query: {
-          id: id
-        }
-      })
-      window.open(url.href, '_blank')
     },
     getNavList() {
       this.$axios('/yxs/api/web/news/getAllCategory').then(res => {
@@ -140,13 +134,15 @@ export default {
   }
   .content-list {
     .list-item {
-      display: flex;
-      align-items: center;
       padding: 16px 0;
       border-bottom: 1px solid #ddd;
       cursor: pointer;
       &:last-child {
         border: none;
+      }
+      a {
+        display: flex;
+        align-items: center;
       }
       img {
         flex: 0 0 224px;

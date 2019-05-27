@@ -76,6 +76,7 @@ export default {
       overflow: hidden;
       font-size: 18px;
       cursor: pointer;
+      color: #333;
     }
     .desc {
       width: 330px;
