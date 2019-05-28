@@ -11,6 +11,12 @@ let params = {
   scope: 'server',
   grant_type: 'client_credentials'
 }
+// async function getToken({ $axios }) {
+//   $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
+//   $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
+//   let { data } = await $axios.post('/auth/oauth/token', params)
+//   return data
+// }
 export default function({ $axios, redirect }) {
   $axios.onRequest(config => {
     config.data = qs.stringify(config.data, {
@@ -37,7 +43,7 @@ export default function({ $axios, redirect }) {
       redirect('/')
     }
     if(code == 404) {
-      // redirect('/status/404')
+      redirect('/')
     }
     return Promise.reject(error);
   });
@@ -54,6 +60,5 @@ export default function({ $axios, redirect }) {
   }
   
   // $axios.setHeader('Authorization', 'Bearerbeb31048-148a-4910-8c1b-f42cb5a83115')
-
 }
 
