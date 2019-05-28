@@ -209,26 +209,27 @@
               </ul>
             </div>
             <div
-              v-show="type == 5"
-              v-if="list && list.length > 0"
+              v-if="type == 5 && list && list.length > 0"
               class="list">
               <div class="list-title">
                 填空题
                 <span>(共{{ list.length }}题)</span>
               </div>
-              <ul>
+              <ul v-if="list && list.length > 0">
                 <li
                   v-for="(item, index) in list"
                   :key="index">
                   <p>
                     {{ index + 1 }}、{{ item.stem }}
                   </p>
-                  <el-input
-                    v-for="(option, idx) in item.answer"
-                    v-model="form.item5[index]"
-                    :key="idx"
-                    :placeholder="'请输入第'+(idx+1)+'个空的答案'"
-                    style="margin-top: 10px" />
+                  <div v-if="item.answer && item.answer.length > 0">
+                    <el-input
+                      v-for="(option, idx) in item.answer"
+                      v-model="form.item5[index][idx]"
+                      :key="idx"
+                      :placeholder="'请输入第'+(idx+1)+'个空的答案'"
+                      style="margin-top: 10px" />
+                  </div>
                   <div class="analyse">
                     <div
                       class="text"
@@ -266,6 +267,7 @@
 </template>
 <script>
 import Header from '~/components/layout/header.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     'v-header': Header
@@ -275,6 +277,7 @@ export default {
       title: this.$route.query.title || '',
       courseId: this.$route.query.courseId || '',
       type: 1,
+      userInfo: '',
       formInline: {
         stem: '',
         lessonId: '',
@@ -294,6 +297,7 @@ export default {
     }
   },
   mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getList()
     this.getLessonList()
     this.getTypeList()
@@ -303,10 +307,11 @@ export default {
       this.$axios('/yxs/api/web/question/questionCourseList', {
         params: {
           courseId: this.courseId,
-          type: this.type,
+          typeId: this.type,
           stem: this.formInline.stem,
           difficulty: this.formInline.difficulty,
-          lessonId: this.formInline.lessonId
+          lessonId: this.formInline.lessonId,
+          userToken: this.userInfo.userToken
         }
       }).then(res => {
         console.log(res)
@@ -314,6 +319,11 @@ export default {
         if(this.type == 2) {
           for(let i in this.list) {
             this.form.item2[i] = []
+          }
+        }
+        if(this.type == 5) {
+          for(let i in this.list) {
+            this.form.item5[i] = []
           }
         }
       })
@@ -328,8 +338,8 @@ export default {
       })
     },
     getTypeList() {
-      this.$axios('/admin/dict/type/question_type').then(res => {
-        this.typeList = res.data
+      this.$axios('/yxs/questiontype/typeList').then(res => {
+        this.typeList = res
       })
     },
     changeType(val) {
