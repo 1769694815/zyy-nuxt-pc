@@ -19,12 +19,14 @@
               target="_blank">访问旧版</a>
           </span>
           <span v-show="loginShow">
-            <span
-              class="login"
-              @click="toLogin">我要登录</span>
-            <span
+            <nuxt-link
+              to="/login"
+              target="_blank"
+              class="login">我要登录</nuxt-link>
+            <nuxt-link
+              to="/register"
               class="register"
-              @click="toRegister">免费注册</span>
+              target="_blank">免费注册</nuxt-link>
           </span>
         </div>
         <div
@@ -240,16 +242,6 @@ export default {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       this.fixedShow = scrollTop > 120 ? true : false
     },
-    toLogin() {
-      this.$router.push({
-        name: 'login'
-      })
-    },
-    toRegister() {
-      this.$router.push({
-        name: 'register'
-      })
-    },
     toMynews() {
       this.$router.push({
         name: 'mynews'
@@ -278,7 +270,7 @@ export default {
         type: 'warning'
       }).then(res => {
         Cookies.remove('zyy_userInfo')
-        this.$router.push({
+        let url = this.$router.push({
           name: 'login'
         })
       })
@@ -300,12 +292,13 @@ export default {
       if(url.indexOf('searchResult') > -1) {
         this.$emit('getList', this.text, true)
       } else {
-        this.$router.push({
+        let url = this.$router.resolve({
           name: 'searchResult',
           query: {
             title: this.text
           }
         })
+        window.open(url.href, '_blank')
       }
     }
   }
@@ -344,6 +337,7 @@ export default {
         .login {
           margin-left: 30px;
           cursor: pointer;
+          color: #666;
         }
         .register {
           margin-left: 20px;

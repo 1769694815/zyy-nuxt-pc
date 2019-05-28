@@ -19,7 +19,74 @@
       </el-carousel>
       <div class="carousel-content">
         <div class="nav-list">
-          <div
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 70 }}"
+            class="nav-item"
+            target="_blank">
+            <i class="iconfont iconyisheng"/>
+            中医研究所
+          </nuxt-link>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 63 }}"
+            class="nav-item"
+            target="_blank">
+            <i class="iconfont iconyisheng"/>
+            名医师承
+          </nuxt-link>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 54 }}"
+            class="nav-item"
+            target="_blank">
+            <i class="iconfont iconyisheng"/>
+            中医健康
+          </nuxt-link>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 55 }}"
+            class="nav-item"
+            target="_blank">
+            <i class="iconfont iconyisheng"/>
+            中医药理论
+          </nuxt-link>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 53 }}"
+            class="nav-item"
+            target="_blank">
+            <i class="iconfont iconyisheng"/>
+            自学考试
+          </nuxt-link>
+          <div class="sub-nav">
+            <nuxt-link
+              v-for="(item, index) in examSubList"
+              v-if="index > 0"
+              :key="index"
+              :to="{ name: 'train', query: { fid: 53, cid: item.id }}"
+              class="sub-item"
+              target="_blank">
+              {{ item.name }}
+            </nuxt-link>
+          </div>
+          <nuxt-link
+            :to="{ name: 'western' }"
+            class="nav-item"
+            target="_blank">
+            <i class="iconfont iconyisheng"/>
+            培训项目
+          </nuxt-link>
+          <div class="sub-nav">
+            <nuxt-link
+              :to="{ name: 'western', query: { cid: 3 }}"
+              class="sub-item"
+              target="_blank">
+              职业培训
+            </nuxt-link>
+            <nuxt-link
+              :to="{ name: 'western', query: { cid: 2 }}"
+              class="sub-item"
+              target="_blank">
+              西学中
+            </nuxt-link>
+          </div>
+          <!-- <div
             class="nav-item"
             @click="openNewPage($router.resolve({ name: 'train', query: {fid: 70}}))">
             <i class="iconfont iconyisheng"/>
@@ -67,36 +134,8 @@
           <div class="sub-nav">
             <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 3 }}))">职业培训</span>
             <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 2 }}))">西学中</span>
-          </div>
+          </div> -->
         </div>
-        <!-- <section class="info-list">
-          <div class="info-header">
-            <h3>资讯头条</h3>
-            <div
-              class="more"
-              @click="toToutiao">
-              <span>更多</span>
-              <i class="iconfont iconarrow-right" />
-            </div>
-          </div>
-          <ul>
-            <li
-              v-for="(item, index) in stickyList"
-              v-if="index < 4"
-              :key="index"
-              @click="toToutiaoDetail(item.id)">
-              <span
-                style="overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                cursor: pointer">
-                {{ `【${item.typeName}】${item.title}` }}
-              </span>
-            </li>
-          </ul>
-        </section> -->
         <section
           v-if="userInfo"
           class="info-list">
@@ -142,12 +181,14 @@
           <div class="avatar">
             <img src="~/assets/images/user-logo.png">
           </div>
-          <div
+          <nuxt-link
+            to="/login"
             class="button login"
-            @click="openNewPage($router.resolve({ name: 'login' }))">立即登录</div>
-          <div
+            target="_blank">立即登录</nuxt-link>
+          <nuxt-link
+            to="/register"
             class="button"
-            @click="openNewPage($router.resolve({ name: 'register' }))">免费注册</div>
+            target="_blank">免费注册</nuxt-link>
           <div
             ref="download"
             class="down down-2"
@@ -167,12 +208,13 @@
       <div class="container-header">
         <h2>中医研究所</h2>
         <div class="subnav">
-          <span
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 70 }}"
             class="pos-right"
-            @click="openNewPage($router.resolve({ name: 'train', query: { fid: 70 }}))">
+            target="_blank">
             查看更多
-            <i class="iconfont icongengduo" />
-          </span>
+            <i class="iconfont icongengduo"/>
+          </nuxt-link>
         </div>
       </div>
       <div class="list">
@@ -197,12 +239,13 @@
         <div class="container-header">
           <h2>名医师承</h2>
           <div class="subnav">
-            <span
+            <nuxt-link
+              :to="{ name: 'doctor' }"
               class="pos-right"
-              @click="openNewPage($router.resolve({ name: 'doctor' }))">
+              target="_blank">
               查看更多
-              <i class="iconfont icongengduo" />
-            </span>
+              <i class="iconfont icongengduo"/>
+            </nuxt-link>
           </div>
         </div>
         <div class="list">
@@ -238,12 +281,13 @@
             :key="index">
             <span @click="toList(76, item.id)">{{ item.name }}</span>
           </span>
-          <span
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 76 }}"
             class="pos-right"
-            @click="toList(76)">
+            target="_blank">
             查看更多
-            <i class="iconfont icongengduo" />
-          </span>
+            <i class="iconfont icongengduo"/>
+          </nuxt-link>
         </div>
       </div>
       <div class="container-content">
@@ -260,7 +304,7 @@
             v-if="index < 8"
             :key="index"
             class="list-item">
-            <section-item :data-obj="item" /> 
+            <section-item :data-obj="item" />
           </div>
         </div>
       </div>
@@ -275,21 +319,18 @@
             :key="index">
             <span @click="toList(53, item.id)">{{ item.name }}</span>
           </span>
-          <span
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 53 }}"
             class="pos-right"
-            @click="toList(53)">
+            target="_blank">
             查看更多
-            <i class="iconfont icongengduo" />
-          </span>
+            <i class="iconfont icongengduo"/>
+          </nuxt-link>
         </div>
       </div>
       <div class="container-content">
         <div class="left-img">
           <img src="~/assets/images/img_3.png">
-          <!-- <div class="text">
-            <div class="title">考试课程辅导</div>
-            <div class="sub-title">无死角</div>
-          </div> -->
         </div>
         <div class="right-list">
           <div
@@ -312,21 +353,18 @@
             :key="index">
             <span @click="toList(55, item.id)">{{ item.name }}</span>
           </span>
-          <span
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 55 }}"
             class="pos-right"
-            @click="toList(55)">
+            target="_blank">
             查看更多
-            <i class="iconfont icongengduo" />
-          </span>
+            <i class="iconfont icongengduo"/>
+          </nuxt-link>
         </div>
       </div>
       <div class="container-content">
         <div class="left-img">
           <img src="~/assets/images/img_2.png">
-          <!-- <div class="text">
-            <div class="title">培训理论知识</div>
-            <div class="sub-title">深入解析</div>
-          </div> -->
         </div>
         <div class="right-list">
           <div
@@ -346,12 +384,13 @@
           <div class="subnav">
             <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 3 }}))">职业培训</span>
             <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 2 }}))">西学中</span>
-            <span
+            <nuxt-link
+              to="/western"
               class="pos-right"
-              @click="toNewPage('western')">
+              target="_blank">
               查看更多
               <i class="iconfont icongengduo" />
-            </span>
+            </nuxt-link>
           </div>
         </div>
         <div class="train-imgs">
@@ -377,12 +416,19 @@
       <div class="container-header">
         <h2>资讯头条</h2>
         <div class="subnav">
-          <span
+          <nuxt-link
+            :to="{ name: 'toutiao' }"
+            class="pos-right"
+            target="_blank">
+            查看更多
+            <i class="iconfont icongengduo"/>
+          </nuxt-link>
+          <!-- <span
             class="pos-right"
             @click="toNewPage('toutiao')">
             查看更多
             <i class="iconfont icongengduo" />
-          </span>
+          </span> -->
         </div>
       </div>
       <div class="toutiao">
@@ -400,9 +446,11 @@
       </div>
     </div>
     <div class="foot-img">
-      <img
-        src="~/assets/images/foot-img.png"
-        @click="toNewPage('service')">
+      <nuxt-link
+        to="/service"
+        target="_blank">
+        <img src="~/assets/images/foot-img.png">
+      </nuxt-link>
     </div>
     <friend-link :link-list="friendLinkList" />
     <transition name="fade">
@@ -830,7 +878,9 @@ export default {
           margin-top: 26px;
           height: 24px;
           line-height: 24px;
+          color: #fff;
           cursor: pointer;
+          display: block;
           &:first-child {
             margin-top: 16px;
           }
@@ -842,9 +892,10 @@ export default {
           margin-top: 16px;
           font-size: 14px;
           opacity: .6;
-          span {
+          .sub-item {
             margin-left: 20px;
             cursor: pointer;
+            color: #f2f2f2;
             &:hover {
               color: #3F8A38;
             }
@@ -905,6 +956,7 @@ export default {
           }
         }
         .button {
+          display: block;
           margin: 13px auto;
           width: 165px;
           height: 38px;
@@ -1030,6 +1082,10 @@ export default {
         right: 0;
         bottom: 0;
         font-size: 12px;
+        color: #666;
+        &:hover {
+          color: #3F8A38;
+        }
         .icongengduo {
           font-size: 12px;
         }

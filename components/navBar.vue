@@ -10,8 +10,11 @@
           v-for="(item, index) in list"
           :key="index"
           :class="{active: index + 1 == tabIndex}"
-          @click="changeTab(item, index)">
-          {{ item.name }}
+          @click.prevent="changeTab(item, index)">
+          <a
+            :href="item.path"
+            :class="{active: index + 1 == tabIndex}"
+            target="_blank">{{ item.name }}</a>
         </li>
       </ul>
     </div>
@@ -136,9 +139,15 @@ export default {
       cursor: pointer;
       box-sizing: border-box;
       &.active {
-        // background: #3F8A38;
         color: #3F8A38;
         font-weight: 700;
+      }
+      a {
+        color: #333;
+        &.active {
+          color: #3F8A38;
+          font-weight: 700;
+        }
       }
     }
   }
