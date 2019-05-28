@@ -488,6 +488,13 @@ export default {
       window.open(url.href, '_blank')
     },
     openPractice() {
+      if(!this.userInfo) {
+        let url = this.$router.resolve({
+          name: 'login'
+        })
+        window.open(url.href, '_blank')
+        return
+      }
       let url = this.$router.resolve({
         name: 'practice',
         query: {
