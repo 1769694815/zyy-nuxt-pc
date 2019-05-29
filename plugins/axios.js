@@ -11,13 +11,9 @@ let params = {
   scope: 'server',
   grant_type: 'client_credentials'
 }
-// async function getToken({ $axios }) {
-//   $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
-//   $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
-//   let { data } = await $axios.post('/auth/oauth/token', params)
-//   return data
-// }
-export default function({ $axios, redirect }) {
+
+export default function({ $axios, redirect, req }) {
+  $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
   $axios.onRequest(config => {
     config.data = qs.stringify(config.data, {
       allowDots: true //Option allowDots can be used to enable dot notation
@@ -40,12 +36,14 @@ export default function({ $axios, redirect }) {
     const code = parseInt(error.response && error.response.status)
     if(code == 401) {
       Cookies.remove('zyy_accessToken')
+      console.log('401')
+      redirect('/token')
+    } else if(code == 404) {
       redirect('/')
+      return Promise.reject(error);
+    } else {
+      return Promise.reject(error);
     }
-    if(code == 404) {
-      redirect('/')
-    }
-    return Promise.reject(error);
   });
 
   if(!Cookies.get('zyy_accessToken')) {
