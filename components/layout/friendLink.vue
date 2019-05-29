@@ -8,7 +8,9 @@
           :key="index"
           class="school"
           @click="toLink(item.url)">
-          {{ item.name }}
+          <a
+            :href="item.url"
+            target="_blank"> {{ item.name }}</a>
         </li>
       </ul>
     </div>
@@ -26,40 +28,7 @@ export default {
   },
   data() {
     return {
-      schools: [
-        {
-          name: '江西中医药大学',
-          url: 'http://www.jxutcm.edu.cn'
-        },
-        {
-          name: '江西中医药大学继续教育学院培训学院',
-          url: 'http://jxjy.jxutcm.edu.cn'
-        },
-        {
-          name: '国家卫生健康委员会',
-          url: 'http://www.nhfpc.gov.cn'
-        },
-        {
-          name: '国家中医药管理局',
-          url: 'http://www.satcm.gov.cn'
-        },
-        {
-          name: '江西省卫生和计划生育委员会',
-          url: 'http://hc.jiangxi.gov.cn'
-        },
-        {
-          name: '江西卫生计生人才人事网',
-          url: 'http://www.gwrcw.com'
-        },
-        {
-          name: '学习平台建设',
-          url: 'http://www.yunduancn.com'
-        },
-        {
-          name: '雅思考试报名',
-          url: 'http://www.yxielts.com'
-        }
-      ]
+      schools: []
     }
   },
   mounted() {
@@ -68,11 +37,6 @@ export default {
   methods: {
     toLink(url) {
       window.open(url)
-    },
-    getFriendList() {
-      this.$axios('/yxs/api/web/getFriendsName').then(res => {
-        console.log(res)
-      })
     }
   }
 }
@@ -102,6 +66,12 @@ export default {
       cursor: pointer;
       &:hover {
         color: #3F8A38;
+      }
+      a {
+        color: #666;
+        &:hover {
+          color: #3F8A38;
+        }
       }
     }
   }
