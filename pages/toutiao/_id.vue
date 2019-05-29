@@ -91,7 +91,6 @@ export default {
     }
   },
   async asyncData ({ $axios, params }) {
-    console.log('params', params)
     let { data } = await $axios('/yxs/api/web/news/detail', {params: { id: params.id }})
     return { info: data }
   },
