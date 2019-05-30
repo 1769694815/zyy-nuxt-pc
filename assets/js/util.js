@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { Base64 } from '~/assets/js/base64.js'
 
 /**
  * 判断是否为空
@@ -107,4 +108,14 @@ export function formatSeconds(time) {
     let sec = formatStr(time % 60)
     return `${hours}:${min}:${sec}`
   }
+}
+
+// 获取服务端cookie
+export function getcookiesInServer(req) {
+  let service_cookie = {};
+  req && req.headers.cookie && req.headers.cookie.split(';').forEach(function (val) {
+    let parts = val.split('=');
+    service_cookie[parts[0].trim()] = (parts[1] || '').trim();
+  })
+  return service_cookie
 }
