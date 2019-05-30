@@ -1,11 +1,17 @@
 <template>
   <div class="container">
     <div class="left-img">
-      <img :src="dataObj.thumb">
+      <img
+        :src="dataObj.thumb"
+        :alt="dataObj.title"
+        :title="dataObj.title">
       <div class="tag">{{ dataObj.typeName }}</div>
     </div>
     <div class="content">
-      <div class="title">{{ dataObj.title }}</div>
+      <nuxt-link
+        :to="{ name: 'toutiao-id', params: { id: dataObj.id }}"
+        target="_blank"
+        class="title">{{ dataObj.title }}</nuxt-link>
       <div
         id="text-ellipsis-2"
         class="desc"
@@ -72,6 +78,7 @@ export default {
     width: 332px;
     margin-left: 16px;
     .title {
+      display: block;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
