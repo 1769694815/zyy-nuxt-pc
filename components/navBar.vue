@@ -10,49 +10,49 @@
           <nuxt-link
             :to="{ name: 'index' }"
             :class="{ active: tabIndex == 1 }">
-            首页  
+            首页
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 53 }}"
             :class="{ active: tabIndex == 2 }">
-            自学考试  
+            自学考试
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'western', query: { cid: 2 }}"
             :class="{ active: tabIndex == 3 }">
-            西学中  
+            西学中
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'doctor' }"
             :class="{ active: tabIndex == 4 }">
-            名医师承  
+            名医师承
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'community' }"
             :class="{ active: tabIndex == 5 }">
-            中医药进社区  
+            中医药进社区
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'download' }"
             :class="{ active: tabIndex == 6 }">
-            下载App  
+            下载App
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'about' }"
             :class="{ active: tabIndex == 7 }">
-            关于我们  
+            关于我们
           </nuxt-link>
         </li>
       </ul>
@@ -115,10 +115,6 @@ export default {
       padding: 0 36px;
       cursor: pointer;
       box-sizing: border-box;
-      &.active {
-        color: #3F8A38;
-        font-weight: 700;
-      }
       a {
         color: #333;
         &.active {
