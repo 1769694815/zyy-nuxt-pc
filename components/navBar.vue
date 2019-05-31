@@ -6,15 +6,54 @@
         课程中心
       </div>
       <ul>
-        <li
-          v-for="(item, index) in list"
-          :key="index"
-          :class="{active: index + 1 == tabIndex}"
-          @click.prevent="changeTab(item, index)">
-          <a
-            :href="item.path"
-            :class="{active: index + 1 == tabIndex}"
-            target="_blank">{{ item.name }}</a>
+        <li>
+          <nuxt-link
+            :to="{ name: 'index' }"
+            :class="{ active: tabIndex == 1 }">
+            首页  
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 53 }}"
+            :class="{ active: tabIndex == 2 }">
+            自学考试  
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="{ name: 'western', query: { cid: 2 }}"
+            :class="{ active: tabIndex == 3 }">
+            西学中  
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="{ name: 'doctor' }"
+            :class="{ active: tabIndex == 4 }">
+            名医师承  
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="{ name: 'community' }"
+            :class="{ active: tabIndex == 5 }">
+            中医药进社区  
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="{ name: 'download' }"
+            :class="{ active: tabIndex == 6 }">
+            下载App  
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="{ name: 'about' }"
+            :class="{ active: tabIndex == 7 }">
+            关于我们  
+          </nuxt-link>
         </li>
       </ul>
     </div>
@@ -32,71 +71,11 @@ export default {
   },
   data() {
     return {
-      list: [
-        {
-          name: '首页',
-          label: 0,
-          path: 'index'
-        },
-        {
-          name: '自学考试',
-          label: 1,
-          path: 'train'
-        },
-        {
-          name: '西学中',
-          label: 2,
-          path: 'western'
-        },
-        {
-          name: '名医师承',
-          label: 3,
-          path: 'doctor'
-        },
-        {
-          name: '中医药进社区',
-          label: 4,
-          path: 'community'
-        },
-        {
-          name: '下载App',
-          label: 5,
-          path: 'download'
-        },
-        {
-          name: '关于我们',
-          label: 6,
-          path: 'about'
-        },
-      ]
+
     }
   },
   methods: {
-    changeTab(item, index) {
-      let url
-      url = this.$router.resolve({
-        name: item.path
-      })
-      window.open(url.href, '_blank')
-      if(index == 2) {
-        url = this.$router.resolve({
-          name: item.path,
-          query: {
-            cid: 2
-          }
-        })
-        window.open(url.href, '_blank')
-      }
-      if(index == 1) {
-        url =this.$router.resolve({
-          name: item.path,
-          query: {
-            fid: 53
-          }
-        })
-        window.open(url.href, '_blank')
-      }
-    }
+    
   }
 }
 </script>
@@ -104,8 +83,6 @@ export default {
   .nav-bar {
     background: #fff;
     box-sizing: border-box;
-    // border-top: 1px solid #ddd;
-    // border-bottom: 1px solid #ddd;
   }
   .nav {
     display: flex;
