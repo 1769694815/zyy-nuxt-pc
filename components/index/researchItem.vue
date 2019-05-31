@@ -20,6 +20,7 @@
         <span class="number">{{ dataObj.student_num }}人学过</span>
       </div>
       <p
+        id="text-ellipsis-2"
         style="display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -117,4 +118,14 @@ export default {
     }
   }
   
+</style>
+<style>
+  #text-ellipsis-2 {
+    height: 36px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 </style>

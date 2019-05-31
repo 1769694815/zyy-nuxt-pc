@@ -1,25 +1,29 @@
 <template>
   <div class="container">
     <div class="left-img">
-      <img
-        :src="dataObj.thumb"
-        :alt="dataObj.title"
-        :title="dataObj.title">
-      <div class="tag">{{ dataObj.typeName }}</div>
+      <nuxt-link
+        :to="{ name: 'toutiao-id', params: { id: dataObj.id }}"
+        target="_blank">
+        <img
+          :src="dataObj.thumb"
+          :alt="dataObj.title"
+          :title="dataObj.title">
+        <div class="tag">{{ dataObj.typeName }}</div>
+      </nuxt-link>
     </div>
     <div class="content">
       <nuxt-link
         :to="{ name: 'toutiao-id', params: { id: dataObj.id }}"
         target="_blank"
         class="title">{{ dataObj.title }}</nuxt-link>
-      <div
+      <p
         id="text-ellipsis-2"
         class="desc"
         style="display: -webkit-box;
               -webkit-box-orient: vertical;
               -webkit-line-clamp: 2;
               overflow: hidden;
-              text-overflow: ellipsis;">{{ dataObj.brife }}</div>
+              text-overflow: ellipsis;">{{ dataObj.brife }}</p>
       <div class="foot">
         <span class="date">{{ dataObj.publishedtime }}</span>
         <span class="number">
@@ -85,6 +89,9 @@ export default {
       font-size: 18px;
       cursor: pointer;
       color: #333;
+      &:hover {
+        color: #3f8a38;
+      }
     }
     .desc {
       width: 330px;

@@ -3,7 +3,10 @@
     <div
       class="img-box"
       @click="toDetail(dataObj.id)">
-      <img :src="dataObj.pic">
+      <img
+        :src="dataObj.pic"
+        :alt="dataObj.name"
+        :title="dataObj.name">
     </div>
     <div class="content">
       <nuxt-link

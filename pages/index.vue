@@ -37,21 +37,21 @@
             :to="{ name: 'train', query: { fid: 54 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <i class="iconfont icon2jiankangzhishi"/>
             中医健康
           </nuxt-link>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 55 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <i class="iconfont iconwendang"/>
             中医药理论
           </nuxt-link>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 53 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <i class="iconfont iconkaoshi"/>
             自学考试
           </nuxt-link>
           <div class="sub-nav">
@@ -69,7 +69,7 @@
             :to="{ name: 'western' }"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <i class="iconfont iconxiangmu"/>
             培训项目
           </nuxt-link>
           <div class="sub-nav">
@@ -258,15 +258,33 @@
           </div>
         </div>
         <div class="imgs">
-          <img
-            src="~/assets/images/famous_1.jpg"
-            @click="openNewPage($router.resolve({ name: 'doctor' }))">
-          <img
-            src="~/assets/images/famous_3.png"
-            @click="openNewPage($router.resolve({ name: 'western' }))">
-          <img
-            src="~/assets/images/famous_3.jpg"
-            @click="openNewPage($router.resolve({ name: 'community' }))">
+          <nuxt-link
+            class="img"
+            to="/doctor"
+            target="_blank">
+            <img
+              src="~/assets/images/famous_1.jpg"
+              alt="豫章名医"
+              title="豫章名医">
+          </nuxt-link>
+          <nuxt-link
+            class="img"
+            to="/western"
+            target="_blank">
+            <img
+              src="~/assets/images/famous_3.png"
+              alt="培训项目"
+              title="培训项目">
+          </nuxt-link>
+          <nuxt-link
+            class="img"
+            to="/community"
+            target="_blank">
+            <img
+              src="~/assets/images/famous_3.jpg"
+              alt="中医药进社区"
+              title="中医药进社区">
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -401,7 +419,6 @@
             class="train-img"
             @click="toTrainDetail(item)">
             <img :src="item.middle_picture">
-            <!-- <div class="text">中药炮制工</div> -->
           </div>
         </div>
         <div class="button">
@@ -423,12 +440,6 @@
             查看更多
             <i class="iconfont icongengduo"/>
           </nuxt-link>
-          <!-- <span
-            class="pos-right"
-            @click="toNewPage('toutiao')">
-            查看更多
-            <i class="iconfont icongengduo" />
-          </span> -->
         </div>
       </div>
       <div class="toutiao">
@@ -437,11 +448,7 @@
           v-if="index < 6"
           :key="index"
           class="toutiao-item">
-          <nuxt-link
-            :to="{ name: 'toutiao-id', params: { id: item.id }}"
-            target="_blank">
-            <toutiao-item :data-obj="item"/>
-          </nuxt-link>
+          <toutiao-item :data-obj="item"/>
         </div>
       </div>
     </div>
@@ -449,7 +456,9 @@
       <nuxt-link
         to="/service"
         target="_blank">
-        <img src="~/assets/images/foot-img.png">
+        <img
+          src="~/assets/images/foot-img.png"
+          alt="服务与保障">
       </nuxt-link>
     </div>
     <friend-link :link-list="friendLinkList" />
@@ -535,7 +544,6 @@ export default {
       rightList: [],
       trainList: [],
       toutiaoList: [],
-      stickyList: [],
       healthSubList: [],
       examSubList: [],
       theorySubList: [],
@@ -548,12 +556,53 @@ export default {
     }
   },
   async asyncData({ $axios }) {
-    
+    let [
+      friendLinkList,
+      carousels,
+      famousList,
+      toutiaoList,
+      examList,
+      theoryList,
+      healthList,
+      healthSubList,
+      examSubList,
+      theorySubList,
+      researchList,
+      trainList
+    ] = await Promise.all([
+      $axios('/yxs/api/web/getFriendsName'),
+      $axios('/yxs/api/web/navigation'),
+      $axios('/yxs/api/web/doctor/recommendList'),
+      $axios('/yxs/api/web/news/recommendList'),
+      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'education' }}),
+      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'career' }}),
+      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'zydjt' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zydjt' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'education' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'career' }}),
+      $axios('/yxs/api/web/doctor/recommendCourseList', { params: { current: 1, size: 4 }}),
+      $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }})
+    ])
+    return {
+      friendLinkList: friendLinkList.data,
+      carousels: carousels.data,
+      famousList: famousList.data,
+      toutiaoList: toutiaoList.data,
+      examList: examList.data,
+      theoryList: theoryList.data,
+      healthList: healthList.data,
+      healthSubList: healthSubList.data,
+      examSubList: examSubList.data,
+      theorySubList: theorySubList.data,
+      researchList: researchList.data.records,
+      trainList: trainList.data.records
+    }
   },
   created() {
 
   }, 
   mounted() {
+    console.log('333', Cookies.get('zyy_accessToken'))
     window.addEventListener('scroll', this.handleScroll)
     const clientId = 'zyy_web'
     const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
@@ -572,20 +621,19 @@ export default {
       this.$axios.post('/auth/oauth/token', params).then(res => {
         Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
         this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
-        this.getCarousel()
-        this.getMenuList()
-        this.getResearchList()
-        this.getRecommendList('zydjt')
-        this.getRecommendList('career')
-        this.getRecommendList('education')
-        this.getDoctorList()
-        this.getNewsList()
-        this.getTrainList()
-        this.getCategoryByCode('zydjt')
-        this.getCategoryByCode('career')
-        this.getCategoryByCode('education')
-        this.getStickyList()
-        this.getFriendList()
+        // this.getResearchList()
+        // this.getTrainList()
+        // this.getCarousel()
+        // this.getMenuList()
+        // this.getRecommendList('zydjt')
+        // this.getRecommendList('career')
+        // this.getRecommendList('education')
+        // this.getDoctorList()
+        // this.getNewsList()
+        // this.getCategoryByCode('zydjt')
+        // this.getCategoryByCode('career')
+        // this.getCategoryByCode('education')
+        // this.getFriendList()
         if(this.userInfo) {
           this.getCourseNum()
           this.getClassNum()
@@ -593,32 +641,27 @@ export default {
         }
       })
     } else {
+      console.log('yyyy')
       this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
-      this.getCarousel()
-      this.getMenuList()
-      this.getResearchList()
-      this.getRecommendList('zydjt')
-      this.getRecommendList('career')
-      this.getRecommendList('education')
-      this.getDoctorList()
-      this.getNewsList()
-      this.getTrainList()
-      this.getCategoryByCode('zydjt')
-      this.getCategoryByCode('career')
-      this.getCategoryByCode('education')
-      this.getStickyList()
-      this.getFriendList()
+      // this.getResearchList()
+      // this.getTrainList()
+      // this.getCarousel()
+      // this.getMenuList()
+      // this.getRecommendList('zydjt')
+      // this.getRecommendList('career')
+      // this.getRecommendList('education')
+      // this.getDoctorList()
+      // this.getNewsList()
+      // this.getCategoryByCode('zydjt')
+      // this.getCategoryByCode('career')
+      // this.getCategoryByCode('education')
+      // this.getFriendList()
       if(this.userInfo) {
         this.getCourseNum()
         this.getClassNum()
         this.tagShow = true
       }
     }
-    // document.addEventListener('click', e => {
-    //   if(!this.$refs.download.contains(e.target)) {
-    //     this.downShow = false
-    //   }
-    // })
   },
   methods: {
     // 获取友链
@@ -730,14 +773,6 @@ export default {
       this.$axios('/yxs/api/web/news/recommendList').then(res => {
         if(res.code == 0) {
           this.toutiaoList = res.data
-        }
-      })
-    },
-    // 获取banner资讯
-    getStickyList() {
-      this.$axios('/yxs/api/web/news/stickyList').then(res => {
-        if(res.code == 0) {
-          this.stickyList = res.data
         }
       })
     },
@@ -1033,21 +1068,6 @@ export default {
             }
           }
         }
-        // ul {
-        //   padding: 0 22px;
-        //   li {
-        //     display: flex;
-        //     align-items: center;
-        //     height: 70px;
-        //     border-bottom: 1px solid rgba(0, 0, 0, .2);
-        //     color: #666;
-        //     line-height: 22px;
-        //     font-size: 14px;
-        //     &:last-child {
-        //       border: none;
-        //     }
-        //   }
-        // }
       }
     }
   }
@@ -1104,14 +1124,16 @@ export default {
 
     .imgs {
       font-size: 0;
-      img {
+      .img {
         margin-left: 20px;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+      img {
         cursor: pointer;
         transition: all 0.3s ease 0s;
         border-radius: 6px;
-        &:first-child {
-          margin: 0;
-        }
         &:hover {
           transform: translate(0, -5px);
           box-shadow: 0 5px 12px #999;
