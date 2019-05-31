@@ -6,8 +6,12 @@
       <img :src="dataObj.pic">
     </div>
     <div class="content">
-      <span class="name">{{ dataObj.name }}</span>
-      <span class="rank">{{ dataObj.title }}</span>
+      <nuxt-link
+        :to="{ name: 'doctor-detail', query: { id: dataObj.id }}"
+        target="_blank">
+        <span class="name">{{ dataObj.name }}</span>
+        <span class="rank">{{ dataObj.title }}</span>
+      </nuxt-link>
       <div class="detail">
         <span>{{ dataObj.courseNum }}门精选课</span>
         <span class="fr">{{ dataObj.fanNum }}人关注</span>

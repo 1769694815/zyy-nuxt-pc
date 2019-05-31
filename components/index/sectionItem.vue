@@ -3,10 +3,17 @@
     <div class="img-box">
       <img
         :src="dataObj.middle_picture"
+        :alt="dataObj.title"
         @click="toDetail(dataObj.id)">
     </div>
     <div class="content">
-      <div class="title">{{ dataObj.title }}</div>
+      <div class="title">
+        <nuxt-link
+          :to="{ name: 'lessonDetail', query: { id: dataObj.id }}"
+          target="_blank">
+          {{ dataObj.title }}
+        </nuxt-link>
+      </div>
       <div class="info">
         <span
           v-if="dataObj.price == 0"
@@ -77,6 +84,12 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      a {
+        color: #333;
+        &:hover {
+          color: #3F8A38;
+        }
+      }
     }
     .info {
       margin-top: 9px;
