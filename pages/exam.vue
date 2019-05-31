@@ -46,8 +46,8 @@
                     <el-radio
                       v-for="(option, index) in item.optionContent"
                       :key="index"
-                      :label="option"
-                      style="display: block;margin-left: 0; line-height:30px;">{{ letterArray[index] }}: {{ option }}</el-radio>
+                      :label="option.content"
+                      style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}</el-radio>
                   </el-radio-group>
                 </li>
               </ul>
@@ -597,7 +597,7 @@ export default {
       right: 180px;
       width: 260px;
       // height: auto;
-      height: calc(100vh - 300px);
+      max-height: calc(100vh);
       margin-left: 20px;
       padding: 20px 24px;
       background: #fff;

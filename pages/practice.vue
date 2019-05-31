@@ -128,7 +128,8 @@
                       解析<i class="iconfont iconarrow-right"/>
                     </div>
                     <div class="desc">
-                      {{ item.analysis }}
+                      <div>答案：{{ item.answer }}</div>
+                      <div>解析：{{ item.analysis || '无' }}</div>
                     </div>
                   </div>
                 </li>
