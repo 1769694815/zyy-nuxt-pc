@@ -86,55 +86,6 @@
               西学中
             </nuxt-link>
           </div>
-          <!-- <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 70}}))">
-            <i class="iconfont iconyisheng"/>
-            中医研究所
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 63}}))">
-            <i class="iconfont iconyisheng"/>
-            名医师承
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 54}}))">
-            <i class="iconfont icon2jiankangzhishi"/>
-            中医健康
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 55}}))">
-            <i class="iconfont iconwendang"/>
-            中医药理论
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 53}}))">
-            <i class="iconfont iconkaoshi"/>
-            自学考试
-          </div>
-          <div class="sub-nav">
-            <span
-              v-for="(item, index) in examSubList"
-              v-if="index > 0"
-              :key="index"
-              @click="toList(53, item.id)">
-              {{ item.name }}
-            </span>
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'western' }))">
-            <i class="iconfont iconxiangmu"/>
-            培训项目
-          </div>
-          <div class="sub-nav">
-            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 3 }}))">职业培训</span>
-            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 2 }}))">西学中</span>
-          </div> -->
         </div>
         <section
           v-if="userInfo"
@@ -311,10 +262,6 @@
       <div class="container-content">
         <div class="left-img">
           <img src="~/assets/images/img_1.png">
-          <!-- <div class="text">
-            <div class="title">中医知识分享</div>
-            <div class="sub-title">免费更新</div>
-          </div> -->
         </div>
         <div class="right-list">
           <div
@@ -602,7 +549,6 @@ export default {
 
   }, 
   mounted() {
-    console.log('333', Cookies.get('zyy_accessToken'))
     window.addEventListener('scroll', this.handleScroll)
     const clientId = 'zyy_web'
     const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
@@ -621,19 +567,6 @@ export default {
       this.$axios.post('/auth/oauth/token', params).then(res => {
         Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
         this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
-        // this.getResearchList()
-        // this.getTrainList()
-        // this.getCarousel()
-        // this.getMenuList()
-        // this.getRecommendList('zydjt')
-        // this.getRecommendList('career')
-        // this.getRecommendList('education')
-        // this.getDoctorList()
-        // this.getNewsList()
-        // this.getCategoryByCode('zydjt')
-        // this.getCategoryByCode('career')
-        // this.getCategoryByCode('education')
-        // this.getFriendList()
         if(this.userInfo) {
           this.getCourseNum()
           this.getClassNum()
@@ -641,21 +574,7 @@ export default {
         }
       })
     } else {
-      console.log('yyyy')
       this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
-      // this.getResearchList()
-      // this.getTrainList()
-      // this.getCarousel()
-      // this.getMenuList()
-      // this.getRecommendList('zydjt')
-      // this.getRecommendList('career')
-      // this.getRecommendList('education')
-      // this.getDoctorList()
-      // this.getNewsList()
-      // this.getCategoryByCode('zydjt')
-      // this.getCategoryByCode('career')
-      // this.getCategoryByCode('education')
-      // this.getFriendList()
       if(this.userInfo) {
         this.getCourseNum()
         this.getClassNum()
@@ -664,28 +583,6 @@ export default {
     }
   },
   methods: {
-    // 获取友链
-    getFriendList() {
-      this.$axios('/yxs/api/web/getFriendsName').then(res => {
-        this.friendLinkList = res.data
-      })
-    },
-    // 获取轮播
-    getCarousel() {
-      this.$axios('/yxs/api/web/navigation').then(res => {
-        if(res.code == 0) {
-          this.carousels = res.data
-        }
-      })
-    },
-    // 获取首页菜单列表
-    getMenuList() {
-       this.$axios('/yxs/api/web/course/categoryTree').then(res => {
-        if(res.code == 0) {
-          console.log('menu', res)
-        }
-      })
-    },
     // 获取首页中医研究所
     getResearchList() {
       this.$axios('/yxs/api/web/doctor/recommendCourseList', {
@@ -704,36 +601,6 @@ export default {
             this.researchList = res.data.records
           }
           // this.researchList = res.data
-        }
-      })
-    },
-    // 获取首页中医健康,自学考试,中医药理论 
-    getRecommendList(type) {
-      this.$axios('/yxs/api/web/course/getRecommendList', {
-        params: {
-          type
-        }
-      }).then(res => {
-        if(res.code == 0) {
-          switch(type) {
-            case 'education':
-              this.examList = res.data
-              break;
-            case 'career':
-              this.theoryList = res.data
-              break;
-            case 'zydjt':
-              this.healthList = res.data
-              break;
-          }
-        }
-      })
-    },
-    // 获取首页名医师承
-    getDoctorList() {
-      this.$axios('/yxs/api/web/doctor/recommendList').then(res => {
-        if(res.code == 0) {
-          this.famousList = res.data
         }
       })
     },
@@ -768,36 +635,7 @@ export default {
       this.current2 += 1
       this.getTrainList()
     },
-    // 获取首页资讯
-    getNewsList() {
-      this.$axios('/yxs/api/web/news/recommendList').then(res => {
-        if(res.code == 0) {
-          this.toutiaoList = res.data
-        }
-      })
-    },
-    // 获取推荐课程分类
-    getCategoryByCode(code) {
-      this.$axios('/yxs/api/web/course/getCategoryByCode', {
-        params: {
-          code
-        }
-      }).then(res => {
-        if(res.code == 0) {
-          switch(code) {
-            case 'zydjt':
-              this.healthSubList = res.data
-              break;
-            case 'education':
-              this.examSubList = res.data
-              break;
-            case 'career':
-              this.theorySubList = res.data
-              break;
-          }
-        }
-      })
-    },
+    
     toList(fid, cid) {
       let url = this.$router.resolve({
         name: 'train',
