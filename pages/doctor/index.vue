@@ -26,15 +26,13 @@ export default {
       title: this.title
     }
   },
-  mounted() {
-    this.getList()
+  async asyncData({ $axios }) {
+    let list = await $axios('/yxs/api/web/doctor/more')
+    return {
+      list: list.data
+    }
   },
   methods: {
-    getList() {
-      this.$axios('/yxs/api/web/doctor/more').then(res => {
-        this.list = res.data
-      })
-    },
     toDetail(id) {
       let url = this.$router.resolve({
         name: 'doctor-detail',
