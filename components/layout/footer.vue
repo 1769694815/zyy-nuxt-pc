@@ -12,7 +12,7 @@
           <span @click="openNewPage($router.resolve({ name: 'index' }))">返回首页</span>
           <span>
             <a
-              href="http://www.tcmlll.cn/"
+              href="http://old.zyyzx.com.cn/"
               target="_blank">访问旧版</a>
           </span>
         </div>

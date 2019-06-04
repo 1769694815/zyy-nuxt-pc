@@ -15,7 +15,7 @@
           </span>
           <span class="link">
             <a
-              href="http://www.tcmlll.cn/"
+              href="http://old.zyyzx.com.cn/"
               target="_blank">访问旧版</a>
           </span>
           <span v-show="loginShow">
