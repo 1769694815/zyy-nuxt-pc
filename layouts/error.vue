@@ -1,6 +1,6 @@
 
 <template>
-  <div style="width:100%; min-height:100vh">
+  <div style="width:100%;">
     <div class="container">
       <v-header />
       <div class="content">
@@ -9,8 +9,8 @@
           <div class="title">暂无数据</div>
           <div class="desc">您还可以去其它地方逛逛……</div>
           <div class="button">
-            <a href="www.zyyzx.com.cn">重新加载</a>
-            <a href="www.zyyzx.com.cn">返回首页</a>
+            <a @click="reload">重新加载</a>
+            <a @click="reload">返回首页</a>
           </div>
         </div>
       </div>
