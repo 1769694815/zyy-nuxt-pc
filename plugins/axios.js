@@ -38,7 +38,7 @@ export default function({ $axios, redirect, req }) {
       Cookies.remove('zyy_accessToken')
       console.log('401')
       redirect('/token')
-    } else if(code == 404) {
+    } else if(code == 404 || code == 500) {
       redirect('/')
       return Promise.reject(error);
     } else {

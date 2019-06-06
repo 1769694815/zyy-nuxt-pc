@@ -98,7 +98,7 @@ export default {
       height: 40px;
       margin-top: 15px;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       color: #999;
       overflow: hidden;
     }
