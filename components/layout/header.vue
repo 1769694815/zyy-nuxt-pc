@@ -56,7 +56,7 @@
             v-show="userInfo && userInfo.roleName == 'zyy_headmaster'"
             class="learn"
             @mouseover="teacherListShow = true"
-            @mouseout="teacherListShow = false">我的学习
+            @mouseout="teacherListShow = false">我的教学
             <i class="iconfont iconarrow-right" />
             <ul v-show="teacherListShow">
               <li
