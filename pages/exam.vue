@@ -273,8 +273,8 @@
                     <el-radio
                       v-for="(option, index) in item.optionContent"
                       :key="index"
-                      :label="option"
-                      style="display: block;margin-left: 0; line-height:30px;">{{ letterArray[index] }}: {{ option }}</el-radio>
+                      :label="option.content"
+                      style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}</el-radio>
                   </el-radio-group>
                   <div class="analyse">
                     <div
