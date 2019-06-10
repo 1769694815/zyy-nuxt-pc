@@ -109,11 +109,11 @@
           <ul>
             <li @click="openNewPage($router.resolve({ name: 'mylearn' }))">
               <img src="~/assets/images/course.png">
-              <div class="text">我的课程({{ courseNum }})</div>
+              <div class="text">{{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '在教课程' : '我的课程' }}({{ courseNum }})</div>
             </li>
             <li @click="openNewPage($router.resolve({ name: 'mylearn-myclass' }))">
               <img src="~/assets/images/classes.png">
-              <div class="text">我的班级({{ classNum }})</div>
+              <div class="text">{{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '在教班级' : '我的班级' }}({{ classNum }})</div>
             </li>
           </ul>
           <div
@@ -434,7 +434,8 @@
             class="content-right">
             <div
               class="learn"
-              @click="toNewPage('mylearn')">我的学习
+              @click="toNewPage('mylearn')">
+              {{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '我的教学' : '我的学习' }}
             </div>
             <div
               class="personal"
