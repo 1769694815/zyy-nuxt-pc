@@ -294,10 +294,14 @@ export default {
       list: [],
       lessonList: [],
       typeList: [],
-      letterArray: ['A', 'B', 'C', 'D', 'E', 'F']
+      letterArray: ['A', 'B', 'C', 'D', 'E', 'F'],
+      current: 1,
+      size: 10,
+      isLoading: false
     }
   },
   mounted() {
+    window.addEventListener('scroll', this.scroll)
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getList()
     this.getLessonList()
@@ -312,11 +316,18 @@ export default {
           stem: this.formInline.stem,
           difficulty: this.formInline.difficulty,
           lessonId: this.formInline.lessonId,
-          userToken: this.userInfo.userToken
+          userToken: this.userInfo.userToken,
+          current: this.current,
+          size: 10
         }
       }).then(res => {
         console.log(res)
-        this.list = res.data.newList
+        if (this.current == res.data.newList.pages || res.data.newList.pages == 0) {
+          this.isLoading = true
+        } else {
+          this.isLoading = false
+        }
+        this.list = this.list.concat(res.data.newList.records)
         if(this.type == 2) {
           for(let i in this.list) {
             this.form.item2[i] = []
@@ -345,6 +356,10 @@ export default {
     },
     changeType(val) {
       this.type = val
+      // 切换分页始初始化
+      this.list = []
+      this.current = 1
+      this.isLoading = false
       this.getList()
     },
     toggle(e) {
@@ -362,6 +377,15 @@ export default {
         type: 'warning'
       }).then(() => {
         this.form.item1 = []
+        for(let i in this.list) {
+          this.form.item2[i] = []
+        }
+        this.form.item3 = []
+        this.form.item4 = []
+        for(let i in this.list) {
+          this.form.item5[i] = []
+        }
+        console.log(this.form)
       }).catch(() => {
 
       });
@@ -382,6 +406,14 @@ export default {
       }).catch(() => {
                
       });
+    },
+    scroll() {
+      let bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= document.documentElement.offsetHeight / 2
+      if (bottomOfWindow && !this.isLoading) {
+        this.isLoading = true
+        this.current += 1
+        this.getList()
+      }
     }
   }
 }
