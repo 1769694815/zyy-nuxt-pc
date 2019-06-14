@@ -19,13 +19,13 @@
       </el-carousel>
       <div class="carousel-content">
         <div class="nav-list">
-          <nuxt-link
+          <!-- <nuxt-link
             :to="{ name: 'train', query: { fid: 70 }}"
             class="nav-item"
             target="_blank">
             <i class="iconfont iconyisheng"/>
             中医研究所
-          </nuxt-link>
+          </nuxt-link> -->
           <nuxt-link
             :to="{ name: 'train', query: { fid: 63 }}"
             class="nav-item"
@@ -762,14 +762,14 @@ export default {
         font-size: 16px;
         z-index: 99;
         .nav-item {
-          margin-top: 26px;
+          margin-top: 35px;
           height: 24px;
           line-height: 24px;
           color: #fff;
           cursor: pointer;
           display: block;
           &:first-child {
-            margin-top: 16px;
+            margin-top: 25px;
           }
           &:hover {
             color: #3F8A38;
@@ -793,7 +793,7 @@ export default {
         position: absolute;
         right: 0;
         top: 35px;
-        width: 260px;
+        width: 245px;
         height: 330px;
         z-index: 99;
         background: rgba(255, 255, 255, .9);
