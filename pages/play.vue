@@ -162,7 +162,7 @@
 import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
 import Cookies from 'js-cookie'
-import { formatSeconds } from '~/assets/js/util'
+import { formatSeconds, judgeUser } from '~/assets/js/util'
 export default {
   // middleware: 'userAuth',
   components: {
@@ -186,7 +186,8 @@ export default {
       player: null,
       playFlag: true ,
       time: 0,
-      timer: null
+      timer: null,
+      rankStatus: 0 // 角色的status
     }
   },
   head() {
@@ -204,6 +205,7 @@ export default {
   mounted() {
     window.scrollTo(0, 200)
     this.userInfo = Cookies.getJSON('zyy_userInfo')
+    this.rankStatus = judgeUser().status
     if(!this.userInfo) {
       this.$router.push({
         name: 'login'
@@ -537,7 +539,8 @@ export default {
           size: 10,
           current: 1,
           type: 0,
-          userToken: this.userInfo.userToken
+          userToken: this.userInfo.userToken,
+          teacherStatus: this.rankStatus
         }
         this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
           params

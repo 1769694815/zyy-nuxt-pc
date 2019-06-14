@@ -45,9 +45,9 @@ export function isvalidatemobile(phone) {
   return list;
 }
 
-// 判断登录人信息
+// 判断登录人信息  1 普通学员 2 班主任 3 讲师
 export function judgeUser() {
-  let result = ''
+  let result = {}
   let userInfo = Cookies.getJSON('zyy_userInfo')
   if(!userInfo) {
     return
@@ -55,23 +55,36 @@ export function judgeUser() {
   let roleName = userInfo.roleName
   switch(roleName) {
     case 'zyy_student':
-      result = '学员'
+      result['role'] = '学员'
+      result['status'] = 1
       break;
     case 'zyy_instructor':
-      result = '辅导员'
+      result['role'] = '辅导员'
+      result['status'] = 1
       break;
     case 'zyy_lecturer':
-      result = '讲师'
+      result['role'] = '讲师'
+      result['status'] = 3
       break;
     case 'zyy_headmaster':
-      result = '班主任'
+      result['role'] = '班主任'
+      result['status'] = 2
       break;
     case 'zyy_superAdmin':
-      result = '超级管理员'
+      result['role'] = '超级管理员'
+      result['status'] = 1
       break;
     case 'zyy_admin':
-      result = '管理员'
+      result['role'] = '管理员'
+      result['status'] = 1
       break;
+    case 'zyy_lecturer,zyy_headmaster':
+      result['role'] = '讲师,班主任'
+      result['status'] = 3 // 同时为此二个角色时，statu为3
+      break;
+    default:
+      result['role'] = ''
+      result['status'] = 1
   }
   return result;
 }
