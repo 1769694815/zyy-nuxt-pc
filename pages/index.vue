@@ -107,11 +107,11 @@
             class="logout"
             @click="logout">安全退出</div>
           <ul>
-            <li @click="openNewPage($router.resolve({ name: 'mylearn' }))">
+            <li @click="openNewPage($router.resolve({ name: userInfo && userInfo.roleName == 'zyy_headmaster' ? 'teacher' : 'mylearn' }))">
               <img src="~/assets/images/course.png">
               <div class="text">{{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '在教课程' : '我的课程' }}({{ courseNum }})</div>
             </li>
-            <li @click="openNewPage($router.resolve({ name: 'mylearn-myclass' }))">
+            <li @click="openNewPage($router.resolve({ name: userInfo && userInfo.roleName == 'zyy_headmaster' ? 'teacher-classes' : 'mylearn-myclass' }))">
               <img src="~/assets/images/classes.png">
               <div class="text">{{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '在教班级' : '我的班级' }}({{ classNum }})</div>
             </li>
@@ -458,6 +458,7 @@ import Header from '~/components/layout/header.vue'
 import FriendLink from '~/components/layout/friendLink.vue'
 import Cookies from 'js-cookie'
 import { Base64 } from '~/assets/js/base64.js'
+import { judgeUser } from '~/assets/js/util'
 export default {
   components: {
     'v-nav': Nav,
@@ -485,17 +486,20 @@ export default {
       carousels: [],
       infoList: [],
       researchList: [],
+      researchPages: 0, // 中医研究所数据总页数
       famousList: [],
       examList: [],
       theoryList: [],
       healthList: [],
       rightList: [],
       trainList: [],
+      trainPages: 0, // 培训项目数据总页数
       toutiaoList: [],
       healthSubList: [],
       examSubList: [],
       theorySubList: [],
-      friendLinkList: []
+      friendLinkList: [],
+      rankStatus: 0 // 角色的status
     }
   },
   head() {
@@ -543,7 +547,9 @@ export default {
       examSubList: examSubList.data,
       theorySubList: theorySubList.data,
       researchList: researchList.data.records,
-      trainList: trainList.data.records
+      researchPages: researchList.data.pages,
+      trainList: trainList.data.records,
+      trainPages: trainList.data.pages
     }
   },
   created() {
@@ -577,6 +583,7 @@ export default {
     } else {
       this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
       if(this.userInfo) {
+        this.rankStatus = judgeUser().status
         this.getCourseNum()
         this.getClassNum()
         this.tagShow = true
@@ -625,7 +632,7 @@ export default {
       })
     },
     change1() {
-      if(this.current1 == 2) {
+      if(this.current1 == this.researchPages) {
         this.current1 = 1
       } else {
         this.current1 += 1
@@ -633,7 +640,11 @@ export default {
       this.getResearchList()
     },
     change2() {
-      this.current2 += 1
+      if (this.current2 == this.trainPages) {
+        this.current2 = 1
+      } else {
+        this.current2 += 1
+      }
       this.getTrainList()
     },
     
@@ -674,7 +685,8 @@ export default {
     getCourseNum() {
       let params = {
         type: 0,
-        userToken: this.userInfo.userToken || ''
+        userToken: this.userInfo.userToken || '',
+        teacherStatus: this.rankStatus
       }
       this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
         params
@@ -685,7 +697,8 @@ export default {
     getClassNum() {
       let params = {
         type: 0,
-        userToken: this.userInfo.userToken
+        userToken: this.userInfo.userToken,
+        teacherStatus: this.rankStatus
       }
       this.$axios('/yxs/api/web/user/getClassroomMemberPageByUserId', {
         params

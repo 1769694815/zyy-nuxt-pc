@@ -24,7 +24,7 @@ export default {
     }
   },
   mounted() {
-    this.switchTab()
+    // this.switchTab()
   },
   methods: {
     switchTab(index = 0) {
