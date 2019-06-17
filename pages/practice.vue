@@ -307,6 +307,9 @@ export default {
     this.getLessonList()
     this.getTypeList()
   },
+  destroyed() {
+    window.removeEventListener('scroll', this.scroll)
+  },
   methods: {
     getList() {
       this.$axios('/yxs/api/web/question/questionCourseList', {
