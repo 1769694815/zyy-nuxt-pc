@@ -46,35 +46,6 @@
               </td>
             </tr>
           </table>
-          <ul v-show="classType == 2">
-            <li
-              v-for="(item, index) in result"
-              :key="index"
-              class="common-class"
-              @click="toTrainDetail(item.id)">
-              <img :src="item.middlePicture">
-              <div class="info">
-                <div class="title">{{ item.title }}</div>
-                <div
-                  v-if="item.courses"
-                  class="tag">
-                  <span
-                    v-for="(tag, index) in item.courseName.split(',')"
-                    :key="index">
-                    {{ tag }}
-                  </span>
-                </div>
-                <div class="price">&yen;{{ item.price }}</div>
-                <div class="foot">
-                  <span>{{ item.studentNum }}人已报名</span>
-                  <span>截止报名：{{ item.closeDate }}</span>
-                </div>
-                <div class="button">立即报名</div>
-                <div class="button">报名结束</div>
-                <div class="button">已加入本班</div>
-              </div>
-            </li>
-          </ul>
           <ul
             v-show="classType == 1"
             class="train-ul">

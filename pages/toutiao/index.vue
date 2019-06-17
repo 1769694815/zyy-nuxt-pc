@@ -67,12 +67,25 @@ export default {
       title: this.title
     }
   },
-  asyncData({ params }) {
-    console.log('params', params)
+  async asyncData({ $axios, store }) {
+    let res = await $axios('/yxs/api/web/news/getAllCategory')
+    let type
+    if(res.data && res.data.length > 0) {
+      type = res.data[0].id
+    }
+    let list = await $axios('/yxs/api/web/news/getArticleMore', { params: {
+      size: 10,
+      current: 1,
+      type
+    }})
+    return {
+      navList: res.data,
+      listData: list.data.records,
+      total: list.data.records.length
+    }
   },
   mounted() {
     window.scrollTo(0, 0);
-    this.getNavList()
   },
   methods: {
     switchTab(index, item) {
@@ -83,13 +96,6 @@ export default {
       this.total = 0
       this.listData = []
       this.getList()
-    },
-    getNavList() {
-      this.$axios('/yxs/api/web/news/getAllCategory').then(res => {
-        this.navList = res.data
-        this.type = res.data[0].id
-        this.getList()
-      })
     },
     getList(flag) {
       if(flag) {

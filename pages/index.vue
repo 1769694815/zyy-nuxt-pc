@@ -19,13 +19,13 @@
       </el-carousel>
       <div class="carousel-content">
         <div class="nav-list">
-          <nuxt-link
+          <!-- <nuxt-link
             :to="{ name: 'train', query: { fid: 70 }}"
             class="nav-item"
             target="_blank">
             <i class="iconfont iconyisheng"/>
             中医研究所
-          </nuxt-link>
+          </nuxt-link> -->
           <nuxt-link
             :to="{ name: 'train', query: { fid: 63 }}"
             class="nav-item"
@@ -37,21 +37,21 @@
             :to="{ name: 'train', query: { fid: 54 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <i class="iconfont icon2jiankangzhishi"/>
             中医健康
           </nuxt-link>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 55 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <i class="iconfont iconwendang"/>
             中医药理论
           </nuxt-link>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 53 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <i class="iconfont iconkaoshi"/>
             自学考试
           </nuxt-link>
           <div class="sub-nav">
@@ -69,7 +69,7 @@
             :to="{ name: 'western' }"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <i class="iconfont iconxiangmu"/>
             培训项目
           </nuxt-link>
           <div class="sub-nav">
@@ -86,55 +86,6 @@
               西学中
             </nuxt-link>
           </div>
-          <!-- <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 70}}))">
-            <i class="iconfont iconyisheng"/>
-            中医研究所
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 63}}))">
-            <i class="iconfont iconyisheng"/>
-            名医师承
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 54}}))">
-            <i class="iconfont icon2jiankangzhishi"/>
-            中医健康
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 55}}))">
-            <i class="iconfont iconwendang"/>
-            中医药理论
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'train', query: {fid: 53}}))">
-            <i class="iconfont iconkaoshi"/>
-            自学考试
-          </div>
-          <div class="sub-nav">
-            <span
-              v-for="(item, index) in examSubList"
-              v-if="index > 0"
-              :key="index"
-              @click="toList(53, item.id)">
-              {{ item.name }}
-            </span>
-          </div>
-          <div
-            class="nav-item"
-            @click="openNewPage($router.resolve({ name: 'western' }))">
-            <i class="iconfont iconxiangmu"/>
-            培训项目
-          </div>
-          <div class="sub-nav">
-            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 3 }}))">职业培训</span>
-            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 2 }}))">西学中</span>
-          </div> -->
         </div>
         <section
           v-if="userInfo"
@@ -156,13 +107,13 @@
             class="logout"
             @click="logout">安全退出</div>
           <ul>
-            <li @click="openNewPage($router.resolve({ name: 'mylearn' }))">
+            <li @click="openNewPage($router.resolve({ name: userInfo && userInfo.roleName == 'zyy_headmaster' ? 'teacher' : 'mylearn' }))">
               <img src="~/assets/images/course.png">
-              <div class="text">我的课程({{ courseNum }})</div>
+              <div class="text">{{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '在教课程' : '我的课程' }}({{ courseNum }})</div>
             </li>
-            <li @click="openNewPage($router.resolve({ name: 'mylearn-myclass' }))">
+            <li @click="openNewPage($router.resolve({ name: userInfo && userInfo.roleName == 'zyy_headmaster' ? 'teacher-classes' : 'mylearn-myclass' }))">
               <img src="~/assets/images/classes.png">
-              <div class="text">我的班级({{ classNum }})</div>
+              <div class="text">{{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '在教班级' : '我的班级' }}({{ classNum }})</div>
             </li>
           </ul>
           <div
@@ -258,15 +209,33 @@
           </div>
         </div>
         <div class="imgs">
-          <img
-            src="~/assets/images/famous_1.jpg"
-            @click="openNewPage($router.resolve({ name: 'doctor' }))">
-          <img
-            src="~/assets/images/famous_3.png"
-            @click="openNewPage($router.resolve({ name: 'western' }))">
-          <img
-            src="~/assets/images/famous_3.jpg"
-            @click="openNewPage($router.resolve({ name: 'community' }))">
+          <nuxt-link
+            class="img"
+            to="/doctor"
+            target="_blank">
+            <img
+              src="~/assets/images/famous_1.jpg"
+              alt="豫章名医"
+              title="豫章名医">
+          </nuxt-link>
+          <nuxt-link
+            class="img"
+            to="/western"
+            target="_blank">
+            <img
+              src="~/assets/images/famous_3.png"
+              alt="培训项目"
+              title="培训项目">
+          </nuxt-link>
+          <nuxt-link
+            class="img"
+            to="/community"
+            target="_blank">
+            <img
+              src="~/assets/images/famous_3.jpg"
+              alt="中医药进社区"
+              title="中医药进社区">
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -293,10 +262,6 @@
       <div class="container-content">
         <div class="left-img">
           <img src="~/assets/images/img_1.png">
-          <!-- <div class="text">
-            <div class="title">中医知识分享</div>
-            <div class="sub-title">免费更新</div>
-          </div> -->
         </div>
         <div class="right-list">
           <div
@@ -401,7 +366,6 @@
             class="train-img"
             @click="toTrainDetail(item)">
             <img :src="item.middle_picture">
-            <!-- <div class="text">中药炮制工</div> -->
           </div>
         </div>
         <div class="button">
@@ -423,12 +387,6 @@
             查看更多
             <i class="iconfont icongengduo"/>
           </nuxt-link>
-          <!-- <span
-            class="pos-right"
-            @click="toNewPage('toutiao')">
-            查看更多
-            <i class="iconfont icongengduo" />
-          </span> -->
         </div>
       </div>
       <div class="toutiao">
@@ -437,11 +395,7 @@
           v-if="index < 6"
           :key="index"
           class="toutiao-item">
-          <nuxt-link
-            :to="{ name: 'toutiao-id', params: { id: item.id }}"
-            target="_blank">
-            <toutiao-item :data-obj="item"/>
-          </nuxt-link>
+          <toutiao-item :data-obj="item"/>
         </div>
       </div>
     </div>
@@ -449,7 +403,9 @@
       <nuxt-link
         to="/service"
         target="_blank">
-        <img src="~/assets/images/foot-img.png">
+        <img
+          src="~/assets/images/foot-img.png"
+          alt="服务与保障">
       </nuxt-link>
     </div>
     <friend-link :link-list="friendLinkList" />
@@ -478,7 +434,8 @@
             class="content-right">
             <div
               class="learn"
-              @click="toNewPage('mylearn')">我的学习
+              @click="toNewPage('mylearn')">
+              {{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '我的教学' : '我的学习' }}
             </div>
             <div
               class="personal"
@@ -501,6 +458,7 @@ import Header from '~/components/layout/header.vue'
 import FriendLink from '~/components/layout/friendLink.vue'
 import Cookies from 'js-cookie'
 import { Base64 } from '~/assets/js/base64.js'
+import { judgeUser } from '~/assets/js/util'
 export default {
   components: {
     'v-nav': Nav,
@@ -528,18 +486,20 @@ export default {
       carousels: [],
       infoList: [],
       researchList: [],
+      researchPages: 0, // 中医研究所数据总页数
       famousList: [],
       examList: [],
       theoryList: [],
       healthList: [],
       rightList: [],
       trainList: [],
+      trainPages: 0, // 培训项目数据总页数
       toutiaoList: [],
-      stickyList: [],
       healthSubList: [],
       examSubList: [],
       theorySubList: [],
-      friendLinkList: []
+      friendLinkList: [],
+      rankStatus: 0 // 角色的status
     }
   },
   head() {
@@ -548,7 +508,49 @@ export default {
     }
   },
   async asyncData({ $axios }) {
-    
+    let [
+      friendLinkList,
+      carousels,
+      famousList,
+      toutiaoList,
+      examList,
+      theoryList,
+      healthList,
+      healthSubList,
+      examSubList,
+      theorySubList,
+      researchList,
+      trainList
+    ] = await Promise.all([
+      $axios('/yxs/api/web/getFriendsName'),
+      $axios('/yxs/api/web/navigation'),
+      $axios('/yxs/api/web/doctor/recommendList'),
+      $axios('/yxs/api/web/news/recommendList'),
+      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'education' }}),
+      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'career' }}),
+      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'zydjt' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zydjt' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'education' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'career' }}),
+      $axios('/yxs/api/web/doctor/recommendCourseList', { params: { current: 1, size: 4 }}),
+      $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }})
+    ])
+    return {
+      friendLinkList: friendLinkList.data,
+      carousels: carousels.data,
+      famousList: famousList.data,
+      toutiaoList: toutiaoList.data,
+      examList: examList.data,
+      theoryList: theoryList.data,
+      healthList: healthList.data,
+      healthSubList: healthSubList.data,
+      examSubList: examSubList.data,
+      theorySubList: theorySubList.data,
+      researchList: researchList.data.records,
+      researchPages: researchList.data.pages,
+      trainList: trainList.data.records,
+      trainPages: trainList.data.pages
+    }
   },
   created() {
 
@@ -572,20 +574,6 @@ export default {
       this.$axios.post('/auth/oauth/token', params).then(res => {
         Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
         this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
-        this.getCarousel()
-        this.getMenuList()
-        this.getResearchList()
-        this.getRecommendList('zydjt')
-        this.getRecommendList('career')
-        this.getRecommendList('education')
-        this.getDoctorList()
-        this.getNewsList()
-        this.getTrainList()
-        this.getCategoryByCode('zydjt')
-        this.getCategoryByCode('career')
-        this.getCategoryByCode('education')
-        this.getStickyList()
-        this.getFriendList()
         if(this.userInfo) {
           this.getCourseNum()
           this.getClassNum()
@@ -594,55 +582,15 @@ export default {
       })
     } else {
       this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
-      this.getCarousel()
-      this.getMenuList()
-      this.getResearchList()
-      this.getRecommendList('zydjt')
-      this.getRecommendList('career')
-      this.getRecommendList('education')
-      this.getDoctorList()
-      this.getNewsList()
-      this.getTrainList()
-      this.getCategoryByCode('zydjt')
-      this.getCategoryByCode('career')
-      this.getCategoryByCode('education')
-      this.getStickyList()
-      this.getFriendList()
       if(this.userInfo) {
+        this.rankStatus = judgeUser().status
         this.getCourseNum()
         this.getClassNum()
         this.tagShow = true
       }
     }
-    // document.addEventListener('click', e => {
-    //   if(!this.$refs.download.contains(e.target)) {
-    //     this.downShow = false
-    //   }
-    // })
   },
   methods: {
-    // 获取友链
-    getFriendList() {
-      this.$axios('/yxs/api/web/getFriendsName').then(res => {
-        this.friendLinkList = res.data
-      })
-    },
-    // 获取轮播
-    getCarousel() {
-      this.$axios('/yxs/api/web/navigation').then(res => {
-        if(res.code == 0) {
-          this.carousels = res.data
-        }
-      })
-    },
-    // 获取首页菜单列表
-    getMenuList() {
-       this.$axios('/yxs/api/web/course/categoryTree').then(res => {
-        if(res.code == 0) {
-          console.log('menu', res)
-        }
-      })
-    },
     // 获取首页中医研究所
     getResearchList() {
       this.$axios('/yxs/api/web/doctor/recommendCourseList', {
@@ -661,36 +609,6 @@ export default {
             this.researchList = res.data.records
           }
           // this.researchList = res.data
-        }
-      })
-    },
-    // 获取首页中医健康,自学考试,中医药理论 
-    getRecommendList(type) {
-      this.$axios('/yxs/api/web/course/getRecommendList', {
-        params: {
-          type
-        }
-      }).then(res => {
-        if(res.code == 0) {
-          switch(type) {
-            case 'education':
-              this.examList = res.data
-              break;
-            case 'career':
-              this.theoryList = res.data
-              break;
-            case 'zydjt':
-              this.healthList = res.data
-              break;
-          }
-        }
-      })
-    },
-    // 获取首页名医师承
-    getDoctorList() {
-      this.$axios('/yxs/api/web/doctor/recommendList').then(res => {
-        if(res.code == 0) {
-          this.famousList = res.data
         }
       })
     },
@@ -714,7 +632,7 @@ export default {
       })
     },
     change1() {
-      if(this.current1 == 2) {
+      if(this.current1 == this.researchPages) {
         this.current1 = 1
       } else {
         this.current1 += 1
@@ -722,47 +640,14 @@ export default {
       this.getResearchList()
     },
     change2() {
-      this.current2 += 1
+      if (this.current2 == this.trainPages) {
+        this.current2 = 1
+      } else {
+        this.current2 += 1
+      }
       this.getTrainList()
     },
-    // 获取首页资讯
-    getNewsList() {
-      this.$axios('/yxs/api/web/news/recommendList').then(res => {
-        if(res.code == 0) {
-          this.toutiaoList = res.data
-        }
-      })
-    },
-    // 获取banner资讯
-    getStickyList() {
-      this.$axios('/yxs/api/web/news/stickyList').then(res => {
-        if(res.code == 0) {
-          this.stickyList = res.data
-        }
-      })
-    },
-    // 获取推荐课程分类
-    getCategoryByCode(code) {
-      this.$axios('/yxs/api/web/course/getCategoryByCode', {
-        params: {
-          code
-        }
-      }).then(res => {
-        if(res.code == 0) {
-          switch(code) {
-            case 'zydjt':
-              this.healthSubList = res.data
-              break;
-            case 'education':
-              this.examSubList = res.data
-              break;
-            case 'career':
-              this.theorySubList = res.data
-              break;
-          }
-        }
-      })
-    },
+    
     toList(fid, cid) {
       let url = this.$router.resolve({
         name: 'train',
@@ -800,7 +685,8 @@ export default {
     getCourseNum() {
       let params = {
         type: 0,
-        userToken: this.userInfo.userToken || ''
+        userToken: this.userInfo.userToken || '',
+        teacherStatus: this.rankStatus
       }
       this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
         params
@@ -811,7 +697,8 @@ export default {
     getClassNum() {
       let params = {
         type: 0,
-        userToken: this.userInfo.userToken
+        userToken: this.userInfo.userToken,
+        teacherStatus: this.rankStatus
       }
       this.$axios('/yxs/api/web/user/getClassroomMemberPageByUserId', {
         params
@@ -875,14 +762,14 @@ export default {
         font-size: 16px;
         z-index: 99;
         .nav-item {
-          margin-top: 26px;
+          margin-top: 35px;
           height: 24px;
           line-height: 24px;
           color: #fff;
           cursor: pointer;
           display: block;
           &:first-child {
-            margin-top: 16px;
+            margin-top: 25px;
           }
           &:hover {
             color: #3F8A38;
@@ -906,7 +793,7 @@ export default {
         position: absolute;
         right: 0;
         top: 35px;
-        width: 260px;
+        width: 245px;
         height: 330px;
         z-index: 99;
         background: rgba(255, 255, 255, .9);
@@ -1033,21 +920,6 @@ export default {
             }
           }
         }
-        // ul {
-        //   padding: 0 22px;
-        //   li {
-        //     display: flex;
-        //     align-items: center;
-        //     height: 70px;
-        //     border-bottom: 1px solid rgba(0, 0, 0, .2);
-        //     color: #666;
-        //     line-height: 22px;
-        //     font-size: 14px;
-        //     &:last-child {
-        //       border: none;
-        //     }
-        //   }
-        // }
       }
     }
   }
@@ -1104,14 +976,16 @@ export default {
 
     .imgs {
       font-size: 0;
-      img {
+      .img {
         margin-left: 20px;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+      img {
         cursor: pointer;
         transition: all 0.3s ease 0s;
         border-radius: 6px;
-        &:first-child {
-          margin: 0;
-        }
         &:hover {
           transform: translate(0, -5px);
           box-shadow: 0 5px 12px #999;

@@ -6,15 +6,24 @@
         <p>联系我们：南昌市阳明路56号江西中医药大学继续教育学院（培训学院）</p>
         <p>品牌合作：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
         <div class="link">
-          <span @click="openNewPage($router.resolve({ name: 'about' }))">关于我们</span>
-          <span @click="openNewPage($router.resolve({ name: 'service' }))">服务与保障</span>
-          <span @click="openNewPage($router.resolve({ name: 'download' }))">下载APP</span>
-          <span @click="openNewPage($router.resolve({ name: 'index' }))">返回首页</span>
-          <span>
-            <a
-              href="http://www.tcmlll.cn/"
-              target="_blank">访问旧版</a>
-          </span>
+          <nuxt-link
+            to="/about"
+            target="_blank">关于我们</nuxt-link>
+          <nuxt-link
+            to="/service"
+            target="_blank">服务与保障</nuxt-link>
+          <nuxt-link
+            to="/download"
+            target="_blank">下载APP</nuxt-link>
+          <nuxt-link
+            to="/index"
+            target="_blank">返回首页</nuxt-link>
+          <a
+            href="http://old.zyyzx.com.cn/"
+            target="_blank">访问旧版</a>
+          <a
+            href="http://www.yixiaoshu.net/i_info/cid/33.html"
+            target="_blank">学历报名</a>
         </div>
       </div>
       <div class="footer-right fr">
@@ -29,7 +38,7 @@
       </div>
     </div>
     <div class="copyright">
-      版权所有：Copyright 2018 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备11016584号&nbsp;&nbsp;&nbsp;&nbsp;
+      版权所有：Copyright 2018 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备15008425号-5&nbsp;&nbsp;&nbsp;&nbsp;
       技术支持：<a href="http://www.yunduancn.com/">云端科技</a>
     </div>
   </div>
@@ -63,9 +72,10 @@ export default {
       }
       .link {
         margin-top: 10px;
-        span {
+        a {
           margin-left: 10px;
           cursor: pointer;
+          color: #B5B5B5;
           &:hover {
             color: #3f8a38;
           }

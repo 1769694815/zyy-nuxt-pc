@@ -3,16 +3,24 @@
     <div class="img-box">
       <img
         :src="dataObj.middle_picture"
+        :alt="dataObj.title"
         @click="toDetail(dataObj.courseId)">
     </div>
     <div class="content">
-      <div class="title">{{ dataObj.title }}</div>
+      <div class="title">
+        <nuxt-link
+          :to="{ name: 'lessonDetail', query: { id: dataObj.courseId }}"
+          target="_blank">
+          {{ dataObj.title }}
+        </nuxt-link>
+      </div>
       <div class="info">
         <span class="name">{{ dataObj.famousName }}</span>
         <span class="rank">{{ dataObj.famousTitle }}</span>
         <span class="number">{{ dataObj.student_num }}人学过</span>
       </div>
       <p
+        id="text-ellipsis-2"
         style="display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -77,6 +85,12 @@ export default {
       margin-top: 15px;
       font-size: 14px;
       color: #333;
+      a {
+        color: #333;
+        &:hover {
+          color: #3F8A38;
+        }
+      }
     }
     .info {
       margin-top: 14px;
@@ -104,4 +118,14 @@ export default {
     }
   }
   
+</style>
+<style>
+  #text-ellipsis-2 {
+    height: 36px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 </style>

@@ -52,6 +52,7 @@
 <script>
 import LeftTab from '~/components/mine/leftTab.vue'
 import Cookies from 'js-cookie'
+import { judgeUser } from '~/assets/js/util'
 export default {
   components: {
     LeftTab
@@ -71,7 +72,8 @@ export default {
         { label: '未学习', value: 1 },
         { label: '已到期', value: 4 }
       ],
-      contentList: []
+      contentList: [],
+      rankStatus: 0 // 角色的status
     }
   },
   head() {
@@ -81,6 +83,7 @@ export default {
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
+    this.rankStatus = judgeUser().status
     if(!this.userInfo) {
       this.$router.push({
         name: 'login'
@@ -100,7 +103,8 @@ export default {
         size: this.size,
         current: this.current,
         type: this.type,
-        userToken: this.userInfo.userToken
+        userToken: this.userInfo.userToken,
+        teacherStatus: this.rankStatus
       }
       this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
         params

@@ -15,7 +15,7 @@
           </span>
           <span class="link">
             <a
-              href="http://www.tcmlll.cn/"
+              href="http://old.zyyzx.com.cn/"
               target="_blank">访问旧版</a>
           </span>
           <span v-show="loginShow">
@@ -235,7 +235,7 @@ export default {
   mounted() {
     // window.addEventListener('scroll', this.handleScroll)
     let userInfo = Cookies.getJSON('zyy_userInfo')
-    this.rankName = judgeUser()
+    this.rankName = judgeUser() && judgeUser().role
     if(userInfo) {
       this.userInfo = userInfo
       this.tagShow = true
