@@ -38,7 +38,7 @@
             <span class="dot"/>
           </div> -->
           <div
-            v-show="userInfo && userInfo.roleName != 'zyy_headmaster'"
+            v-show="userInfo && userInfo.roleName == 'zyy_student'"
             class="learn"
             @mouseover="learnListShow = true"
             @mouseout="learnListShow = false">我的学习
@@ -53,7 +53,7 @@
             </ul>
           </div>
           <div
-            v-show="userInfo && userInfo.roleName == 'zyy_headmaster'"
+            v-show="userInfo && userInfo.roleName != 'zyy_student'"
             class="learn"
             @mouseover="teacherListShow = true"
             @mouseout="teacherListShow = false">我的教学
@@ -191,7 +191,12 @@ export default {
         {
           label: '我的关注',
           path: 'mylearn-interest'
-        }
+        },
+        {
+          label: '我的试卷',
+          path: 'mylearn-examination'
+        },
+
       ],
       teacherList: [
         {
@@ -205,6 +210,10 @@ export default {
         {
           label: '我的收藏',
           path: 'teacher-collect'
+        },
+        {
+          label: '试卷管理',
+          path: 'teacher-exam'
         }
       ],
       personalList: [
