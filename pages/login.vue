@@ -54,7 +54,7 @@
               <input
                 v-model="form2.userName"
                 type="text"
-                placeholder="邮箱/手机号/用户名">
+                placeholder="手机号/用户名">
             </div>
             <div class="input">
               <span class="img3" />
