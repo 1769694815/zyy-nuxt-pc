@@ -13,11 +13,6 @@
             class="welcome">
             HI，{{ userInfo.nickName }}，欢迎来到中医药在线学习平台!
           </span>
-          <span class="link">
-            <a
-              href="http://old.zyyzx.com.cn/"
-              target="_blank">访问旧版</a>
-          </span>
           <span v-show="loginShow">
             <nuxt-link
               to="/login"

@@ -19,9 +19,6 @@
             to="/index"
             target="_blank">返回首页</nuxt-link>
           <a
-            href="http://old.zyyzx.com.cn/"
-            target="_blank">访问旧版</a>
-          <a
             href="http://www.yixiaoshu.net/i_info/cid/33.html"
             target="_blank">学历报名</a>
         </div>
