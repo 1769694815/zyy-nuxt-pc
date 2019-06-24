@@ -57,13 +57,31 @@
         </el-form-item>
         <el-form-item label="生日">
           <el-date-picker
+            :picker-options="pickerOptions"
             v-model="form.birthday"
             type="date"
             value-format="yyyy-MM-dd"
             placeholder="选择日期" />
         </el-form-item>
-        <el-form-item label="地区">
-          <el-input v-model="form.address" />
+        <el-form-item
+          label="地区">
+          <!-- <el-input v-model="form.address" /> -->
+          <v-distpicker
+            province="省"
+            city="市"
+            area="区"
+            @selected="selected" />
+        </el-form-item>
+        <el-form-item label="职业选择">
+          <el-select
+            v-model="form.career"
+            placeholder="请选择职业">
+            <el-option
+              v-for="(item, index) in careerList"
+              :key="index"
+              :label="item"
+              :value="item" />
+          </el-select>
         </el-form-item>
       </el-form>
       
@@ -99,6 +117,9 @@
         <el-form-item label="地区：">
           <div>{{ form.address ? form.address : '未设置' }}</div>
         </el-form-item>
+        <el-form-item label="职业：">
+          <div>{{ form.career ? form.career : '未设置' }}</div>
+        </el-form-item>
       </el-form>
     </div>
   </div>
@@ -112,6 +133,11 @@ export default {
   },
   data() {
     return {
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
       isEdit: false,
       tabIndex: 1,
       userInfo: '',
@@ -256,7 +282,7 @@ export default {
 </style>
 <style>
   .el-form-item__content {
-    width: 230px;
+    width: 500px;
   }
   .el-upload.el-upload--text {
     width: 66px;
