@@ -73,7 +73,12 @@
               @click="login2">登录</div>
           </div>
           <div class="text">
-            <span @click="modalShow">收不到验证码</span>
+            <span
+              v-show="tab == 1"
+              @click="modalShow">收不到验证码</span>
+            <span
+              v-show="tab == 2"
+              @click="forget">忘记密码</span>
             <span @click="toRegister">注册账户</span>
           </div>
           <p><em /><span>其他方式登录</span><em /></p>
@@ -199,7 +204,12 @@ export default {
         }
       })
     },
-    
+    // 忘记密码
+    forget() {
+      this.$router.push({
+        name: 'forgetPassword'
+      })
+    },
     // 获取验证码
     getCode() {
       let result = isvalidatemobile(this.form1.phone)

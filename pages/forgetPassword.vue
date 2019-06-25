@@ -1,122 +1,117 @@
 <template>
   <div>
-    <personal-tab :tab-index="tabIndex" />    
-    <div class="content">
-      <div class="header">
-        <div class="title">
-          <span
-            style="cursor: pointer"
-            @click="firstShow = true; secondShow = false; thirdShow = false">
-            安全设置
-          </span>>验证手机号
-          <span v-show="secondShow || thirdShow">>设置新密码</span>
-          <span v-show="thirdShow">>修改成功</span>
-        </div>
-      </div>
-      <div v-show="firstShow">
-        <div class="info">
-          <div class="info-item">
-            <div class="title">验证号码：</div>
-            <div class="tel">{{ phone }}</div>
-          </div>
-          <div class="info-item">
-            <div class="title">输入验证码：</div>
-            <div class="tel">
-              <el-input v-model="validNum1" />
+    <v-header />
+    <div class="container">
+      <el-steps
+        :active="active"
+        finish-status="success"
+        simple
+        style="margin-top: 20px">
+        <el-step title="手机号验证" />
+        <el-step title="设置密码" />
+        <el-step title="修改成功" />
+      </el-steps>
+      <div class="content">
+        <div v-show="active == 0">
+          <div class="info">
+            <div class="info-item">
+              <div class="title">验证号码：</div>
+              <div class="tel">
+                <el-input
+                  v-model="phone"
+                  placeholder="请输入您的手机号" />
+              </div>
             </div>
-            <div
-              v-show="!timeShow"
-              class="operate"
-              @click="getCode">获取短信</div>
-            <div
-              v-show="timeShow"
-              class="operate">已发送，{{ count }}秒后重试</div>
-          </div>
-        </div>
-        <div
-          class="button"
-          @click="next">下一步</div>
-      </div>
-      <div v-show="secondShow">
-        <div class="info">
-          <div class="info-item">
-            <div class="title">新密码: </div>
-            <div class="tel">
-              <el-input
-                v-model="password"
-                type="password"
-                placeholder="请输入6-16位数字加字母" />
+            <div class="info-item">
+              <div class="title">输入验证码：</div>
+              <div class="tel">
+                <el-input
+                  v-model="validNum"
+                  placeholder="请输入验证码" />
+              </div>
+              <div
+                v-show="!timeShow"
+                class="operate"
+                @click="getCode">获取短信</div>
+              <div
+                v-show="timeShow"
+                class="operate">已发送，{{ count }}秒后重试</div>
             </div>
           </div>
-          <div class="info-item">
-            <div class="title">确认新密码: </div>
-            <div class="tel">
-              <el-input
-                v-model="newPassword"
-                type="password"
-                placeholder="请输入6-16位数字加字母" />
+          <div
+            class="button"
+            @click="next">下一步</div>
+        </div>
+        <div v-show="active == 1">
+          <div class="info">
+            <div class="info-item">
+              <div class="title">新密码: </div>
+              <div class="tel">
+                <el-input
+                  v-model="password"
+                  type="password"
+                  placeholder="请输入6-16位数字加字母" />
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="title">确认新密码: </div>
+              <div class="tel">
+                <el-input
+                  v-model="newPassword"
+                  type="password"
+                  placeholder="请输入6-16位数字加字母" />
+              </div>
             </div>
           </div>
+          <div
+            class="button"
+            @click="submit">确认提交
+          </div>
         </div>
-        <div
-          class="button"
-          @click="submit">确认提交
-        </div>
-      </div>
-      <div v-show="thirdShow">
-        <div class="center">
-          <div class="title">修改成功</div>
-          <p>
-            <span>{{ leftTime }}s后</span>
-            自动跳转登录页面，如未跳转可点击
-            <span
-              class="back"
-              @click="back">去登录>
-            </span>
-          </p>
+        <div v-show="active == 2">
+          <div class="center">
+            <div class="title">修改成功</div>
+            <p>
+              <span>{{ leftTime }}s后</span>
+              自动跳转登录页面，如未跳转可点击
+              <span
+                class="back"
+                @click="back">去登录>
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import PersonalTab from '~/components/mine/personalTab.vue'
+import Header from '~/components/layout/header.vue'
 import { isvalidatemobile, validatenull } from '~/assets/js/util'
 import Cookies from 'js-cookie'
 export default {
   components: {
-    PersonalTab
+    'v-header': Header
   },
   data() {
     return {
-      tabIndex: 3,
-      validNum1: '',
-      validNum2: '',
-      newMobile: '',
-      firstShow: true,
-      secondShow: false,
-      thirdShow: false,
-      timer: null,
-      leftTime: 3,
-      phone: this.$route.query.phone,
+      active: 2,
+      phone: '',
+      validNum: '',
       timeShow: false,
-      timer3: null,
       count: null,
+      timer: null,
+      timer2: null,
+      leftTime: 3,
       password: '',
       newPassword: '',
       userInfo: ''
-    }
-  },
-  head() {
-    return {
-      title: '个人中心'
     }
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
   },
   methods: {
-    // 获取验证码
     getCode() {
       let result = isvalidatemobile(this.phone)
       if(result[0]) {
@@ -158,7 +153,7 @@ export default {
       }
     },
     next() {
-      if(!this.validNum1) {
+      if(!this.validNum) {
         this.$message({
           message: '请输入验证码',
           type: 'warning'
@@ -167,11 +162,10 @@ export default {
       }
       this.$axios.post('/admin/api/account/phoneCode', {
         phone: this.phone,
-        code: this.validNum1
+        code: this.validNum
       }).then(res => {
         if(res.code == 0) {
-          this.firstShow = false
-          this.secondShow = true
+         this.active = 1
         } else {
           this.$message({
             message: res.msg,
@@ -209,16 +203,10 @@ export default {
         userToken: this.userInfo.userToken
       }).then(res => {
         if(res.code == 0) {
-          this.firstShow = false
-          this.secondShow = false
-          this.thirdShow = true
-          this.timer3 = setInterval(() => {
+          this.active == 2
+          this.timer2 = setInterval(() => {
             if(this.leftTime < 1) {
-              // this.firstShow = true
-              // this.secondShow = false
-              // this.thirdShow = false
-              // this.leftTime = 3
-              clearInterval(this.timer)
+              clearInterval(this.timer2)
               Cookies.remove('zyy_userInfo')
               Cookies.remove('zyy_accessToken')
               this.$router.push({
@@ -236,7 +224,7 @@ export default {
       })
     },
     back() {
-      clearInterval(this.timer3)
+      clearInterval(this.timer2)
       Cookies.remove('zyy_userInfo')
       Cookies.remove('zyy_accessToken')
       this.$router.push({
@@ -247,21 +235,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .content {
-    flex: 1;
-    padding: 0 15px;
-    border: 1px solid #e4ecf3;
-    border-radius: 4px;
-    min-height: 360px;
+  .container {
+    width: 800px;
+    min-height: 500px;
+    margin: 0 auto;
   }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    height: 50px;
-    line-height: 50px;
-    color: #666;
-    font-size: 16px;
-    border-bottom: 1px solid #f5f5f5;
+  .content {
+    margin-left: 100px;
   }
   .info {
     margin-left: 30px;
@@ -275,7 +255,7 @@ export default {
         width: 120px;
       }
       .tel {
-        width: 268px;
+        width: 300px;
         // margin-left: 20px;
       }
       .operate {
@@ -303,6 +283,7 @@ export default {
     cursor: pointer;
   }
   .center {
+    margin-left: -100px;
     text-align: center;
     .title {
       margin-top: 40px;
