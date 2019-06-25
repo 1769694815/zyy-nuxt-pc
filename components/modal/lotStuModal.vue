@@ -71,6 +71,7 @@ export default {
       info: {},
       text: '',
       userInfo: {},
+      fileList: [],
       form: {
         price: '',
         remark: ''
@@ -92,6 +93,9 @@ export default {
     },
     confirm() {
       
+    },
+    handleChange() {
+
     }
   }
 }
