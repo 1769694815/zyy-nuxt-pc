@@ -49,10 +49,10 @@ export default {
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
-    if(this.userInfo.roleName == 'zyy_headmaster') {
-      this.text = '返回在教班级'
-    } else {
+    if(this.userInfo.roleName == 'zyy_student') {
       this.text = '返回我的班级'
+    } else {
+      this.text = '返回在教班级'
     }
   },
   methods: {
@@ -62,13 +62,13 @@ export default {
       })
     },
     back() {
-      if(this.userInfo.roleName == 'zyy_headmaster') {
+      if(this.userInfo.roleName == 'zyy_student') {
         this.$router.push({
-          name: 'teacher-classes'
+          name: 'mylearn-myclass'
         })
       } else {
         this.$router.push({
-          name: 'mylearn-myclass'
+          name: 'teacher-classes'
         })
       }
     }

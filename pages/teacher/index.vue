@@ -103,6 +103,9 @@ export default {
       .content {
         padding: 0 10px;
         .title {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
           margin-top: 12px;
           font-size: 14px;
           color: #333;
