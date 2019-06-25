@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul v-if="userInfo.roleName != 'zyy_headmaster'">
+    <ul v-if="userInfo.roleName == 'zyy_student'">
       <li @click="back">{{ text }}</li>
       <li
         v-for="(item, index) in studentList"
@@ -38,7 +38,7 @@ export default {
       text: '',
       userInfo: '',
       studentList: [
-        { label: '本班学员管理', name: 'rank-total' },
+        { label: '本班总计排名', name: 'rank-total' },
         { label: '本班课程排名', name: 'rank-course' }
       ],
       list: [
