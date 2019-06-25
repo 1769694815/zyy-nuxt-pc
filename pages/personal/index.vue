@@ -257,6 +257,14 @@ export default {
     }
     .button {
       cursor: pointer;
+      width: 50px;
+      height: 30px;
+      line-height: 30px;
+      margin-top: 10px;
+      background: #3F8A38;
+      color: #fff;
+      border-radius: 6px;
+      text-align: center;
     }
   }
   .form {
