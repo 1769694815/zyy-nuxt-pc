@@ -67,9 +67,9 @@
           label="地区">
           <!-- <el-input v-model="form.address" /> -->
           <v-distpicker
-            province="省"
-            city="市"
-            area="区"
+            :province="form.provinceName || 省"
+            :city="form.cityName || 市"
+            :area="form.areaName || 区"
             @selected="selected" />
         </el-form-item>
         <el-form-item label="职业选择">
@@ -115,7 +115,7 @@
           <div>{{ form.birthday ? form.birthday : '未设置' }}</div>
         </el-form-item>
         <el-form-item label="地区：">
-          <div>{{ form.address ? form.address : '未设置' }}</div>
+          <div>{{ form.provinceName ? (form.provinceName + form.cityName + form.areaName): '未设置' }}</div>
         </el-form-item>
         <el-form-item label="职业：">
           <div>{{ form.career ? form.career : '未设置' }}</div>
@@ -151,7 +151,11 @@ export default {
         sex: '0',
         birthday: '',
         avatar: '',
-        address: ''
+        address: '',
+        provinceName: '',
+        cityName: '',
+        areaName: '',
+        streetName: ''
       },
       form2: {},
       options: []
@@ -193,6 +197,11 @@ export default {
 
     },
 
+    selected(data) {
+      this.form.provinceName = data.province.value
+      this.form.cityName = data.city.value
+      this.form.areaName = data.area.value
+    },
     getToken() {
       this.$axios('/admin/api/qiniu/tokenupload').then(res => {
         this.uploadToken.token = res.data.accessKey
@@ -211,7 +220,9 @@ export default {
         sex: this.form.sex,
         birthday: this.form.birthday,
         avatar: this.uploadToken.key,
-        address: this.form.address
+        provinceName: this.form.provinceName,
+        cityName: this.form.cityName,
+        areaName: this.form.areaName
       }).then(res => {
         if(res.code == 0) {
           this.isEdit = false
