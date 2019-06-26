@@ -23,3 +23,18 @@
 .el-progress-bar__inner {
   background: linear-gradient(90deg,#91BD35,#3F8A38);
 }
+
+.nodata {
+  position: relative;
+  width: 100%;
+}
+.nodata img {
+  width: 100%;
+}
+.nodata .text {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: #999;
+}

@@ -2,7 +2,7 @@
   <div>
     <left-tab :tab-index="tabIndex" />
     <div class="teacher">
-      <ul>
+      <ul v-if="contentList && contentList.length > 0">
         <li
           v-for="(item, index) in contentList"
           :key="index">
@@ -28,6 +28,12 @@
           </div>
         </li>
       </ul>
+      <div
+        v-else
+        class="nodata">
+        <img src="~/assets/images/nodata.png">
+        <div class="text">亲，你还没有在教课程哦~</div>
+      </div>
     </div>
   </div>
 </template>
