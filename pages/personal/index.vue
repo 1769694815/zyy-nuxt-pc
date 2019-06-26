@@ -158,7 +158,8 @@ export default {
         streetName: ''
       },
       form2: {},
-      options: []
+      options: [],
+      careerList: []
     }
   },
   head() {
@@ -169,6 +170,7 @@ export default {
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()
+    this.getCareerList()
   },
   methods: {
     getInfo() {
@@ -178,6 +180,11 @@ export default {
         }
       }).then(res => {
         this.form = res.data
+      })
+    },
+    getCareerList() {
+      this.$axios('/admin/api/web/account/careerList').then(res => {
+        this.careerList = res.data.careers
       })
     },
     // 上传成功
