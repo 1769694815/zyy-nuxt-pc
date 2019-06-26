@@ -152,6 +152,7 @@ export default {
         birthday: '',
         avatar: '',
         address: '',
+        career: '',
         provinceName: '',
         cityName: '',
         areaName: '',
@@ -229,7 +230,8 @@ export default {
         avatar: this.uploadToken.key,
         provinceName: this.form.provinceName,
         cityName: this.form.cityName,
-        areaName: this.form.areaName
+        areaName: this.form.areaName,
+        career: this.form.career
       }).then(res => {
         if(res.code == 0) {
           this.isEdit = false
