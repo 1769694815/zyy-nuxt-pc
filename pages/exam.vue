@@ -46,7 +46,7 @@
                     <el-radio
                       v-for="(option, index) in item.optionContent"
                       :key="index"
-                      :label="option.content"
+                      :label="option.name"
                       style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}</el-radio>
                   </el-radio-group>
                 </li>
@@ -190,20 +190,26 @@
               <table border="1">
                 <thead>
                   <th>题型</th>
-                  <th>单选题（10题）</th>
-                  <th>多选题（10题）</th>
-                  <th>不定性选择（10题）</th>
-                  <th>判断题（10题）</th>
-                  <th>填空题（10题）</th>
-                  <th>总得分（100）</th>
+                  <th
+                    v-for="(item, index) in result.countList"
+                    v-if="index < 5"
+                    :key="index">
+                    <span v-if="item.type_id == 1">单选题({{ item.questionSize }}题)</span>
+                    <span v-if="item.type_id == 2">多选题({{ item.questionSize }}题)</span>
+                    <span v-if="item.type_id == 3">不定性选择({{ item.questionSize }}题)</span>
+                    <span v-if="item.type_id == 4">判断题({{ item.questionSize }}题)</span>
+                    <span v-if="item.type_id == 5">填空题({{ item.questionSize }}题)</span>
+                  </th>
+                  <th>总得分(100分)</th>
                 </thead>
                 <tr style="color: red">
                   <td>得分</td>
-                  <td>{{ result.sunScore || 0 }}</td>
-                  <td>0分</td>
-                  <td>0分</td>
-                  <td>0分</td>
-                  <td>0分</td>
+                  <td
+                    v-for="(item, index) in result.countList"
+                    v-if="index < 5"
+                    :key="index">
+                    {{ item.score }}分
+                  </td>
                   <td
                     rowspan="4"
                     style="vertical-align:middle;">
@@ -213,27 +219,30 @@
                 </tr>
                 <tr>
                   <td>答对</td>
-                  <td>{{ result.rightCount || 0 }}题</td>
-                  <td>0题</td>
-                  <td>0题</td>
-                  <td>0题</td>
-                  <td>0题</td>
+                  <td
+                    v-for="(item, index) in result.countList"
+                    v-if="index < 5"
+                    :key="index">
+                    {{ item.success }}题
+                  </td>
                 </tr>
                 <tr>
                   <td>答错</td>
-                  <td>{{ result.missCount || 0 }}题</td>
-                  <td>0题</td>
-                  <td>0题</td>
-                  <td>0题</td>
-                  <td>0题</td>
+                  <td
+                    v-for="(item, index) in result.countList"
+                    v-if="index < 5"
+                    :key="index">
+                    {{ item.wrong }}题
+                  </td>
                 </tr>
                 <tr>
                   <td>漏答</td>
-                  <td>{{ result.unCount || 0 }}题</td>
-                  <td>0题</td>
-                  <td>0题</td>
-                  <td>0题</td>
-                  <td>0题</td>
+                  <td
+                    v-for="(item, index) in result.countList"
+                    v-if="index < 5"
+                    :key="index">
+                    {{ item.none }}题
+                  </td>
                 </tr>
               </table>
             </div>
@@ -273,7 +282,7 @@
                     <el-radio
                       v-for="(option, index) in item.optionContent"
                       :key="index"
-                      :label="option.content"
+                      :label="option.name"
                       style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}</el-radio>
                   </el-radio-group>
                   <div class="analyse">
