@@ -478,7 +478,7 @@
                   v-if="item.typeId == 1"
                   :id="'question'+index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
+                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span> <span>{{ list[index].userAnswer == null? '':'(已选)' }}</span>
                   </p>
                   <el-radio-group v-model="list[index].userAnswer">
                     <el-radio
@@ -518,14 +518,14 @@
                 v-if="index == singleSize(1)-1"
                 class="list-title">
                 二、多选题
-                <span>(共{{ singleSize(2) }}题，共{{ singleScore(2) }}分)</span>
+                <span>(共{{ singleSize(2) }}题，共{{ singleScore(2) }}分)</span> 
               </div>
               <ul>
                 <li
                   v-if="item.typeId == 2"
                   :id="'question'+index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
+                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span> <span>{{ list[index].userAnswer == null? '':'(已选)' }}</span>
                   </p>
                   <el-checkbox-group v-model="dxform[index]">
                     <el-checkbox
@@ -977,8 +977,9 @@ export default {
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     console.log(this.userInfo.roleName)
-    if(this.userInfo.roleName =='zyy-student'){
-      this.getList()
+    if(this.userInfo.roleName =='zyy_student' || this.userInfo.roleName =='zyy_admin'){
+      console.log('zyy-admin')
+      //this.getList()
     }else{
       this.getTeacherlist()
       window.addEventListener('scroll', this.handleScroll)
@@ -1109,6 +1110,7 @@ export default {
               if(this.list[i].userAnswer != ''){
                 this.dxform[i] = []
                 this.dxform[i] = this.list[i].userAnswer.split('')
+                console.log('dx',dxform[i])
               }
             }
             if(this.list[i].typeId == 5){
