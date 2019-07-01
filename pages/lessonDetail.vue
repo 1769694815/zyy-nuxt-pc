@@ -365,12 +365,17 @@ export default {
       })
     },
     toPlay(item) {
+      console.log('item', item)
       if(!this.userInfo) {
         this.$router.push({
           name: 'login'
         })
       } else {
-        if(item.free == 1) {
+        if(item.free == 2) {
+          this.$alert('购买课程才可观看全部视频哦~', '提示', {
+            confirmButtonText: '确定'
+          })
+        } else {
           let url = this.$router.resolve({
             name: 'play',
             query: {
@@ -379,10 +384,6 @@ export default {
             }
           })
           window.open(url.href, '_blank')
-        } else {
-          this.$alert('购买课程才可观看全部视频哦~', '提示', {
-            confirmButtonText: '确定'
-          });
         }
       }
     },
