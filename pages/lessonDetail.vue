@@ -144,7 +144,7 @@
                 <li
                   v-for="(item, index) in detailData.lesson"
                   :key="index"
-                  @click="toPlay">
+                  @click="toPlay(item)">
                   <span class="circle" />
                   <span
                     v-if="item.free == 1"
@@ -364,19 +364,27 @@ export default {
         this.title = this.detailData.title + '_自学考试'
       })
     },
-    toPlay() {
+    toPlay(item) {
+      console.log('item', item)
       if(!this.userInfo) {
         this.$router.push({
           name: 'login'
         })
       } else {
-        let url = this.$router.resolve({
-          name: 'play',
-          query: {
-            courseId: this.id
-          }
-        })
-        window.open(url.href, '_blank')
+        if(item.free == 2) {
+          this.$alert('购买课程才可观看全部视频哦~', '提示', {
+            confirmButtonText: '确定'
+          })
+        } else {
+          let url = this.$router.resolve({
+            name: 'play',
+            query: {
+              courseId: this.id,
+              lessonId: item.lessonId
+            }
+          })
+          window.open(url.href, '_blank')
+        }
       }
     },
     join() {

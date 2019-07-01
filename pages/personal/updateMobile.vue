@@ -17,7 +17,7 @@
         <div class="info">
           <div class="info-item">
             <div class="title">验证号码：</div>
-            <div class="tel">{{ phone }}</div>
+            <div class="tel">{{ formatPhone(phone) }}</div>
           </div>
           <div class="info-item">
             <div class="title">输入验证码：</div>
@@ -115,6 +115,9 @@ export default {
     }
   },
   methods: {
+    formatPhone(phone) {
+      return phone.substr(0, 3) + '****' + phone.substr(8)
+    },
     // 获取验证码
     getCode() {
       let result = isvalidatemobile(this.phone)

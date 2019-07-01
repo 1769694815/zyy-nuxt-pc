@@ -11,15 +11,21 @@
             @click="switchTab(index)"> {{ item.label }} </li>
         </ul>
       </div>
-      <div class="center">
+      <div 
+        v-if="contentList && contentList.length > 0"
+        class="center">
         <ul>
           <li
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item">
-            <img :src="item.middlePicture">
+            <img
+              :src="item.middlePicture"
+              @click="toPlay(item.classroomId)">
             <div class="content">
-              <div class="title">{{ item.title }}</div>
+              <div
+                class="title"
+                @click="toPlay(item.classroomId)">{{ item.title }}</div>
               <p v-show="item.dayCount != 0">
                 {{ item.dayCount }}天后到期
               </p>
@@ -35,6 +41,12 @@
             </div>
           </li>
         </ul>
+      </div>
+      <div
+        v-else
+        class="nodata">
+        <img src="~/assets/images/nodata.png">
+        <div class="text">亲，你还没有在教班级哦~</div>
       </div>
     </div>
   </div>
@@ -85,6 +97,15 @@ export default {
       this.$router.push({
         name: 'rank-manage'
       })
+    },
+    toPlay(id) {
+      let url = this.$router.resolve({
+        name: 'play',
+        query: {
+          classId: id
+        }
+      })
+      window.open(url.href, '_blank')
     },
     getList() {
       let params = {
@@ -152,6 +173,7 @@ export default {
           width: 240px;
           height: 135px;
           border-radius: 6px;
+          cursor: pointer;
         }
         .content {
           margin-left: 20px;
@@ -160,6 +182,7 @@ export default {
           margin-bottom: 16px;
           font-size: 18px;
           color: #333;
+          cursor: pointer;
         }
         .desc {
           margin-top: 16px;

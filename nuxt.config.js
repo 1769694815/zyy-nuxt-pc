@@ -57,7 +57,8 @@ module.exports = {
     '@/plugins/axios',
     '@/plugins/router',
     { src: '@/static/font/iconfont.js', ssr: false },
-    { src: '@/plugins/vue-lazyload.js', ssr: false }
+    { src: '@/plugins/vue-lazyload.js', ssr: false },
+    { src: '@/plugins/distpicker.js', ssr: false }
   ],
 
   /*
@@ -83,10 +84,10 @@ module.exports = {
 
   proxy: {
     '/api/': {
-      target: 'http://212.64.79.36:8080',
+      // target: 'http://212.64.79.36:8080',
       //target: 'http://192.168.2.199:9999',
       // target: 'http://192.168.2.195:9999',
-      //target: 'http://api.zyyzx.com.cn',
+      target: 'http://api.zyyzx.com.cn',
       pathRewrite: { '^/api/': '/', changeOrigin: true }
     }
   },

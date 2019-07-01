@@ -46,6 +46,7 @@
 </template>
 <script>
 import PersonalTab from '~/components/mine/personalTab.vue'
+import Cookies from 'js-cookie'
 export default {
   components: {
     PersonalTab
@@ -54,7 +55,8 @@ export default {
     return {
       tabIndex: 2,
       id: this.$route.query.id,
-      detail: ''
+      detail: '',
+      userInfo: ''
     }
   },
   head() {
@@ -63,13 +65,15 @@ export default {
     }
   },
   mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getDetail()
   },
   methods: {
     getDetail() {
       this.$axios('/yxs/api/web/user/getOrdersById', {
         params: {
-          id: this.id
+          id: this.id,
+          userToken: this.userInfo.userToken
         }
       }).then(res => {
         this.detail = res.data

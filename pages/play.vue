@@ -222,7 +222,9 @@ export default {
     getInfo(lessonId, free, index, flag) {
       let _this = this
       this.playIndex = index || 0
-      this.lessonId = lessonId
+      if(lessonId) {
+        this.lessonId = lessonId
+      }
       if(_this.player) {
         _this.player.pause()
       }
@@ -235,7 +237,7 @@ export default {
       this.lastShow = false
       if(this.classId) {
         this.$axios.post('/yxs/api/web/user/startLearnClass', {
-          lessonId: lessonId || '',
+          lessonId: lessonId || this.$route.query.lessonId,
           classId: this.classId,
           courseId: this.courseId,
           userToken: this.userInfo.userToken
@@ -380,7 +382,7 @@ export default {
       } else {
         this.$axios.post('/yxs/api/web/user/startLearnCourse', {
           courseId: this.courseId,
-          lessonId: lessonId || '',
+          lessonId: lessonId || this.$route.query.lessonId,
           classId: this.classId,
           userToken: this.userInfo.userToken
         }).then(res => {

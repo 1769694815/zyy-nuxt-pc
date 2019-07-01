@@ -12,9 +12,11 @@
         </div>
       </div>
       <div class="m-content">
+        <p>收不到短息的原因可能有：</p>
         <p>1、操作太过频繁，可稍后再试</p>
-        <p>2、当日短信已达上限，明天再来吧</p>
-        <p>3、都不是，联系
+        <p>2、当日短信接收已达10条上限，明天再来吧~</p>
+        <p>3、手机号输入有误</p>
+        <p>4、都不是，联系
           <a
             href="http://p.qiao.baidu.com/cps/chat?siteId=12747992&userId=26713079&cp=http%3A%2F%2Fwww.jzjxedu.com%2F&cr=&cw="
             target="_blank">在线客服</a></p>

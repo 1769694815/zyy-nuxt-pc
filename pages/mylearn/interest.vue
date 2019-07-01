@@ -20,7 +20,9 @@
             @click="cancel">取消操作</span>
         </div>
       </div>
-      <div class="center">
+      <div
+        v-if="contentList && contentList.length > 0"
+        class="center">
         <ul>
           <li
             v-for="(item,index) in contentList"
@@ -52,6 +54,12 @@
             </div>
           </li>
         </ul>
+      </div>
+      <div
+        v-else
+        class="nodata">
+        <img src="~/assets/images/nodata.png">
+        <div class="text">亲，你还没有关注哦~</div>
       </div>
     </div>
   </div>

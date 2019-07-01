@@ -57,13 +57,31 @@
         </el-form-item>
         <el-form-item label="生日">
           <el-date-picker
+            :picker-options="pickerOptions"
             v-model="form.birthday"
             type="date"
             value-format="yyyy-MM-dd"
             placeholder="选择日期" />
         </el-form-item>
-        <el-form-item label="地区">
-          <el-input v-model="form.address" />
+        <el-form-item
+          label="地区">
+          <!-- <el-input v-model="form.address" /> -->
+          <v-distpicker
+            :province="form.provinceName || 省"
+            :city="form.cityName || 市"
+            :area="form.areaName || 区"
+            @selected="selected" />
+        </el-form-item>
+        <el-form-item label="职业选择">
+          <el-select
+            v-model="form.career"
+            placeholder="请选择职业">
+            <el-option
+              v-for="(item, index) in careerList"
+              :key="index"
+              :label="item"
+              :value="item" />
+          </el-select>
         </el-form-item>
       </el-form>
       
@@ -97,7 +115,10 @@
           <div>{{ form.birthday ? form.birthday : '未设置' }}</div>
         </el-form-item>
         <el-form-item label="地区：">
-          <div>{{ form.address ? form.address : '未设置' }}</div>
+          <div>{{ form.provinceName ? (form.provinceName + form.cityName + form.areaName): '未设置' }}</div>
+        </el-form-item>
+        <el-form-item label="职业：">
+          <div>{{ form.career ? form.career : '未设置' }}</div>
         </el-form-item>
       </el-form>
     </div>
@@ -112,6 +133,11 @@ export default {
   },
   data() {
     return {
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
       isEdit: false,
       tabIndex: 1,
       userInfo: '',
@@ -125,10 +151,16 @@ export default {
         sex: '0',
         birthday: '',
         avatar: '',
-        address: ''
+        address: '',
+        career: '',
+        provinceName: '',
+        cityName: '',
+        areaName: '',
+        streetName: ''
       },
       form2: {},
-      options: []
+      options: [],
+      careerList: []
     }
   },
   head() {
@@ -139,6 +171,7 @@ export default {
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.getInfo()
+    this.getCareerList()
   },
   methods: {
     getInfo() {
@@ -148,6 +181,11 @@ export default {
         }
       }).then(res => {
         this.form = res.data
+      })
+    },
+    getCareerList() {
+      this.$axios('/admin/api/web/account/careerList').then(res => {
+        this.careerList = res.data.careers
       })
     },
     // 上传成功
@@ -167,6 +205,11 @@ export default {
 
     },
 
+    selected(data) {
+      this.form.provinceName = data.province.value
+      this.form.cityName = data.city.value
+      this.form.areaName = data.area.value
+    },
     getToken() {
       this.$axios('/admin/api/qiniu/tokenupload').then(res => {
         this.uploadToken.token = res.data.accessKey
@@ -185,7 +228,10 @@ export default {
         sex: this.form.sex,
         birthday: this.form.birthday,
         avatar: this.uploadToken.key,
-        address: this.form.address
+        provinceName: this.form.provinceName,
+        cityName: this.form.cityName,
+        areaName: this.form.areaName,
+        career: this.form.career
       }).then(res => {
         if(res.code == 0) {
           this.isEdit = false
@@ -231,6 +277,14 @@ export default {
     }
     .button {
       cursor: pointer;
+      width: 50px;
+      height: 30px;
+      line-height: 30px;
+      margin-top: 10px;
+      background: #3F8A38;
+      color: #fff;
+      border-radius: 6px;
+      text-align: center;
     }
   }
   .form {
@@ -256,7 +310,7 @@ export default {
 </style>
 <style>
   .el-form-item__content {
-    width: 230px;
+    width: 500px;
   }
   .el-upload.el-upload--text {
     width: 66px;

@@ -68,7 +68,7 @@
               class="list">
               <div class="list-title">
                 单选题
-                <span>(共{{ list.length }}题)</span>
+                <span>(共{{ total }}题)</span>
               </div>
               <ul>
                 <li
@@ -104,7 +104,7 @@
               class="list">
               <div class="list-title">
                 多选题
-                <span>(共{{ list.length }}题)</span>
+                <span>(共{{ total }}题)</span>
               </div>
               <ul>
                 <li
@@ -141,7 +141,7 @@
               class="list">
               <div class="list-title">
                 不定项选择题
-                <span>(共{{ list.length }}题)</span>
+                <span>(共{{ total }}题)</span>
               </div>
               <ul>
                 <li
@@ -177,7 +177,7 @@
               class="list">
               <div class="list-title">
                 判断题
-                <span>(共{{ list.length }}题)</span>
+                <span>(共{{ total }}题)</span>
               </div>
               <ul>
                 <li
@@ -214,7 +214,7 @@
               class="list">
               <div class="list-title">
                 填空题
-                <span>(共{{ list.length }}题)</span>
+                <span>(共{{ total }}题)</span>
               </div>
               <ul v-if="list && list.length > 0">
                 <li
@@ -250,6 +250,41 @@
                 </li>
               </ul>
             </div>
+            <div
+              v-if="type == 6 && list && list.length > 0"
+              class="list">
+              <div class="list-title">
+                问答题
+                <span>(共{{ total }}题)</span>
+              </div>
+              <ul v-if="list && list.length > 0">
+                <li
+                  v-for="(item, index) in list"
+                  :key="index">
+                  <p>
+                    {{ index + 1 }}、{{ item.stem }}
+                  </p>
+                  <el-input
+                    v-model="form.item6[index]"
+                    type="textarea" />
+                  <div class="analyse">
+                    <div
+                      class="text"
+                      @click="toggle">
+                      解析<i class="iconfont iconarrow-right"/>
+                    </div>
+                    <div class="desc">
+                      <div>答案：{{ item.answer }}</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <Pagination
+              :size="size"
+              :current="current"
+              :total="total"
+              @currentChange="currentChange" />
           </div>
         </div>
         <div class="content-right">
@@ -268,10 +303,12 @@
 </template>
 <script>
 import Header from '~/components/layout/header.vue'
+import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
 export default {
   components: {
-    'v-header': Header
+    'v-header': Header,
+    Pagination
   },
   data() {
     return {
@@ -289,7 +326,8 @@ export default {
         item2: [], // 多选题
         item3: [], // 不定项选择题
         item4: [], // 判断题
-        item5: []  // 填空题
+        item5: [],  // 填空题
+        item6: []
       },
       list: [],
       lessonList: [],
@@ -297,6 +335,7 @@ export default {
       letterArray: ['A', 'B', 'C', 'D', 'E', 'F'],
       current: 1,
       size: 10,
+      total: 0,
       isLoading: false
     }
   },
@@ -306,6 +345,9 @@ export default {
     this.getList()
     this.getLessonList()
     this.getTypeList()
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.scroll)
   },
   methods: {
     getList() {
@@ -322,12 +364,14 @@ export default {
         }
       }).then(res => {
         console.log(res)
-        if (this.current == res.data.newList.pages || res.data.newList.pages == 0) {
-          this.isLoading = true
-        } else {
-          this.isLoading = false
-        }
-        this.list = this.list.concat(res.data.newList.records)
+        // if (this.current == res.data.newList.pages || res.data.newList.pages == 0) {
+        //   this.isLoading = true
+        // } else {
+        //   this.isLoading = false
+        // }
+        // this.list = this.list.concat(res.data.newList.records)
+        this.list = res.data.newList.records
+        this.total = res.data.newList.total
         if(this.type == 2) {
           for(let i in this.list) {
             this.form.item2[i] = []
@@ -407,14 +451,18 @@ export default {
                
       });
     },
-    scroll() {
-      let bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= document.documentElement.offsetHeight / 2
-      if (bottomOfWindow && !this.isLoading) {
-        this.isLoading = true
-        this.current += 1
-        this.getList()
-      }
+    currentChange(val) {
+      this.current = val
+      this.getList()
     }
+    // scroll() {
+    //   let bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= document.documentElement.offsetHeight / 2
+    //   if (bottomOfWindow && !this.isLoading) {
+    //     this.isLoading = true
+    //     this.current += 1
+    //     this.getList()
+    //   }
+    // }
   }
 }
 </script>

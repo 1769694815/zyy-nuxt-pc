@@ -65,6 +65,7 @@
           align="center"
           width="100" />
         <el-table-column
+          :formatter="resultFormatter"
           prop="result"
           label="学习总进度"
           align="center"
@@ -78,17 +79,18 @@
           label="操作"
           align="center"
           width="150">
-          <template slot-scope="scope">
+          <template
+            slot-scope="scope">
             <el-button
               v-if="scope.row.locked == 1"
               type="primary"
               size="small"
-              @click="lockPower(scope.row)">冻结学员观看权限</el-button>
+              @click="lockPower(scope.row)">冻结权限</el-button>
             <el-button
               v-else
               type="primary"
               size="small"
-              @click="lockPower(scope.row)">解除冻结观看</el-button>
+              @click="lockPower(scope.row)">解除冻结</el-button>
             <el-button
               type="text"
               size="small"
@@ -212,11 +214,21 @@ export default {
       let ss = this.formatStr(date.getSeconds())
       return ` ${y}-${m}-${d} ${hh}:${mm}:${ss}`
     },
+    // 进度格式化
+    resultFormatter(row, column) {
+      if(row.result == '0%') {
+        return '未学习'
+      } else if(row.result == '100%') {
+        return '已学完'
+      } else {
+        return row.result
+      }
+    },
     formatStr(time) {
       return time > 9 ? time : '0'+time
     },
     typeFormatter(row, column) {
-      let str = row.joinType || '加入方式'
+      let str = row.joinType || '管理员添加'
       let status = ''
       switch(row.status) {
         case '1':

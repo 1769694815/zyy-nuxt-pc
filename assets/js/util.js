@@ -78,6 +78,10 @@ export function judgeUser() {
       result['role'] = '管理员'
       result['status'] = 1
       break;
+    case 'zyy_student,zyy_headmaster':
+      result['role'] = '学员,讲师'
+      result['status'] = 2 // 同时为此二个角色时，statu为2
+      break;
     case 'zyy_lecturer,zyy_headmaster':
       result['role'] = '讲师,班主任'
       result['status'] = 3 // 同时为此二个角色时，statu为3

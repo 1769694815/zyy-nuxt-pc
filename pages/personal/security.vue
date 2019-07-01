@@ -8,7 +8,7 @@
       <div class="info">
         <div class="info-item">
           <div class="title">手机账号</div>
-          <div class="tel">{{ phone }}</div>
+          <div class="tel">{{ formatPhone(phone) }}</div>
           <div
             class="operate"
             @click="updateMobile">修改
@@ -74,6 +74,9 @@ export default {
         this.phone = res.data.phone
       })
     },
+    formatPhone(phone) {
+      return phone.substr(0, 3) + '****' + phone.substr(8)
+    }
   }
 }
 </script>

@@ -16,7 +16,7 @@
       <div 
         v-if="tab == 1 || 2"
         class="center">
-        <ul>
+        <ul v-if="contentList && contentList.length > 0">
           <li
             v-for="(item,index) in contentList"
             :key="index"
@@ -53,6 +53,12 @@
             </div>
           </li>
         </ul>
+        <div
+          v-else
+          class="nodata">
+          <img src="~/assets/images/nodata.png">
+          <div class="text">亲，你还没有考试记录哦~</div>
+        </div>
       </div>
     </div>
     <div

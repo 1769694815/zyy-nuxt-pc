@@ -107,13 +107,13 @@
             class="logout"
             @click="logout">安全退出</div>
           <ul>
-            <li @click="openNewPage($router.resolve({ name: userInfo && userInfo.roleName == 'zyy_headmaster' ? 'teacher' : 'mylearn' }))">
+            <li @click="openNewPage($router.resolve({ name: userInfo && userInfo.roleName == 'zyy_student' ? 'mylearn' : 'teacher' }))">
               <img src="~/assets/images/course.png">
-              <div class="text">{{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '在教课程' : '我的课程' }}({{ courseNum }})</div>
+              <div class="text">{{ userInfo && userInfo.roleName == 'zyy_student' ? '我的课程' : '在教课程' }}({{ courseNum }})</div>
             </li>
-            <li @click="openNewPage($router.resolve({ name: userInfo && userInfo.roleName == 'zyy_headmaster' ? 'teacher-classes' : 'mylearn-myclass' }))">
+            <li @click="openNewPage($router.resolve({ name: userInfo && userInfo.roleName == 'zyy_student' ? 'mylearn-myclass' : 'teacher-classes' }))">
               <img src="~/assets/images/classes.png">
-              <div class="text">{{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '在教班级' : '我的班级' }}({{ classNum }})</div>
+              <div class="text">{{ userInfo && userInfo.roleName == 'zyy_student' ? '我的班级' : '在教班级' }}({{ classNum }})</div>
             </li>
           </ul>
           <div
@@ -435,7 +435,7 @@
             <div
               class="learn"
               @click="toNewPage('mylearn')">
-              {{ userInfo && userInfo.roleName == 'zyy_headmaster' ? '我的教学' : '我的学习' }}
+              {{ userInfo && userInfo.roleName == 'zyy_student' ? '我的学习' : '我的教学' }}
             </div>
             <div
               class="personal"

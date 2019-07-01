@@ -5,7 +5,9 @@
       <div class="header">
         <div class="title">我的订单</div>
       </div>
-      <div class="list">
+      <div
+        v-if="list && list.length > 0"
+        class="list">
         <ul>
           <li
             v-for="(item, index) in list"
@@ -25,6 +27,12 @@
             </div>
           </li>
         </ul>
+      </div>
+      <div
+        v-else
+        class="nodata">
+        <img src="~/assets/images/nodata.png">
+        <div class="text">亲，你还没有订单哦~</div>
       </div>
     </div>
   </div>
