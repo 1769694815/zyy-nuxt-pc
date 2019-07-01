@@ -273,17 +273,19 @@
                   v-for="(item, index) in result.list"
                   :id="'question' + index"
                   :key="index">
-                  <p>
-                    {{ index + 1 }}、{{ item.stem }}
-                  </p>
+                  <p>{{ index + 1 }}、{{ item.stem }}</p>
                   <el-radio-group
                     v-model="result.list[index].writeAnswer"
                     disabled>
                     <el-radio
-                      v-for="(option, index) in item.optionContent"
-                      :key="index"
+                      v-for="(option, i) in item.optionContent"
+                      :key="i"
                       :label="option.name"
-                      style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}</el-radio>
+                      style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}
+                      <span
+                        v-if="result.list[index].writeAnswer == option.name"
+                        style="margin-left: 30px">(已选)</span>
+                    </el-radio>
                   </el-radio-group>
                   <div class="analyse">
                     <div

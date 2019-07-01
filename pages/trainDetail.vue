@@ -423,7 +423,7 @@ export default {
         color: #999999;
         span {
           display: inline-block;
-          width: 72px;
+          width: 80px;
           margin-top: 12px;
         }
         .lesson{
@@ -453,13 +453,14 @@ export default {
           width: 138px;
           background: #cccccc;
           border-radius: 4px;
-        }     
+        }
         .b2{
           float:left;
           width: 150px;
           margin-left: 20px;
           background:#3F8A38;
           border-radius: 4px;
+          cursor: pointer;
         }
         .b3 {
           float: left;
