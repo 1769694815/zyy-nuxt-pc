@@ -245,6 +245,7 @@ export default {
           let info = res.data
           this.info = res.data
           this.lessonId = res.data.lessonId
+          this.courseId = res.data.courseId || ''
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
@@ -389,6 +390,7 @@ export default {
           let info = res.data
           this.info = res.data
           this.lessonId = res.data.lessonId
+          this.courseId = res.data.courseId || ''
           if(_this.player) {
             // _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
             // _this.player.dispose()
