@@ -319,8 +319,7 @@
             <div
               v-if="total == 0"
               class="nodata">
-              <img src="~/assets/images/nodata.png">
-              <div class="text">暂无题目~</div>
+              <img src="~/assets/images/noitem.png">
             </div>
           </div>
         </div>
