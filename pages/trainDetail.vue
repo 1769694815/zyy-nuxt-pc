@@ -73,7 +73,10 @@
             v-else
             class="bottom">
             <div
-              v-if="classInfo.memberStatus == 1 && classInfo.closeStatus != 0"
+              v-if="classInfo.closeStatus == 2"
+              class="b1">报名结束</div>
+            <div
+              v-if="classInfo.memberStatus == 1 && classInfo.closeStatus == 1"
               class="bottom">
               <div class="b1">已加入本班</div>
               <div
@@ -81,7 +84,7 @@
                 @click="toplay">继续学习</div>
             </div>
             <div
-              v-if="classInfo.memberStatus == 0 && classInfo.closeStatus != 0"
+              v-if="classInfo.memberStatus == 0 && classInfo.closeStatus == 1"
               class="bottom">
               <div
                 class="b3"

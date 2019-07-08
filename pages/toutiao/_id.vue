@@ -99,7 +99,6 @@ export default {
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     // this.getDetail()
     this.getComment()
-    console.log('aaa',this.info)
     this.title = this.info.title + '_资讯头条'
   },
   methods: {
