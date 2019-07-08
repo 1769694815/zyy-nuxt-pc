@@ -11,8 +11,15 @@
           <span><i class="iconfont iconpinglun" />
             {{ commentList.length }}
           </span>
-          <span><i class="iconfont iconfenxiang" />
+          <span class="fenxiang"><i class="iconfont iconfenxiang" />
             分享
+            <span
+              class="social-share"
+              data-sites="weibo,qzone,qq,wechat"
+              data-title="中医药在线"
+              data-wechat-qrcode-title="请打开微信扫一扫"
+              data-wechat-qrcode-helper="<p>打开微信扫一下</p><p>二维码便可将本文分享至朋友圈。</p>"
+              data-description="江西中医药大学继续教育学习平台" />
           </span>
         </div>
       </div>
@@ -169,6 +176,20 @@ export default {
       }
       .detail {
         margin-top: 24px;
+        .fenxiang {
+          position: relative;
+          display: inline-block;
+          width: 120px;
+          cursor: pointer;
+          &:hover .social-share {
+            display: block;
+          }
+        }
+        .social-share {
+          display: none;
+          position: absolute;
+          right: -50px;
+        }
         > span {
           margin-left: 50px;
           font-size: 14px;

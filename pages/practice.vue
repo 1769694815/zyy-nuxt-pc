@@ -75,9 +75,9 @@
                   v-for="(item, index) in list"
                   :key="index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }}
+                    {{ (current-1) * size + index + 1 }}、{{ item.stem }}
                   </p>
-                  <el-radio-group v-model="form.item1[index]">
+                  <el-radio-group v-model="form.item1[(current-1) * size + index]">
                     <el-radio
                       v-for="(option, index) in item.optionContent"
                       :key="index"
@@ -111,7 +111,7 @@
                   v-for="(item, index) in list"
                   :key="index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }}
+                    {{ (current-1) * size + index + 1 }}、{{ item.stem }}
                   </p>
                   <el-checkbox-group v-model="form.item2[index]">
                     <el-checkbox
@@ -148,7 +148,7 @@
                   v-for="(item, index) in list"
                   :key="index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }}
+                    {{ (current-1) * size + index + 1 }}、{{ item.stem }}
                   </p>
                   <el-checkbox-group v-model="form.item3[index]">
                     <el-checkbox
@@ -184,9 +184,9 @@
                   v-for="(item, index) in list"
                   :key="index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }}
+                    {{ (current-1) * size + index + 1 }}、{{ item.stem }}
                   </p>
-                  <el-radio-group v-model="form.item4[index]">
+                  <el-radio-group v-model="form.item4[(current-1) * size + index]">
                     <el-radio
                       label="true"
                       style="display: block;margin-left: 0; line-height:30px;">
@@ -221,7 +221,7 @@
                   v-for="(item, index) in list"
                   :key="index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }}
+                    {{ (current-1) * size + index + 1 }}、{{ item.stem }}
                   </p>
                   <div v-if="item.answer && item.answer.length > 0">
                     <el-input
@@ -262,10 +262,40 @@
                   v-for="(item, index) in list"
                   :key="index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }}
+                    {{ (current-1) * size + index + 1 }}、{{ item.stem }}
                   </p>
                   <el-input
-                    v-model="form.item6[index]"
+                    v-model="form.item6[(current-1) * size + index]"
+                    type="textarea" />
+                  <div class="analyse">
+                    <div
+                      class="text"
+                      @click="toggle">
+                      解析<i class="iconfont iconarrow-right"/>
+                    </div>
+                    <div class="desc">
+                      <div>答案：{{ item.answer }}</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div
+              v-if="type == 7 && list && list.length > 0"
+              class="list">
+              <div class="list-title">
+                材料分析题
+                <span>(共{{ total }}题)</span>
+              </div>
+              <ul v-if="list && list.length > 0">
+                <li
+                  v-for="(item, index) in list"
+                  :key="index">
+                  <p>
+                    {{ (current-1) * size + index + 1 }}、{{ item.stem }}
+                  </p>
+                  <el-input
+                    v-model="form.item7[(current-1) * size + index]"
                     type="textarea" />
                   <div class="analyse">
                     <div
@@ -281,10 +311,17 @@
               </ul>
             </div>
             <Pagination
+              v-if="total > 0"
               :size="size"
               :current="current"
               :total="total"
               @currentChange="currentChange" />
+            <div
+              v-if="total == 0"
+              class="nodata">
+              <img src="~/assets/images/nodata.png">
+              <div class="text">暂无题目~</div>
+            </div>
           </div>
         </div>
         <div class="content-right">
@@ -327,7 +364,8 @@ export default {
         item3: [], // 不定项选择题
         item4: [], // 判断题
         item5: [],  // 填空题
-        item6: []
+        item6: [],
+        item7: []
       },
       list: [],
       lessonList: [],
