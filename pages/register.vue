@@ -42,7 +42,7 @@
             <div class="input">
               <span class="img1" />
               <input
-                v-model="form.password2"
+                v-model="form.passwordConfirm"
                 type="password"
                 placeholder="请输入6-16位数字加字母">
             </div>
@@ -84,7 +84,7 @@ export default {
         phone: '',
         code: '',
         password: '',
-        password2: '',
+        passwordConfirm: '',
         checked: true
       }
     }
@@ -113,7 +113,7 @@ export default {
         })
         return
       }
-      if(!this.form.password || !this.form.password2) {
+      if(!this.form.password || !this.form.passwordConfirm) {
         this.$message({
           message: '密码不能为空',
           type: 'warning'
@@ -127,7 +127,7 @@ export default {
         })
         return
       }
-      if(this.form.password != this.form.password2) {
+      if(this.form.password != this.form.passwordConfirm) {
         this.$message({
           message: '两次输入密码不一致',
           type: 'warning'

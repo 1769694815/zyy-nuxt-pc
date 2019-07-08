@@ -88,7 +88,7 @@
       <el-form
         v-else
         class="form"
-        label-width="80px">
+        label-width="100px">
         <el-form-item label="头像：">
           <img
             v-show="form.avatar"
@@ -107,6 +107,9 @@
         </div>
         <el-form-item label="昵称：">
           <div>{{ form.nickName ? form.nickName : '未设置' }}</div>
+        </el-form-item>
+        <el-form-item label="真实姓名：">
+          <div>{{ form.realName ? form.realName : '未设置' }}</div>
         </el-form-item>
         <el-form-item label="性别：">
           <div>{{ form.sex == 0 ? '男' : '女' }}</div>
