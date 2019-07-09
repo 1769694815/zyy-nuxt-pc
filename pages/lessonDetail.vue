@@ -504,6 +504,20 @@ export default {
         window.open(url.href, '_blank')
         return
       }
+      if(this.detailData.memBerStatus == 0 && this.detailData.free == 2) {
+        this.$message({
+          message: '需先加入学习才可参与答题哦~',
+          type: 'warning'
+        })
+        return
+      }
+      if(this.detailData.memBerStatus == 0 && this.detailData.free == 1) {
+        this.$message({
+          message: '需购买课程才可参与答题哦~',
+          type: 'warning'
+        })
+        return
+      }
       let url = this.$router.resolve({
         name: 'practice',
         query: {
@@ -519,6 +533,20 @@ export default {
           name: 'login'
         })
         window.open(url.href, '_blank')
+        return
+      }
+      if(this.detailData.memBerStatus == 0 && this.detailData.free == 2) {
+        this.$message({
+          message: '需先加入学习才可参与答题哦~',
+          type: 'warning'
+        })
+        return
+      }
+      if(this.detailData.memBerStatus == 0 && this.detailData.free == 1) {
+        this.$message({
+          message: '需购买课程才可参与答题哦~',
+          type: 'warning'
+        })
         return
       }
       let url = this.$router.resolve({
