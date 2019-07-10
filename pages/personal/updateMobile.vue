@@ -17,7 +17,7 @@
         <div class="info">
           <div class="info-item">
             <div class="title">验证号码：</div>
-            <div class="tel">{{ formatPhone(phone) }}</div>
+            <div class="tel">{{ phone ? formatPhone(phone) : '' }}</div>
           </div>
           <div class="info-item">
             <div class="title">输入验证码：</div>

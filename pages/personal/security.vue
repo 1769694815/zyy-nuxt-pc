@@ -8,7 +8,7 @@
       <div class="info">
         <div class="info-item">
           <div class="title">手机账号</div>
-          <div class="tel">{{ formatPhone(phone) }}</div>
+          <div class="tel">{{ phone ? formatPhone(phone) : '未绑定' }}</div>
           <div
             class="operate"
             @click="updateMobile">修改
@@ -61,7 +61,7 @@ export default {
       this.$router.push({
         name: 'personal-updatePassword',
         query: {
-          phone: this.phone
+          phone: this.phone || ''
         }
       })
     },
