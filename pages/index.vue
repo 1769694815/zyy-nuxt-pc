@@ -185,7 +185,7 @@
       </div>
     </div>
     <!-- 名医师承 -->
-    <div class="bg-f6"> 
+    <div class="bg-f6">
       <div class="item-container">
         <div class="container-header">
           <h2>名医师承</h2>
@@ -577,6 +577,7 @@ export default {
         if(this.userInfo) {
           this.getCourseNum()
           this.getClassNum()
+          // this.getInfo()
           this.tagShow = true
         }
       })
@@ -586,6 +587,7 @@ export default {
         this.rankStatus = judgeUser().status
         this.getCourseNum()
         this.getClassNum()
+        // this.getInfo()
         this.tagShow = true
       }
     }
@@ -704,6 +706,15 @@ export default {
         params
       }).then(res => {
         this.classNum = res.data.total
+      })
+    },
+    getInfo() {
+      this.$axios('/yxs/api/web/user/findUserTokenGetName', {
+        params: {
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
+        console.log(res.data)
       })
     },
     handleScroll() {

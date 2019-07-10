@@ -160,7 +160,8 @@ export default {
           size: this.size,
           current: this.current,
           userToken: this.userInfo.userToken,
-          courseId: id
+          courseId: id,
+          classId: this.classId
         }
       }).then(res => {
         this.rankList = res.data.records
