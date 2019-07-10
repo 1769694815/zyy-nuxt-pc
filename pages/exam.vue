@@ -41,6 +41,7 @@
                   :key="index">
                   <p>
                     {{ index + 1 }}、{{ item.stem }}
+                    <span style="margin-left: 20px">(2分)</span>
                   </p>
                   <el-radio-group v-model="form.item1[index]">
                     <el-radio
