@@ -163,6 +163,7 @@ export default {
     width: 1200px;
     margin: 0 auto;
   }
+  
   .article {
     width: 830px;
     border-top: 1px solid #ddd;
@@ -303,5 +304,15 @@ export default {
         }
       }
     }
+  }
+</style>
+<style>
+  .htmlContent p span {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+  .ql-align-center.ql-indent-1 {
+    text-align: center;
   }
 </style>
