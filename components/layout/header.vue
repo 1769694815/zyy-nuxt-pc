@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+    <div class="note">本网站将于2019年8月10日上午10点至下午5点进行系统升级，在系统升级过程中造成使用不便敬请谅解</div>
     <div class="header-top">
       <div class="content">
         <div class="content-left">
@@ -309,6 +310,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .note {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 20px;
+    color: #ff0000;
+    text-align: center;
+  }
   .header-top {
     width: 100%;
     height: 30px;
