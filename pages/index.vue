@@ -41,7 +41,7 @@
               西学中
             </nuxt-link>
             <nuxt-link
-              :to="{ name: 'train', query: { fid: 53 }}"
+              :to="{ name: 'train', query: { fid: 101 }}"
               class="sub-item"
               target="_blank">
               执业药师
@@ -217,7 +217,7 @@
         <div class="imgs">
           <nuxt-link
             class="img"
-            to="/train?fid=53"
+            to="/train?fid=101"
             target="_blank">
             <img
               src="~/assets/images/famous_1.png"
