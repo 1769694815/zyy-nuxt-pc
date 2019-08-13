@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="note">本网站将于2019年8月10日上午10点至下午5点进行系统升级，在系统升级过程中造成使用不便敬请谅解</div>
+    <!-- <div class="note">本网站将于2019年8月10日上午10点至下午5点进行系统升级，在系统升级过程中造成使用不便敬请谅解</div> -->
     <div class="header-top">
       <div class="content">
         <div class="content-left">
