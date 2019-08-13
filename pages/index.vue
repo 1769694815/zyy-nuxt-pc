@@ -27,26 +27,32 @@
             中医研究所
           </nuxt-link> -->
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 63 }}"
+            :to="{ name: 'western' }"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
-            名医师承
+            <i class="iconfont iconxiangmu"/>
+            培训项目
           </nuxt-link>
-          <nuxt-link
-            :to="{ name: 'train', query: { fid: 54 }}"
-            class="nav-item"
-            target="_blank">
-            <i class="iconfont icon2jiankangzhishi"/>
-            中医健康
-          </nuxt-link>
-          <nuxt-link
-            :to="{ name: 'train', query: { fid: 55 }}"
-            class="nav-item"
-            target="_blank">
-            <i class="iconfont iconwendang"/>
-            中医药理论
-          </nuxt-link>
+          <div class="sub-nav">
+            <nuxt-link
+              :to="{ name: 'western', query: { cid: 2 }}"
+              class="sub-item"
+              target="_blank">
+              西学中
+            </nuxt-link>
+            <nuxt-link
+              :to="{ name: 'train', query: { fid: 53 }}"
+              class="sub-item"
+              target="_blank">
+              执业药师
+            </nuxt-link>
+            <nuxt-link
+              :to="{ name: 'western', query: { cid: 3 }}"
+              class="sub-item"
+              target="_blank">
+              职业培训
+            </nuxt-link>
+          </div>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 53 }}"
             class="nav-item"
@@ -66,26 +72,26 @@
             </nuxt-link>
           </div>
           <nuxt-link
-            :to="{ name: 'western' }"
+            :to="{ name: 'train', query: { fid: 55 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconxiangmu"/>
-            培训项目
+            <i class="iconfont iconwendang"/>
+            中医药理论
           </nuxt-link>
-          <div class="sub-nav">
-            <nuxt-link
-              :to="{ name: 'western', query: { cid: 3 }}"
-              class="sub-item"
-              target="_blank">
-              职业培训
-            </nuxt-link>
-            <nuxt-link
-              :to="{ name: 'western', query: { cid: 2 }}"
-              class="sub-item"
-              target="_blank">
-              西学中
-            </nuxt-link>
-          </div>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 63 }}"
+            class="nav-item"
+            target="_blank">
+            <i class="iconfont iconyisheng"/>
+            名医师承
+          </nuxt-link>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 54 }}"
+            class="nav-item"
+            target="_blank">
+            <i class="iconfont icon2jiankangzhishi"/>
+            中医健康
+          </nuxt-link>
         </div>
         <section
           v-if="userInfo"
@@ -211,12 +217,12 @@
         <div class="imgs">
           <nuxt-link
             class="img"
-            to="/doctor"
+            to="/train?fid=53"
             target="_blank">
             <img
-              src="~/assets/images/famous_1.jpg"
-              alt="豫章名医"
-              title="豫章名医">
+              src="~/assets/images/famous_1.png"
+              alt="考前辅导"
+              title="考前辅导">
           </nuxt-link>
           <nuxt-link
             class="img"
@@ -765,7 +771,7 @@ export default {
       .nav-list {
         position: absolute;
         top: 0;
-        padding: 10px 20px;
+        padding: 0 20px 20px 20px;
         width: 160px;
         height: 380px;
         background: rgba(0, 0, 0, .7);
@@ -773,7 +779,7 @@ export default {
         font-size: 16px;
         z-index: 99;
         .nav-item {
-          margin-top: 35px;
+          margin-top: 26px;
           height: 24px;
           line-height: 24px;
           color: #fff;
@@ -787,11 +793,12 @@ export default {
           }
         }
         .sub-nav {
-          margin-top: 16px;
+          margin-top: 10px;
           font-size: 14px;
           opacity: .6;
           .sub-item {
             margin-left: 20px;
+            line-height: 30px;
             cursor: pointer;
             color: #f2f2f2;
             &:hover {
