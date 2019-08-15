@@ -24,7 +24,7 @@
         </div>
       </div>
       <article
-        class="htmlContent"
+        class="htmlContent ql-editor"
         v-html="info.body" />
       <!-- 评论 -->
       <div class="rating">
