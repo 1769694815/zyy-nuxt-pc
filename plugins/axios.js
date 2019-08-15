@@ -13,6 +13,7 @@ let params = {
 }
 
 export default function({ $axios, redirect, req }) {
+  $axios.setHeader('appId', 'zyy')
   $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
   $axios.onRequest(config => {
     config.data = qs.stringify(config.data, {
@@ -47,6 +48,7 @@ export default function({ $axios, redirect, req }) {
   });
 
   if(!Cookies.get('zyy_accessToken')) {
+    $axios.setHeader('appId', 'zyy')
     $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
     $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
     $axios.post('/auth/oauth/token', params).then(res => {
@@ -54,6 +56,7 @@ export default function({ $axios, redirect, req }) {
       $axios.setHeader('Authorization', 'Bearer' + res.access_token)
     })
   } else {
+    $axios.setHeader('appId', 'zyy')
     $axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
   }
   

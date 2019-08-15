@@ -575,6 +575,7 @@ export default {
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     console.log('userInfo', this.userInfo)
     if(!Cookies.get('zyy_accessToken')) {
+      this.$axios.setHeader('appId', 'zyy')
       this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
       this.$axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
       this.$axios.post('/auth/oauth/token', params).then(res => {
@@ -588,6 +589,7 @@ export default {
         }
       })
     } else {
+      this.$axios.setHeader('appId', 'zyy')
       this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
       if(this.userInfo) {
         this.rankStatus = judgeUser().status

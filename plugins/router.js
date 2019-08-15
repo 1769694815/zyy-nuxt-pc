@@ -21,6 +21,7 @@ export default ({ app, $axios, req, res }) => {
         let token = Cookies.get('zyy_accessToken')
       }
       if(token) {
+        $axios.setHeader('appId', 'zyy')
         $axios.setHeader('Authorization', 'Bearer' + token)
         next()
       } else {
@@ -33,6 +34,7 @@ export default ({ app, $axios, req, res }) => {
           scope: 'server',
           grant_type: 'client_credentials'
         }
+        $axios.setHeader('appId', 'zyy')
         $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
         $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
         $axios.post('/auth/oauth/token', params).then(res => {
