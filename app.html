@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{ HEAD }}
+    <style>
+      html, body {
+        position: relative;
+      }
+      #message-box {
+        width: 300px;
+        height: 40px;
+        line-height: 40px;
+        background-color: #fdf6ec;
+        border: 1px solid #fdf6ec;
+        color: #e6a23c;
+        position: absolute;
+        top: 100px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        z-index: 999;
+        text-align: center;
+        border-radius: 10px;
+      }
+    </style>
+    <script tyle="text/javascript">
+      var userAgent = navigator.userAgent; //  获取浏览器的userAgent字符串
+      var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; // 判断是否IE < 11 浏览器
+      var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; // 判断是否IE的Edge浏览器
+      var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+      console.log('isIE', userAgent)
+      if (isIE) {
+        var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+        reIE.test(userAgent);
+        var fIEVersion = parseFloat(RegExp["$1"]);
+        if (fIEVersion < 10) {
+          console.log(fIEVersion)
+          var str = '<div id="message-box">您的浏览器版本过低，请使用360浏览器访问</div>'
+          document.write(str);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    {{ APP }}
+  </body>
+</html>
