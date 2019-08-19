@@ -81,11 +81,11 @@
               @click="forget">忘记密码</span>
             <span @click="toRegister">注册账户</span>
           </div>
-          <p><em /><span>其他方式登录</span><em /></p>
+          <!-- <p><em /><span>其他方式登录</span><em /></p>
           <div class="other">
             <img src="../assets/images/other-login1.png">
             <img src="../assets/images/other-login2.png">
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -123,7 +123,40 @@ export default {
         userName: '',
         password: '',
         checked: false
+      },
+      pwdList: []
+    }
+  },
+  computed: {
+    getName: function () {
+      return this.form2.userName
+    }
+  },
+  watch: {
+    getName: {
+      handler: function (val, oldVal) {
+        console.log(val)
+        for (var i in this.pwdList) {
+          if (this.pwdList[i].userName == val) {
+            console.log(this.pwdList[i].userName)
+            console.log(this.pwdList[i].password)
+            this.form2.password = this.pwdList[i].password
+            return
+          } else {
+            this.form2.password = ''
+          }
+        }
       }
+    }
+  },
+  created () {
+    let pwd = Cookies('pwd') || ''
+    if (pwd) {
+      this.pwdList = JSON.parse(pwd)
+      console.log(this.pwdList)
+      this.form2.userName = this.pwdList[0].userName
+      this.form2.password = this.pwdList[0].password
+      this.form2.checked = true
     }
   },
   methods: {
@@ -191,6 +224,9 @@ export default {
       this.$axios.post('/admin/api/web/account/login', this.form2).then(res => {
         if(res.code == 0) {
           Cookies.set('zyy_userInfo', res.data, { expires: 30 })
+          if (this.form2.checked) {
+            this.setPwdCookies()
+          }
           this.$message({
             message: '登录成功！',
             type: 'success'
@@ -203,6 +239,27 @@ export default {
           this.$message.error(res.msg)
         }
       })
+    },
+    setPwdCookies () {
+      console.log(this.pwdList)
+      let obj = {
+        userName: this.form2.userName,
+        password: this.form2.password
+      }
+      if (this.pwdList.length == 0) {
+        this.pwdList.unshift(obj)
+        JSON.stringify(this.pwdList)
+        console.log(this.pwdList)
+        Cookies.set('pwd', this.pwdList, { expires: 30 })
+        return
+      }
+      for (var i in this.pwdList) {
+        if (this.pwdList[i].userName != this.form2.userName) {
+          this.pwdList.unshift(obj)
+        }
+      }
+      JSON.stringify(this.pwdList)
+      Cookies.set('pwd', this.pwdList, { expires: 30 })
     },
     // 忘记密码
     forget() {
@@ -274,8 +331,8 @@ export default {
       right: 0;
       top: 66px;
       width: 326px;
-      height: 424px;
-      padding: 0 26px;
+      // height: 424px;
+      padding: 26px;
       background: #fff;
       .tabs {
         display: flex;
