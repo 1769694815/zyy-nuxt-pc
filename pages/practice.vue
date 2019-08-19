@@ -92,7 +92,7 @@
                     </div>
                     <div class="desc">
                       <span>正确答案：{{ item.answer }}</span>
-                      <div>解析：{{ item.analysis }}</div>
+                      <div>解析：{{ item.analysis || '无' }}</div>
                     </div>
                   </div>
                 </li>
@@ -165,7 +165,7 @@
                       解析<i class="iconfont iconarrow-right"/>
                     </div>
                     <div class="desc">
-                      {{ item.analysis }}
+                      {{ item.analysis || '无' }}
                     </div>
                   </div>
                 </li>
@@ -203,7 +203,7 @@
                       解析<i class="iconfont iconarrow-right"/>
                     </div>
                     <div class="desc">
-                      {{ item.analysis }}
+                      {{ item.analysis || '无' }}
                     </div>
                   </div>
                 </li>
@@ -244,7 +244,7 @@
                         :key="idx">
                         <span>第{{ idx + 1 }}个空：{{ option }}</span>
                       </div>
-                      <div>解析：{{ item.analysis }}</div>
+                      <div>解析：{{ item.analysis || '无' }}</div>
                     </div>
                   </div>
                 </li>
@@ -274,7 +274,7 @@
                       解析<i class="iconfont iconarrow-right"/>
                     </div>
                     <div class="desc">
-                      <div>答案：{{ item.answer }}</div>
+                      <div>答案：{{ item.answer || '无' }}</div>
                     </div>
                   </div>
                 </li>
@@ -304,7 +304,7 @@
                       解析<i class="iconfont iconarrow-right"/>
                     </div>
                     <div class="desc">
-                      <div>答案：{{ item.answer }}</div>
+                      <div>答案：{{ item.answer || '无' }}</div>
                     </div>
                   </div>
                 </li>
