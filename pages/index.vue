@@ -159,7 +159,7 @@
       </div>
     </div>
     <!-- 中医研究所 -->
-    <div
+    <!-- <div
       v-if="researchList.length > 0"
       class="item-container bg-ff">
       <div class="container-header">
@@ -189,7 +189,7 @@
           换一批
         </span>
       </div>
-    </div>
+    </div> -->
     <!-- 名医师承 -->
     <div class="bg-f6">
       <div class="item-container">
@@ -525,7 +525,6 @@ export default {
       healthSubList,
       examSubList,
       theorySubList,
-      researchList,
       trainList
     ] = await Promise.all([
       $axios('/yxs/api/web/getFriendsName'),
@@ -538,7 +537,6 @@ export default {
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zydjt' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'education' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'career' }}),
-      $axios('/yxs/api/web/doctor/recommendCourseList', { params: { current: 1, size: 4 }}),
       $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }})
     ])
     return {
@@ -552,8 +550,6 @@ export default {
       healthSubList: healthSubList.data,
       examSubList: examSubList.data,
       theorySubList: theorySubList.data,
-      researchList: researchList.data.records,
-      researchPages: researchList.data.pages,
       trainList: trainList.data.records,
       trainPages: trainList.data.pages
     }
