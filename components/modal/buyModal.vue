@@ -115,7 +115,7 @@ export default {
       position: absolute;
       top: 220px;
       width: 590px;
-      height: 331px;
+      // height: 331px;
       background: #fff;
       .m-header {
         display: flex;
@@ -163,6 +163,7 @@ export default {
               li {
                 float: left;
                 margin-right: 8px;
+                margin-bottom: 8px;
                 padding: 0 8px;
                 text-align: center;
                 line-height:28px;
