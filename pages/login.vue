@@ -246,18 +246,13 @@ export default {
         userName: this.form2.userName,
         password: this.form2.password
       }
-      if (this.pwdList.length == 0) {
-        this.pwdList.unshift(obj)
-        JSON.stringify(this.pwdList)
-        console.log(this.pwdList)
-        Cookies.set('pwd', this.pwdList, { expires: 30 })
-        return
-      }
+      let index = null
       for (var i in this.pwdList) {
         if (this.pwdList[i].userName != this.form2.userName) {
-          this.pwdList.unshift(obj)
+          index = i
         }
       }
+      this.pwdList.unshift(obj)
       JSON.stringify(this.pwdList)
       Cookies.set('pwd', this.pwdList, { expires: 30 })
     },
