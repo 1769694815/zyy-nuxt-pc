@@ -979,7 +979,7 @@ export default {
     console.log(this.userInfo.roleName)
     if(this.userInfo.roleName =='zyy_student' || this.userInfo.roleName =='zyy_admin'){
       console.log('zyy-admin')
-      //this.getList()
+      this.getList()
     }else{
       this.getTeacherlist()
       window.addEventListener('scroll', this.handleScroll)
@@ -1289,7 +1289,7 @@ export default {
         }
       })
       console.log('form',this.form)
-      this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((7200 - this.leftTime) / 60) }分钟，漏答${ sum }题`, '温馨提示', {
+      this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((this.limitTime * 60 - this.leftTime) / 60) }分钟，漏答${ sum }题`, '温馨提示', {
         confirmButtonText: '我要交卷',
         cancelButtonText: '再检查一遍',
         type: 'warning'
@@ -1297,7 +1297,7 @@ export default {
         this.$axios.post('/yxs/api/web/user/submitSimulatedVolume', {
           userToken: this.userInfo.userToken,
           paperId: this.paperId,
-          answerTime: 7200 - this.leftTime,
+          answerTime: this.limitTime * 60 - this.leftTime,
           lists
         }).then(res => {
           this.$message({
@@ -1320,8 +1320,8 @@ export default {
       if(this.examDateStatus == 0){
         return ``
       }else if( this.examDateStatus == 1){
-        let start = dateFormatter(this.examDeadlineStart)
-        let end = dateFormatter(this.examDeadlineEnd)
+        let start = this.dateFormatter(this.examDeadlineStart)
+        let end = this.dateFormatter(this.examDeadlineEnd)
         return`答题期限${start}至${end}，`
       }
     },
@@ -1440,6 +1440,7 @@ export default {
     .content-left {
       width: 860px;
       background: #fff;
+      margin-right: 20px;
       h2 {
         text-align: center;
         padding-top: 35px;
@@ -1603,11 +1604,12 @@ export default {
       top: 0;
     }
     .content-right {
-      position: fixed;
-      right: 50%;
-      width: 260px;
-      margin-right: -600px;
-      padding: 30px 24px;
+      position: sticky;
+      top: 0;
+      right: 0;
+      width: 250px;
+      height: 550px;
+      padding: 20px 24px;
       background: #fff;
       .header {
         width:244px;
@@ -1637,6 +1639,8 @@ export default {
         }
       }
       .list {
+        max-height: 300px;
+        overflow: auto;
         li {
           display: inline-block;
           margin: 2px;
