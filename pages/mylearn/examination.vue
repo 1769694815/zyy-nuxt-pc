@@ -81,6 +81,7 @@
         </div>
       </div>
     </div>
+    <div class="mylearn-content" />
   </div>
 </template>
 <script>
@@ -291,6 +292,9 @@ export default {
         }
       }
     }
+  }
+  .mylearn-content {
+    min-height: 500px;
   }
   .remind{
     position: absolute;

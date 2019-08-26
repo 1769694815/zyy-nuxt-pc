@@ -18,25 +18,22 @@
               共{{ itemCount }}题，总分{{ sumScore }}分，{{ duringDate() }}答题限时{{ limitTime }}分钟
             </div>
           </div>
-          <div
-            v-for="(item,index) in list"
-            :key="index" 
-            class="question">
+          <div class="question">
             <div
-              v-if="list && singleSize(1) > 0"
+              v-if="!!questionList1.length"
               class="list">
-              <div 
-                v-if=" index == 0 "
-                class="list-title">
+              <div class="list-title">
                 一、单选题
-                <span>(共{{ singleSize(1) }}题，共{{ singleScore(1) }}分)</span>
+                <span>(共{{ questionList1.length }}题，共{{ singleScore(1) }}分)</span>
               </div>
               <ul>
                 <li
-                  v-if="item.typeId == 1"
-                  :id="'question'+index">
+                  v-for="(item, index) in questionList1"
+                  :key="index"
+                  :id="'question' + index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
+                    {{ index + 1 }}、{{ item.stem }}
+                    <span>({{ item.score }}分)</span>
                   </p>
                   <el-radio-group v-model="form[index]">
                     <el-radio
@@ -49,22 +46,22 @@
               </ul>
             </div>
             <div
-              v-if="list && singleSize(2) > 0"
+              v-if="!!questionList2.length"
               class="list">
-              <div 
-                v-if="index == singleSize(2)-1"
-                class="list-title">
+              <div class="list-title">
                 二、多选题
                 <span>(共{{ singleSize(2) }}题，共{{ singleScore(2) }}分)</span>
               </div>
               <ul>
                 <li
-                  v-if="item.typeId == 2"
-                  :id="'question'+index">
+                  v-for="(item, index) in questionList2"
+                  :key="index"
+                  :id="'question'+ (singleSize(2) + index)">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
+                    {{ singleSize(2) + index + 1 }}、{{ item.stem }}
+                    <span>({{ item.score }}分)</span>
                   </p>
-                  <el-checkbox-group v-model="form[index]">
+                  <el-checkbox-group v-model="form[singleSize(2) + index]">
                     <el-checkbox
                       v-for="(option, index) in item.optionContent"
                       :key="index"
@@ -102,22 +99,22 @@
               </ul>
             </div> -->
             <div
-              v-if="list && singleSize(4) > 0"
+              v-if="!!questionList4.length"
               class="list">
-              <div
-                v-if="index == singleSize(1)+singleSize(2)-1" 
-                class="list-title">
+              <div class="list-title">
                 三、判断题
                 <span>(共{{ singleSize(4) }}题，共{{ singleScore(4) }}分)</span>
               </div>
               <ul>
                 <li
-                  v-if="item.typeId == 4"
-                  :id="'question'+index">
+                  v-for="(item, index) in questionList4"
+                  :key="index"
+                  :id="'question'+ (singleSize(4) + index)">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
+                    {{ singleSize(4) + index + 1 }}、{{ item.stem }}
+                    <span>({{ item.score }}分)</span>
                   </p>
-                  <el-radio-group v-model="form[index]">
+                  <el-radio-group v-model="form[singleSize(4) + index]">
                     <el-radio
                       label="true"
                       style="display: block;margin-left: 0; line-height:30px;">
@@ -131,26 +128,25 @@
               </ul>
             </div>
             <div
-              v-if="list && singleSize(5) > 0"
+              v-if="!!questionList5.length"
               class="list">
-              <div 
-                v-if="index == singleSize(1)+singleSize(2)+singleSize(4)-1"
-                class="list-title">
+              <div class="list-title">
                 四、填空题
                 <span>(共{{ singleSize(5) }}题，共{{ singleScore(5) }}分)</span>
               </div>
               <ul>
                 <li
-                  v-if="item.typeId == 5"
-                  :id="'question'+index">
+                  v-for="(item, index) in questionList5"
+                  :key="index"
+                  :id="'question'+ (singleSize(5) + index)">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
+                    {{ singleSize(5) + index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
                   <div class="answer">
                     <span>作答：</span>
                     <el-input
-                      v-for="(item, idx) in item5[index]"
-                      v-model="form[index][idx]"
+                      v-for="idx in item.answerLength"
+                      v-model="form[singleSize(5) + index][idx]"
                       :key="idx"
                       :placeholder="'请输入你第'+(idx+1)+'个的答案'" 
                       class="input1"/> 
@@ -159,33 +155,32 @@
               </ul>
             </div>
             <div
-              v-if="list && singleSize(6) > 0"
+              v-if="!!questionList6.length"
               class="list">
-              <div
-                v-if="index == singleSize(1)+singleSize(2)+singleSize(4)+singleSize(5)-1" 
-                class="list-title">
+              <div class="list-title">
                 五、简答题
                 <span>(共{{ singleSize(6) }}题，共{{ singleScore(6) }}分)</span>
               </div>
               <ul>
                 <li
-                  v-if="item.typeId == 6"
-                  :id="'question'+index">
+                  v-for="(item, index) in questionList6"
+                  :key="index"
+                  :id="'question'+ (singleSize(6) + index)">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
+                    {{ singleSize(6) + index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
                   <div class="answer">
                     <span style="margin-top: 0px;">作答：</span>
                     <el-input
                       v-if="show[index]"
-                      v-model="form[index]"
+                      v-model="form[ singleSize(6) + index]"
                       :autosize="{ minRows: 4}"
                       type="textarea"
                       class="input2"
                       placeholder="请输入你的答案" />
                     <div 
                       v-if="!show[index]"
-                      class="jdcontent">{{ form[index] }} 
+                      class="jdcontent">{{ form[ singleSize(6) + index] }} 
                       <i 
                         class="iconfont iconxiugai07" 
                         @click="show[index] = true"/></div>
@@ -201,34 +196,32 @@
               </ul>
             </div>
             <div
-              v-if="list && singleSize(7) > 0"
+              v-if="!!questionList7.length"
               class="list">
-              <div 
-                v-if="index == list.length-singleSize(7)-1"
-                class="list-title">
+              <div class="list-title">
                 六、分析题
-                <span>(共{{ singleSize(7) }}题，共{{ singleScore(7) }}分)</span>
+                <span>(共{{ list7.length }}题，共{{ signleScore(7) }}分)</span>
               </div>
-              <ul
-                v-for="(item1, index1) in item.childrenList"
-                :key="index1">
+              <ul>
                 <li
-                  v-if="item.typeId == 7"
-                  :id="'question'+index"
+                  v-for="(item, index) in questionList7"
+                  :key="index"
+                  :id="'question'+(singleSize(7) + index)"
                   class="analysis">
-                  <p 
-                    v-if="index1 == 0">
-                    {{ index + 1 }}、{{ item.stem }}
-                    <span>请回答以下问题：</span>
+                  <p>
+                    {{ singleSize(7) + index + 1 }}、{{ item.stem }}
+                    <span>({{ item.score }}分)</span>
                   </p>
                   <div>
-                    <ul>
+                    <ul
+                      v-for="(item1, index1) in item.childrenList"
+                      :key="index1">
                       <li
                         v-if="item1.typeId == 1">
                         <p>
-                          {{ index1 + 1 }}) <span class="a-title">单选题</span>{{ item1.stem }} <span>({{ item1.score }}分)</span>
+                          {{ index1 + 1 }}) <span class="a-title">单选题</span>{{ item1.stem }} <span>{{ item1.score }}分</span>
                         </p>
-                        <el-radio-group v-model="form[index][index1]">
+                        <el-radio-group v-model="form[singleSize(7) + index][index1]">
                           <el-radio
                             v-for="(option, idx) in item1.optionContent"
                             :key="idx"
@@ -236,16 +229,12 @@
                             style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}</el-radio>
                         </el-radio-group>
                       </li>
-                    </ul>
-                  </div>
-                  <div class="dx1">
-                    <ul>
                       <li
                         v-if="item1.typeId == 2">
                         <p>
-                          {{ index1 + 1 }}）<span class="a-title">多选题</span>{{ item1.stem }}
+                          {{ index1 + 1 }}) <span class="a-title">多选题</span>{{ item1.stem }} <span>{{ item1.score }}分</span>
                         </p>
-                        <el-checkbox-group v-model="form[index][index1]">
+                        <el-checkbox-group v-model="form[singleSize(7) + index][index1]">
                           <el-checkbox
                             v-for="(option, idx) in item1.optionContent"
                             :key="idx"
@@ -254,16 +243,12 @@
                             {{ option.name }}: {{ option.content }}</el-checkbox>
                         </el-checkbox-group>
                       </li>
-                    </ul>
-                  </div>
-                  <div class="pd">
-                    <ul>
                       <li
                         v-if="item1.typeId == 4">
                         <p>
-                          {{ index1 + 1 }}） <span>判断题</span>{{ item1.stem }}
+                          {{ index1 + 1 }}) <span class="a-title">判断题</span>{{ item1.stem }} <span>{{ item1.score }}分</span>
                         </p>
-                        <el-radio-group v-model="form[index][index1]">
+                        <el-radio-group v-model="form[singleSize(7) + index][index1]">
                           <el-radio
                             label="true"
                             style="display: block;margin-left: 0; line-height:30px;">
@@ -274,53 +259,34 @@
                             错误</el-radio>
                         </el-radio-group>
                       </li>
-                    </ul>
-                  </div>
-                  <div class="tk">
-                    <ul>
                       <li
                         v-if="item1.typeId == 5">
                         <p>
-                          {{ index1 + 1 }}) <span>填空题</span>{{ item1.stem }}
+                          {{ index1 + 1 }}) <span class="a-title">填空题</span>{{ item1.stem }} <span>{{ item1.score }}分</span>
                         </p>
                         <div class="answer">
                           <span>作答：</span>
                           <el-input
-                            v-model="form[index][index1]"
-                            placeholder="请输入你的答案" />
+                            v-for="idx in item1.answerLength"
+                            :key="idx"
+                            v-model="form[singleSize(7) + index][index1][idx - 1]"
+                            :placeholder="'请输入你的'+(idx)+'答案'"
+                            class="input1" />
                         </div>
                       </li>
-                    </ul>
-                  </div>
-                  <div class="jd">
-                    <ul>
                       <li
                         v-if="item1.typeId == 6">
                         <p>
-                          {{ index1 + 1 }}） <span class="a-title">简答题</span>{{ item1.stem }}
+                          {{ index1 + 1 }}) <span class="a-title">简答题</span>{{ item1.stem }} <span>{{ item1.score }}分</span>
                         </p>
                         <div class="answer">
-                          <span style="margin-top: 0px;">作答：</span>
+                          <span>作答：</span>
                           <el-input
-                            v-if="show[index][index1]"
-                            v-model="form[index][index1]"
+                            v-model="form[singleSize(7) + index][index1]"
                             :autosize="{ minRows: 4}"
                             type="textarea"
                             class="input2"
                             placeholder="请输入你的答案" />
-                          <div 
-                            v-if="!show[index][index1]"
-                            class="jdcontent">{{ form[index][index1] }} 
-                            <i 
-                              class="iconfont iconxiugai07" 
-                              @click="show[index][index1] = true"/></div>
-                          <div
-                            v-if="show[index][index1]"
-                            class="save">
-                            <div
-                              class="saves"
-                              @click="show[index][index1] = false">保存</div>
-                          </div>
                         </div>
                       </li>
                     </ul>
@@ -686,7 +652,6 @@
               v-if="list && singleSize(6) > 0"
               class="list">
               <div
-                v-if="index == singleSize(1)+singleSize(2)+singleSize(4)+singleSize(5)-1" 
                 class="list-title">
                 五、简答题
                 <span>(共{{ singleSize(6) }}题，共{{ singleScore(6) }}分)</span>
@@ -933,6 +898,7 @@ export default {
       userName: '',
       paperId: this.$route.query.examPaperId || null,
       studentId: this.$route.query.studentId || null,
+      resultId: this.$route.query.resultId || null,
       leftTime: 7200,
       leftTimeStr: '',
       leftTimeStrmin: '',
@@ -971,7 +937,14 @@ export default {
       list: [],
       lessonList: [],
       typeList: [],
-      letterArray: ['A', 'B', 'C', 'D', 'E', 'F']
+      letterArray: ['A', 'B', 'C', 'D', 'E', 'F'],
+      questionList1: [],
+      questionList2: [],
+      questionList3: [],
+      questionList4: [],
+      questionList5: [],
+      questionList6: [],
+      questionList7: []
     }
   },
   mounted() {
@@ -985,7 +958,6 @@ export default {
       window.addEventListener('scroll', this.handleScroll)
     }
     //this.getLessonList()
-    this.initTime()
     // this.getTypeList()
   },
   methods: {
@@ -997,7 +969,7 @@ export default {
     singleSize(typeId){
       let z = 0
       for(let i=0;i < this.list.length;i++){
-        if(this.list[i].typeId == typeId){
+        if(this.list[i].typeId < typeId){
           z++;
         }
       }
@@ -1033,6 +1005,7 @@ export default {
         params: {
           examPaperId: this.paperId,
           userToken: this.userInfo.userToken,
+          resultId: this.type == 1 ? '' : this.resultId,
           type: this.type
         }
       }).then(res => {
@@ -1043,49 +1016,112 @@ export default {
         this.title = res.data.title
         this.examDateStatus = res.data.examDateStatus
         this.limitTime = res.data.limitTime
+        this.leftTime = res.data.surplusTime * 60
         this.courseTile = res.data.courseTile
         this.itemCount = res.data.itemCount
         this.examDeadlineStart = res.data.examDateStatus
         this.examDeadlineEnd = res.data.examDeadlineEnd
         this.sumScore = res.data.sumScore
+        this.resultId = res.data.resultId
+        this.initTime()
         console.log('result',this.result)
         if(this.type == 1){
-          for(let a=0;a<this.list.length;a++){
-            if(this.list[a].typeId == 2){
-                this.form[a] = []
-            }
-            if(this.list[a].typeId == 5) {
-                this.form[a] = []
-                this.show[a] = [true]
-                console.log('11',this.list[a].answerLength)
-                this.item5[a] = ''
-                for(let i = 0; i<this.list[a].answerLength;i++){
-                this.item5[a] += '1'
-                }
-            }
-            if(this.list[a].typeId == 6) {
-                this.show[a] = [true]
-            }
-            if(this.list[a].typeId == 7){
-              this.form[a] = []
-              this.show[a] = []
-              for(let b=0;b<this.list[a].childrenList.length;b++){
-                if(this.list[a].childrenList[b].typeId == 2){
-                  this.form[a][b] = []
-                }
-                if(this.list[a].childrenList[b].typeId == 5){
-                  this.form[a][b] = []
-                  this.show[a][b] = [true]
-                  this.item5[a][b] = ''
-                  for(let i = 0; i<this.list[a].childrenList[b].answerLength;i++){
-                    this.item5[a][b] += '1'
+          // for(let a=0;a<this.list.length;a++){
+          //   if(this.list[a].typeId == 2){
+          //       this.form[a] = []
+          //   }
+          //   if(this.list[a].typeId == 5) {
+          //       this.form[a] = []
+          //       this.show[a] = [true]
+          //       console.log('11',this.list[a].answerLength)
+          //       this.item5[a] = ''
+          //       for(let i = 0; i<this.list[a].answerLength;i++){
+          //       this.item5[a] += '1'
+          //       }
+          //   }
+          //   if(this.list[a].typeId == 6) {
+          //       this.show[a] = [true]
+          //   }
+          //   if(this.list[a].typeId == 7){
+          //     this.form[a] = []
+          //     this.show[a] = []
+          //     for(let b=0;b<this.list[a].childrenList.length;b++){
+          //       if(this.list[a].childrenList[b].typeId == 2){
+          //         this.form[a][b] = []
+          //       }
+          //       if(this.list[a].childrenList[b].typeId == 5){
+          //         this.form[a][b] = []
+          //         this.show[a][b] = [true]
+          //         this.item5[a][b] = ''
+          //         for(let i = 0; i<this.list[a].childrenList[b].answerLength;i++){
+          //           this.item5[a][b] += '1'
+          //         }
+          //       }
+          //       if(this.list[a].childrenList[b].typeId == 6){
+          //         this.show[a][b] = [true]
+          //         console.log('jd',this.show[a][b])
+          //       }
+          //     }
+          //   }
+          // }
+          for(let i = 0; i < res.data.newLists.length; i++) {
+            let typeId = res.data.newLists[i].typeId
+            switch (typeId) {
+              case 1:
+                this.questionList1.push(res.data.newLists[i])
+                this.form[i] = ''
+                break;
+              case 2:
+                this.questionList2.push(res.data.newLists[i])
+                this.form[i] = []
+                break;
+              case 3:
+                this.questionList3.push(res.data.newLists[i])
+                this.form[i] = []
+                break;
+              case 4:
+                this.questionList4.push(res.data.newLists[i])
+                this.form[i] = ''
+                break;
+              case 5:
+                this.questionList5.push(res.data.newLists[i])
+                this.form[i] = []
+                break;
+              case 6:
+                this.questionList6.push(res.data.newLists[i])
+                this.form[i] = ''
+                break;
+              case 7:
+                this.questionList7.push(res.data.newLists[i])
+                this.form[i] = []
+                for(let idx = 0; idx < res.data.newLists[i].childrenList.length; idx++) {
+                  let typeId = res.data.newLists[i].childrenList[idx].typeId
+                  switch (typeId) {
+                    case 1:
+                      this.form[i][idx] = ''
+                      break;
+                    case 2:
+                      this.form[i][idx] = []
+                      break;
+                    case 3:
+                      this.form[i][idx] = []
+                      break;
+                    case 4:
+                      this.form[i][idx] = ''
+                      break;
+                    case 5:
+                      this.form[i][idx] = []
+                      break;
+                    case 6:
+                      this.form[i][idx] = ''
+                      break;
+                    default:
+                      break;
                   }
                 }
-                if(this.list[a].childrenList[b].typeId == 6){
-                  this.show[a][b] = [true]
-                  console.log('jd',this.show[a][b])
-                }
-              }
+                break;
+              default:
+                break;
             }
           }
         }
@@ -1298,6 +1334,7 @@ export default {
           userToken: this.userInfo.userToken,
           paperId: this.paperId,
           answerTime: this.limitTime * 60 - this.leftTime,
+          resultId: this.resultId,
           lists
         }).then(res => {
           this.$message({
@@ -1543,6 +1580,7 @@ export default {
                 margin: 20px 0;
                 font-size: 16px;
                 line-height: 26px;
+                user-select: none;
                 span{
                   color: #838383;
                 }
