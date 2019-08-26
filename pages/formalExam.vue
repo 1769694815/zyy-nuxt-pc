@@ -674,7 +674,7 @@
                       <div style="color:#333;margin-bottom: 27px;">
                         阅卷得分:
                         <span 
-                          v-if=" item.status == 4 && userInfo.roleName == 'zyy-student'"
+                          v-if=" item.status == 4 && userInfo.roleName == 'zyy_student'"
                           style="margin-top: 0px;position:relative;top: 0;"
                           class="false">老师批阅中   </span>
                         <span 
@@ -868,14 +868,14 @@
             </div>
           </div>
           <div
-            v-if="userInfo.roleName == 'zyy-student'"
+            v-if="userInfo.roleName == 'zyy_student'"
             class="button">老师批阅中</div>
           <div
-            v-else-if="userInfo.roleName != 'zyy-student' && !showTeacher"
+            v-else-if="userInfo.roleName != 'zyy_student' && !showTeacher"
             class="button"
             @click="teacherSumit()">提交批阅结果</div>
           <div
-            v-else-if="userInfo.roleName != 'zyy-student' && showTeacher"
+            v-else-if="userInfo.roleName != 'zyy_student' && showTeacher"
             class="button">查看批阅结果</div>
         </div>
       </div>
@@ -968,9 +968,17 @@ export default {
     },
     singleSize(typeId){
       let z = 0
-      for(let i=0;i < this.list.length;i++){
-        if(this.list[i].typeId < typeId){
-          z++;
+      if(this.type == 1) {
+        for(let i=0;i < this.list.length;i++){
+          if(this.list[i].typeId < typeId){
+            z++;
+          }
+        }
+      } else {
+        for(let i=0;i < this.list.length;i++){
+          if(this.list[i].typeId == typeId){
+            z++;
+          }
         }
       }
       return z;

@@ -40,7 +40,7 @@
             <div class="center-right">
               <span 
                 v-if="item.markingStatus != 0 && tab != 3"
-                @click="openExam(item.paperId,2)">
+                @click="openExam(item.paperId,2,item.resultId)">
                 得分{{ item.score }},批阅详情 >
               </span>
               <span
@@ -49,7 +49,7 @@
                 @click="openTip(item.paperId)">立即考试</span>
               <span
                 v-else-if="item.markingStatus == 0 && tab != 3"
-                @click="openExam(item.paperId,2)">老师批阅中</span>
+                @click="openExam(item.paperId,2,item.resultId)">老师批阅中</span>
             </div>
           </li>
         </ul>
@@ -133,14 +133,15 @@ export default {
     formatStr(time) {
       return time > 9 ? time : '0'+time
     },
-    openExam(paperId,type) {
+    openExam(paperId,type,resultId) {
       this.showModal = false
-      this.move() 
+      this.move()
       let url = this.$router.resolve({
         name: 'formalExam',
         query: {
           examPaperId: paperId,
-          type: type
+          type: type,
+          resultId
         }
       })
       window.open(url.href, '_blank')
