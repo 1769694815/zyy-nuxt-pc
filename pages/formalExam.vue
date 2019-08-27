@@ -369,14 +369,14 @@
                   rowspan="4"
                   style="vertical-align:middle;text-align:center">
                   {{ result.objectScore || 0 }} + ?分
-                  <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime / 60) }}分钟</div>
+                  <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime) }}分钟</div>
                 </td>
                 <td
                   v-if="type ==3 || type == 4 || showTeacher == true"
                   rowspan="4"
                   style="vertical-align:middle;text-align:center">
                   {{ result.subjectScore+result.objectScore || 0 }}分
-                  <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime / 60) }}分钟</div>
+                  <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime) }}分钟</div>
                 </td>
               </tr>
               <tr>
@@ -993,13 +993,14 @@ export default {
       return z;
     },
     initTime() {
-      if(this.leftTime > 0) {
-        this.timer = setInterval(() => {
+      this.timer = setInterval(() => {
+        if(this.leftTime < 0) {
+          clearInterval(this.timer)
+          this.submit()
+        } else {
           this.formatTime(this.leftTime --)
-        }, 1000)
-      } else {
-
-      }
+        }
+      }, 1000)
     },
     formatTime(time) {
       let minutes = Math.floor(time / 60) > 9 ? Math.floor(time / 60) : '0' + Math.floor(time / 60)
