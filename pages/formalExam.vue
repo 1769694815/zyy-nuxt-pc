@@ -891,6 +891,7 @@ export default {
   },
   data() {
     return {
+      loading: null,
       type: this.$route.query.type || '',
       title: '',
       comment:'',
@@ -904,6 +905,7 @@ export default {
       leftTimeStrmin: '',
       leftTimeStrsec: '',
       timer: null,
+      timer2: null,
       itemCount: null,
       limitTime: null,
       rightFix: false,
@@ -961,6 +963,11 @@ export default {
     // this.getTypeList()
   },
   methods: {
+    handleSubmit(time) {
+      this.timer2 = setInterval( () => {
+        this.submitSimulatedVolume(0)
+      }, time * 1000)
+    },
     handleScroll () {
       var rightMenu = document.querySelector('#desc').offsetTop;
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -994,15 +1001,15 @@ export default {
     },
     initTime() {
       this.timer = setInterval(() => {
-        if(this.leftTime < 0) {
-          clearInterval(this.timer)
-          this.submit()
-        } else {
-          this.formatTime(this.leftTime --)
-        }
+        this.formatTime(this.leftTime --)
       }, 1000)
     },
     formatTime(time) {
+      if(time <= 0) {
+        clearInterval(this.timer)
+        this.submitSimulatedVolume(1)
+        return
+      }
       let minutes = Math.floor(time / 60) > 9 ? Math.floor(time / 60) : '0' + Math.floor(time / 60)
       let seconds = time % 60 > 9 ? time % 60 : '0' + time % 60
       this.leftTimeStr = `${minutes}:${seconds}`
@@ -1010,6 +1017,12 @@ export default {
       this.leftTimeStrsec = seconds
     },
     getList() {
+      this.loading = this.$loading({
+        lock: true,
+        text: '正在加载中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.$axios('/yxs/api/web/question/startAnswer', {
         params: {
           examPaperId: this.paperId,
@@ -1032,8 +1045,12 @@ export default {
         this.examDeadlineEnd = res.data.examDeadlineEnd
         this.sumScore = res.data.sumScore
         this.resultId = res.data.resultId
+        // alert(res.data.surplusTime)
+        this.handleSubmit(res.data.examTiming)
         this.initTime()
         console.log('result',this.result)
+        this.loading.close()
+        
         if(this.type == 1){
           // for(let a=0;a<this.list.length;a++){
           //   if(this.list[a].typeId == 2){
@@ -1285,7 +1302,22 @@ export default {
       }
     },
     // 交卷
-    submit() {
+    submit(status=1) {
+      if(status != 1) {
+        this.submitSimulatedVolume(0)
+      } else {
+        this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((this.limitTime * 60 - this.leftTime) / 60) }分钟，漏答${ sum }题`, '温馨提示', {
+          confirmButtonText: '我要交卷',
+          cancelButtonText: '再检查一遍',
+          type: 'warning'
+        }).then(() => {
+          this.submitSimulatedVolume(1)
+        }).catch(() => {
+
+        });
+      }
+    },
+    getResultList() {
       let lists = []
       let sum = 0
       this.list.forEach((ele, i) => {
@@ -1333,34 +1365,34 @@ export default {
           })
         }
       })
+      return lists
+    },
+    submitSimulatedVolume(status) {
       console.log('form',this.form)
-      this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((this.limitTime * 60 - this.leftTime) / 60) }分钟，漏答${ sum }题`, '温馨提示', {
-        confirmButtonText: '我要交卷',
-        cancelButtonText: '再检查一遍',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.post('/yxs/api/web/user/submitSimulatedVolume', {
-          userToken: this.userInfo.userToken,
-          paperId: this.paperId,
-          answerTime: this.limitTime * 60 - this.leftTime,
-          resultId: this.resultId,
-          lists
-        }).then(res => {
+      let lists = this.getResultList()
+      this.$axios.post('/yxs/api/web/user/submitSimulatedVolume', {
+        userToken: this.userInfo.userToken,
+        paperId: this.paperId,
+        answerTime: this.limitTime * 60 - this.leftTime,
+        resultId: this.resultId,
+        lists,
+        submitStatus: status
+      }).then(res => {
+        if(status == 1) {
+          clearInterval(this.timer)
+          clearInterval(this.timer2)
+          this.form = []
+          this.item5 = ''
+          this.isResult = true
           this.$message({
             type: 'success',
             message: '提交成功!'
           });
-          clearInterval(this.timer)
-          this.form = []
-          this.item5 = ''
-          this.isResult = true
           this.$router.push({
             name: 'mylearn-examination',
           })
-        })
-      }).catch(() => {
-
-      });
+        }
+      })
     },
     duringDate(){
       if(this.examDateStatus == 0){
