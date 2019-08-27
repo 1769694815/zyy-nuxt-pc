@@ -320,7 +320,7 @@
           </div>
           <div
             class="button"
-            @click="submit">我要交卷</div>
+            @click="submit(1)">我要交卷</div>
         </div>
       </div>
     </div>
@@ -914,6 +914,7 @@ export default {
       sumScore: null, 
       showModal: false,
       answerTime: null,
+      leftSum: 0,
       showTeacher: '',
       formInline: {
         question: '',
@@ -1031,6 +1032,7 @@ export default {
           type: this.type
         }
       }).then(res => {
+        this.loading.close()
         console.log('data',res.data)
         this.list = res.data.newLists
         this.userName = res.data.userName
@@ -1046,10 +1048,11 @@ export default {
         this.sumScore = res.data.sumScore
         this.resultId = res.data.resultId
         // alert(res.data.surplusTime)
-        this.handleSubmit(res.data.examTiming)
-        this.initTime()
+        if(this.type == 1) {
+          this.handleSubmit(res.data.examTiming)
+          this.initTime()
+        }
         console.log('result',this.result)
-        this.loading.close()
         
         if(this.type == 1){
           // for(let a=0;a<this.list.length;a++){
@@ -1306,7 +1309,8 @@ export default {
       if(status != 1) {
         this.submitSimulatedVolume(0)
       } else {
-        this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((this.limitTime * 60 - this.leftTime) / 60) }分钟，漏答${ sum }题`, '温馨提示', {
+        let lists = this.getResultList()
+        this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((this.limitTime * 60 - this.leftTime) / 60) }分钟，漏答${ this.leftSum }题`, '温馨提示', {
           confirmButtonText: '我要交卷',
           cancelButtonText: '再检查一遍',
           type: 'warning'
@@ -1365,6 +1369,7 @@ export default {
           })
         }
       })
+      this.leftSum = sum
       return lists
     },
     submitSimulatedVolume(status) {
