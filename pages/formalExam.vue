@@ -50,7 +50,7 @@
               class="list">
               <div class="list-title">
                 二、多选题
-                <span>(共{{ singleSize(2) }}题，共{{ singleScore(2) }}分)</span>
+                <span>(共{{ questionList2.length }}题，共{{ singleScore(2) }}分)</span>
               </div>
               <ul>
                 <li
@@ -103,7 +103,7 @@
               class="list">
               <div class="list-title">
                 三、判断题
-                <span>(共{{ singleSize(4) }}题，共{{ singleScore(4) }}分)</span>
+                <span>(共{{ questionList4.length }}题，共{{ singleScore(4) }}分)</span>
               </div>
               <ul>
                 <li
@@ -132,7 +132,7 @@
               class="list">
               <div class="list-title">
                 四、填空题
-                <span>(共{{ singleSize(5) }}题，共{{ singleScore(5) }}分)</span>
+                <span>(共{{ questionList5.length }}题，共{{ singleScore(5) }}分)</span>
               </div>
               <ul>
                 <li
@@ -159,7 +159,7 @@
               class="list">
               <div class="list-title">
                 五、简答题
-                <span>(共{{ singleSize(6) }}题，共{{ singleScore(6) }}分)</span>
+                <span>(共{{ questionList6.length }}题，共{{ singleScore(6) }}分)</span>
               </div>
               <ul>
                 <li
@@ -200,7 +200,7 @@
               class="list">
               <div class="list-title">
                 六、分析题
-                <span>(共{{ list7.length }}题，共{{ signleScore(7) }}分)</span>
+                <span>(共{{ questionList7.length }}题，共{{ signleScore(7) }}分)</span>
               </div>
               <ul>
                 <li
@@ -1288,9 +1288,9 @@ export default {
       let lists = []
       let sum = 0
       this.list.forEach((ele, i) => {
-        if(!this.form[i]) {
+        if(!this.form[i] || this.form[i].length == 0) {
           sum += 1
-          this.form[i] = ''
+          // this.form[i] = ''
         }
         lists[i] = { "questionId": ele.questionId, "answer": this.form[i] }
         if(this.list[i].typeId == 2){
