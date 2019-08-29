@@ -98,10 +98,10 @@
               <td
                 :class="item.markingStatus == 0? 'active':''">{{ item.markingStatus == 0? '未批阅' : '已批阅' }}</td>
               <td><span>{{ item.markingStatus == 0? '?': item.score }}</span>{{ item.objectScore }}+{{ item.markingStatus == 0? '?': item.subjectScore }}</td>
-              <td>{{ item.markingStatus == 3? '合格' : item.markingStatus == 4? '不合格': '-' }}</td>
+              <td>{{ item.markingStatus == 2? '合格' : item.markingStatus == 3? '不合格': '-' }}</td>
               <td
                 class="read"
-                @click="openExampage(item.studentId)">{{ item.markingStatus == 0? '去批阅' : '批阅详情' }}</td>
+                @click="openExampage(item.studentId, item.resultId, 3)">{{ item.markingStatus == 0? '去批阅' : '批阅详情' }}</td>
             </tr>
           </tbody>
         </table>
@@ -178,12 +178,14 @@ export default {
     formatStr(time) {
       return time > 9 ? time : '0'+time
     },
-    openExampage(id){
+    openExampage(id, resultId, type){
        let url = this.$router.resolve({
         name: 'formalExam',
         query: {
           examPaperId: this.paperId,
-          studentId: id
+          studentId: id,
+          resultId,
+          type
         }
       })
       window.open(url.href, '_blank')
@@ -201,7 +203,7 @@ export default {
         }
       }).then(res => {
         console.log('answerTime',res.data)
-        this.list = res.data
+        this.list = res.data.records
         if(this.list){
           this.showStudentList = true
         }else{

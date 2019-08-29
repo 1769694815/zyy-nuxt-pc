@@ -1029,7 +1029,8 @@ export default {
           examPaperId: this.paperId,
           userToken: this.userInfo.userToken,
           resultId: this.type == 1 ? '' : this.resultId,
-          type: this.type
+          type: this.type,
+          studentId: this.type == 3 ? this.$route.query.studentId || '' : ''
         }
       }).then(res => {
         this.loading.close()
@@ -1197,6 +1198,7 @@ export default {
         paperId: this.paperId,//试卷id
         userId: this.studentId,
         userToken: this.userInfo.userToken,
+        resultId: this.resultId
       }).then(res => {
          this.$router.push({
           name: 'teacher-manage',

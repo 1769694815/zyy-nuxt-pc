@@ -114,11 +114,11 @@
             <td>{{ item.status == 0? '发布' : '未发布' }}</td>
             <td>{{ item? dateFormatter(item.createTime) : '' }}</td>
             <td>{{ item? item.itemCount : '' }}道</td>
-            <td>{{ item? item.timeLimit : '' }}</td>
+            <td>{{ item? item.limitTime + '分' : '' }}</td>
             <td>{{ item.qualified? item.qualified : '' }}/{{ item.sumScore?item.sumScore : '' }}</td>
             <td>{{ item? item.peopeleNum : '0' }}</td>
             <td>{{ item? item.ageScore : '0' }}</td>
-            <td @click="openExam(item.id,item.title)">
+            <td @click="openExam(item.paperId, item.title)">
               操作
               <!-- <el-dropdown>
                 <span class="el-dropdown-link">
@@ -197,6 +197,7 @@ export default {
       return
     }
     this.getCourseList()
+    this.getList()
   },
   methods: {
     dateFormatter(time) {
@@ -230,13 +231,13 @@ export default {
         size: 10,
         current: 1,
         courseId: this.form.belong,
-        lessonId: this.form.belong1,
-        questionType: this.form.kind,
-        stem: this.form.title,
+        lessonIdOne: this.form.belong1,
+        examPaperType: this.form.kind,
+        title: this.form.title,
         status: this.form.status
       }
       this.$axios('/yxs/api/web/question/examList', {
-       params
+        params
       }).then(res => {
         console.log('12',res)
         this.list = res.data
