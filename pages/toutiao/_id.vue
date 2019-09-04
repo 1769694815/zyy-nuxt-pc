@@ -306,13 +306,3 @@ export default {
     }
   }
 </style>
-<style>
-  .htmlContent p span {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
-  .ql-align-center.ql-indent-1 {
-    text-align: center;
-  }
-</style>
