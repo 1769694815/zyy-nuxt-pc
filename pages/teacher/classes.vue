@@ -36,7 +36,7 @@
                   @click="toRank(item.classroomId)">班级管理></span>
               </div>
               <div
-                v-if="item.expiryMode != forever"
+                v-if="item.expiryMode != 'forever'"
                 class="foot">
                 班级有效期：{{ item.createTime }} 至 {{ item.expiryValue }}
               </div>
