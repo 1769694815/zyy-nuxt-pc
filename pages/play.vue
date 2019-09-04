@@ -187,7 +187,9 @@ export default {
       playFlag: true ,
       time: 0,
       timer: null,
-      rankStatus: 0 // 角色的status
+      rankStatus: 0, // 角色的status
+      timer2: null, // 将视频进度传给后台的计时器
+      timing: 90000, // 每隔90s将视频进度传给后台
     }
   },
   head() {
@@ -246,6 +248,7 @@ export default {
           this.info = res.data
           this.lessonId = res.data.lessonId
           this.courseId = res.data.courseId || ''
+          this.timing = res.data.videoTimingInterface * 1000
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
@@ -371,13 +374,15 @@ export default {
           }, function (player) {
             console.log("播放器创建了。");            
           });
-          _this.player.on('ready',function(e) {
-            _this.player.seek(info.startDuration)
-          })
+          _this.player.on('ready',function(e) {})
           _this.player.on('pause', _this.stopStudy)
           _this.player.on('ended', _this.endedHandle)
           _this.player.on('play', function() {
-            _this.playFlag = true
+            setTimeout(() => {
+              _this.playFlag = true
+              _this.player.seek(info.startDuration)
+              _this.setTimer()
+            }, 800);
           })
         })
       } else {
@@ -391,6 +396,7 @@ export default {
           this.info = res.data
           this.lessonId = res.data.lessonId
           this.courseId = res.data.courseId || ''
+          this.timing = res.data.videoTimingInterface * 1000
           if(_this.player) {
             // _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
             // _this.player.dispose()
@@ -518,15 +524,37 @@ export default {
             console.log("播放器创建了。");
           });
           _this.player.on('ready',function(e) {
-            _this.player.seek(info.startDuration)
+            // _this.player.seek(info.startDuration)
           })
           _this.player.on('pause', _this.stopStudy)
           _this.player.on('ended', _this.endedHandle)
           _this.player.on('play', function() {
-            _this.playFlag = true
+            setTimeout(() => {
+              _this.playFlag = true
+              _this.player.seek(info.startDuration)
+              _this.setTimer()
+            }, 800);
           })
         })
       }
+    },
+    setTimer() {
+      this.finishStudy()
+      this.timer2 = setTimeout(this.setTimer, this.timing)
+    },
+    finishStudy() {
+      let time = this.player.getCurrentTime() || 0
+      console.log('存储播放时间', time)
+      this.$axios.post('/yxs/api/web/user/finishStudy', {
+        courseId: this.courseId,
+        lessonId: this.info.lessonId,
+        classId: this.classId || '',
+        studyLogId: this.info.studyLogId,
+        userToken: this.userInfo.userToken,
+        playDuration: Math.floor(time)
+      }).then(res => {
+        
+      })
     },
     getList() {
       if(this.classId) {
@@ -582,17 +610,7 @@ export default {
     stopStudy() {
       this.player.pause()
       this.playFlag = false
-      let time = this.player.getCurrentTime() || 0
-      this.$axios.post('/yxs/api/web/user/finishStudy', {
-        courseId: this.courseId,
-        lessonId: this.info.lessonId,
-        classId: this.classId || '',
-        studyLogId: this.info.studyLogId,
-        userToken: this.userInfo.userToken,
-        playDuration: Math.floor(time)
-      }).then(res => {
-        
-      })
+      this.finishStudy()
     },
     endedHandle() {
       // let flag = this.player.fullscreenService.getIsFullScreen()
