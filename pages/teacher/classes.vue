@@ -35,8 +35,15 @@
                   class="rank"
                   @click="toRank(item.classroomId)">班级管理></span>
               </div>
-              <div class="foot">
-                班级有效期：{{ formatStamp(item.startTime) }}至 {{ formatStamp(item.endTime) }}
+              <div
+                v-if="item.expiryMode != forever"
+                class="foot">
+                班级有效期：{{ item.createTime }} 至 {{ item.expiryValue }}
+              </div>
+              <div
+                v-else
+                class="foot">
+                班级有效期：永久有效
               </div>
             </div>
           </li>
