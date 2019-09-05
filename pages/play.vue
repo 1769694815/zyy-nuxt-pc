@@ -20,8 +20,12 @@
         </div>
         <div class="play-content">
           <div
-            id="J_prismPlayer"
-            class="prism-player" />
+            ref="prismPlayerBox"
+            class="prism-player-box">
+            <div
+              id="J_prismPlayer"
+              class="prism-player" />
+          </div>
           <div
             v-show="maskShow"
             class="mask">
@@ -264,6 +268,12 @@ export default {
           }
           if(_this.player) {
             // _this.player.dispose()
+            _this.player.pause()
+            _this.player.dispose()
+            document.querySelector('#J_prismPlayer').remove()
+            // 兼容360安全浏览器8 的写法
+            var domPlay = '<div id="J_prismPlayer" class="prism-player"></div>'
+            document.querySelector('.prism-player-box').innerHTML = domPlay
           }
           _this.player = new Aliplayer({
             "id": "J_prismPlayer",
@@ -374,15 +384,21 @@ export default {
           }, function (player) {
             console.log("播放器创建了。");            
           });
-          _this.player.on('ready',function(e) {})
+          document.querySelector('.prism-ErrorMessage').style.display = 'none'
+          let seeked = false
+          _this.player.on('ready',function(e) {
+            if (!seeked) {
+              setTimeout(() => {
+                _this.player.seek(info.startDuration)
+                _this.setTimer()
+                seeked = true
+              }, 800)
+            }
+          })
           _this.player.on('pause', _this.stopStudy)
           _this.player.on('ended', _this.endedHandle)
           _this.player.on('play', function() {
-            setTimeout(() => {
-              _this.playFlag = true
-              _this.player.seek(info.startDuration)
-              _this.setTimer()
-            }, 800);
+            _this.playFlag = true
           })
         })
       } else {
@@ -400,6 +416,12 @@ export default {
           if(_this.player) {
             // _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
             // _this.player.dispose()
+            _this.player.pause()
+            _this.player.dispose()
+            document.querySelector('#J_prismPlayer').remove()
+            // 兼容360安全浏览器8 的写法
+            var domPlay = '<div id="J_prismPlayer" class="prism-player"></div>'
+            document.querySelector('.prism-player-box').innerHTML = domPlay
           }
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
@@ -523,17 +545,23 @@ export default {
           }, function (player) {
             console.log("播放器创建了。");
           });
+          document.querySelector('.prism-ErrorMessage').style.display = 'none'
+          let seeked = false
           _this.player.on('ready',function(e) {
             // _this.player.seek(info.startDuration)
+            if (!seeked) {
+              setTimeout(() => {
+                _this.player.seek(info.startDuration)
+                _this.setTimer()
+                seeked = true
+              }, 800)
+              return
+            }
           })
           _this.player.on('pause', _this.stopStudy)
           _this.player.on('ended', _this.endedHandle)
           _this.player.on('play', function() {
-            setTimeout(() => {
-              _this.playFlag = true
-              _this.player.seek(info.startDuration)
-              _this.setTimer()
-            }, 800);
+            _this.playFlag = true
           })
         })
       }
@@ -608,6 +636,8 @@ export default {
       }
     },
     stopStudy() {
+      clearTimeout(this.timer2)
+      this.timer2 = null
       this.player.pause()
       this.playFlag = false
       this.finishStudy()
@@ -706,9 +736,15 @@ export default {
         position: relative;
         display: flex;
         margin-top: 30px;
-        #J_prismPlayer {
-          width: 932px;
-          cursor: pointer;
+        .prism-player-box {
+          width: 850px;
+          height: 500px;
+          background: #131313;
+          overflow: hidden;
+          #J_prismPlayer {
+            width: 932px;
+            cursor: pointer;
+          }
         }
         .mask {
           position: absolute;
