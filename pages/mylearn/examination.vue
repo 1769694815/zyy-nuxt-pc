@@ -52,6 +52,14 @@
                 @click="openExam(item.paperId,2,item.resultId)">老师批阅中</span>
             </div>
           </li>
+          <li>
+            <Pagination
+              :size="size"
+              :current="current"
+              :total="total"
+              @sizeChange="sizeChange"
+              @currentChange="currentChange" />
+          </li>
         </ul>
         <div
           v-else
@@ -87,8 +95,10 @@
 <script>
 import Cookies from 'js-cookie'
 import { formatStamp2 } from '~/assets/js/util.js'
+import Pagination from '~/components/pagination.vue'
 export default {
   components: {
+    Pagination
   },
   data() {
     return {
@@ -106,7 +116,8 @@ export default {
       size: 10,
       current: 1,
       contentList: [],
-      tipList: []
+      tipList: [],
+      total: 0
     }
   },
   mounted() {
@@ -169,6 +180,7 @@ export default {
       this.tab = index + 1;
       this.type = item.value
       this.contentList = [];
+      this.current = 1
       this.getList()
     },
     toRank(roomId) {
@@ -180,18 +192,22 @@ export default {
     },
     getList() {
       let params = {
-        userToken: this.userInfo.userToken
+        userToken: this.userInfo.userToken,
+        current: this.current
       }
       this.$axios('/yxs/api/web/question/myExamList', {
        params
       }).then(res => {
         console.log('12',res)
         if(this.tab == 1){
-          this.contentList = res.data.simulationList
+          this.contentList = res.data.simulationList.records
+          this.total = res.data.simulationList.total
         }else if(this.tab == 2){
-          this.contentList = res.data.endList
+          this.contentList = res.data.endList.records
+          this.total = res.data.simulationList.total
         }else if(this.tab == 3){
-          this.contentList = res.data.unEndList
+          this.contentList = res.data.unEndList.records
+          this.total = res.data.simulationList.total
         }
        /*  this.contentList = res.data.records */
       })
@@ -210,7 +226,15 @@ export default {
       var mo=function(e){e.preventDefault();};
       document.body.style.overflow='';//出现滚动条
       document.removeEventListener("touchmove",mo,true);//页面可以滑动
-    }
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      window.scrollTo(0, 0)
+      this.current = val
+      this.getList()
+    },
   }
 }
 </script>
