@@ -9,14 +9,14 @@
             <div
               :class="tab === 1 ? 'active' : ''"
               class="tab"
-              @click="changeTab(1)">短信登录</div>
+              @click="changeTab(1)">密码登录</div>
             <div
               :class="tab === 2 ? 'active' : ''"
               class="tab"
-              @click="changeTab(2)">密码登录</div>
+              @click="changeTab(2)">短信登录</div>
           </div>
           <div
-            v-show="tab === 1"
+            v-show="tab === 2"
             class="inputs1">
             <div class="input">
               <span class="img1" />
@@ -47,7 +47,7 @@
               @click="login1">
           </div>
           <div
-            v-show="tab === 2"
+            v-show="tab === 1"
             class="inputs1">
             <div class="input">
               <span class="img1" />
