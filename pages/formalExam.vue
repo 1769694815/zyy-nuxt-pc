@@ -409,6 +409,11 @@
               <tr>
                 <td>评语</td>
                 <td
+                  v-if="markingStatus != 0"
+                  colspan="8"
+                  style="color: #636363">{{ comment }}</td>
+                <td
+                  v-else
                   colspan="8"
                   style="color: #636363">批阅中</td>
               </tr>
@@ -1048,6 +1053,7 @@ export default {
         this.examDeadlineEnd = res.data.examDeadlineEnd
         this.sumScore = res.data.sumScore
         this.resultId = res.data.resultId
+        this.comment = res.data.comment
         // alert(res.data.surplusTime)
         if(this.type == 1) {
           this.handleSubmit(res.data.examTiming)
@@ -1200,6 +1206,7 @@ export default {
         userToken: this.userInfo.userToken,
         resultId: this.resultId
       }).then(res => {
+
          this.$router.push({
           name: 'teacher-manage',
           query: {

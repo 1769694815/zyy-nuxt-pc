@@ -13,7 +13,7 @@
           <div class="top">
             <h2>{{ title }}课程模拟考试</h2>
             <div class="desc">
-              试卷说明，共50题，总分100分，请认真作答，您可重复参与模拟练习
+              试卷说明，共{{ itemCount }}题，总分{{ sumScore }}分，请认真作答，您可重复参与模拟练习
             </div>
             <!-- <ul class="type">
               <li
@@ -248,7 +248,7 @@
               </table>
             </div>
             <div class="desc">
-              试卷说明，共50题，总分100分，请认真作答，您可重复参与模拟练习
+              试卷说明，共{{ itemCount }}题，总分{{ sumScore }}分，请认真作答，您可重复参与模拟练习
             </div>
             <!-- <ul class="type">
               <li
@@ -338,12 +338,14 @@ export default {
   },
   data() {
     return {
+      loading: null,
       type: 1,
       title: this.$route.query.title || '',
       courseId: this.$route.query.courseId || '',
       userInfo: '',
       paperId: null,
-      leftTime: 7200,
+      limitTime: 7200,
+      answerTime: 0,
       isResult: false,
       result: '',
       leftTimeStr: '',
@@ -362,7 +364,9 @@ export default {
       list: [],
       lessonList: [],
       typeList: [],
-      letterArray: ['A', 'B', 'C', 'D', 'E', 'F']
+      letterArray: ['A', 'B', 'C', 'D', 'E', 'F'],
+      itemCount: 0,
+      sumScore: 0,
     }
   },
   mounted() {
@@ -375,29 +379,40 @@ export default {
   methods: {
     initTime() {
       clearInterval(this.timer)
-      this.leftTime = 7200
-      if(this.leftTime > 0) {
+      if(this.limitTime > 0) {
         this.timer = setInterval(() => {
-          this.formatTime(this.leftTime --)
+          this.formatTime(this.limitTime --)
         }, 1000)
       } else {
         clearInterval(this.timer)
       }
     },
     formatTime(time) {
+      this.answerTime++
       let minutes = Math.floor(time / 60) > 9 ? Math.floor(time / 60) : '0' + Math.floor(time / 60)
       let seconds = time % 60 > 9 ? time % 60 : '0' + time % 60
       this.leftTimeStr = `${minutes}:${seconds}`
     },
     getList() {
+      this.loading = this.$loading({
+        lock: true,
+        text: '正在加载中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.$axios('/yxs/api/web/user/createSimulatedVolume', {
         params: {
           courseId: this.courseId,
           userToken: this.userInfo.userToken
         }
       }).then(res => {
+        this.loading.close()
         this.list = res.data.newList
         this.paperId = res.data.paperId
+        this.resultId = res.data.resultId
+        this.limitTime = res.data.limitTime * 60
+        this.itemCount = res.data.itemCount
+        this.sumScore = res.data.sumScore
       })
     },
     getLessonList() {
@@ -435,17 +450,26 @@ export default {
         }
         lists[i] = { "questionId": ele.id, "answer": this.form.item1[i] }
       })
-      this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((7200 - this.leftTime) / 60) }分钟，漏答${ sum }题`, '温馨提示', {
+      this.$confirm(`亲爱的学员，您本次答题耗时${ Math.ceil((this.answerTime) / 60) }分钟，漏答${ sum }题`, '温馨提示', {
         confirmButtonText: '我要交卷',
         cancelButtonText: '再检查一遍',
         type: 'warning'
       }).then(() => {
+        this.loading = this.$loading({
+          lock: true,
+          text: '正在加载中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
         this.$axios.post('/yxs/api/web/user/submitSimulatedVolume', {
           userToken: this.userInfo.userToken,
           paperId: this.paperId,
-          answerTime: 7200 - this.leftTime,
+          answerTime: Math.ceil(this.answerTime),
+          resultId: this.resultId,
+          submitStatus: 1,
           lists
         }).then(res => {
+          this.loading.close()
           this.$message({
             type: 'success',
             message: '提交成功!'
@@ -606,8 +630,8 @@ export default {
     .content-right {
       position: sticky;
       top: 0;
-      right: 180px;
-      width: 260px;
+      width: 280px;
+      height: 550px;
       // height: auto;
       max-height: calc(100vh);
       margin-left: 20px;
@@ -623,10 +647,10 @@ export default {
         }
       }
       .list {
+        max-height: 300px;
+        overflow: auto;
         li {
           display: inline-block;
-          width: 44px;
-          height: 44px;
           margin: 2px;
           line-height: 44px;
           background: #fff;
