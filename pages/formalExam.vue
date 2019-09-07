@@ -952,7 +952,8 @@ export default {
       questionList4: [],
       questionList5: [],
       questionList6: [],
-      questionList7: []
+      questionList7: [],
+      markingStatus: null
     }
   },
   mounted() {
@@ -1054,6 +1055,7 @@ export default {
         this.sumScore = res.data.sumScore
         this.resultId = res.data.resultId
         this.comment = res.data.comment
+        this.markingStatus = res.data.markingStatus
         // alert(res.data.surplusTime)
         if(this.type == 1) {
           this.handleSubmit(res.data.examTiming)

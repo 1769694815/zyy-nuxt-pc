@@ -193,22 +193,15 @@ export default {
     getList() {
       let params = {
         userToken: this.userInfo.userToken,
-        current: this.current
+        current: this.current,
+        type: this.tab
       }
       this.$axios('/yxs/api/web/question/myExamList', {
        params
       }).then(res => {
-        console.log('12',res)
-        if(this.tab == 1){
-          this.contentList = res.data.simulationList.records
-          this.total = res.data.simulationList.total
-        }else if(this.tab == 2){
-          this.contentList = res.data.endList.records
-          this.total = res.data.simulationList.total
-        }else if(this.tab == 3){
-          this.contentList = res.data.unEndList.records
-          this.total = res.data.simulationList.total
-        }
+        console.log('我的试卷列表',res)
+        this.contentList = res.data.simulationList.records
+        this.total = res.data.simulationList.total
        /*  this.contentList = res.data.records */
       })
     },
