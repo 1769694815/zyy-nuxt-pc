@@ -80,10 +80,11 @@
                 <div class="foot">
                   <span>{{ Math.round(item.length / 60) }}分钟</span>
                   <span
-                    v-if="item.result == '100%'"
+                    v-if="parseFloat(item.result) > 99.4 && lessonId != item.lessonId"
                     class="complete">已学完</span>
-                  <span v-else-if="item.result == '0%'">未学习</span>
-                  <span v-else>已学{{ item.result }}</span>
+                  <span v-else-if="item.result == '0%' && lessonId != item.lessonId">未学习</span>
+                  <span v-else-if="lessonId != item.lessonId">已学{{ item.result }}</span>
+                  <span v-else>已学{{ results }}</span>
                 </div>
               </div>
             </li>
@@ -192,8 +193,16 @@ export default {
       time: 0,
       timer: null,
       rankStatus: 0, // 角色的status
-      timer2: null, // 将视频进度传给后台的计时器
+      timer2: null,  // 播放进度实时修改
       timing: 90000, // 每隔90s将视频进度传给后台
+      videoTime: 0, // 视频正在播放长度
+      watched: 0, // 已观看的视频
+      isLearnEnd: 1, // 是否已学完该课程  1： 未学完   2：已学完
+      startSeekTime: 0, // 开始拖拽时间
+      completeSeekTime: 0, // 完成拖拽时间
+      videoDuration: 1, // 视频总时长
+      results: '0.00%', // 当前视频播放进度
+      timer3: null, // 将视频进度传给后台的计时器
     }
   },
   head() {
@@ -206,6 +215,17 @@ export default {
       return function(time) {
         return formatSeconds(time)
       }
+    }
+  },
+  watch:{
+    videoTime: {
+      handler: function (newVal, oldVal) {
+        this.results = ((newVal / this.videoDuration)*100).toFixed(2) + '%'
+        if (parseFloat(this.results) >= 99.9) {
+          this.results = '完'
+        }
+      },
+      immediate: true
     }
   },
   mounted() {
@@ -231,12 +251,19 @@ export default {
       if(lessonId) {
         this.lessonId = lessonId
       }
-      if(_this.player) {
-        _this.player.pause()
-      }
       if(free == 2) {
+        _this.player.pause()
         this.maskShow = true
         return
+      }
+      if(_this.player) {
+        // _this.player.dispose()
+        _this.player.pause()
+        _this.player.dispose()
+        document.querySelector('#J_prismPlayer').remove()
+        // 兼容360安全浏览器8 的写法
+        var domPlay = '<div id="J_prismPlayer" class="prism-player"></div>'
+        document.querySelector('.prism-player-box').innerHTML = domPlay
       }
       this.maskShow = false
       this.nextShow = false
@@ -252,7 +279,10 @@ export default {
           this.info = res.data
           this.lessonId = res.data.lessonId
           this.courseId = res.data.courseId || ''
+          this.watched = res.data.startDuration
           this.timing = res.data.videoTimingInterface * 1000
+          this.isLearnEnd = res.data.status
+          this.isLearnEnd == 1 ? this.results = '0.00%' : this.results = '完'
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
@@ -266,15 +296,7 @@ export default {
               break
             }
           }
-          if(_this.player) {
-            // _this.player.dispose()
-            _this.player.pause()
-            _this.player.dispose()
-            document.querySelector('#J_prismPlayer').remove()
-            // 兼容360安全浏览器8 的写法
-            var domPlay = '<div id="J_prismPlayer" class="prism-player"></div>'
-            document.querySelector('.prism-player-box').innerHTML = domPlay
-          }
+          
           _this.player = new Aliplayer({
             "id": "J_prismPlayer",
             "vid": info.videoId,
@@ -389,8 +411,13 @@ export default {
           _this.player.on('ready',function(e) {
             if (!seeked) {
               setTimeout(() => {
-                _this.player.seek(info.startDuration)
-                _this.setTimer()
+                if (_this.isLearnEnd == 1) {
+                  _this.player.seek(info.startDuration)
+                  _this.setTimer()
+                  _this.setTimer2()
+                } else {
+                  _this.player.seek(0)
+                }
                 seeked = true
               }, 800)
             }
@@ -398,7 +425,32 @@ export default {
           _this.player.on('pause', _this.stopStudy)
           _this.player.on('ended', _this.endedHandle)
           _this.player.on('play', function() {
+            if (!_this.timer2 && _this.isLearnEnd == 1) {
+              _this.setTimer()
+            }
+            if (!_this.timer3 && _this.isLearnEnd == 1) {
+              _this.setTimer2()
+            }
             _this.playFlag = true
+          })
+          _this.player.on('startSeek', function (e) {
+            // console.log('开始拖拽', e.paramData)
+            _this.startSeekTime = parseInt(e.paramData)
+            // 缓存最大的已播放时间
+            if (e.paramData > _this.watched) {
+              _this.watched = e.paramData
+            }
+          })
+          _this.player.on('completeSeek', function (e) {
+            // console.log('完成拖拽', e)
+            _this.completeSeekTime = parseInt(e.paramData)
+            if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
+              _this.$message({
+                type: 'warning',
+                message: '只能拖动已观看的部分哦，请认真学习'
+              })
+              _this.player.seek(_this.startSeekTime)
+            }
           })
         })
       } else {
@@ -412,17 +464,10 @@ export default {
           this.info = res.data
           this.lessonId = res.data.lessonId
           this.courseId = res.data.courseId || ''
+          this.watched = res.data.startDuration
           this.timing = res.data.videoTimingInterface * 1000
-          if(_this.player) {
-            // _this.player.replayByVidAndPlayAuth(info.videoId, info.playAuth);
-            // _this.player.dispose()
-            _this.player.pause()
-            _this.player.dispose()
-            document.querySelector('#J_prismPlayer').remove()
-            // 兼容360安全浏览器8 的写法
-            var domPlay = '<div id="J_prismPlayer" class="prism-player"></div>'
-            document.querySelector('.prism-player-box').innerHTML = domPlay
-          }
+          this.isLearnEnd = res.data.status
+          this.isLearnEnd == 1 ? this.results = '0.00%' : this.results = '完'
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
@@ -551,8 +596,13 @@ export default {
             // _this.player.seek(info.startDuration)
             if (!seeked) {
               setTimeout(() => {
-                _this.player.seek(info.startDuration)
-                _this.setTimer()
+                if (_this.isLearnEnd == 1) {
+                  _this.player.seek(info.startDuration)
+                  _this.setTimer()
+                  _this.setTimer2()
+                } else {
+                  _this.player.seek(0)
+                }
                 seeked = true
               }, 800)
               return
@@ -561,14 +611,48 @@ export default {
           _this.player.on('pause', _this.stopStudy)
           _this.player.on('ended', _this.endedHandle)
           _this.player.on('play', function() {
+            if (!_this.timer2 && _this.isLearnEnd == 1) {
+              _this.setTimer()
+            }
+            if (!_this.timer3 && _this.isLearnEnd == 1) {
+              _this.setTimer2()
+            }
             _this.playFlag = true
+          })
+          _this.player.on('startSeek', function (e) {
+            // console.log('开始拖拽', e.paramData)
+            _this.startSeekTime = parseInt(e.paramData)
+            // 缓存最大的已播放时间
+            if (e.paramData > _this.watched) {
+              _this.watched = e.paramData
+            }
+          })
+          _this.player.on('completeSeek', function (e) {
+            // console.log('完成拖拽', e)
+            _this.completeSeekTime = parseInt(e.paramData)
+            if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
+              _this.$message({
+                type: 'warning',
+                message: '只能拖动已观看的部分哦，请认真学习'
+              })
+              _this.player.seek(_this.startSeekTime)
+            }
           })
         })
       }
     },
+    // 播放进度
     setTimer() {
-      this.finishStudy()
-      this.timer2 = setTimeout(this.setTimer, this.timing)
+      this.videoDuration = this.player.getDuration() || 1
+      this.videoTime = parseInt(this.player.getCurrentTime())
+      this.timer2 = setTimeout(this.setTimer, 1000)
+    },
+    // 定时提交
+    setTimer2() {
+      if (this.timer3) {
+        this.finishStudy()
+      }
+      this.timer3 = setTimeout(this.setTimer2, this.timing)
     },
     finishStudy() {
       let time = this.player.getCurrentTime() || 0
@@ -638,6 +722,8 @@ export default {
     stopStudy() {
       clearTimeout(this.timer2)
       this.timer2 = null
+      clearTimeout(this.timer3)
+      this.timer3 = null
       this.player.pause()
       this.playFlag = false
       this.finishStudy()
