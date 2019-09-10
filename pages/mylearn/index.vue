@@ -46,6 +46,12 @@
             </div>
           </li>
         </ul>
+        <Pagination
+          :size="size"
+          :current="current"
+          :total="total"
+          @sizeChange="sizeChange"
+          @currentChange="currentChange" />
       </div>
       <div
         v-else
@@ -59,17 +65,20 @@
 </template>
 <script>
 import LeftTab from '~/components/mine/leftTab.vue'
+import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
 import { judgeUser } from '~/assets/js/util'
 export default {
   components: {
-    LeftTab
+    LeftTab,
+    Pagination
   },
   data() {
     return {
       tab: 1,
       tabIndex: 1,
-      size: 10,
+      total: 0,
+      size: 12,
       current: 1,
       type: 0,
       userInfo: '',
@@ -104,6 +113,7 @@ export default {
     switchTab(index, item){
       this.tab = index + 1;
       this.type = item.value
+      this.current = 1
       this.getList()
     },
     getList() {
@@ -118,11 +128,20 @@ export default {
         params
       }).then(res => {
         this.contentList = res.data.records
+        this.total = res.data.total
       })
     },
     openNewPage(url) {
       window.open(url.href, '_blank')
-    }
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      window.scrollTo(0, 0)
+      this.current = val
+      this.getList()
+    },
   }
 }
 </script>
