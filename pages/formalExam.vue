@@ -1702,7 +1702,7 @@ export default {
       position: sticky;
       top: 0;
       right: 0;
-      width: 250px;
+      width: 280px;
       height: 550px;
       padding: 20px 24px;
       background: #fff;
