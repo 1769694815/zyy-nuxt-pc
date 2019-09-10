@@ -142,7 +142,10 @@ export default {
       this.$refs['text'+ index][0].style.display = 'none'
     },
     cancelCollect(item, index) {
-      this.$confirm(`确定取消收藏【${item.title}】这门课程吗？`).then(res => {
+      this.$confirm(`确定取消收藏【${item.title}】这门课程吗？`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(res => {
         this.$axios('/yxs/api/web/user/cancelCourseCollection', {
           params: {
             courseId: item.courseId,
