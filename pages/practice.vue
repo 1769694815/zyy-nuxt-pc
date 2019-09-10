@@ -165,6 +165,7 @@
                       解析<i class="iconfont iconarrow-right"/>
                     </div>
                     <div class="desc">
+                      <div>答案：{{ item.answer }}</div>
                       {{ item.analysis || '无' }}
                     </div>
                   </div>
@@ -203,6 +204,7 @@
                       解析<i class="iconfont iconarrow-right"/>
                     </div>
                     <div class="desc">
+                      <div>答案：{{ item.answer }}</div>
                       {{ item.analysis || '无' }}
                     </div>
                   </div>
