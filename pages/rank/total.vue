@@ -83,7 +83,8 @@ export default {
       classId: null,
       userId: null,
       navList: [],
-      rankList: []
+      rankList: [],
+      loading: null
     }
   },
   mounted() {
@@ -117,6 +118,12 @@ export default {
       })
     },
     getList() {
+      this.loading = this.$loading({
+        lock: true,
+        text: '正在加载中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.$axios('/yxs/api/web/user/classRanking', {
         params: {
           size: this.size,
@@ -125,6 +132,7 @@ export default {
           userToken: this.userInfo.userToken
         }
       }).then(res => {
+        this.loading.close()
         this.rankList = res.data.records
         this.total = res.data.total
       })

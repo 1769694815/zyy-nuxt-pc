@@ -108,7 +108,8 @@ export default {
       courseId: null,
       userInfo: '',
       navList: [],
-      rankList: []
+      rankList: [],
+      loading: null
     }
   },
   mounted() {
@@ -155,6 +156,12 @@ export default {
     },
     // 获取排名信息
     getRankList(id) {
+      this.loading = this.$loading({
+        lock: true,
+        text: '正在加载中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.$axios('/yxs/api/web/user/ranking', {
         params: {
           size: this.size,
@@ -164,6 +171,7 @@ export default {
           classId: this.classId
         }
       }).then(res => {
+        this.loading.close()
         this.rankList = res.data.records
         this.total = res.data.total
       })
