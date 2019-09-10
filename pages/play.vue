@@ -859,7 +859,7 @@ export default {
         }
         .next-mask {
           position: absolute;
-          width: 932px;
+          width: 854px;
           height: 500px;
           text-align: center;
           background: rgba(0, 0, 0, .6);
