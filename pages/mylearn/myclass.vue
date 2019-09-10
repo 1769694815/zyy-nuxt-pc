@@ -39,7 +39,7 @@
               <p v-if="item.dayCount != 0 && item.dayCount < 60">
                 {{ item.dayCount }}天后到期
               </p>
-              <p v-if="item.dayCount <= 0">
+              <p v-if="item.dayCount <= 0 && item.expiryMode != 'forever'">
                 已到期
               </p>
               <div class="foot">
