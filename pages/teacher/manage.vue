@@ -84,7 +84,7 @@
             <th>答题用时</th>
             <th>交卷时间</th>
             <th>批阅状态</th>
-            <th><span>得分</span>（主观+客观）</th>
+            <th><span>得分</span>（客观+主观）</th>
             <th>考核状态</th>
             <th>操作</th>
             <tr
