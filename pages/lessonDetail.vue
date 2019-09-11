@@ -518,6 +518,13 @@ export default {
         })
         return
       }
+      if (this.detailData.count == 0) {
+        this.$message({
+          message: '暂无相关题目，请等待添加',
+          type: 'warning'
+        })
+        return
+      }
       let url = this.$router.resolve({
         name: 'practice',
         query: {
@@ -549,31 +556,21 @@ export default {
         })
         return
       }
-      this.$axios('/yxs/api/web/user/createSimulatedVolume', {
-        params: {
-          courseId: this.detailData.id,
-          userToken: this.userInfo.userToken
-        }
-      }).then(res => {
-        console.log(res)
-        let data = res.data
-        if (data.newList.length > 0) {
-          let url = this.$router.resolve({
-            name: 'exam',
-            query: {
-              title: this.detailData.title,
-              courseId: this.detailData.id
-            }
-          })
-          window.open(url.href, '_blank')
-        } else {
-          this.$message({
-            type: 'warning',
-            message: '暂时无相关试卷'
-          })
+      if (this.detailData.singleCount == 0) {
+        this.$message({
+          type: 'warning',
+          message: '暂无相关题目，请等待添加'
+        })
+        return
+      }
+      let url = this.$router.resolve({
+        name: 'exam',
+        query: {
+          title: this.detailData.title,
+          courseId: this.detailData.id
         }
       })
-      
+      window.open(url.href, '_blank')
     } 
   }
 };
