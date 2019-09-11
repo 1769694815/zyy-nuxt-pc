@@ -35,7 +35,7 @@
               <div class="title">
                 {{ item.paperTitle }}
               </div>
-              来自课程《{{ item.title }}》{{ dateFormatter(item.createTime) }}发布
+              来自课程《{{ item.title }}》 考试期限：{{ item.examDateStatus == 0 ? '不限' : item.examDeadlineStart + ' 至 ' + item.examDeadlineEnd }}
             </div>
             <div class="center-right">
               <span 
@@ -43,6 +43,10 @@
                 @click="openExam(item.paperId,2,item.resultId)">
                 得分{{ item.score }},批阅详情 >
               </span>
+              <span
+                v-if="item.markingStatus != 0 && tab != 3 && item.examNum > 0"
+                style="margin-left: 10px;"
+                @click="openTip(item.paperId)">重考</span>
               <span
                 v-else-if="tab === 3"
                 class="toexam"
@@ -79,6 +83,7 @@
         </div>
         <div class="content">
           您正在参与<span>{{ tipList.examTile }}</span>答题，共{{ tipList.count }}题，总分值{{ tipList.score }}分，限时答题{{ tipList.time }}分钟，点击【开始答题】则开始计时
+          <p>剩余重考次数：{{ tipList.surplusNum }}</p>
         </div>
         <div class="botton">
           <span
@@ -165,6 +170,13 @@ export default {
       this.$axios('/yxs/api/web/question/immediate', {
        params
       }).then(res => {
+        if (res.code == 1) {
+          this.$message({
+            type: 'success',
+            message: res.msg
+          })
+          return
+        }
         console.log('tip',res)
         this.tipList = res.data
         this.showModal = true
@@ -315,12 +327,12 @@ export default {
     min-height: 500px;
   }
   .remind{
-    position: absolute;
+    position: fixed;
     left: 0;
-    top: 171px;
+    top: 0;
     width: 100%;
-    height: 90%;
-    //background: rgba(0, 0, 0, .6);
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
     z-index: 98;
     .tip{
       position: fixed;
@@ -329,7 +341,7 @@ export default {
       z-index:99;
       background: #fff;
       width: 463px;
-      height: 270px;
+      height: 290px;
       border-radius: 6px;
       .title{
         padding-top: 22px;
