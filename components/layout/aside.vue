@@ -1,7 +1,7 @@
 <template>
   <div class="aside">
     <ul>
-      <li>
+      <li class="color1">
         <div class="item">
           <i class="iconfont iconzixun" />
           <div class="text">课程咨询</div>
@@ -14,8 +14,16 @@
             <i class="iconfont iconqq" />
             <span>自考处袁主任</span>
           </a>
+        </div>
+      </li>
+      <li class="color2">
+        <div class="item">
+          <i class="iconfont iconlianxiren" />
+          <div class="text">课程咨询</div>
+        </div>
+        <div class="content">
           <a
-            href="tencent://message/?uin=452493787"
+            href="tencent://message/?uin=1515997628"
             target="_blank"
             class="tab">
             <i class="iconfont iconqq" />
@@ -23,7 +31,7 @@
           </a>
         </div>
       </li>
-      <li class="item">
+      <li class="item color3">
         <div>
           <i class="iconfont iconwoshou" />
           <div class="text">平台服务</div>
@@ -35,12 +43,19 @@
             <i class="iconfont iconbaozhang" />
             <span>服务与保障</span>
           </div>
-          <div
+          <!-- <div
             class="tab"
             @click="openCustomer">
             <i class="iconfont iconkefu" />
             <span>在线客服</span>
-          </div>
+          </div> -->
+          <a
+            href="tencent://message/?uin=2111984366"
+            target="_blank"
+            class="tab">
+            <i class="iconfont iconqq" />
+            <span>在线客服</span>
+          </a>
           <div class="tab">
             <i class="iconfont icondianhua" />
             <span>0791-88197248</span>
@@ -174,7 +189,6 @@ export default {
           position: absolute;
           display: none;
           width: 190px;
-          height: 124px;
           right: 50px;
           top: 0;
           text-align: left;
@@ -214,6 +228,115 @@ export default {
           padding: 10px;
           img {
             width: 120px;
+          }
+        }
+        &.color1 {
+          i {
+            color: #72cbcf;
+          }
+          .content {
+            height: 109px;
+            background: #72cbcf;
+            .tab {
+              margin: 40px 24px;
+              &:hover {
+                color: #72cbcf;
+                font-weight: 700;
+                i {
+                  color: #72cbcf;
+                }
+              }
+              i {
+                margin-left: 10px;
+                font-size: 16px;
+                color: #666;
+              }
+            }
+          }
+          &:hover {
+            background: #72cbcf;
+            color: #fff;
+            i {
+              color: #fff;
+            }
+            .text {
+              display: block;
+            }
+            .content {
+              display: block;
+            }
+          }
+        }
+        &.color2 {
+          i {
+            color: #82bffd;
+          }
+          .content {
+            height: 109px;
+            background: #82bffd;
+            .tab {
+              margin: 40px 24px;
+              &:hover {
+                color: #82bffd;
+                font-weight: 700;
+                i {
+                  color: #82bffd;
+                }
+              }
+              i {
+                margin-left: 10px;
+                font-size: 16px;
+                color: #666;
+              }
+            }
+          }
+          &:hover {
+            background: #82bffd;
+            color: #fff;
+            i {
+              color: #fff;
+            }
+            .text {
+              display: block;
+            }
+            .content {
+              display: block;
+            }
+          }
+        }
+        &.color3 {
+          i {
+            color: #aeacff;
+          }
+          .content {
+            background: #aeacff;
+            .tab {
+              &:hover {
+                color: #aeacff;
+                font-weight: 700;
+                i {
+                  color: #aeacff;
+                }
+              }
+              i {
+                margin-left: 10px;
+                font-size: 16px;
+                color: #666;
+              }
+            }
+          }
+          &:hover {
+            background: #aeacff;
+            color: #fff;
+            i {
+              color: #fff;
+            }
+            .text {
+              display: block;
+            }
+            .content {
+              display: block;
+            }
           }
         }
       }
