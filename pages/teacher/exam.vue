@@ -20,6 +20,20 @@
               </td>
               <td 
                 align="right" 
+                width="120">试卷类型： </td>
+              <td>
+                <el-select 
+                  v-model="form.kind" 
+                  placeholder="全部类型">
+                  <el-option
+                    v-for="item in options1"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"/>
+                </el-select>
+              </td>
+              <!-- <td 
+                align="right" 
                 width="120">发布状态：</td>
               <td>
                 <el-select 
@@ -31,7 +45,7 @@
                     :label="item.label"
                     :value="item.value"/>
                 </el-select>
-              </td>
+              </td> -->
               <td>
                 <span 
                   class="button"
@@ -68,23 +82,7 @@
                 </el-select>
               </td>
               <!-- <td><span class="button">添加题目</span></td> -->
-            </tr>
-            <tr>
-              <td 
-                align="right" 
-                width="120">试卷类型： </td>
-              <td>
-                <el-select 
-                  v-model="form.kind" 
-                  placeholder="全部类型">
-                  <el-option
-                    v-for="item in options1"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"/>
-                </el-select>
-              </td>
-            </tr>       
+            </tr>    
           </tbody>
         </table>
       </div>
@@ -96,31 +94,31 @@
             <th>试卷名称</th>
             <th>试卷从属</th>
             <th>试卷类型</th>
-            <th>试卷状态</th>
+            <!-- <th>试卷状态</th> -->
             <th width="90">发布时间</th>
             <th>题量</th>
-            <th>答题限时</th>
-            <th>合格/总分值</th>
+            <!-- <th>答题限时</th> -->
+            <!-- <th>合格/总分值</th> -->
             <th>答题人数</th>
             <th width="58">已答题平均分</th>
-            <th>操作</th>
+            <!-- <th>操作</th> -->
           </tr>
           <tr
             v-for="(item,index) in list.records"
-            :key="index">
-            <td>{{ item? item.title : '' }}</td>
-            <td>{{ item? item.courseLevel : '' }}</td>
-            <td>{{ item.examPaperType == 1? '练习考试' : item.examPaperType == 2? '历年真题' : '无' }}</td>
-            <td>{{ item.status == 0? '发布' : '未发布' }}</td>
-            <td>{{ item? dateFormatter(item.createTime) : '' }}</td>
-            <td>{{ item? item.itemCount : '' }}道</td>
-            <td>{{ item? item.limitTime + '分' : '' }}</td>
-            <td>{{ item.qualified? item.qualified : '' }}/{{ item.sumScore?item.sumScore : '' }}</td>
-            <td>{{ item? item.peopeleNum : '0' }}</td>
-            <td>{{ item? item.ageScore : '0' }}</td>
-            <td @click="openExam(item.paperId, item.title)">
-              操作
-              <!-- <el-dropdown>
+            :key="index"
+            @click="openExam(item.paperId, item.title)">
+            <td class="read">{{ item? item.title : '' }}</td>
+            <td class="read">{{ item? item.courseLevel : '' }}</td>
+            <td class="read">{{ item.examPaperType == 1? '练习考试' : item.examPaperType == 2? '历年真题' : '无' }}</td>
+            <!-- <td>{{ item.status == 0? '发布' : '未发布' }}</td> -->
+            <td class="read">{{ item? dateFormatter(item.createTime) : '' }}</td>
+            <td class="read">{{ item? item.itemCount : '' }}道</td>
+            <!-- <td>{{ item? item.limitTime + '分' : '' }}</td> -->
+            <!-- <td>{{ item.qualified? item.qualified : '' }}/{{ item.sumScore?item.sumScore : '' }}</td> -->
+            <td class="read">{{ item? item.peopeleNum : '0' }}</td>
+            <td class="read">{{ item? item.ageScore : '0' }}</td>
+            <!-- <td @click="openExam(item.paperId, item.title)">
+              <el-dropdown>
                 <span class="el-dropdown-link">
                   操作
                 </span>
@@ -128,8 +126,8 @@
                   <el-dropdown-item command=item.id>答卷管理</el-dropdown-item>
                   <el-dropdown-item>删除</el-dropdown-item>
                 </el-dropdown-menu>
-              </el-dropdown> -->
-            </td>
+              </el-dropdown>
+            </td> -->
           </tr>
         </table>
         <Pagination
