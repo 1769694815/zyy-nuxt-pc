@@ -4,7 +4,7 @@
       <li class="color1">
         <div class="item">
           <i class="iconfont iconzixun" />
-          <div class="text">课程咨询</div>
+          <div class="text">自考咨询</div>
         </div>
         <div class="content">
           <a
@@ -19,7 +19,7 @@
       <li class="color2">
         <div class="item">
           <i class="iconfont iconlianxiren" />
-          <div class="text">课程咨询</div>
+          <div class="text">培训咨询</div>
         </div>
         <div class="content">
           <a
