@@ -23,7 +23,7 @@
         </div>
         <div class="content">
           <a
-            href="tencent://message/?uin=1515997628"
+            href="tencent://message/?uin=15151997661"
             target="_blank"
             class="tab">
             <i class="iconfont iconqq" />
