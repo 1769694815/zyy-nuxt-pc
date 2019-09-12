@@ -28,7 +28,11 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item">
-            <img :src="item.middlePicture">
+            <div
+              class="img-box"
+              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId }}))">
+              <img :src="item.middlePicture">
+            </div>
             <div
               v-show="isEdit"
               class="mask"
@@ -43,18 +47,18 @@
             </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
-              <p
-                v-show="item.offDay != 0"
-                class="desc">
-                共{{ item.lessonNum }}节
-              </p>
               <div class="foot">
-                <span v-if="item.buystatus">已购买</span>
+                <span
+                  v-show="item.offDay != 0"
+                  class="desc">
+                  共{{ item.lessonNum }}节
+                </span>
+                <span
+                  v-if="item.price == 0"
+                  class="free">免费</span>
                 <span
                   v-else
-                  class="price">&yen;{{ item.price }}</span>
-                <span :class="item.buystatus ? 'suc' : 'def'">
-                  {{ item.buystatus ? '立即学习' : '立即购买' }}
+                  class="price">&yen;{{ item.price }}
                 </span>
               </div>
             </div>
@@ -126,7 +130,10 @@ export default {
     },
     // 取消收藏
     cancelCollect(item, index) {
-      this.$confirm(`确定取消收藏【${item.title}】这门课程吗？`).then(res => {
+      this.$confirm(`确定取消收藏【${item.title}】这门课程吗？`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(res => {
         this.$axios('/yxs/api/web/user/cancelCourseCollection', {
           params: {
             courseId: this.contentList[index].courseId,
@@ -141,6 +148,9 @@ export default {
           this.getList()
         })
       })
+    },
+    openNewPage(url) {
+      window.open(url.href, '_blank')
     }
   }
 }
@@ -205,10 +215,21 @@ export default {
         height: 213px;
         margin-left: 30px;
         margin-top: 30px;
+        .img-box {
+          width: 243px;
+          height: 136px;
+          border-radius: 6px;
+          overflow: hidden;
+          cursor: pointer;
+          &:hover img {
+            transform: scale(1.1, 1.1);
+          }
+        }
         img {
           width: 243px;
           height: 136px;
           border-radius: 6px;
+          transition: all .3s ease 0s;
         }
         .mask {
           position: absolute;
@@ -243,12 +264,13 @@ export default {
         .foot {
           display: flex;
           justify-content: space-between;
-          position: absolute;
-          bottom: 0;
           width: 100%;
           margin-top: 10px;
           font-size: 12px;
           color: #999;
+          .desc {
+            color: #3F8A38;
+          }
           span {
             display: inline-block;
           }

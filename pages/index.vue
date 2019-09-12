@@ -580,7 +580,7 @@ export default {
         if(this.userInfo) {
           this.getCourseNum()
           this.getClassNum()
-          // this.getInfo()
+          this.getInfo()
           this.tagShow = true
         }
       })
@@ -591,7 +591,7 @@ export default {
         this.rankStatus = judgeUser().status
         this.getCourseNum()
         this.getClassNum()
-        // this.getInfo()
+        this.getInfo()
         this.tagShow = true
       }
     }
@@ -713,12 +713,12 @@ export default {
       })
     },
     getInfo() {
-      this.$axios('/yxs/api/web/user/findUserTokenGetName', {
+      this.$axios('/admin/api/web/user/findUserTokenGetName', {
         params: {
           userToken: this.userInfo.userToken
         }
       }).then(res => {
-        console.log(res.data)
+        Cookies.set('zyy_userInfo', res.data, { expires: 1 })
       })
     },
     handleScroll() {

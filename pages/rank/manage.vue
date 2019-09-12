@@ -11,7 +11,8 @@
           <el-input
             v-model="searchText"
             placeholder="输入用户名/真实姓名/手机号查找学员"
-            clearable>
+            clearable
+            @clear="clear">
             <template slot="append">
               <el-button
                 slot="append"
@@ -33,6 +34,7 @@
         :data="tableData"
         :row-style="tableRowStyle"
         :header-cell-style="tableHeader"
+        empty-text="暂无数据"
         border>
         <el-table-column
           prop="id"
@@ -99,6 +101,7 @@
         </el-table-column>
       </el-table>
       <Pagination
+        v-if="tableData.length != 0"
         :size="size"
         :current="current"
         :total="total"
@@ -180,6 +183,10 @@ export default {
         this.tableData = res.data.records
         this.total = res.data.total
       })
+    },
+    clear() {
+      this.tab = 1
+      this.getList()
     },
     // 截取百分比
     sliceStr(str) {

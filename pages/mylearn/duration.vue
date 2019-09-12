@@ -22,12 +22,12 @@
             <div class="content">
               <div class="title">{{ item.title }}</div>
               <p
-                v-if="item.dayCount != 0"
+                v-if="item.dayCount > 0 && item.dayCount <= 60"
                 class="desc">
                 {{ item.dayCount }}天后到期
               </p>
               <p
-                v-else
+                v-if="item.dayCount <= 0"
                 class="desc">
                 已到期
               </p>

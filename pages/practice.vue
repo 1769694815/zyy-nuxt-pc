@@ -433,8 +433,14 @@ export default {
       })
     },
     getTypeList() {
-      this.$axios('/yxs/questiontype/typeList').then(res => {
+      this.$axios('/yxs/questiontype/typeList', {
+        params: {
+          courseId: this.courseId
+        }
+      }).then(res => {
         this.typeList = res
+        this.type = this.typeList[0].value
+        this.changeType(this.type)
       })
     },
     changeType(val) {

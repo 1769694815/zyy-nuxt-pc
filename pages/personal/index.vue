@@ -49,6 +49,9 @@
         <el-form-item label="昵称">
           <el-input v-model="form.nickName" />
         </el-form-item>
+        <el-form-item label="真实姓名：">
+          <el-input v-model="form.realName" />
+        </el-form-item>
         <el-form-item label="性别">
           <el-radio-group v-model="form.sex">
             <el-radio label="0">男</el-radio>
@@ -67,9 +70,9 @@
           label="地区">
           <!-- <el-input v-model="form.address" /> -->
           <v-distpicker
-            :province="form.provinceName || 省"
-            :city="form.cityName || 市"
-            :area="form.areaName || 区"
+            :province="form.provinceName || '省'"
+            :city="form.cityName || '市'"
+            :area="form.areaName || '区'"
             @selected="selected" />
         </el-form-item>
         <el-form-item label="职业选择">
@@ -183,6 +186,7 @@ export default {
           userToken: this.userInfo.userToken
         }
       }).then(res => {
+        console.log('个人资料',res)
         this.form = res.data
       })
     },

@@ -7,7 +7,8 @@
       <div class="search">
         <table 
           width="100%" 
-          border="0">
+          border="0"
+          empty-text="暂无数据">
           <tbody>
             <tr>
               <td 
@@ -178,6 +179,7 @@ export default {
     formatStr(time) {
       return time > 9 ? time : '0'+time
     },
+    // type   老师：3
     openExampage(id, resultId, type){
        let url = this.$router.resolve({
         name: 'formalExam',
