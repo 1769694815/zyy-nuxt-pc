@@ -105,6 +105,7 @@ export default {
   methods: {
     switchTab(index){
       this.tab = index + 1
+      this.type = index
       this.current = 1
       this.getList()
     },
