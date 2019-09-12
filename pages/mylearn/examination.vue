@@ -13,9 +13,7 @@
             @click="switchTab(index, item)"> {{ item.label }} </li>
         </ul>
       </div>
-      <div 
-        v-if="tab == 1 || 2"
-        class="center">
+      <div class="center">
         <ul v-if="contentList && contentList.length > 0">
           <li
             v-for="(item,index) in contentList"
@@ -39,7 +37,12 @@
             </div>
             <div class="center-right">
               <span 
-                v-if="item.markingStatus != 0 && tab != 3"
+                v-if="item.markingStatus != 0 && tab == 1"
+                @click="openSimulationExam(item.paperId,2,item.resultId)">
+                得分{{ item.score }},批阅详情 >
+              </span>
+              <span 
+                v-if="item.markingStatus != 0 && tab == 2"
                 @click="openExam(item.paperId,2,item.resultId)">
                 得分{{ item.score }},批阅详情 >
               </span>
@@ -149,6 +152,19 @@ export default {
     formatStr(time) {
       return time > 9 ? time : '0'+time
     },
+    // 模拟试卷
+    openSimulationExam(paperId, type, resultId) {
+      let url = this.$router.resolve({
+        name: 'exam',
+        query: {
+          examPaperId: paperId,
+          type,
+          resultId
+        }
+      })
+      window.open(url.href, '_blank')
+    },
+    // type:  学生：1（立即考试）、2（查看结果）   
     openExam(paperId,type,resultId) {
       this.showModal = false
       this.move()
@@ -190,6 +206,7 @@ export default {
     },
     switchTab(index, item){
       this.tab = index + 1;
+      console.log(this.tab)
       this.type = item.value
       this.contentList = [];
       this.current = 1

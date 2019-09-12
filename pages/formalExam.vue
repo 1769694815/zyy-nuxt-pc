@@ -352,7 +352,7 @@
                 <th>填空题（{{ singleSize(5) }}题）</th>
                 <th>简答题（{{ singleSize(6) }}题）</th>
                 <th>分析题（{{ singleSize(7) }}题）</th>
-                <th>总得分（{{ sumScore }}）</th>
+                <th>总得分</th>
               </tr>
             </thead>
             <tbody>
@@ -365,14 +365,28 @@
                 <td>{{ form1.item6.typeId? form1.item6.score : 0 }}分</td>
                 <td>{{ form1.item7.typeId? form1.item7.score : 0 }}分</td>
                 <td
-                  v-if="type == 2 || userInfo.roleName !='zyy_student'"
+                  v-if="type == 2 && markingStatus == 0"
                   rowspan="4"
                   style="vertical-align:middle;text-align:center">
                   {{ result.objectScore || 0 }} + ?分
                   <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime) }}分钟</div>
                 </td>
                 <td
-                  v-if="type ==3 || type == 4 || showTeacher == true"
+                  v-if="type == 2 && markingStatus != 0"
+                  rowspan="4"
+                  style="vertical-align:middle;text-align:center">
+                  {{ result.objectScore + result.subjectScore || 0 }}分
+                  <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime) }}分钟</div>
+                </td>
+                <td
+                  v-if="type == 3 && markingStatus == 0"
+                  rowspan="4"
+                  style="vertical-align:middle;text-align:center">
+                  {{ result.objectScore || 0 }} + ?分
+                  <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime) }}分钟</div>
+                </td>
+                <td
+                  v-if="type == 3 && markingStatus != 0"
                   rowspan="4"
                   style="vertical-align:middle;text-align:center">
                   {{ result.subjectScore+result.objectScore || 0 }}分
@@ -449,7 +463,7 @@
                   v-if="item.typeId == 1"
                   :id="'question'+index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span> <span>{{ list[index].userAnswer == null? '':'(已选)' }}</span>
+                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
                   <el-radio-group v-model="list[index].userAnswer">
                     <el-radio
@@ -457,7 +471,12 @@
                       :key="index"
                       :label="option.name"
                       style="display: block;margin-left: 0; line-height:30px;"
-                      disabled>{{ option.name }}: {{ option.content }}</el-radio>
+                      disabled>
+                      {{ option.name }}: {{ option.content }}
+                      <span
+                        v-if="list[index].userAnswer == option.name"
+                        style="margin-left: 30px">(已选)</span>
+                    </el-radio>
                   </el-radio-group>
                   <div class="analyse">
                     <span 
@@ -496,7 +515,7 @@
                   v-if="item.typeId == 2"
                   :id="'question'+index">
                   <p>
-                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span> <span>{{ list[index].userAnswer == null? '':'(已选)' }}</span>
+                    {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
                   <el-checkbox-group v-model="dxform[index]">
                     <el-checkbox
@@ -873,15 +892,12 @@
             </div>
           </div>
           <div
-            v-if="userInfo.roleName == 'zyy_student'"
+            v-if="type == 2 && markingStatus == 0"
             class="button">老师批阅中</div>
           <div
-            v-else-if="userInfo.roleName != 'zyy_student' && !showTeacher"
+            v-else-if="type == 3 && markingStatus == 0"
             class="button"
             @click="teacherSumit()">提交批阅结果</div>
-          <div
-            v-else-if="userInfo.roleName != 'zyy_student' && showTeacher"
-            class="button">查看批阅结果</div>
         </div>
       </div>
     </div>  
@@ -897,7 +913,7 @@ export default {
   data() {
     return {
       loading: null,
-      type: this.$route.query.type || '',
+      type: this.$route.query.type || '', // 1、未答  2： 已答   3 批阅
       title: '',
       comment:'',
       userInfo: '',
@@ -1024,6 +1040,7 @@ export default {
       this.leftTimeStrsec = seconds
     },
     getList() {
+      console.log('getList')
       this.loading = this.$loading({
         lock: true,
         text: '正在加载中',
@@ -1035,8 +1052,8 @@ export default {
           examPaperId: this.paperId,
           userToken: this.userInfo.userToken,
           resultId: this.type == 1 ? '' : this.resultId,
-          type: this.type,
-          studentId: this.type == 3 ? this.$route.query.studentId || '' : ''
+          type: this.type, // 1 未答  2： 已答  3：批阅
+          studentId: this.type == 3 ? this.studentId : ''
         }
       }).then(res => {
         this.loading.close()
@@ -1050,7 +1067,7 @@ export default {
         this.leftTime = res.data.surplusTime * 60
         this.courseTile = res.data.courseTile
         this.itemCount = res.data.itemCount
-        this.examDeadlineStart = res.data.examDateStatus
+        this.examDeadlineStart = res.data.examDeadlineStart
         this.examDeadlineEnd = res.data.examDeadlineEnd
         this.sumScore = res.data.sumScore
         this.resultId = res.data.resultId
@@ -1236,13 +1253,22 @@ export default {
       })
     },
     getTeacherlist(){
-      this.$axios('/yxs/api/web/question/commentDetail', {
+      this.loading = this.$loading({
+        lock: true,
+        text: '正在加载中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.$axios('/yxs/api/web/question/startAnswer', {
         params: {
-          paperId: this.paperId,
+          examPaperId: this.paperId,
           userToken: this.userInfo.userToken,
-          studentId: this.studentId
+          resultId: this.type == 1 ? '' : this.resultId,
+          type: this.type,
+          studentId: this.type == 3 ? this.studentId : ''
         }
       }).then(res => {
+        this.loading.close()
         console.log('teacher',res.data)
         this.list = res.data.newLists
         this.userName = res.data.userName
@@ -1252,9 +1278,10 @@ export default {
         this.limitTime = res.data.limitTime
         this.courseTile = res.data.courseTile
         this.itemCount = res.data.itemCount
-        this.examDeadlineStart = res.data.examDateStatus
+        this.examDeadlineStart = res.data.examDeadlineStart
         this.examDeadlineEnd = res.data.examDeadlineEnd
         this.sumScore = res.data.sumScore
+        this.markingStatus = res.data.markingStatus
         for(let i=0; i<res.data.situation.newLists.length;i++){
           if(res.data.situation.newLists[i].typeId == 1){
             this.form1.item1 = res.data.situation.newLists[i]
@@ -1272,13 +1299,13 @@ export default {
         }
         for(let i=0;i<this.list.length;i++){
           if(this.list[i].typeId == 2){
-            if(this.list[i].userAnswer != ''){
+            if(this.list[i].userAnswer != null){
               this.dxform[i] = []
               this.dxform[i] = this.list[i].userAnswer.split('')
             }
           }
           if(this.list[i].typeId == 5){
-            if(this.list[i].userAnswer != ''){
+            if(this.list[i].userAnswer != null){
               this.dxform[i] = []
               this.dxform[i] = this.list[i].userAnswer.split('$')
               this.dxform[i] = this.dxform[i].join(',')
@@ -1287,6 +1314,7 @@ export default {
           }
           if(this.list[i].typeId == 6){
             this.show[i] = true
+            // 已批阅
             if(this.list[i].status != 4 && this.list[i].status != 1){
               showTeacher = true
             } 
@@ -1412,10 +1440,10 @@ export default {
     },
     duringDate(){
       if(this.examDateStatus == 0){
-        return ``
+        return `答题期限：不限`
       }else if( this.examDateStatus == 1){
-        let start = this.dateFormatter(this.examDeadlineStart)
-        let end = this.dateFormatter(this.examDeadlineEnd)
+        let start = this.examDeadlineStart
+        let end = this.examDeadlineEnd
         return`答题期限${start}至${end}，`
       }
     },

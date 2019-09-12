@@ -192,21 +192,21 @@
                 <thead>
                   <th>题型</th>
                   <th
-                    v-for="(item, index) in result.countList"
+                    v-for="(item, index) in typeList"
                     v-if="index < 5"
                     :key="index">
-                    <span v-if="item.type_id == 1">单选题({{ item.questionSize }}题)</span>
-                    <span v-if="item.type_id == 2">多选题({{ item.questionSize }}题)</span>
-                    <span v-if="item.type_id == 3">不定性选择({{ item.questionSize }}题)</span>
-                    <span v-if="item.type_id == 4">判断题({{ item.questionSize }}题)</span>
-                    <span v-if="item.type_id == 5">填空题({{ item.questionSize }}题)</span>
+                    <span v-if="item.typeId == 1">单选题({{ item.unCount + item.missCount + item.rightCount }}题)</span>
+                    <span v-if="item.typeId == 2">多选题({{ item.unCount + item.missCount + item.rightCount }}题)</span>
+                    <span v-if="item.typeId == 3">不定性选择({{ item.unCount + item.missCount + item.rightCount }}题)</span>
+                    <span v-if="item.typeId == 4">判断题({{ item.unCount + item.missCount + item.rightCount }}题)</span>
+                    <span v-if="item.typeId == 5">填空题({{ item.unCount + item.missCount + item.rightCount }}题)</span>
                   </th>
-                  <th>总得分(100分)</th>
+                  <th>总得分({{ sumScore }}分)</th>
                 </thead>
                 <tr style="color: red">
                   <td>得分</td>
                   <td
-                    v-for="(item, index) in result.countList"
+                    v-for="(item, index) in typeList"
                     v-if="index < 5"
                     :key="index">
                     {{ item.score }}分
@@ -214,35 +214,35 @@
                   <td
                     rowspan="4"
                     style="vertical-align:middle;">
-                    {{ result.sunScore || 0 }}分
-                    <div style="color: #333">答题耗时{{ Math.ceil(result.answerTime / 60) }}分钟</div>
+                    {{ sunScore || 0 }}分
+                    <div style="color: #333">答题耗时{{ Math.ceil(answerTime / 60) || 0 }}分钟</div>
                   </td>
                 </tr>
                 <tr>
                   <td>答对</td>
                   <td
-                    v-for="(item, index) in result.countList"
+                    v-for="(item, index) in typeList"
                     v-if="index < 5"
                     :key="index">
-                    {{ item.success }}题
+                    {{ item.rightCount }}题
                   </td>
                 </tr>
                 <tr>
                   <td>答错</td>
                   <td
-                    v-for="(item, index) in result.countList"
+                    v-for="(item, index) in typeList"
                     v-if="index < 5"
                     :key="index">
-                    {{ item.wrong }}题
+                    {{ item.unCount }}题
                   </td>
                 </tr>
                 <tr>
                   <td>漏答</td>
                   <td
-                    v-for="(item, index) in result.countList"
+                    v-for="(item, index) in typeList"
                     v-if="index < 5"
                     :key="index">
-                    {{ item.none }}题
+                    {{ item.missCount }}题
                   </td>
                 </tr>
               </table>
@@ -271,12 +271,12 @@
               </div>
               <ul>
                 <li
-                  v-for="(item, index) in result.list"
+                  v-for="(item, index) in list"
                   :id="'question' + index"
                   :key="index">
                   <p>{{ index + 1 }}、{{ item.stem }}</p>
                   <el-radio-group
-                    v-model="result.list[index].writeAnswer"
+                    v-model="list[index].userAnswer"
                     disabled>
                     <el-radio
                       v-for="(option, i) in item.optionContent"
@@ -284,7 +284,7 @@
                       :label="option.name"
                       style="display: block;margin-left: 0; line-height:30px;">{{ option.name }}: {{ option.content }}
                       <span
-                        v-if="result.list[index].writeAnswer == option.name"
+                        v-if="list[index].userAnswer == option.name"
                         style="margin-left: 30px">(已选)</span>
                     </el-radio>
                   </el-radio-group>
@@ -307,7 +307,7 @@
         <div class="content-right">
           <ul class="list">
             <li
-              v-for="(item, index) in result.list"
+              v-for="(item, index) in list"
               :key="index"
               :class="{ 'none': item.status == 1, 'right': item.status == 2, 'wrong': item.status == 3 }">
               <a :href="'#question' + index">{{ index + 1 }}</a>
@@ -343,7 +343,7 @@ export default {
       title: this.$route.query.title || '',
       courseId: this.$route.query.courseId || '',
       userInfo: '',
-      paperId: null,
+      paperId: this.$route.query.examPaperId || null,
       limitTime: 7200,
       answerTime: 0,
       isResult: false,
@@ -367,13 +367,21 @@ export default {
       letterArray: ['A', 'B', 'C', 'D', 'E', 'F'],
       itemCount: 0,
       sumScore: 0,
+      lookUp: this.$route.query.type || false, // 是否查阅
+      resultId: this.$route.query.resultId || '',
+      sunScore: 0, // 得到的分数
     }
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
-    this.getList()
-    this.getLessonList()
-    this.initTime()
+    console.log(this.lookUp)
+    if (this.lookUp) { // 查看模拟考试结果
+      this.isResult = true
+      this.getResultList()
+    } else { // 开始模拟考试
+      this.getList()
+      this.getLessonList()
+    }
     // this.getTypeList()
   },
   methods: {
@@ -407,12 +415,38 @@ export default {
         }
       }).then(res => {
         this.loading.close()
+        this.initTime()
         this.list = res.data.newList
         this.paperId = res.data.paperId
         this.resultId = res.data.resultId
         this.limitTime = res.data.limitTime * 60
         this.itemCount = res.data.itemCount
         this.sumScore = res.data.sumScore
+      })
+    },
+    getResultList() {
+      this.loading = this.$loading({
+        lock: true,
+        text: '正在加载中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.$axios('/yxs/api/web/question/startAnswer', {
+        params: {
+          examPaperId: this.paperId,
+          userToken: this.userInfo.userToken,
+          resultId: this.resultId,
+          type: 2 // 1 未答  2： 已答  3：批阅
+        }
+      }).then(res => {
+        this.loading.close()
+        console.log('模拟考试结果', res)
+        this.list = res.data.newLists
+        this.itemCount = res.data.itemCount
+        this.sumScore = res.data.sumScore
+        this.typeList = res.data.situation.newLists
+        this.answerTime = res.data.situation.answerTime
+        this.sunScore = res.data.situation.objectScore + res.data.situation.subjectScore
       })
     },
     getLessonList() {
@@ -477,7 +511,7 @@ export default {
           clearInterval(this.timer)
           this.form.item1 = []
           this.isResult = true
-          this.result = res.data
+          this.getResultList()
         })
       }).catch(() => {
 
