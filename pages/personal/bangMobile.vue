@@ -6,23 +6,26 @@
         <div class="title">
           <span
             style="cursor: pointer"
-            @click="firstShow = true; secondShow = false; thirdShow = false">
+            @click="firstShow = true; secondShow = false;">
             安全设置
-          </span>>验证原号码
-          <span v-show="secondShow || thirdShow">>设置新号码</span>
-          <span v-show="thirdShow">>修改成功</span>
+          </span>>绑定号码
+          <span v-show="secondShow">>修改成功</span>
         </div>
       </div>
       <div v-show="firstShow">
         <div class="info">
           <div class="info-item">
-            <div class="title">验证号码：</div>
-            <div class="tel">{{ phone ? formatPhone(phone) : '' }}</div>
+            <div class="title">绑定号码：</div>
+            <div class="tel">
+              <el-input
+                v-model="mobile"
+                style="width: 222px;" />
+            </div>
           </div>
           <div class="info-item">
             <div class="title">输入验证码：</div>
             <div class="tel">
-              <el-input v-model="validNum1" />
+              <el-input v-model="validNum" />
             </div>
             <div
               v-show="!timeShow"
@@ -35,40 +38,12 @@
         </div>
         <div
           class="button"
-          @click="next">下一步</div>
-      </div>
-      <div v-show="secondShow">
-        <div class="info">
-          <div class="info-item">
-            <div class="title">新号码：</div>
-            <div class="tel">
-              <el-input
-                v-model="newMobile"
-                style="width: 222px;" />
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="title">输入验证码：</div>
-            <div class="tel">
-              <el-input v-model="validNum2" />
-            </div>
-            <div
-              v-show="!timeShow2"
-              class="operate"
-              @click="getCode2">获取短信</div>
-            <div
-              v-show="timeShow2"
-              class="operate">已发送，{{ count2 }}秒后重试</div>
-          </div>
-        </div>
-        <div
-          class="button"
           @click="submit">确认提交
         </div>
       </div>
-      <div v-show="thirdShow">
+      <div v-show="secondShow">
         <div class="center">
-          <div class="title">修改成功</div>
+          <div class="title">绑定成功</div>
           <p>
             <span>{{ leftTime }}s后</span>
             自动返回安全设置首页，如未跳转可点击
@@ -92,21 +67,17 @@ export default {
   data() {
     return {
       tabIndex: 3,
-      validNum1: '',
-      validNum2: '',
-      newMobile: '',
+      validNum: '',
+      mobile: '',
       firstShow: true,
       secondShow: false,
-      thirdShow: false,
       timer: null,
       leftTime: 3,
-      phone: this.$route.query.phone,
+      phone: null,
       timeShow: false,
       timer2: null,
       timer3: null,
-      timeShow2: false,
-      count: null,
-      count2: null
+      count: null
     }
   },
   head() {
@@ -120,7 +91,7 @@ export default {
     },
     // 获取验证码
     getCode() {
-      let result = isvalidatemobile(this.phone)
+      let result = isvalidatemobile(this.mobile)
       if(result[0]) {
         this.$message({
           message: result[1],
@@ -128,7 +99,7 @@ export default {
         })
       } else {
         this.$axios.post('/admin/api/account/code', {
-          phone: this.phone
+          phone: this.mobile
         }).then(res => {
           console.log(res)
           if(res.code == 0) {
@@ -159,78 +130,14 @@ export default {
         })
       }
     },
-    getCode2() {
-      let result = isvalidatemobile(this.newMobile)
-      if(result[0]) {
-        this.$message({
-          message: result[1],
-          type: 'warning'
-        })
-      } else {
-        this.$axios.post('/admin/api/account/code', {
-          phone: this.newMobile
-        }).then(res => {
-          console.log(res)
-          if(res.code == 0) {
-            this.$message({
-              message: '已发送验证码，请查收！',
-              type: 'success'
-            })
-            const TIME_COUNT = 60
-            if(!this.timer2) {
-              this.count2 = TIME_COUNT
-              this.timeShow2 = true
-              this.timer2 = setInterval(() => {
-                if(this.count2 > 0 && this.count2 <= TIME_COUNT) {
-                  this.count2 --
-                } else {
-                  this.timeShow2 = false
-                  clearInterval(this.timer2)
-                  this.timer2 = null
-                }
-              }, 1000)
-            }
-          } else {
-            this.$message({
-              message: data.message,
-              type: 'error'
-            })
-          }
-        })
-      }
-    },
-    next() {
-      if(!this.validNum1) {
-        this.$message({
-          message: '请输入验证码',
-          type: 'warning'
-        })
-        return
-      }
-      this.$axios.post('/admin/api/account/phoneCode', {
-        phone: this.phone,
-        code: this.validNum1
+    submit() {
+      this.$axios.post('/admin/api/web/user/changePhone', {
+        phone: this.mobile,
+        code: this.validNum
       }).then(res => {
         if(res.code == 0) {
           this.firstShow = false
           this.secondShow = true
-        } else {
-          this.$message({
-            message: res.msg,
-            type: 'error'
-          })
-        }
-      })
-    },
-    submit() {
-      this.$axios.post('/admin/api/web/user/changePhone', {
-        phone: this.newMobile,
-        code: this.validNum2
-      }).then(res => {
-        if(res.code == 0) {
-          this.firstShow = false
-          this.secondShow = false
-          this.thirdShow = true
           this.timer3 = setInterval(() => {
             if(this.leftTime < 1) {
               // this.firstShow = true

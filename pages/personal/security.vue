@@ -10,8 +10,14 @@
           <div class="title">手机账号</div>
           <div class="tel">{{ phone ? formatPhone(phone) : '未绑定' }}</div>
           <div
+            v-if="phone"
             class="operate"
             @click="updateMobile">修改
+          </div>
+          <div
+            v-else
+            class="operate"
+            @click="bangMobile">去绑定
           </div>
         </div>
         <div class="info-item">
@@ -55,6 +61,11 @@ export default {
         query: {
           phone: this.phone
         }
+      })
+    },
+    bangMobile() {
+      this.$router.push({
+        name: 'personal-bangMobile'
       })
     },
     updatePassword() {
