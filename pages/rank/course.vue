@@ -70,7 +70,14 @@
           </li>
         </ul>
       </div>
+      <p
+        v-if="rankList.length != 0"
+        class="tips">共{{ rankList.length }}位成员学过本课程</p>
+      <p
+        v-else
+        class="tips">暂无学员学过本课程</p>
       <Pagination
+        v-if="rankList.length != 0"
         :size="size"
         :current="current"
         :total="total"
@@ -254,7 +261,7 @@ export default {
       }
     }
     .rank-content {
-      margin-left: 26px;
+      margin: 0 26px;
       li {
         display: flex;
         align-items: center;
@@ -275,6 +282,7 @@ export default {
         color: #999;
       }
       .box {
+        flex: 1;
         display: flex;
         align-items: center;
         margin-left: 20px;
@@ -286,7 +294,7 @@ export default {
           border-radius: 50%;
         }
         .info {
-          width: 454px;
+          flex: 1;
           margin-left: 16px;
           .name {
             font-size: 16px;
@@ -314,6 +322,10 @@ export default {
           }
         }
       }
+    }
+    .tips {
+      text-align: center;
+      margin-top: 20px;
     }
   }
 </style>
