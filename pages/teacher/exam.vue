@@ -132,20 +132,30 @@
             </td>
           </tr>
         </table>
+        <Pagination
+          :size="size"
+          :current="current"
+          :total="total"
+          @sizeChange="sizeChange"
+          @currentChange="currentChange" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
 import { formatStamp2 } from '~/assets/js/util.js'
 export default {
   components: {
+    Pagination
   },
   data() {
     return {
       userInfo: '',
+      total: 0,
       size: 10,
+      current: 1,
       list:[],
       value: '',
       value1: '',
@@ -228,8 +238,8 @@ export default {
       console.log('form',this.form.belong)
       let params = {
         userToken: this.userInfo.userToken,
-        size: 10,
-        current: 1,
+        size: this.size,
+        current: this.current,
         courseId: this.form.belong,
         lessonIdOne: this.form.belong1,
         examPaperType: this.form.kind,
@@ -241,6 +251,7 @@ export default {
       }).then(res => {
         console.log('12',res)
         this.list = res.data
+        this.total = res.data.total
         this.showTable = true
         this.getCourseList()
       })
@@ -268,7 +279,13 @@ export default {
         this.belongs1 = res.data
       })
     },
-
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      this.current = val
+      this.getList(this.courseId)
+    }
   }
 }
 </script>
