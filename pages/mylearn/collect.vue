@@ -47,25 +47,18 @@
             </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
-              <p
-                v-show="item.offDay != 0"
-                class="desc">
-                共{{ item.lessonNum }}节
-              </p>
               <div class="foot">
-                <span v-if="item.buystatus">已购买</span>
-                <span v-else>
-                  <span
-                    v-if="item.price == 0"
-                    class="free">免费</span>
-                  <span
-                    v-else
-                    class="price">&yen;{{ item.price }}
-                  </span>
+                <span
+                  v-show="item.offDay != 0"
+                  class="desc">
+                  共{{ item.lessonNum }}节
                 </span>
                 <span
-                  :class="item.buystatus ? 'suc' : 'def'">
-                  {{ item.buystatus ? '立即学习' : '立即购买' }}
+                  v-if="item.price == 0"
+                  class="free">免费</span>
+                <span
+                  v-else
+                  class="price">&yen;{{ item.price }}
                 </span>
               </div>
             </div>
@@ -289,14 +282,15 @@ export default {
         .foot {
           display: flex;
           justify-content: space-between;
-          position: absolute;
-          bottom: 0;
           width: 100%;
           margin-top: 10px;
           font-size: 12px;
           color: #999;
           span {
             display: inline-block;
+          }
+          .desc {
+            color: #3F8A38;
           }
           .suc {
             color: #3F8A38;
