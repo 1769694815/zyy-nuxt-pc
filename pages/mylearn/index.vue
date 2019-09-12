@@ -25,8 +25,8 @@
             </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
-              <!-- <p
-                v-if="item.dayCount != 0 && item.dayCount < 60"
+              <p
+                v-if="item.dayCount > 0 && item.dayCount <= 60"
                 class="desc">
                 {{ item.dayCount }}天后到期
               </p>
@@ -34,7 +34,7 @@
                 v-if="item.dayCount <= 0"
                 class="desc">
                 已到期
-              </p> -->
+              </p>
               <div class="foot">
                 <span
                   v-if="item.result == '100%'"
@@ -177,7 +177,7 @@ export default {
         display: inline-block;
         vertical-align: top;
         width: 243px;
-        height: 200px;
+        height: 220px;
         margin-left: 30px;
         margin-top: 30px;
         cursor: pointer;
