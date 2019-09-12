@@ -48,6 +48,12 @@
             </div>
           </li>
         </ul>
+        <Pagination
+          :size="size"
+          :current="current"
+          :total="total"
+          @sizeChange="sizeChange"
+          @currentChange="currentChange" />
       </div>
       <div
         v-else
@@ -72,6 +78,7 @@ export default {
       tab: 1,
       type: 0,
       tabIndex: 2,
+      total: 0,
       size: 10,
       current: 1,
       userInfo: '',
@@ -97,7 +104,9 @@ export default {
   },
   methods: {
     switchTab(index){
-      this.tab = index + 1;
+      this.tab = index + 1
+      this.current = 1
+      this.getList()
     },
     toRank(id) {
       window.localStorage.setItem('zyy_classId', id)
@@ -126,6 +135,7 @@ export default {
         params
       }).then(res => {
         this.contentList = res.data.records
+        this.total = res.data.total
       })
     },
     formatStamp(time) {
@@ -137,6 +147,13 @@ export default {
     },
     formatStr(n) {
       return n > 9 ? n : (0 + '' + n)
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      this.current = val
+      this.getList()
     }
   }
 }
