@@ -233,7 +233,7 @@
                     v-for="(item, index) in typeList"
                     v-if="index < 5"
                     :key="index">
-                    {{ item.unCount }}题
+                    {{ item.missCount }}题
                   </td>
                 </tr>
                 <tr>
@@ -242,7 +242,7 @@
                     v-for="(item, index) in typeList"
                     v-if="index < 5"
                     :key="index">
-                    {{ item.missCount }}题
+                    {{ item.unCount }}题
                   </td>
                 </tr>
               </table>
