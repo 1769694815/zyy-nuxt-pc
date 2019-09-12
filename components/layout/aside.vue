@@ -146,9 +146,10 @@ export default {
     background: #fff;
     box-shadow: -1px 0 5px #ccc;
     ul {
+      height: 100%;
       display: flex;
       flex-direction: column;
-      margin-top: 170px;
+      justify-content: center;
       li {
         position: relative;
         width: 100%;
