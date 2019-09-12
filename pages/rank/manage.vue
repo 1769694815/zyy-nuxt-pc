@@ -101,6 +101,7 @@
         </el-table-column>
       </el-table>
       <Pagination
+        v-if="tableData.length != 0"
         :size="size"
         :current="current"
         :total="total"
