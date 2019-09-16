@@ -86,7 +86,7 @@ export default {
       })
     },
     formatPhone(phone) {
-      return phone.substr(0, 3) + '****' + phone.substr(8)
+      return phone.substr(0, 3) + '*****' + phone.substr(8)
     }
   }
 }

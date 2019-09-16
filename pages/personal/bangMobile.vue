@@ -60,6 +60,7 @@
 <script>
 import PersonalTab from '~/components/mine/personalTab.vue'
 import { isvalidatemobile, validatenull } from '~/assets/js/util'
+import Cookies from 'js-cookie'
 export default {
   components: {
     PersonalTab
@@ -77,13 +78,17 @@ export default {
       timeShow: false,
       timer2: null,
       timer3: null,
-      count: null
+      count: null,
+      userInfo: ''
     }
   },
   head() {
     return {
       title: '个人中心'
     }
+  },
+  mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo') || {}
   },
   methods: {
     formatPhone(phone) {
@@ -131,9 +136,13 @@ export default {
       }
     },
     submit() {
-      this.$axios.post('/admin/api/web/user/changePhone', {
+      let params = {
         phone: this.mobile,
-        code: this.validNum
+        code: this.validNum,
+        userToken: this.userInfo.userToken
+      }
+      this.$axios('/admin/api/web/account/updatePhone', {
+        params
       }).then(res => {
         if(res.code == 0) {
           this.firstShow = false
