@@ -148,7 +148,7 @@
                       v-for="idx in item.answerLength"
                       v-model="form[singleSize(5) + index][idx]"
                       :key="idx"
-                      :placeholder="'请输入你第'+(idx+1)+'个的答案'" 
+                      :placeholder="'请输入你第'+(idx)+'个的答案'" 
                       class="input1"/> 
                   </div>
                 </li>
@@ -647,15 +647,15 @@
                   </p>
                   <div class="answer">
                     <span style="position:relative;top: 0;">您的作答：</span>
-                    {{ item.userAnswer=''? '您未作答' : dxform[index] }}
+                    {{ !item.userAnswer ? '您未作答' : dxform[index] }}
                   </div>
                   <div class="analyse">
                     <span 
                       v-if="item.status == 2"
                       class="right">回答正确</span>
                     <span
-                      v-else-if="item.status == 3"
-                      class="false">回答错误，正确答案是{{ item.tkform[index] }}</span>
+                      v-if="item.status == 3 || item.status == 1"
+                      class="false">回答错误，正确答案是{{ tkform[index] }}</span>
                     <span
                       v-if="item.collectionStatus == 1"
                       @click="collection(item.questionId)"><i class="iconfont icon02"/>收藏本题</span>
@@ -1181,6 +1181,7 @@ export default {
           }
         }
         if(this.type == 2){
+          console.log('已答', this.type)
           for(let i=0; i<res.data.situation.newLists.length;i++){
             if(res.data.situation.newLists[i].typeId == 1){
               this.form1.item1 = res.data.situation.newLists[i]
@@ -1201,7 +1202,7 @@ export default {
               if(this.list[i].userAnswer != ''){
                 this.dxform[i] = []
                 this.dxform[i] = this.list[i].userAnswer.split('')
-                console.log('dx',dxform[i])
+                console.log('dx', this.dxform[i])
               }
             }
             if(this.list[i].typeId == 5){
@@ -1211,6 +1212,7 @@ export default {
                 this.dxform[i] = this.dxform[i].join(',')
               }
               this.tkform[i] = this.list[i].answer.join(",")
+              console.log('tkform', this.tkform)
             }
           }
         }
@@ -1354,6 +1356,12 @@ export default {
           cancelButtonText: '再检查一遍',
           type: 'warning'
         }).then(() => {
+          this.loading = this.$loading({
+            lock: true,
+            text: '正在加载中',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          })
           this.submitSimulatedVolume(1)
         }).catch(() => {
 
@@ -1427,6 +1435,7 @@ export default {
           clearInterval(this.timer2)
           this.form = []
           this.item5 = ''
+          this.loading.close()
           this.isResult = true
           this.$message({
             type: 'success',
