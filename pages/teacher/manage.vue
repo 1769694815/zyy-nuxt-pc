@@ -74,6 +74,7 @@
           </tbody>
         </table>
       </div>
+      <p class="examInfo">{{ examInfo.title }}, 共{{ examInfo.itemCount }}道题，总分{{ examInfo.sumScore }}分，合格分{{ examInfo.qualified }}，答题限时{{ examInfo.limitTime }}分钟，考试期限{{ examInfo.examDateStatus == 0 ? '不限' : examInfo.examDeadlineStart + '至' + examInfo.examDeadlineEnd }}，{{ examInfo.createTime }}发布</p>
       <div 
         v-if="showStudentList"
         class="table">
@@ -152,7 +153,8 @@ export default {
           value: '4',
           label: '不合格'
         }
-      ]
+      ],
+      examInfo: {}
     }
   },
   mounted() {
@@ -164,8 +166,20 @@ export default {
       return
     }
     this.getList()
+    this.getExamInfo()
   },
   methods: {
+    getExamInfo() {
+      this.$axios('/yxs/api/web/question/getExamInfo', {
+        params: {
+          paperId: this.paperId,
+          userToken: this.userInfo.userToken
+        }
+      }).then(res => {
+        console.log('试卷信息', res)
+        this.examInfo = res.data
+      })
+    },
     dateFormatter(time) {
       let date = new Date(time)
       let y = date.getFullYear()
@@ -257,10 +271,14 @@ export default {
         }
       }
       
-    }  
+    }
+    .examInfo {
+      text-align: center;
+      margin: 20px 0;
+    }
     .table {
         width: 1038px;
-        margin: 35px auto;
+        margin: 0 auto 35px;
         border-color: #c3c3c3;
       //margin: 40px 40px 10px 40px;
       table {
