@@ -148,7 +148,7 @@
                       v-for="idx in item.answerLength"
                       v-model="form[singleSize(5) + index][idx]"
                       :key="idx"
-                      :placeholder="'请输入你第'+(idx+1)+'个的答案'" 
+                      :placeholder="'请输入你第'+(idx)+'个的答案'" 
                       class="input1"/> 
                   </div>
                 </li>
@@ -647,15 +647,15 @@
                   </p>
                   <div class="answer">
                     <span style="position:relative;top: 0;">您的作答：</span>
-                    {{ item.userAnswer=''? '您未作答' : dxform[index] }}
+                    {{ !item.userAnswer ? '您未作答' : dxform[index] }}
                   </div>
                   <div class="analyse">
                     <span 
                       v-if="item.status == 2"
                       class="right">回答正确</span>
                     <span
-                      v-else-if="item.status == 3"
-                      class="false">回答错误，正确答案是{{ item.tkform[index] }}</span>
+                      v-if="item.status == 3 || item.status == 1"
+                      class="false">回答错误，正确答案是{{ tkform[index] }}</span>
                     <span
                       v-if="item.collectionStatus == 1"
                       @click="collection(item.questionId)"><i class="iconfont icon02"/>收藏本题</span>
@@ -676,6 +676,7 @@
               v-if="list && singleSize(6) > 0"
               class="list">
               <div
+                v-if="index == singleSize(1)+singleSize(2)+singleSize(4)+singleSize(5)-1"
                 class="list-title">
                 五、简答题
                 <span>(共{{ singleSize(6) }}题，共{{ singleScore(6) }}分)</span>
@@ -690,7 +691,7 @@
                   <div class="answer">
                     <span style="margin-top: 0px;position:relative;top: 0;">您的作答：</span>
                     <div class="jdcontent">
-                      {{ item.userAnswer? '您未作答' : item.userAnswer }} 
+                      {{ !item.userAnswer ? '您未作答' : item.userAnswer }} 
                     </div>
                     <div
                       style="margin-left: 0" 
@@ -698,7 +699,7 @@
                       <div style="color:#333;margin-bottom: 27px;">
                         阅卷得分:
                         <span 
-                          v-if=" item.status == 4 && userInfo.roleName == 'zyy_student'"
+                          v-if=" item.status != 5 && userInfo.roleName == 'zyy_student'"
                           style="margin-top: 0px;position:relative;top: 0;"
                           class="false">老师批阅中   </span>
                         <span 
@@ -731,7 +732,7 @@
                           class="false">老师批阅中</span>
                         {{ item.comment? item.comment : form[index] }} 
                         <div
-                          v-if="show[index] && item.status == 4 && userInfo.roleName !='zyy_student' "
+                          v-if="show[index] && item.status != 5 && userInfo.roleName !='zyy_student' "
                           style="margin-top: 20px;">
                           <el-input
                             v-model="form[index]"
@@ -1181,6 +1182,7 @@ export default {
           }
         }
         if(this.type == 2){
+          console.log('已答', this.type)
           for(let i=0; i<res.data.situation.newLists.length;i++){
             if(res.data.situation.newLists[i].typeId == 1){
               this.form1.item1 = res.data.situation.newLists[i]
@@ -1201,7 +1203,7 @@ export default {
               if(this.list[i].userAnswer != ''){
                 this.dxform[i] = []
                 this.dxform[i] = this.list[i].userAnswer.split('')
-                console.log('dx',dxform[i])
+                console.log('dx', this.dxform[i])
               }
             }
             if(this.list[i].typeId == 5){
@@ -1211,6 +1213,7 @@ export default {
                 this.dxform[i] = this.dxform[i].join(',')
               }
               this.tkform[i] = this.list[i].answer.join(",")
+              console.log('tkform', this.tkform)
             }
           }
         }
@@ -1324,7 +1327,17 @@ export default {
     },
     teacherSumit(){
       let lists=[]
-      this.$prompt(`学员${ this.userName }，主观题得分${ this.result.subjectScore }分，总得分${ this.sumScore}分给学员打个评语鼓励下吧`, '温馨提示', {
+      console.log(this.score)
+      // 主观题得分
+      let subjectScore = 0
+      let sumScore = 0
+      for (let i = 0; i < this.score.length; i++) {
+        if (this.score[i]) {
+          subjectScore += Number(this.score[i])
+        }
+      }
+      sumScore = subjectScore + this.result.objectScore
+      this.$prompt(`学员${ this.userName }，主观题得分${ subjectScore }分，总得分${ sumScore }分给学员打个评语鼓励下吧`, '温馨提示', {
         confirmButtonText: '提交批阅评语 ',
         cancelButtonText: '再批阅一遍',
       }).then(({ value }) => {
@@ -1354,6 +1367,12 @@ export default {
           cancelButtonText: '再检查一遍',
           type: 'warning'
         }).then(() => {
+          this.loading = this.$loading({
+            lock: true,
+            text: '正在加载中',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          })
           this.submitSimulatedVolume(1)
         }).catch(() => {
 
@@ -1427,6 +1446,7 @@ export default {
           clearInterval(this.timer2)
           this.form = []
           this.item5 = ''
+          this.loading.close()
           this.isResult = true
           this.$message({
             type: 'success',

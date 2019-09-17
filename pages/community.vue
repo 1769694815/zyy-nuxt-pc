@@ -26,7 +26,7 @@
               v-if="index < 2"
               :key="index"
               class="right-item"
-              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.courseId }}))">
+              @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.id }}))">
               <img :src="item.middle_picture">
               <div class="title">{{ item.title }}</div>
             </div>

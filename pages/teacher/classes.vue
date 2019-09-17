@@ -66,12 +66,14 @@
 </template>
 <script>
 import LeftTab from '~/components/mine/teacherLeftTab.vue'
+import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
 import { judgeUser } from '~/assets/js/util'
 // import { formatStamp } from '~/assets/js/util.js'
 export default {
   components: {
-    LeftTab
+    LeftTab,
+    Pagination
   },
   data() {
     return {
