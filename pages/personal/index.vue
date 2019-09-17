@@ -232,6 +232,7 @@ export default {
         userToken: this.userInfo.userToken,
         userName: this.form.userName,
         nickName: this.form.nickName,
+        realName: this.form.realName,
         sex: this.form.sex,
         birthday: this.form.birthday,
         avatar: this.uploadToken.key,
