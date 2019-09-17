@@ -676,6 +676,7 @@
               v-if="list && singleSize(6) > 0"
               class="list">
               <div
+                v-if="index == singleSize(1)+singleSize(2)+singleSize(4)+singleSize(5)-1"
                 class="list-title">
                 五、简答题
                 <span>(共{{ singleSize(6) }}题，共{{ singleScore(6) }}分)</span>
@@ -690,7 +691,7 @@
                   <div class="answer">
                     <span style="margin-top: 0px;position:relative;top: 0;">您的作答：</span>
                     <div class="jdcontent">
-                      {{ item.userAnswer? '您未作答' : item.userAnswer }} 
+                      {{ !item.userAnswer ? '您未作答' : item.userAnswer }} 
                     </div>
                     <div
                       style="margin-left: 0" 
@@ -698,7 +699,7 @@
                       <div style="color:#333;margin-bottom: 27px;">
                         阅卷得分:
                         <span 
-                          v-if=" item.status == 4 && userInfo.roleName == 'zyy_student'"
+                          v-if=" item.status != 5 && userInfo.roleName == 'zyy_student'"
                           style="margin-top: 0px;position:relative;top: 0;"
                           class="false">老师批阅中   </span>
                         <span 
@@ -731,7 +732,7 @@
                           class="false">老师批阅中</span>
                         {{ item.comment? item.comment : form[index] }} 
                         <div
-                          v-if="show[index] && item.status == 4 && userInfo.roleName !='zyy_student' "
+                          v-if="show[index] && item.status != 5 && userInfo.roleName !='zyy_student' "
                           style="margin-top: 20px;">
                           <el-input
                             v-model="form[index]"
@@ -1326,7 +1327,17 @@ export default {
     },
     teacherSumit(){
       let lists=[]
-      this.$prompt(`学员${ this.userName }，主观题得分${ this.result.subjectScore }分，总得分${ this.sumScore}分给学员打个评语鼓励下吧`, '温馨提示', {
+      console.log(this.score)
+      // 主观题得分
+      let subjectScore = 0
+      let sumScore = 0
+      for (let i = 0; i < this.score.length; i++) {
+        if (this.score[i]) {
+          subjectScore += Number(this.score[i])
+        }
+      }
+      sumScore = subjectScore + this.result.objectScore
+      this.$prompt(`学员${ this.userName }，主观题得分${ subjectScore }分，总得分${ sumScore }分给学员打个评语鼓励下吧`, '温馨提示', {
         confirmButtonText: '提交批阅评语 ',
         cancelButtonText: '再批阅一遍',
       }).then(({ value }) => {
