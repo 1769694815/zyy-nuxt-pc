@@ -699,20 +699,20 @@
                       <div style="color:#333;margin-bottom: 27px;">
                         阅卷得分:
                         <span 
-                          v-if=" item.status != 5 && userInfo.roleName == 'zyy_student'"
+                          v-if=" item.status == 5"
+                          style="margin-top: 0px;position:relative;top: 0;">{{ item.markingScore }}分</span>
+                        <span 
+                          v-else-if="userInfo.roleName == 'zyy_student'"
                           style="margin-top: 0px;position:relative;top: 0;"
                           class="false">老师批阅中   </span>
                         <span 
                           v-else
                           style="margin-top: 0px;position:relative;top: 0;">
                           <input 
-                            v-model="score[index]" 
+                            v-model="examines[index].score" 
                             type="text" 
                             placeholder="学员得分">分
                         </span>
-                        <span 
-                          v-if=" item.status == 5"
-                          style="margin-top: 0px;position:relative;top: 0;">{{ item.score }}   </span>
                         <span
                           v-if="item.collectionStatus == 1"
                           style="margin: 0px 0px 0px 30px;position:relative;top: 0;"
@@ -722,7 +722,7 @@
                           style="margin-top: 0px;position:relative;top: 0;"
                           @click="cancelCollection(item.questionId)"><i class="iconfont iconaixin active"/>已收藏</span>
                       </div>
-                      <div><span style="color: #333;margin-top: 0px;position:relative;top: 0;">参考答案：</span>{{ item.answer }}</div>
+                      <div style="line-height: 1.5"><span style="color: #333;margin-top: 0px;position:relative;top: 0;">参考答案：</span>{{ item.answer }}</div>
                       <div
                         style="margin-top: 20px;">
                         <span style="color: #333;margin-top: 0px;position:relative;top: 0;">老师评语：</span>
@@ -730,12 +730,12 @@
                           v-if=" item.status == 4 && userInfo.roleName =='zyy_student'" 
                           style="margin-top: 0px;position:relative;top: 0;"
                           class="false">老师批阅中</span>
-                        {{ item.comment? item.comment : form[index] }} 
+                        {{ item.comment? item.comment : examines[index].comment }} 
                         <div
                           v-if="show[index] && item.status != 5 && userInfo.roleName !='zyy_student' "
                           style="margin-top: 20px;">
                           <el-input
-                            v-model="form[index]"
+                            v-model="examines[index].comment"
                             :autosize="{ minRows: 4}"
                             type="textarea"
                             class="input2"
@@ -744,7 +744,7 @@
                             class="save">
                             <div
                               class="saves"
-                              @click="getSubmission(item.questionId,form[index],score[index])">提交评语
+                              @click="getSubmissionComment(item.questionId, form[index], score[index])">提交评语
                             </div>
                           </div>
                         </div>
@@ -970,7 +970,8 @@ export default {
       questionList5: [],
       questionList6: [],
       questionList7: [],
-      markingStatus: null
+      markingStatus: null,
+      examines: [] // 老师批阅
     }
   },
   mounted() {
@@ -1219,16 +1220,35 @@ export default {
         }
       })
     },
-    getSubmissionComment(comments){
-      console.log('1111')
+    getSubmissionComment(id, comments, scores){
       this.$axios.post('/yxs/api/web/question/submissionComment', {
+        questionId: id,
         comment: comments,//评语内容
         paperId: this.paperId,//试卷id
         userId: this.studentId,
         userToken: this.userInfo.userToken,
-        resultId: this.resultId
+        resultId: this.resultId,
+        scores
       }).then(res => {
-
+        console.log(res)
+        this.$message({
+          type: 'success',
+          message: '提交评语成功!'
+        });
+        this.getTeacherlist();
+      })
+    },
+    // 老师提交评语
+    getSubmission(comments, lists){
+      this.$axios.post('/yxs/api/web/question/submission', {
+        paperId: this.paperId,//试卷id
+        userId: this.studentId,
+        userToken: this.userInfo.userToken,
+        resultId: this.resultId,
+        comments,
+        lists
+      }).then(res => {
+        console.log('11',res)
          this.$router.push({
           name: 'teacher-manage',
           query: {
@@ -1236,23 +1256,6 @@ export default {
             name: this.title
           }
         })
-      })
-    },
-    getSubmission(id, comments,scores){
-      let lists = {
-        questionId: id,
-        comment: comments,
-        score: scores
-      }
-      console.log('submit',lists)
-      this.$axios.post('/yxs/api/web/question/submission', {
-        paperId: this.paperId,//试卷id
-        userId: this.studentId,
-        userToken: this.userInfo.userToken,
-        lists
-      }).then(res => {
-        console.log('11',res)
-        this.getTeacherlist();
       })
     },
     getTeacherlist(){
@@ -1301,6 +1304,14 @@ export default {
           }
         }
         for(let i=0;i<this.list.length;i++){
+          // 批阅初始化数据
+          let params = {
+            questionId: this.list[i].questionId,
+            score: this.list[i].markingScore == 0 ? '' : this.list[i].markingScore,
+            comment: this.list[i].comment,
+            typeId: this.list[i].typeId
+          }
+          this.examines[i] = params
           if(this.list[i].typeId == 2){
             if(this.list[i].userAnswer != null){
               this.dxform[i] = []
@@ -1319,7 +1330,7 @@ export default {
             this.show[i] = true
             // 已批阅
             if(this.list[i].status != 4 && this.list[i].status != 1){
-              showTeacher = true
+              this.showTeacher = true
             } 
           }
         }
@@ -1327,7 +1338,12 @@ export default {
     },
     teacherSumit(){
       let lists=[]
-      console.log(this.score)
+      lists = this.examines.filter(ele => {
+        if (ele.typeId == 6) {
+          return ele
+        }
+      })
+      console.log(lists)
       // 主观题得分
       let subjectScore = 0
       let sumScore = 0
@@ -1341,7 +1357,7 @@ export default {
         confirmButtonText: '提交批阅评语 ',
         cancelButtonText: '再批阅一遍',
       }).then(({ value }) => {
-        this.getSubmissionComment(value)
+        this.getSubmission(value, lists)
       }).catch(() => {   
       });
     },
