@@ -535,7 +535,6 @@ export default {
       }).then(() => {
         this.isResult = false
         this.getList()
-        this.initTime()
       }).catch(() => {
                
       });

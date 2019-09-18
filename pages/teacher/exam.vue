@@ -100,6 +100,7 @@
             <!-- <th>答题限时</th> -->
             <!-- <th>合格/总分值</th> -->
             <th>答题人数</th>
+            <th>待批阅数</th>
             <th width="58">已答题平均分</th>
             <!-- <th>操作</th> -->
           </tr>
@@ -116,6 +117,7 @@
             <!-- <td>{{ item? item.limitTime + '分' : '' }}</td> -->
             <!-- <td>{{ item.qualified? item.qualified : '' }}/{{ item.sumScore?item.sumScore : '' }}</td> -->
             <td class="read">{{ item? item.peopeleNum : '0' }}</td>
+            <td :class="['read', item.toBeReviewedNum != 0 ? 'active' : '']">{{ item ? item.toBeReviewedNum : '0' }}</td>
             <td class="read">{{ item? item.ageScore : '0' }}</td>
             <!-- <td @click="openExam(item.paperId, item.title)">
               <el-dropdown>
@@ -359,6 +361,9 @@ export default {
           text-align: center;
           color: #333;
           vertical-align: middle;
+          &.active{
+            color: red;
+          }
           &.read{
             cursor: pointer;
             &:hover{
