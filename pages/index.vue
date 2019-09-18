@@ -697,7 +697,9 @@ export default {
       this.$axios('/yxs/api/web/user/getCourseMemberPageByUserId', {
         params
       }).then(res => {
-        this.courseNum = res.data.total
+        if (res.code == 0) {
+          this.courseNum = res.data.total
+        }
       })
     },
     getClassNum() {
@@ -709,7 +711,9 @@ export default {
       this.$axios('/yxs/api/web/user/getClassroomMemberPageByUserId', {
         params
       }).then(res => {
-        this.classNum = res.data.total
+        if (res.code == 0) {
+          this.classNum = res.data.total
+        }
       })
     },
     getInfo() {
