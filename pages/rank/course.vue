@@ -71,8 +71,8 @@
         </ul>
       </div>
       <p
-        v-if="rankList.length != 0"
-        class="tips">共{{ rankList.length }}位成员学过本课程</p>
+        v-if="learnedNum != 0"
+        class="tips">共{{ learnedNum }}位成员学过本课程</p>
       <p
         v-else
         class="tips">暂无学员学过本课程</p>
@@ -116,7 +116,8 @@ export default {
       userInfo: '',
       navList: [],
       rankList: [],
-      loading: null
+      loading: null,
+      learnedNum: 0
     }
   },
   mounted() {
@@ -181,6 +182,7 @@ export default {
         this.loading.close()
         this.rankList = res.data.records
         this.total = res.data.total
+        this.learnedNum = res.data.learnedNum
       })
     },
     // 截取百分比
