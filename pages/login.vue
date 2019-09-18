@@ -195,7 +195,7 @@ export default {
           })
           window.localStorage.setItem('zyy_userToken', res.data.userToken)
           this.$router.push({
-            name: 'index'
+            name: 'personal'
           })
         } else {
           this.$message.error(res.msg);
@@ -233,7 +233,7 @@ export default {
           })
           window.localStorage.setItem('zyy_userToken', res.data.userToken)
           this.$router.push({
-            name: 'index'
+            name: 'personal'
           })
         } else {
           this.$message.error(res.msg)
