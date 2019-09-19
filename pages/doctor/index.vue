@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>名医师承</h1>
-    <div class="subtitle">数百位江中名医精品课程，零距离在线学习</div>
+    <div class="subtitle">数百位中医领域名医精品课程，零距离在线学习</div>
     <ul class="list">
       <li
         v-for="(item, index) in list"
