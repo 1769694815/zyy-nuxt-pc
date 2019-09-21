@@ -55,23 +55,31 @@
                 class="checkbox"
                 checked>我已阅读并同意
               </el-checkbox>
-              <span class="server">《服务协议》</span>
+              <span
+                class="server"
+                @click="modalShow">《服务协议》</span>
               <span @click="toLogin">用户登录</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <deal-modal
+      :show-modal="showModal"
+      @agree="agree"
+      @hide-modal="hideModal" />
   </div>
 </template>
 <script>
 import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
+import DealModal from '~/components/modal/dealModal.vue'
 import { validatenull, isvalidatemobile } from '~/assets/js/util.js'
 export default {
   components: {
     NavBar,
-    'v-header': Header
+    'v-header': Header,
+    DealModal
   },
   data() {
     return {
@@ -86,7 +94,8 @@ export default {
         password: '',
         passwordConfirm: '',
         checked: true
-      }
+      },
+      showModal: false
     }
   },
   methods: {
@@ -198,6 +207,16 @@ export default {
           }
         })
       }
+    },
+    modalShow() {
+      this.showModal = true
+    },
+    hideModal() {
+      this.showModal = false
+    },
+    agree() {
+      this.showModal = false
+      this.form.checked = true
     }
   }
 }
