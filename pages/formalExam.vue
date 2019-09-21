@@ -438,7 +438,7 @@
           id="desc" 
           class="desc">
           试卷说明：本次考察内容为{{ courseTile }}全部课程，请认真作答
-          共{{ itemCount }}题，总分{{ sumScore }}分，{{ duringDate() }}答题限时{{ limitTime }}分钟
+          共{{ itemCount }}题，总分{{ sumScore }}分，{{ duringDate() }}，答题限时{{ limitTime }}分钟
         </div>
       </div>
       <div class="content">
@@ -465,16 +465,17 @@
                   <p>
                     {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
-                  <el-radio-group v-model="list[index].userAnswer">
+                  <el-radio-group
+                    v-model="list[index].userAnswer"
+                    disabled>
                     <el-radio
                       v-for="(option, index) in item.optionContent"
                       :key="index"
                       :label="option.name"
-                      style="display: block;margin-left: 0; line-height:30px;"
-                      disabled>
+                      style="display: block;margin-left: 0; line-height:30px;">
                       {{ option.name }}: {{ option.content }}
                       <span
-                        v-if="list[index].userAnswer == option.name"
+                        v-if="item.userAnswer == option.name"
                         style="margin-left: 30px">(已选)</span>
                     </el-radio>
                   </el-radio-group>
@@ -517,13 +518,14 @@
                   <p>
                     {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
-                  <el-checkbox-group v-model="dxform[index]">
+                  <el-checkbox-group
+                    v-model="dxform[index]"
+                    disabled>
                     <el-checkbox
                       v-for="(option, index) in item.optionContent"
                       :key="index"
                       :label="option.name"
-                      style="display: block;margin-left: 0; line-height:30px;"
-                      disabled>
+                      style="display: block;margin-left: 0; line-height:30px;">
                       {{ option.name }}: {{ option.content }}</el-checkbox>
                   </el-checkbox-group>
                   <div class="analyse">
@@ -742,10 +744,10 @@
                             placeholder="输入您的评语" />
                           <div
                             class="save">
-                            <div
+                            <!-- <div
                               class="saves"
-                              @click="getSubmissionComment(item.questionId, form[index], score[index])">提交评语
-                            </div>
+                              @click="getSubmissionComment(item.questionId, form[index], score[index])">保存
+                            </div> -->
                           </div>
                         </div>
                       </div>
@@ -1970,5 +1972,11 @@ export default {
   }
   .top .el-input {
     width: 300px;
+  }
+  .el-radio__input.is-disabled+span.el-radio__label {
+    color: #333;
+  }
+  .el-radio__input.is-disabled .el-radio__inner, .el-radio__input.is-disabled.is-checked .el-radio__inner {
+    color: #dcdfe6;
   }
 </style>
