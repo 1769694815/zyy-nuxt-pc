@@ -744,10 +744,10 @@
                             placeholder="输入您的评语" />
                           <div
                             class="save">
-                            <div
+                            <!-- <div
                               class="saves"
-                              @click="getSubmissionComment(item.questionId, form[index], score[index])">提交评语
-                            </div>
+                              @click="getSubmissionComment(item.questionId, form[index], score[index])">保存
+                            </div> -->
                           </div>
                         </div>
                       </div>
