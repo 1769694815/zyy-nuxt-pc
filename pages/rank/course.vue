@@ -72,7 +72,7 @@
       </div>
       <p
         v-if="learnedNum != 0"
-        class="tips">共{{ learnedNum }}位成员学过本课程</p>
+        class="tips">共{{ learnedNum }}位成员已学完本课程</p>
       <p
         v-else
         class="tips">暂无学员学过本课程</p>
