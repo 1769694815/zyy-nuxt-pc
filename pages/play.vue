@@ -231,12 +231,13 @@ export default {
   mounted() {
     window.scrollTo(0, 200)
     this.userInfo = Cookies.getJSON('zyy_userInfo')
-    this.rankStatus = judgeUser().status
     if(!this.userInfo) {
       this.$router.push({
         name: 'login'
       })
+      return
     }
+    this.rankStatus = judgeUser().status
     this.getInfo()
     this.getList()
     this.getRecommendList('zyjk')
