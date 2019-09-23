@@ -109,6 +109,14 @@ export function formatStamp2(date) {
   return `${y}-${m}-${d}`
 }
 
+// 时间戳转字符串
+export function formatStamp3(time) {
+  let y = time.getFullYear()
+  let m = formatStr(time.getMonth() + 1)
+  let d = formatStr(time.getDate())
+  return `${y}-${m}-${d}`
+}
+
 export function formatStr(n) {
   return n > 9 ? n : (0 + '' + n)
 }
