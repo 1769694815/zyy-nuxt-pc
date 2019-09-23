@@ -732,7 +732,8 @@
                           v-if=" item.status == 4 && userInfo.roleName =='zyy_student'" 
                           style="margin-top: 0px;position:relative;top: 0;"
                           class="false">老师批阅中</span>
-                        {{ item.comment? item.comment : examines[index].comment }} 
+                        <span v-if="item.status == 5 && userInfo.roleName == 'zyy_student'">{{ item.comment ? item.comment : '' }}</span>
+                        <span v-if="userInfo.roleName !='zyy_student'">{{ item.comment ? item.comment : examines[index].comment }}</span>
                         <div
                           v-if="show[index] && item.status != 5 && userInfo.roleName !='zyy_student' "
                           style="margin-top: 20px;">
@@ -1075,7 +1076,7 @@ export default {
         this.examDeadlineEnd = res.data.examDeadlineEnd
         this.sumScore = res.data.sumScore
         this.resultId = res.data.resultId
-        this.comment = res.data.comment
+        this.comment = res.data.comment || ''
         this.markingStatus = res.data.markingStatus
         // alert(res.data.surplusTime)
         if(this.type == 1) {
@@ -1310,10 +1311,11 @@ export default {
           let params = {
             questionId: this.list[i].questionId,
             score: this.list[i].markingScore == 0 ? '' : this.list[i].markingScore,
-            comment: this.list[i].comment,
+            comment: this.list[i].comment || '',
             typeId: this.list[i].typeId
           }
           this.examines[i] = params
+          console.info('examines', this.examines)
           if(this.list[i].typeId == 2){
             if(this.list[i].userAnswer != null){
               this.dxform[i] = []
@@ -1349,9 +1351,9 @@ export default {
       // 主观题得分
       let subjectScore = 0
       let sumScore = 0
-      for (let i = 0; i < this.score.length; i++) {
-        if (this.score[i]) {
-          subjectScore += Number(this.score[i])
+      for (let i = 0; i < lists.length; i++) {
+        if (lists[i].score) {
+          subjectScore += Number(lists[i].score)
         }
       }
       sumScore = subjectScore + this.result.objectScore
@@ -1712,6 +1714,9 @@ export default {
                 padding: 20px 0;
                 position: relative;
                 .jdcontent{
+                  width: 460px;
+                  word-break: break-all;
+                  word-wrap: break-word;
                   display: inline-block;
                   font-size: 14px;
                   margin: 18px 0 0 50px;
