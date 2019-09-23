@@ -608,7 +608,7 @@
                   <div class="analyse">
                     <span 
                       v-if="item.status == 1"
-                      class="false">您未作答</span>
+                      class="false">未作答</span>
                     <span 
                       v-else-if="item.status == 2"
                       class="right">回答正确</span>
@@ -648,8 +648,13 @@
                     {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
                   <div class="answer">
-                    <span style="position:relative;top: 0;">您的作答：</span>
-                    {{ !item.userAnswer ? '您未作答' : dxform[index] }}
+                    <span
+                      v-if="type == 2"
+                      style="position:relative;top: 0;">您的作答：</span>
+                    <span
+                      v-else
+                      style="position:relative;top: 0;">学员作答：</span>
+                    {{ !item.userAnswer ? '未作答' : dxform[index] }}
                   </div>
                   <div class="analyse">
                     <span 
@@ -691,9 +696,14 @@
                     {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
                   <div class="answer">
-                    <span style="margin-top: 0px;position:relative;top: 0;">您的作答：</span>
+                    <span
+                      v-if="type == 2"
+                      style="position:relative;top: 0;">您的作答：</span>
+                    <span
+                      v-else
+                      style="position:relative;top: 0;">学员作答：</span>
                     <div class="jdcontent">
-                      {{ !item.userAnswer ? '您未作答' : item.userAnswer }} 
+                      {{ !item.userAnswer ? '未作答' : item.userAnswer }} 
                     </div>
                     <div
                       style="margin-left: 0" 
