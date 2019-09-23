@@ -2,9 +2,9 @@
   <div class="footer">
     <div class="footer-content">
       <div class="footer-left fl">
-        <p>课程购买咨询：0791-88197248 <span style="margin-left: 30px;">平台（渠道）合作：0791-88197248</span></p>
-        <p>联系我们：江西省南昌市红谷滩新区丰和南大道2111号世贸apm写字楼3-5栋404-406室</p>
-        <p>品牌合作：江西省南昌市红谷滩新区丰和南大道2111号世贸apm写字楼3-5栋404-406室</p>
+        <p>课程购买咨询：0791-87119966 <span style="margin-left: 30px;">平台（渠道）合作：0791-88197248</span></p>
+        <p>联系我们：南昌市阳明路56号江西中医药大学继续教育学院（培训学院）</p>
+        <p>品牌合作：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
         <div class="link">
           <nuxt-link
             to="/about"
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="copyright">
-      版权所有：Copyright 2018 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备15008425号-5&nbsp;&nbsp;&nbsp;&nbsp;
+      版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备15008425号-5&nbsp;&nbsp;&nbsp;&nbsp;
       技术支持：<a href="http://www.yunduancn.com/">云端科技</a>
     </div>
   </div>
