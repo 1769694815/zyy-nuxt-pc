@@ -721,9 +721,10 @@
                           v-else
                           style="margin-top: 0px;position:relative;top: 0;">
                           <input 
-                            v-model="examines[index].score" 
-                            type="text" 
-                            placeholder="学员得分">分
+                            v-model.number="examines[index].score"
+                            type="number"
+                            placeholder="学员得分"
+                            @change="inputs(index, item.score)" >分
                         </span>
                         <span
                           v-if="item.collectionStatus == 1"
@@ -1549,6 +1550,16 @@ export default {
       this.$nextTick(function () {
         window.scrollTo({"behavior":"smooth","top":el.offsetTop});
       })
+    },
+    inputs(index, val) {
+      if (this.examines[index].score > val) {
+        this.examines[index].score = val
+        this.$message({
+          type: 'error',
+          message: '分数大约题目分数'
+        })
+        console.log(this.examines[index].score)
+      }
     }
   }
 };
