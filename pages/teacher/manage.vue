@@ -38,7 +38,7 @@
               <td>
                 <span 
                   class="button"
-                  @click="getList()">搜索</span>
+                  @click="search()">搜索</span>
               </td>
             </tr>
             <tr>
@@ -107,15 +107,23 @@
             </tr>
           </tbody>
         </table>
+        <Pagination
+          :size="size"
+          :current="current"
+          :total="total"
+          @sizeChange="sizeChange"
+          @currentChange="currentChange" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
 import { formatStamp2 } from '~/assets/js/util.js'
 export default {
   components: {
+    Pagination
   },
   data() {
     return {
@@ -154,7 +162,10 @@ export default {
           label: '不合格'
         }
       ],
-      examInfo: {}
+      examInfo: {},
+      total: 0,
+      current: 1,
+      size: 10
     }
   },
   mounted() {
@@ -206,6 +217,10 @@ export default {
       })
       window.open(url.href, '_blank')
     },
+    search() {
+      this.current = 1
+      this.getList()
+    },
     getList() {
       this.$axios('/yxs/api/web/question/answerExamList', {
         params: {
@@ -215,11 +230,14 @@ export default {
           startTime: this.form.startTime,
           endTime: this.form.endTime,
           status: this.form.examKind,
-          markingStatus: this.form.kind
+          markingStatus: this.form.kind,
+          size: this.size,
+          current: this.current
         }
       }).then(res => {
         console.log('answerTime',res.data)
         this.list = res.data.records
+        this.total = res.data.total
         if(this.list){
           this.showStudentList = true
         }else{
@@ -230,6 +248,13 @@ export default {
     openNewPage(url) {
       window.open(url.href, '_blank')
     },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      this.current = val
+      this.getList()
+    }
   }
 }
 </script>
