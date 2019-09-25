@@ -146,9 +146,13 @@ export default {
       title: this.title
     }
   },
+  async asyncData({ $axios }) {
+    let { data } = await $axios('/yxs/api/web/news/community')
+    return { channels: data }
+  },
   mounted() {
     this.getCarousel()
-    this.getChannel()
+    // this.getChannel()
     this.getResearchList()
     this.getRecommendList('education')
     this.getCourseList()
