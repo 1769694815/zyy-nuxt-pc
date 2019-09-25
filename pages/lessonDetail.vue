@@ -265,7 +265,8 @@
                 v-for="(item,index) in detailData.courseList"
                 v-if="index < 3"
                 :key="index"
-                class="lesson">
+                class="lesson"
+                @click="toDetail(item.id)">
                 <div class="img-box">
                   <img :src="item.pic">
                 </div>
@@ -571,7 +572,16 @@ export default {
         }
       })
       window.open(url.href, '_blank')
-    } 
+    },
+    toDetail(id) {
+      let url = this.$router.resolve({
+        name: 'lessonDetail',
+        query: {
+          id
+        }
+      })
+      window.open(url.href, '_blank')
+    }
   }
 };
 </script>

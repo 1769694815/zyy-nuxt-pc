@@ -13,12 +13,14 @@
               src="../assets/images/img1.png">
             <div class="box">
               <div class="box-left">
-                <a href="https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8">
+                <!-- https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8 -->
+                <a href="javajscipt:;">
                   <img
                     class="img2"
                     src="../assets/images/img2.png">
                 </a>
-                <a href="https://files.jzjxedu.com/app-release.apk">
+                <!-- https://files.jzjxedu.com/app-release.apk -->
+                <a href="javajscipt:;">
                   <img
                     class="img3"
                     src="../assets/images/img3.png">
@@ -75,12 +77,13 @@
             class="d-logo">
           <div class="content">
             <div class="c-left">
-              <a href="https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8">
+              <img src="~/assets/images/g1.png">
+              <!-- <a href="https://itunes.apple.com/cn/app/中医药在线/id1318614411?mt=8">
                 <img src="~/assets/images/g1.png">
-              </a>
-              <a href="https://files.jzjxedu.com/app-release.apk">
-                <img src="~/assets/images/g2.png">
-              </a>
+              </a> -->
+              <img src="~/assets/images/g2.png">
+              <!-- <a href="https://files.jzjxedu.com/app-release.apk">
+              </a> -->
             </div>
             <div class="c-right">
               <img

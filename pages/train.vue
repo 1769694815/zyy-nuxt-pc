@@ -74,6 +74,12 @@
               </div>
             </li>
           </ul>
+          <Pagination
+            :size="size"
+            :current="current"
+            :total="total"
+            @sizeChange="sizeChange"
+            @currentChange="currentChange" />
         </div>
         <div class="content-right">
           <lesson-section :data-array="recommendLessons" />
@@ -90,11 +96,13 @@ import Header from '~/components/layout/header.vue'
 import NavBar from '~/components/navBar.vue'
 import LessonSection from '~/components/recommend/lesson.vue'
 import TrainSection from '~/components/recommend/train.vue'
+import Pagination from '~/components/pagination.vue'
 export default {
   components: {
     NavBar,
     LessonSection,
     TrainSection,
+    Pagination,
     'v-header': Header
   },
   data() {
@@ -103,6 +111,7 @@ export default {
       tabIndex: 2,
       current: 1,
       size: 30,
+      total: 0,
       categoryId: this.$route.query.fid || 53, // 默认53,自学考试id
       cid: this.$route.query.cid || 0,
       orderByClause: 1,
@@ -125,7 +134,8 @@ export default {
           value: 2
         }
       ],
-      result: []
+      result: [],
+
     }
   },
   head() {
@@ -140,6 +150,7 @@ export default {
   },
   methods: {
     changeFirst(item, index, flag) {
+      this.current = 1
       this.title = item.name
       if(flag) {
         this.cid = 0
@@ -169,6 +180,7 @@ export default {
       }
     },
     changeSecond(id, index) {
+      this.current = 1
       // this.secondActive = index
       this.cid = id
       if(id == 0) {
@@ -178,10 +190,16 @@ export default {
       }
     },
     changeThird(item, index) {
+      this.current = 1
       this.thirdActive = index
       this.orderByClause = index == 0 ? 1 : 2
       this.getList(item.id, 3)
     },
+    /**
+     * @description: 
+     * @param {type} 
+     * @return: 
+     */
     getList(id, i) {
       this.$axios('/yxs/api/web/course/more', {
         params: {
@@ -194,6 +212,7 @@ export default {
         }
       }).then(res => {
         this.result = res.data.list.records
+        this.total = res.data.list.total
       })
     },
     getCourseType() {
@@ -254,6 +273,14 @@ export default {
         }
       })
       window.open(url.href, '_blank')
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      window.scrollTo(0, 0)
+      this.current = val
+      this.getList(this.categoryId)
     }
   }
 }

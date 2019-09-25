@@ -38,7 +38,7 @@
               <td>
                 <span 
                   class="button"
-                  @click="getList()">搜索</span>
+                  @click="search()">搜索</span>
               </td>
             </tr>
             <tr>
@@ -46,15 +46,15 @@
                 align="right" 
                 width="120">交卷时间：</td>
               <td>
-                <el-input 
-                  v-model="form.startTime"
-                  class="timeinput"
-                  placeholder="选择起止日期"/>
-                至  
-                <el-input 
-                  v-model="form.endTime" 
-                  class="timeinput"
-                  placeholder="选择起止日期"/>
+                <el-date-picker
+                  v-model="date"
+                  :picker-options="pickerOptions"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"/>
               </td>
               <td 
                 align="right" 
@@ -74,7 +74,9 @@
           </tbody>
         </table>
       </div>
-      <p class="examInfo">{{ examInfo.title }}, 共{{ examInfo.itemCount }}道题，总分{{ examInfo.sumScore }}分，合格分{{ examInfo.qualified }}，答题限时{{ examInfo.limitTime }}分钟，考试期限{{ examInfo.examDateStatus == 0 ? '不限' : examInfo.examDeadlineStart + '至' + examInfo.examDeadlineEnd }}，{{ examInfo.createTime }}发布</p>
+      <p
+        v-if="examInfo.title"
+        class="examInfo">{{ examInfo.title }}, 共{{ examInfo.itemCount }}道题，总分{{ examInfo.sumScore }}分，合格分{{ examInfo.qualified }}，答题限时{{ examInfo.limitTime }}分钟，考试期限{{ examInfo.examDateStatus == 0 ? '不限' : examInfo.examDeadlineStart + '至' + examInfo.examDeadlineEnd }}，{{ examInfo.createTime }}发布</p>
       <div 
         v-if="showStudentList"
         class="table">
@@ -107,15 +109,23 @@
             </tr>
           </tbody>
         </table>
+        <Pagination
+          :size="size"
+          :current="current"
+          :total="total"
+          @sizeChange="sizeChange"
+          @currentChange="currentChange" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import Pagination from '~/components/pagination.vue'
 import Cookies from 'js-cookie'
-import { formatStamp2 } from '~/assets/js/util.js'
+import { formatStamp3, formatStamp2 } from '~/assets/js/util.js'
 export default {
   components: {
+    Pagination
   },
   data() {
     return {
@@ -154,7 +164,38 @@ export default {
           label: '不合格'
         }
       ],
-      examInfo: {}
+      examInfo: {},
+      total: 0,
+      current: 1,
+      size: 10,
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近一个月',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近三个月',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            picker.$emit('pick', [start, end]);
+          }
+        }]
+      },
+      date: ''
     }
   },
   mounted() {
@@ -206,6 +247,14 @@ export default {
       })
       window.open(url.href, '_blank')
     },
+    search() {
+      this.current = 1
+      console.log(this.date[0].getFullYear())
+      this.form.startTime = formatStamp3(this.date[0])
+      this.form.endTime = formatStamp3(this.date[1])
+      console.log(this.form.startTime)
+      this.getList()
+    },
     getList() {
       this.$axios('/yxs/api/web/question/answerExamList', {
         params: {
@@ -215,11 +264,14 @@ export default {
           startTime: this.form.startTime,
           endTime: this.form.endTime,
           status: this.form.examKind,
-          markingStatus: this.form.kind
+          markingStatus: this.form.kind,
+          size: this.size,
+          current: this.current
         }
       }).then(res => {
         console.log('answerTime',res.data)
         this.list = res.data.records
+        this.total = res.data.total
         if(this.list){
           this.showStudentList = true
         }else{
@@ -230,6 +282,13 @@ export default {
     openNewPage(url) {
       window.open(url.href, '_blank')
     },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      this.current = val
+      this.getList()
+    }
   }
 }
 </script>
@@ -315,4 +374,9 @@ export default {
     }
   }
  
+</style>
+<style scoped>
+  .el-date-editor {
+    width: 340px;
+  }
 </style>

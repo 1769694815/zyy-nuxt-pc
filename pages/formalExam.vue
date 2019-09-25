@@ -608,7 +608,7 @@
                   <div class="analyse">
                     <span 
                       v-if="item.status == 1"
-                      class="false">您未作答</span>
+                      class="false">未作答</span>
                     <span 
                       v-else-if="item.status == 2"
                       class="right">回答正确</span>
@@ -648,8 +648,13 @@
                     {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
                   <div class="answer">
-                    <span style="position:relative;top: 0;">您的作答：</span>
-                    {{ !item.userAnswer ? '您未作答' : dxform[index] }}
+                    <span
+                      v-if="type == 2"
+                      style="position:relative;top: 0;">您的作答：</span>
+                    <span
+                      v-else
+                      style="position:relative;top: 0;">学员作答：</span>
+                    {{ !item.userAnswer ? '未作答' : dxform[index] }}
                   </div>
                   <div class="analyse">
                     <span 
@@ -691,9 +696,14 @@
                     {{ index + 1 }}、{{ item.stem }} <span>({{ item.score }}分)</span>
                   </p>
                   <div class="answer">
-                    <span style="margin-top: 0px;position:relative;top: 0;">您的作答：</span>
+                    <span
+                      v-if="type == 2"
+                      style="position:relative;top: 0;">您的作答：</span>
+                    <span
+                      v-else
+                      style="position:relative;top: 0;">学员作答：</span>
                     <div class="jdcontent">
-                      {{ !item.userAnswer ? '您未作答' : item.userAnswer }} 
+                      {{ !item.userAnswer ? '未作答' : item.userAnswer }} 
                     </div>
                     <div
                       style="margin-left: 0" 
@@ -711,9 +721,10 @@
                           v-else
                           style="margin-top: 0px;position:relative;top: 0;">
                           <input 
-                            v-model="examines[index].score" 
-                            type="text" 
-                            placeholder="学员得分">分
+                            v-model.number="examines[index].score"
+                            type="number"
+                            placeholder="学员得分"
+                            @change="inputs(index, item.score)" >分
                         </span>
                         <span
                           v-if="item.collectionStatus == 1"
@@ -732,7 +743,8 @@
                           v-if=" item.status == 4 && userInfo.roleName =='zyy_student'" 
                           style="margin-top: 0px;position:relative;top: 0;"
                           class="false">老师批阅中</span>
-                        {{ item.comment? item.comment : examines[index].comment }} 
+                        <span v-if="item.status == 5 && userInfo.roleName == 'zyy_student'">{{ item.comment ? item.comment : '' }}</span>
+                        <span v-if="userInfo.roleName !='zyy_student'">{{ item.comment ? item.comment : examines[index].comment }}</span>
                         <div
                           v-if="show[index] && item.status != 5 && userInfo.roleName !='zyy_student' "
                           style="margin-top: 20px;">
@@ -1075,7 +1087,7 @@ export default {
         this.examDeadlineEnd = res.data.examDeadlineEnd
         this.sumScore = res.data.sumScore
         this.resultId = res.data.resultId
-        this.comment = res.data.comment
+        this.comment = res.data.comment || ''
         this.markingStatus = res.data.markingStatus
         // alert(res.data.surplusTime)
         if(this.type == 1) {
@@ -1310,10 +1322,11 @@ export default {
           let params = {
             questionId: this.list[i].questionId,
             score: this.list[i].markingScore == 0 ? '' : this.list[i].markingScore,
-            comment: this.list[i].comment,
+            comment: this.list[i].comment || '',
             typeId: this.list[i].typeId
           }
           this.examines[i] = params
+          console.info('examines', this.examines)
           if(this.list[i].typeId == 2){
             if(this.list[i].userAnswer != null){
               this.dxform[i] = []
@@ -1349,9 +1362,9 @@ export default {
       // 主观题得分
       let subjectScore = 0
       let sumScore = 0
-      for (let i = 0; i < this.score.length; i++) {
-        if (this.score[i]) {
-          subjectScore += Number(this.score[i])
+      for (let i = 0; i < lists.length; i++) {
+        if (lists[i].score) {
+          subjectScore += Number(lists[i].score)
         }
       }
       sumScore = subjectScore + this.result.objectScore
@@ -1537,6 +1550,16 @@ export default {
       this.$nextTick(function () {
         window.scrollTo({"behavior":"smooth","top":el.offsetTop});
       })
+    },
+    inputs(index, val) {
+      if (this.examines[index].score > val) {
+        this.examines[index].score = val
+        this.$message({
+          type: 'error',
+          message: '分数大约题目分数'
+        })
+        console.log(this.examines[index].score)
+      }
     }
   }
 };
@@ -1712,6 +1735,9 @@ export default {
                 padding: 20px 0;
                 position: relative;
                 .jdcontent{
+                  width: 460px;
+                  word-break: break-all;
+                  word-wrap: break-word;
                   display: inline-block;
                   font-size: 14px;
                   margin: 18px 0 0 50px;

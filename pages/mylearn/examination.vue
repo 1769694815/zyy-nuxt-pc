@@ -38,7 +38,7 @@
             <div class="center-right">
               <span 
                 v-if="item.markingStatus != 0 && tab == 1"
-                @click="openSimulationExam(item.paperId, 2, item.resultId, item.courseId)">
+                @click="openSimulationExam(item.paperId, 2, item.resultId, item.courseId, item.title)">
                 得分{{ item.score }},批阅详情 >
               </span>
               <span 
@@ -153,14 +153,15 @@ export default {
       return time > 9 ? time : '0'+time
     },
     // 模拟试卷
-    openSimulationExam(paperId, type, resultId, courseId) {
+    openSimulationExam(paperId, type, resultId, courseId, title) {
       let url = this.$router.resolve({
         name: 'exam',
         query: {
           examPaperId: paperId,
           courseId,
           type,
-          resultId
+          resultId,
+          title
         }
       })
       window.open(url.href, '_blank')
