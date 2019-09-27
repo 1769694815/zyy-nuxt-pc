@@ -75,7 +75,7 @@
         class="tips">共{{ learnedNum }}位成员已学完本课程</p>
       <p
         v-else
-        class="tips">暂无学员学过本课程</p>
+        class="tips">暂无学员学完本课程</p>
       <Pagination
         v-if="rankList.length != 0"
         :size="size"
