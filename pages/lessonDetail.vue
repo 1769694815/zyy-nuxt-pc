@@ -293,8 +293,8 @@
                 </div>
                 <h3>{{ item.title }}</h3>
                 <span>
-                  <i class="iconfont iconspbofang" />
-                  {{ item.studentNum }}
+                  <!-- <i class="iconfont iconspbofang" /> -->
+                  {{ item.studentNum }}人学过
                 </span>
               </li>
             </ul>
