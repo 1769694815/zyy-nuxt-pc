@@ -1321,7 +1321,7 @@ export default {
           // 批阅初始化数据
           let params = {
             questionId: this.list[i].questionId,
-            score: this.list[i].markingScore == 0 ? '' : this.list[i].markingScore,
+            score: this.list[i].markingScore,
             comment: this.list[i].comment || '',
             typeId: this.list[i].typeId
           }
