@@ -20,7 +20,7 @@
                   style="width: 340px" 
                   placeholder="输入学员用户名/真实姓名/手机号查找"/>
               </td>
-              <td 
+              <!-- <td 
                 align="right" 
                 width="120">批阅状态：</td>
               <td>
@@ -30,6 +30,20 @@
                   placeholder="全部状态">
                   <el-option
                     v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"/>
+                </el-select>
+              </td> -->
+              <td 
+                align="right" 
+                width="120">考核状态：</td>
+              <td>
+                <el-select 
+                  v-model="form.examKind" 
+                  placeholder="全部状态">
+                  <el-option
+                    v-for="item in options1"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"/>
@@ -56,20 +70,6 @@
                   start-placeholder="开始日期"
                   end-placeholder="结束日期"/>
               </td>
-              <td 
-                align="right" 
-                width="120">考核状态：</td>
-              <td>
-                <el-select 
-                  v-model="form.examKind" 
-                  placeholder="全部状态">
-                  <el-option
-                    v-for="item in options1"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"/>
-                </el-select>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -87,7 +87,7 @@
             <th>手机号</th>
             <th>答题用时</th>
             <th>交卷时间</th>
-            <th>批阅状态</th>
+            <!-- <th>批阅状态</th> -->
             <th><span>得分</span>（客观+主观）</th>
             <th>考核状态</th>
             <th>操作</th>
@@ -99,10 +99,10 @@
               <td>{{ item.phone? item.phone:'无' }}</td>
               <td>{{ item.answerTime? item.answerTime : '0' }}</td>
               <td>{{ item.submitTime? dateFormatter(item.submitTime) : '0' }}</td>
-              <td
-                :class="item.markingStatus == 0? 'active':''">{{ item.markingStatus == 0? '未批阅' : '已批阅' }}</td>
+              <!-- <td
+                :class="item.markingStatus == 0? 'active':''">{{ item.markingStatus == 0? '未批阅' : '已批阅' }}</td> -->
               <td><span>{{ item.markingStatus == 0? '?': item.score }}</span>{{ item.objectScore }}+{{ item.markingStatus == 0? '?': item.subjectScore }}</td>
-              <td>{{ item.markingStatus == 2? '合格' : item.markingStatus == 3? '不合格': '-' }}</td>
+              <td>{{ getStatus(item.markingStatus) }}</td>
               <td
                 class="read"
                 @click="openExampage(item.studentId, item.resultId, 3)">{{ item.markingStatus == 0? '去批阅' : '批阅详情' }}</td>
@@ -155,13 +155,18 @@ export default {
       options1: [{
           value: '',
           label: '全部状态'
-        }, {
-          value: '3',
+        },
+         {
+          value: '2',
           label: '合格'
         },
         {
-          value: '4',
+          value: '3 ',
           label: '不合格'
+        },
+         {
+          value: '0',
+          label: '未批阅'
         }
       ],
       examInfo: {},
@@ -249,11 +254,15 @@ export default {
     },
     search() {
       this.current = 1
-      console.log(this.date[0].getFullYear())
-      this.form.startTime = formatStamp3(this.date[0])
-      this.form.endTime = formatStamp3(this.date[1])
-      console.log(this.form.startTime)
+      if(this.date){
+        console.log('11111',this.date)
+        this.form.startTime = formatStamp3(this.date[0])
+        this.form.endTime = formatStamp3(this.date[1])
+        console.log('start',this.form.startTime)
+      }
       this.getList()
+      this.form.startTime = ''
+      this.form.endTime = ''
     },
     getList() {
       this.$axios('/yxs/api/web/question/answerExamList', {
@@ -263,8 +272,7 @@ export default {
           userName: this.form.name,
           startTime: this.form.startTime,
           endTime: this.form.endTime,
-          status: this.form.examKind,
-          markingStatus: this.form.kind,
+          markingStatus: this.form.examKind,
           size: this.size,
           current: this.current
         }
@@ -278,6 +286,15 @@ export default {
            this.showStudentList = false
         }
       })
+    },
+    getStatus(index){
+      if(index == 2){
+        return '合格'
+      }else if(index == 3){
+        return '不合格'
+      }else if(index == 0){
+        return '未审核'
+      }
     },
     openNewPage(url) {
       window.open(url.href, '_blank')
