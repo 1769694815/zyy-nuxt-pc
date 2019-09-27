@@ -100,7 +100,7 @@ export default {
         }
         img {
           width: 100%;
-          height: 123px;  
+          // height: 123px;
           border-radius: 6px;
           transition: all .3s ease 0s;
         }
