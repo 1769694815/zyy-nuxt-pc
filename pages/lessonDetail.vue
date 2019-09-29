@@ -114,6 +114,27 @@
                 @click="toPlay">继续学习
               </div>
             </div>
+            <div class="share">
+              <span
+                v-if="detailData.collectionStauts == 0"
+                @click="collect">收藏
+                <i class="iconfont iconaixin" />
+              </span>
+              <span
+                v-else
+                @click="cancelCollect">收藏
+                <i class="iconfont iconaixin active" />
+              </span>
+              <span class="fenxiang">分享<i class="iconfont iconfenxiang" />
+                <span
+                  class="social-share"
+                  data-sites="weibo,qzone,qq,wechat"
+                  data-title="中医药在线"
+                  data-wechat-qrcode-title="请打开微信扫一扫"
+                  data-wechat-qrcode-helper="<p>打开微信扫一下</p><p>二维码便可将本文分享至朋友圈。</p>"
+                  data-description="江西中医药大学继续教育学习平台" />
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -272,8 +293,8 @@
                 </div>
                 <h3>{{ item.title }}</h3>
                 <span>
-                  <i class="iconfont iconspbofang" />
-                  {{ item.studentNum }}
+                  <!-- <i class="iconfont iconspbofang" /> -->
+                  {{ item.studentNum }}人学过
                 </span>
               </li>
             </ul>
@@ -610,6 +631,7 @@ export default {
         float: right;
         height: 287px;
         width: 590px;
+        position: relative;
         .right-title{
           display: flex;
           width: 100%;
@@ -619,40 +641,40 @@ export default {
             color: #333333;
             line-height: 38px;
           }
-          .share{
-            position: absolute;
-            right: 80px;
-            top: 14px;
-            font-size: 14px;
-            color: #666666;
-            span{
+        }
+        .share{
+          position: absolute;
+          right: 80px;
+          top: 274px;
+          font-size: 14px;
+          color: #666666;
+          span{
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 23px;
+            height: 60px;
+            cursor: pointer;
+            i {
               display: inline-block;
               vertical-align: middle;
-              padding-left: 23px;
-              height: 60px;
-              cursor: pointer;
-              i {
-                display: inline-block;
-                vertical-align: middle;
-                margin-left: 4px;
-                font-size: 14px;
-                color: #b4b4b4;
-              }
-              .active {
-                color: #FF4400;
-              }
+              margin-left: 4px;
+              font-size: 14px;
+              color: #b4b4b4;
             }
-            .fenxiang {
-              &:hover .social-share {
-                display: block;
-              }
+            .active {
+              color: #FF4400;
             }
-            .social-share {
-              display: none;
-              position: absolute;
-              right: -60px;
-              top: 15px;
+          }
+          .fenxiang {
+            &:hover .social-share {
+              display: block;
             }
+          }
+          .social-share {
+            display: none;
+            position: absolute;
+            right: -60px;
+            top: 15px;
           }
         }
         .learn-mes{

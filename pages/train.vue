@@ -110,7 +110,7 @@ export default {
       title: '自学考试',
       tabIndex: 2,
       current: 1,
-      size: 30,
+      size: 32,
       total: 0,
       categoryId: this.$route.query.fid || 53, // 默认53,自学考试id
       cid: this.$route.query.cid || 0,

@@ -194,6 +194,7 @@ export default {
   },
   methods: {
     changeFirst(item, index) {
+      this.current = 1
       if(item.id != 1) {
         this.$router.push({
           name: 'train',
@@ -222,6 +223,7 @@ export default {
       }
     },
     changeSecond(item, index) {
+      this.current = 1
       this.secondActive = index
       this.cid = item.id
       if(item.id == 0) {
@@ -231,6 +233,7 @@ export default {
       }
     },
     changeThird(item, index) {
+      this.current = 1
       this.thirdActive = index
       this.orderByClause = index == 0 ? 1 : 2
       this.getList(item.id, 3)

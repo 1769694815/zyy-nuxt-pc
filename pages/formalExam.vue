@@ -701,7 +701,7 @@
                       style="position:relative;top: 0;">您的作答：</span>
                     <span
                       v-else
-                      style="position:relative;top: 0;">学员作答：</span>
+                      style="position:relative;top: 19px;vertical-align: top;">学员作答：</span>
                     <div class="jdcontent">
                       {{ !item.userAnswer ? '未作答' : item.userAnswer }} 
                     </div>
@@ -737,7 +737,7 @@
                       </div>
                       <div style="line-height: 1.5"><span style="color: #333;margin-top: 0px;position:relative;top: 0;">参考答案：</span>{{ item.answer }}</div>
                       <div
-                        style="margin-top: 20px;">
+                        style="margin-top: 20px; position: relative;">
                         <span style="color: #333;margin-top: 0px;position:relative;top: 0;">老师评语：</span>
                         <span 
                           v-if=" item.status == 4 && userInfo.roleName =='zyy_student'" 
@@ -1321,7 +1321,7 @@ export default {
           // 批阅初始化数据
           let params = {
             questionId: this.list[i].questionId,
-            score: this.list[i].markingScore == 0 ? '' : this.list[i].markingScore,
+            score: this.list[i].markingScore,
             comment: this.list[i].comment || '',
             typeId: this.list[i].typeId
           }
