@@ -1,5 +1,7 @@
 <template>
-  <div class="footer">
+  <div
+    v-if="!isAbout"
+    class="footer">
     <div class="footer-content">
       <div class="footer-left fl">
         <p>课程购买咨询：0791-87119966 <span style="margin-left: 30px;">平台（渠道）合作：0791-88197248</span></p>
@@ -43,7 +45,15 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      isAbout: false
+    }
+  },
+  mounted() {
+    console.log(this.$route)
+    if (this.$route.name == 'about') {
+      this.isAbout = true
+    }
   },
   methods: {
     openNewPage(url) {
