@@ -16,6 +16,7 @@
         class="list-item">
         <nuxt-link
           :to="{ name: 'toutiao-id', params: { id: item.articleId }}"
+          :title="item.title"
           target="_blank">
           <img :src="item.thumb">
           <div class="info">

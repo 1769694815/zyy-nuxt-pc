@@ -3,6 +3,7 @@
     <div class="left-img">
       <nuxt-link
         :to="{ name: 'toutiao-id', params: { id: dataObj.id }}"
+        :title="dataObj.title"
         target="_blank">
         <img
           :src="dataObj.thumb"
@@ -14,6 +15,7 @@
     <div class="content">
       <nuxt-link
         :to="{ name: 'toutiao-id', params: { id: dataObj.id }}"
+        :title="dataObj.title"
         target="_blank"
         class="title">{{ dataObj.title }}</nuxt-link>
       <p

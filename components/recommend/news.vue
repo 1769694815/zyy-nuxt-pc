@@ -9,6 +9,7 @@
         class="item">
         <nuxt-link
           :to="{ name: 'toutiao-id', params: { id: item.id }}"
+          :title="item.title"
           target="_blank">
           <div v-if="index == 0">
             <div class="title">{{ item.title }}</div>

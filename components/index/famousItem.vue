@@ -11,6 +11,7 @@
     <div class="content">
       <nuxt-link
         :to="{ name: 'doctor-detail', query: { id: dataObj.id }}"
+        :title="dataObj.name"
         target="_blank">
         <span class="name">{{ dataObj.name }}</span>
         <span class="rank">{{ dataObj.title }}</span>

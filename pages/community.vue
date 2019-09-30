@@ -49,6 +49,7 @@
                 <div class="info">
                   <nuxt-link
                     :to="{ name: 'toutiao-id', params: { id: item.id }}"
+                    :title="item.title"
                     target="_blank">
                     <div class="date">
                       <div class="day">{{ item.publishedTime.split('-')[1] }}</div>

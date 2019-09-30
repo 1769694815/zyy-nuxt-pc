@@ -10,6 +10,7 @@
       <div class="title">
         <nuxt-link
           :to="{ name: 'lessonDetail', query: { id: dataObj.id }}"
+          :title="dataObj.title"
           target="_blank">
           {{ dataObj.title }}
         </nuxt-link>
