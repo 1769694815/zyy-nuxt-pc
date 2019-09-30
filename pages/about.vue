@@ -157,19 +157,18 @@
             <ul>
               <li>
                 <img src="~/assets/images/about-b1.png">
-                用户服务   产品咨询   购买   技术支持
-              </li>
-              <li>
-                <img src="~/assets/images/about-b2.png">
-                服务时间：周一至周日 9:00-23:00
+                用户服务   产品咨询   购买   技术支持  服务时间：周一至周日 9:00-23:00
               </li>
               <li>
                 <img src="~/assets/images/about-b3.png">
-                电话：0791-88197248
+                课程购买咨询：0791-87119966    平台（渠道）合作：0791-88197248
               </li>
-              <li>
+              <li style="margin-bottom: 0;">
                 <img src="~/assets/images/about-b4.png">
-                地址：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼
+                咨询地址：南昌市阳明路56号江西中医药大学继续教育学院（培训学院）
+              </li>
+              <li style="margin-left: 65px;">
+                合作地址：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼
               </li>
             </ul>
           </div>
@@ -186,6 +185,27 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="bottom">
+        <div class="link">
+          <nuxt-link
+            to="/index"
+            target="_blank">返回首页</nuxt-link>
+          <nuxt-link
+            to="/about"
+            target="_blank">关于我们</nuxt-link>
+          <nuxt-link
+            to="/service"
+            target="_blank">服务与保障</nuxt-link>
+          <nuxt-link
+            to="/download"
+            target="_blank">下载APP</nuxt-link>
+          <a
+            href="http://www.yixiaoshu.net/i_info/cid/33.html"
+            target="_blank">学历报名</a>
+        </div>
+        版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备15008425号-5&nbsp;&nbsp;&nbsp;&nbsp;
+        技术支持：<a href="http://www.yunduancn.com/">云端科技</a>
       </div>
     </div>
   </div>
@@ -412,13 +432,13 @@ export default {
       padding-top: 74px;
       display: flex;
       .left{
-        margin-right: 155px;
+        margin-right: 123px;
         ul{
           li{
             line-height: 36px;
             font-size: 16px;
             color: #222;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             img{
               position: relative;
               top: 10px;
@@ -444,6 +464,38 @@ export default {
           }
         }
       }
+    }
+  }
+  .bottom{
+    width: 100%;
+    line-height: 28px;
+    padding: 21px 0;
+    font-size: 14px;
+    color: #b5b5b5;
+    text-align: center;
+    background: #303030;
+    .link {
+      a {
+        margin-left: 10px;
+        cursor: pointer;
+        color: #B5B5B5;
+        &:hover {
+          color: #3f8a38;
+        }
+        &:first-child {
+          margin: 0;
+        }
+        &:last-child {
+          a {
+            color: #b5b5b5;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    a {
+      color: #B5B5B5;
+      text-decoration: none;
     }
   }
 }
