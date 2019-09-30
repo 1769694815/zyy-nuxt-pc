@@ -431,8 +431,8 @@ export default {
       margin: 0 auto;
       padding-top: 74px;
       display: flex;
+      justify-content: space-between;
       .left{
-        margin-right: 123px;
         ul{
           li{
             line-height: 36px;
