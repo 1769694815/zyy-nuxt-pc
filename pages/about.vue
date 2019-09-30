@@ -157,7 +157,7 @@
             <ul>
               <li>
                 <img src="~/assets/images/about-b1.png">
-                用户服务   产品咨询   购买   技术支持  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务时间：周一至周日 9:00-23:00
+                用户服务   产品咨询   购买   技术支持  &nbsp;&nbsp;&nbsp;  服务时间：周一至周日 9:00-23:00
               </li>
               <li>
                 <img src="~/assets/images/about-b3.png">
