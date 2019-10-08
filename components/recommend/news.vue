@@ -8,7 +8,7 @@
         :key="index"
         class="item">
         <nuxt-link
-          :to="{ name: 'toutiao-id', params: { id: item.id }}"
+          :to="{ name: 'toutiao-detail', query: { id: item.id }}"
           :title="item.title"
           target="_blank">
           <div v-if="index == 0">

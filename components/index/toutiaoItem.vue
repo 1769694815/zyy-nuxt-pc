@@ -2,7 +2,7 @@
   <div class="container">
     <div class="left-img">
       <nuxt-link
-        :to="{ name: 'toutiao-id', params: { id: dataObj.id }}"
+        :to="{ name: 'toutiao-detail', query: { id: dataObj.id }}"
         :title="dataObj.title"
         target="_blank">
         <img
@@ -14,7 +14,7 @@
     </div>
     <div class="content">
       <nuxt-link
-        :to="{ name: 'toutiao-id', params: { id: dataObj.id }}"
+        :to="{ name: 'toutiao-detail', query: { id: dataObj.id }}"
         :title="dataObj.title"
         target="_blank"
         class="title">{{ dataObj.title }}</nuxt-link>

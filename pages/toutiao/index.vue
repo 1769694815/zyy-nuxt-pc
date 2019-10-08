@@ -1,10 +1,13 @@
 <template>
   <div class="toutiao-index">
+    <div class="crumb">
+      首页><span @click="$router.push({ name: 'toutiao' })">资讯头条</span>><span>{{ name }}</span>
+    </div>
     <ul class="toutiao-nav">
       <li
         v-for="(item, index) in navList"
         :key="index"
-        :class="tab === (index + 1) ? 'active' : ''"
+        :class="tab == item.id ? 'active' : ''"
         @click="switchTab(index, item)">
         {{ item.name }}
       </li>
@@ -15,7 +18,7 @@
         :key="index"
         class="list-item">
         <nuxt-link
-          :to="{ name: 'toutiao-id', params: { id: item.articleId }}"
+          :to="{ name: 'toutiao-detail', query: { id: item.articleId }}"
           :title="item.title"
           target="_blank">
           <img :src="item.thumb">
@@ -41,16 +44,21 @@
         v-if="listData.length == 0"
         style="margin-top: 30px; font-size: 16px; text-align: center">暂无相关内容</div>
     </div>
-    <div
-      v-show="total >= 10"
-      class="btn-more"
-      @click="getList(true)">
-      显示更多
-    </div>
+    <Pagination
+      v-if="listData.length"
+      :size="size"
+      :current="current"
+      :total="total"
+      @sizeChange="sizeChange"
+      @currentChange="currentChange" />
   </div>
 </template>
 <script>
+import Pagination from '~/components/pagination'
 export default {
+  components: {
+    Pagination
+  },
   data() {
     return {
       title: '资讯头条',
@@ -61,28 +69,44 @@ export default {
       total: 0,
       navList: [],
       listData: [],
+      name: ''
     }
   },
   head() {
     return {
-      title: this.title
+      title: this.name + '_' + this.title 
     }
   },
-  async asyncData({ $axios, store }) {
+  // 监听参数字符串的更改，调用所有组件方法
+  watchQuery: ['type'],
+  async asyncData({ $axios, query }) {
+    let type = query.type || ''
+    let name = ''
     let res = await $axios('/yxs/api/web/news/getAllCategory')
-    let type
-    if(res.data && res.data.length > 0) {
-      type = res.data[0].id
+    if (!query.type) {
+      if(res.data && res.data.length > 0) {
+        type = res.data[0].id
+        name = res.data[0].name
+      }
     }
+    for (let i = 0; i < res.data.length; i++) {
+      if (res.data[i].id == type) {
+        name = res.data[i].name
+      }
+    }
+    // console.log('type', type)
     let list = await $axios('/yxs/api/web/news/getArticleMore', { params: {
       size: 10,
       current: 1,
       type
     }})
     return {
+      tab: type,
       navList: res.data,
       listData: list.data.records,
-      total: list.data.records.length
+      total: list.data.total,
+      name,
+      type
     }
   },
   mounted() {
@@ -90,18 +114,17 @@ export default {
   },
   methods: {
     switchTab(index, item) {
-      this.tab = index + 1
       this.type = item.id
+      this.tab = item.id
       this.title = item.name + '_资讯头条'
-      this.current = 1
-      this.total = 0
-      this.listData = []
-      this.getList()
+      this.$router.push({
+        name: 'toutiao',
+        query: {
+          type: item.id
+        }
+      })
     },
-    getList(flag) {
-      if(flag) {
-        this.current += 1
-      }
+    getList() {
       this.$axios('/yxs/api/web/news/getArticleMore', {
         params: {
           size: this.size,
@@ -109,10 +132,19 @@ export default {
           type: this.type
         }
       }).then(res => {
-        this.listData = [...this.listData,...res.data.records]
-        this.total = res.data.records.length
+        // this.listData = [...this.listData,...res.data.records]
+        this.listData = res.data.records
+        this.total = res.data.total
       })
-    }
+    },
+    sizeChange(val) {
+      this.size = val
+    },
+    currentChange(val) {
+      window.scrollTo(0, 0)
+      this.current = val
+      this.getList()
+    },
   }
 }
 </script>
@@ -206,5 +238,14 @@ export default {
     color: #999;
     border: 1px solid #ddd;
     cursor: pointer;
+  }
+  .crumb {
+    margin-top: 28px;
+    margin-bottom: 18px;
+    font-size: 12px;
+    color: #666;
+    span {
+      cursor: pointer;
+    }
   }
 </style>

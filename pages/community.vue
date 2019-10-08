@@ -13,7 +13,7 @@
                 v-for="(item, index) in carousels"
                 :key="index">
                 <nuxt-link
-                  :to="{ name: 'toutiao-id', params: { id: item.id }}"
+                  :to="{ name: 'toutiao-detail', query: { id: item.id }}"
                   target="_blank">
                   <img :src="item.url">
                 </nuxt-link>
@@ -48,7 +48,7 @@
                 :key="index">
                 <div class="info">
                   <nuxt-link
-                    :to="{ name: 'toutiao-id', params: { id: item.id }}"
+                    :to="{ name: 'toutiao-detail', query: { id: item.id }}"
                     :title="item.title"
                     target="_blank">
                     <div class="date">
