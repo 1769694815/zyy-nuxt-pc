@@ -3,9 +3,11 @@
     <v-header />
     <nav-bar :tab-index="tabIndex" />
     <div class="container">
-      <img 
-        class="bg1" 
-        src="~/assets/images/aboutbg1_1.png">
+      <div class="bg1">
+        <img 
+          class="banner" 
+          src="~/assets/images/about_banner.png">
+      </div>
       <!-- 关于我们 -->
       <div class="bg2">
         <div class="border">
@@ -102,7 +104,10 @@
       </div>
       <img
         class="photo" 
-        src="~/assets/images/aboutbg2_2.jpg">
+        src="~/assets/images/aboutbg2_2_1.png">
+      <img
+        class="photo" 
+        src="~/assets/images/aboutbg2_2_2.png">
       <div class="connect">
         <div class="connect-items">
           <div class="connect-item">
@@ -140,6 +145,7 @@
         </div>
       </div>
       <div class="honor">
+        <img src="~/assets/images/about_honor.png">        
         <el-carousel 
           type="card"    
           height="300px"
@@ -150,6 +156,7 @@
             <img :src="item.pic">
           </el-carousel-item>
         </el-carousel>  
+        <img src="~/assets/images/about_connect.png">
       </div>
       <div class="connect-us">
         <div class="us-center">
@@ -263,6 +270,12 @@ export default {
   min-height: 600px;
   .bg1 {
     width: 100%;
+    text-align: center;
+    background: url('../assets/images/aboutbg1_1.jpg')no-repeat top center;
+    .banner{
+      width: 725px;
+      margin: 90px auto 135px;
+    }
   }
   .bg2 {
     width: 100%;
@@ -406,14 +419,16 @@ export default {
   }
   .honor{
     width: 100%;
-    background-size: 100%;
-    width: 100%;
-    height: 671px;
     overflow: hidden;
-    background: url('../assets/images/aboutbg4.png')no-repeat center;
+    padding: 81px 0 50px;
+    text-align: center;
+    img{
+      margin: 0 auto;
+    }
+    // background: url('../assets/images/aboutbg4.png')no-repeat center;
     .carousel{
       width: 859px;  
-      margin: 186px auto 0;
+      margin: 50px auto 81px;
       img{
         width: 411px;
         height: 300px;
