@@ -221,6 +221,7 @@
 import Header from "~/components/layout/header.vue";
 import NavBar from "~/components/navBar.vue";
 export default {
+  layout: 'about',
   components: {
     NavBar,
     "v-header": Header
