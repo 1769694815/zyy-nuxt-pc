@@ -103,9 +103,8 @@ export default {
     }
   },
   async asyncData ({ $axios, query }) {
-    console.log('query', query)
+    // console.log('query', query)
     let { data } = await $axios('/yxs/api/web/news/detail', {params: { id: query.id }})
-    console.log('data', data)
     return {
       info: data,
       categoryName: data.categoryName,
