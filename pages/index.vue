@@ -386,6 +386,11 @@
       <div class="container-header">
         <h2>资讯头条</h2>
         <div class="subnav">
+          <span
+            v-for="(item, index) in toutiaoSubList"
+            :key="index">
+            <span @click="toToutiaoDetail(item.id)">{{ item.name }}</span>
+          </span>
           <nuxt-link
             :to="{ name: 'toutiao' }"
             class="pos-right"
@@ -525,7 +530,8 @@ export default {
       healthSubList,
       examSubList,
       theorySubList,
-      trainList
+      trainList,
+      toutiaoSubList
     ] = await Promise.all([
       $axios('/yxs/api/web/getFriendsName'),
       $axios('/yxs/api/web/navigation'),
@@ -537,7 +543,8 @@ export default {
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zydjt' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'education' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'career' }}),
-      $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }})
+      $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }}),
+      $axios('/yxs/api/web/news/getAllCategory')
     ])
     return {
       friendLinkList: friendLinkList.data,
@@ -551,7 +558,8 @@ export default {
       examSubList: examSubList.data,
       theorySubList: theorySubList.data,
       trainList: trainList.data.records,
-      trainPages: trainList.data.pages
+      trainPages: trainList.data.pages,
+      toutiaoSubList: toutiaoSubList.data
     }
   },
   created() {
@@ -662,6 +670,16 @@ export default {
           cid
         }
       })
+      window.open(url.href, '_blank')
+    },
+    toToutiaoDetail(id) {
+      let url = this.$router.resolve({
+        name: 'toutiao',
+        query: {
+          type: id
+        }
+      })
+      console.log('url', url)
       window.open(url.href, '_blank')
     },
     toTrainDetail(item) {

@@ -3,9 +3,9 @@
     <v-header />
     <nav-bar />
     <div class="container">
-      <div class="crumb">
-        首页><span @click="$router.push({ name: 'toutiao' })">资讯头条</span>
-      </div>
+      <!-- <div class="crumb">
+        首页><span @click="$router.push({ name: 'toutiao' })">资讯头条</span>><span>行业</span>
+      </div> -->
       <div class="toutiao-content">
         <div class="content-left">
           <nuxt-child />
@@ -75,6 +75,7 @@ export default {
     }
     .content-right {
       width: 340px;
+      margin-top: 58px;
       margin-left: 30px;
       .section {
         margin-top: 30px;

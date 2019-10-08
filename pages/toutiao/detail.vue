@@ -1,7 +1,7 @@
 <template>
   <div class="container-detail">
     <div class="crumb">
-      首页><span @click="$router.push({ name: 'toutiao' })">资讯头条</span>><span>{{ name }}</span>
+      首页><span @click="$router.push({ name: 'toutiao' })">资讯头条</span>><span @click="$router.push({ name: 'toutiao', query: { type: categoryId } })">{{ categoryName }}</span>
     </div>
     <div class="article">
       <div class="article-header">
@@ -92,7 +92,9 @@ export default {
       info: {},
       text: '',
       userInfo: '',
-      commentList: []
+      commentList: [],
+      categoryName: '',
+      categoryId: ''
     }
   },
   head() {
@@ -103,8 +105,11 @@ export default {
   async asyncData ({ $axios, query }) {
     console.log('query', query)
     let { data } = await $axios('/yxs/api/web/news/detail', {params: { id: query.id }})
+    console.log('data', data)
     return {
       info: data,
+      categoryName: data.categoryName,
+      categoryId: data.categoryId,
       title: data.title + '_资讯头条'
     }
   },
@@ -309,6 +314,15 @@ export default {
           }
         }
       }
+    }
+  }
+  .crumb {
+    margin-top: 28px;
+    margin-bottom: 18px;
+    font-size: 12px;
+    color: #666;
+    span {
+      cursor: pointer;
     }
   }
 </style>
