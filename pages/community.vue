@@ -38,7 +38,7 @@
               <div class="title">进社区频道</div>
               <div
                 class="more"
-                @click="openNewPage($router.resolve({ name: 'toutiao' }))">
+                @click="openNewPage($router.resolve({ name: 'toutiao', query: { type: 7 } }))">
                 更多<i class="iconfont icongengduo" />
               </div>
             </div>
