@@ -1,7 +1,7 @@
 <template>
   <div class="container-detail">
     <div class="crumb">
-      首页><span @click="$router.push({ name: 'toutiao' })">资讯头条</span>><span @click="$router.push({ name: 'toutiao', query: { type: categoryId } })">{{ categoryName }}</span>
+      首页><nuxt-link :to="{ name: 'toutiao' }">资讯头条</nuxt-link>><nuxt-link :to="{ name: 'toutiao', query: { type: categoryId }}">{{ categoryName }}</nuxt-link>
     </div>
     <div class="article">
       <div class="article-header">
@@ -320,8 +320,9 @@ export default {
     margin-bottom: 18px;
     font-size: 12px;
     color: #666;
-    span {
-      cursor: pointer;
+    a {
+      font-size: 12px;
+      color: #666;
     }
   }
 </style>

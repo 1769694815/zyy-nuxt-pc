@@ -250,12 +250,14 @@
       <div class="container-header">
         <h2>中医大讲堂</h2>
         <div class="subnav">
-          <span
+          <nuxt-link
             v-for="(item, index) in healthSubList"
             v-if="index > 0"
-            :key="index">
-            <span @click="toList(76, item.id)">{{ item.name }}</span>
-          </span>
+            :key="index"
+            :to="{ name: 'train', query: { fid: 76, cid: item.id }}"
+            :title="item.name"
+            target="_blank"
+            class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 76 }}"
             class="pos-right"
@@ -284,12 +286,14 @@
       <div class="container-header">
         <h2>自学考试</h2>
         <div class="subnav">
-          <span
+          <nuxt-link
             v-for="(item, index) in examSubList"
             v-if="index > 0"
-            :key="index">
-            <span @click="toList(53, item.id)">{{ item.name }}</span>
-          </span>
+            :key="index"
+            :to="{ name: 'train', query: { fid: 53, cid: item.id }}"
+            :title="item.name"
+            target="_blank"
+            class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 53 }}"
             class="pos-right"
@@ -318,12 +322,14 @@
       <div class="container-header">
         <h2>中医药理论</h2>
         <div class="subnav">
-          <span
+          <nuxt-link
             v-for="(item, index) in theorySubList"
             v-if="index > 0"
-            :key="index">
-            <span @click="toList(55, item.id)">{{ item.name }}</span>
-          </span>
+            :key="index"
+            :to="{ name: 'train', query: { fid: 55, cid: item.id }}"
+            :title="item.name"
+            target="_blank"
+            class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 55 }}"
             class="pos-right"
@@ -353,8 +359,16 @@
         <div class="container-header">
           <h2>培训项目</h2>
           <div class="subnav">
-            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 3 }}))">职业培训</span>
-            <span @click="openNewPage($router.resolve({ name: 'western', query: { cid: 2 }}))">西学中</span>
+            <nuxt-link
+              :to="{ name: 'western', query: { cid: 3 }}"
+              target="_blank"
+              title="执业培训"
+              class="subnav-item">职业培训</nuxt-link>
+            <nuxt-link
+              :to="{ name: 'western', query: { cid: 2 }}"
+              target="_blank"
+              title="西学中"
+              class="subnav-item">西学中</nuxt-link>
             <nuxt-link
               to="/western"
               class="pos-right"
@@ -386,11 +400,13 @@
       <div class="container-header">
         <h2>资讯头条</h2>
         <div class="subnav">
-          <span
+          <nuxt-link
             v-for="(item, index) in toutiaoSubList"
-            :key="index">
-            <span @click="toToutiaoDetail(item.id)">{{ item.name }}</span>
-          </span>
+            :key="index"
+            :to="{ name: 'toutiao', query: { type: item.id }}"
+            :title="item.name"
+            target="_blank"
+            class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
             :to="{ name: 'toutiao' }"
             class="pos-right"
@@ -660,27 +676,6 @@ export default {
         this.current2 += 1
       }
       this.getTrainList()
-    },
-    
-    toList(fid, cid) {
-      let url = this.$router.resolve({
-        name: 'train',
-        query: {
-          fid,
-          cid
-        }
-      })
-      window.open(url.href, '_blank')
-    },
-    toToutiaoDetail(id) {
-      let url = this.$router.resolve({
-        name: 'toutiao',
-        query: {
-          type: id
-        }
-      })
-      console.log('url', url)
-      window.open(url.href, '_blank')
     },
     toTrainDetail(item) {
       let url = this.$router.resolve({
@@ -978,6 +973,16 @@ export default {
       display: inline-block;
       font-size: 0;
       span {
+        display: inline-block;
+        margin-left: 16px;
+        font-size: 14px;
+        color: #666;
+        cursor: pointer;
+        &:hover {
+          color: #3F8A38;
+        }
+      }
+      .subnav-item {
         display: inline-block;
         margin-left: 16px;
         font-size: 14px;

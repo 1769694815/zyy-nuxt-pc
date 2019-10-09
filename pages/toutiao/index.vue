@@ -1,15 +1,16 @@
 <template>
   <div class="toutiao-index">
     <div class="crumb">
-      首页><span @click="$router.push({ name: 'toutiao' })">资讯头条</span>><span>{{ name }}</span>
+      首页><nuxt-link :to="{ name: 'toutiao' }">资讯头条</nuxt-link>><span>{{ name }}</span>
     </div>
     <ul class="toutiao-nav">
       <li
         v-for="(item, index) in navList"
         :key="index"
-        :class="tab == item.id ? 'active' : ''"
-        @click="switchTab(index, item)">
-        {{ item.name }}
+        :class="tab == item.id ? 'active' : ''">
+        <nuxt-link
+          :to="{ name: 'toutiao', query: { type: item.id }}"
+          :title="item.name">{{ item.name }}</nuxt-link>
       </li>
     </ul>
     <div class="content-list">
@@ -117,12 +118,6 @@ export default {
       this.type = item.id
       this.tab = item.id
       this.title = item.name + '_资讯头条'
-      this.$router.push({
-        name: 'toutiao',
-        query: {
-          type: item.id
-        }
-      })
     },
     getList() {
       this.$axios('/yxs/api/web/news/getArticleMore', {
@@ -163,6 +158,13 @@ export default {
       font-size: 16px;
       color: #333;
       cursor: pointer;
+      a {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        font-size: 16px;
+        color: #333;
+      }
     }
     .active {
       background: #fff;
@@ -244,8 +246,9 @@ export default {
     margin-bottom: 18px;
     font-size: 12px;
     color: #666;
-    span {
-      cursor: pointer;
+    a {
+      font-size: 12px;
+      color: #666;
     }
   }
 </style>
