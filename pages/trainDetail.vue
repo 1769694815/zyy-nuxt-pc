@@ -426,8 +426,11 @@ export default {
         color: #999999;
         span {
           display: inline-block;
-          width: 80px;
+          width: 70px;
           margin-top: 12px;
+        }
+        &>ul {
+          flex: 1;
         }
         .lesson{
           float: left;
