@@ -76,6 +76,8 @@ export default {
     transition: all 0.3s ease 0s;
   }
   .content {
+    width: 224px;
+    box-sizing: border-box;
     padding: 0 10px;
     .title {
       width: 100%;
