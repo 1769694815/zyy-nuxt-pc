@@ -9,42 +9,44 @@
       <div class="train-content">
         <div class="content-left">
           <table class="table">
-            <tr>
-              <th>学习类别：</th>
-              <td>
-                <span
-                  v-for="(item, index) in types"
-                  :key="index"
-                  :class="{active:categoryId == item.id}"
-                  @click="changeFirst(item, index, true)">
-                  {{ item.name }}
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>课程筛选：</th>
-              <td>
-                <span
-                  v-for="(item, index) in courses"
-                  :key="index"
-                  :class="{active:item.id == cid}"
-                  @click="changeSecond(item.id, index)">
-                  {{ item.name }}
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>排序：</th>
-              <td>
-                <span
-                  v-for="(item, index) in orders"
-                  :key="index"
-                  :class="{active:thirdActive == index}"
-                  @click="changeThird(item, index)">
-                  {{ item.label }}
-                </span>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>学习类别：</th>
+                <td>
+                  <span
+                    v-for="(item, index) in types"
+                    :key="index"
+                    :class="{active:categoryId == item.id}"
+                    @click="changeFirst(item, index, true)">
+                    {{ item.name }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>课程筛选：</th>
+                <td>
+                  <span
+                    v-for="(item, index) in courses"
+                    :key="index"
+                    :class="{active:item.id == cid}"
+                    @click="changeSecond(item.id, index)">
+                    {{ item.name }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>排序：</th>
+                <td>
+                  <span
+                    v-for="(item, index) in orders"
+                    :key="index"
+                    :class="{active:thirdActive == index}"
+                    @click="changeThird(item, index)">
+                    {{ item.label }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
           </table>
           <ul
             v-show="classType == 1"
@@ -155,28 +157,22 @@ export default {
       if(flag) {
         this.cid = 0
       }
-      if(item.id == 1) {
-        let url = this.$router.push({
-          name: 'western'
+      this.categoryId = item.id
+      // this.firstActive = index
+      // this.secondActive = 0
+      this.courses = [{
+        name: '全部',
+        id: 0
+      }]
+      if(item.children && item.children.length > 0) {
+        item.children.map(item => {
+          this.courses.push(item)
         })
+      }
+      if(this.cid) {
+        this.getList(this.cid, 2)
       } else {
-        this.categoryId = item.id
-        // this.firstActive = index
-        // this.secondActive = 0
-        this.courses = [{
-          name: '全部',
-          id: 0
-        }]
-        if(item.children && item.children.length > 0) {
-          item.children.map(item => {
-            this.courses.push(item)
-          })
-        }
-        if(this.cid) {
-          this.getList(this.cid, 2)
-        } else {
-          this.getList(item.id, 1)
-        }
+        this.getList(item.id, 1)
       }
     },
     changeSecond(id, index) {
@@ -221,10 +217,10 @@ export default {
           name: '全部',
           id: 0
         }]
-        res.data.allClassTypeCate.map(item => {
-          item.type = 2
-          this.types.push(item)
-        })
+        // res.data.allClassTypeCate.map(item => {
+        //   item.type = 2
+        //   this.types.push(item)
+        // })
         res.data.allCate.map(item => {
           this.types.push(item)
           if(item.id == this.categoryId) {
