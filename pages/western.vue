@@ -154,7 +154,7 @@ export default {
   data() {
     return {
       title: '培训项目',
-      tabIndex: 3,
+      tabIndex: this.$route.query.cid == 2 ? 2 : 3,
       current: 1,
       size: 15,
       total: 0,
@@ -187,6 +187,8 @@ export default {
       title: this.title
     }
   },
+  // 监听参数字符串的更改，调用所有组件方法
+  watchQuery: ['cid'],
   mounted() {
     this.getCourseType()
     this.getTrainList()

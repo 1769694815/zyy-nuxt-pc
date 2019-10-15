@@ -108,7 +108,7 @@ export default {
   data() {
     return {
       title: '自学考试',
-      tabIndex: 2,
+      tabIndex: 4,
       current: 1,
       size: 32,
       total: 0,

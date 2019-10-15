@@ -229,7 +229,7 @@ export default {
   data() {
     return {
       title: "关于我们",
-      tabIndex: 7,
+      tabIndex: 8,
       carousels: [
         {
           pic: require("~/assets/images/honor/honor.jpg")

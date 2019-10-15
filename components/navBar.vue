@@ -15,43 +15,50 @@
         </li>
         <li>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 53 }}"
-            :class="{ active: tabIndex == 2 }">
-            自学考试
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link
             :to="{ name: 'western', query: { cid: 2 }}"
-            :class="{ active: tabIndex == 3 }">
+            :class="{ active: tabIndex == 2 }">
             西学中
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
-            :to="{ name: 'doctor' }"
+            :to="{ name: 'western' }"
+            :class="{ active: tabIndex == 3 }">
+            培训项目
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 85 }}"
             :class="{ active: tabIndex == 4 }">
+            学历助考
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="{ name: 'doctor' }"
+            :class="{ active: tabIndex == 5 }">
             名医师承
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'community' }"
-            :class="{ active: tabIndex == 5 }">
+            :class="{ active: tabIndex == 6 }">
             中医药进社区
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'download' }"
-            :class="{ active: tabIndex == 6 }">
+            :class="{ active: tabIndex == 7 }">
             下载App
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'about' }"
-            :class="{ active: tabIndex == 7 }">
+            :class="{ active: tabIndex == 8 }">
             关于我们
           </nuxt-link>
         </li>
@@ -91,8 +98,8 @@ export default {
     height: 50px;
     font-size: 16px;
     .class-center {
-      flex: 0 0 180px;
-      width: 180px;
+      flex: 0 0 204px;
+      width: 204px;
       height: 50px;
       padding-left: 20px;
       line-height: 50px;
@@ -112,7 +119,7 @@ export default {
     }
     li {
       display: inline-block;
-      padding: 0 36px;
+      padding: 0 27px;
       cursor: pointer;
       box-sizing: border-box;
       a {
