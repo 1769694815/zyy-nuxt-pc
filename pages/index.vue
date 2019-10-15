@@ -402,12 +402,12 @@
             v-for="(item, index) in examSubList"
             v-if="index > 0"
             :key="index"
-            :to="{ name: 'train', query: { fid: 53, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: 85, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 53 }}"
+            :to="{ name: 'train', query: { fid: 85 }}"
             class="pos-right"
             target="_blank">
             查看更多
@@ -478,12 +478,12 @@
             v-for="(item, index) in qualificationSubList"
             v-if="index > 0"
             :key="index"
-            :to="{ name: 'train', query: { fid: 55, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: 79, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 55 }}"
+            :to="{ name: 'train', query: { fid: 79 }}"
             class="pos-right"
             target="_blank">
             查看更多
