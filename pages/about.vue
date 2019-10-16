@@ -114,7 +114,7 @@
             <div class="connect-title">商务合作</div>
             <div class="connect-detail">
               联系人： 卢茂华
-              <br>联系电话： 0791-88197248
+              <br>联系邮箱： lumaohua@gogotoo.net
             </div>
           </div>
           <div 
@@ -123,14 +123,14 @@
             <div class="connect-title">市场推广</div>
             <div class="connect-detail">
               联系人： 周老师
-              <br>联系电话： 0791-88197248
+              <br>联系邮箱： zhoutao@gogotoo.net
             </div>
           </div>
           <div class="connect-item">
             <div class="connect-title">平台合作</div>
             <div class="connect-detail">
               联系人： 徐老师
-              <br>联系电话： 0791-88197248
+              <br>联系邮箱： xushanshan@gogotoo.net
             </div>
           </div>
           <div 
@@ -139,7 +139,7 @@
             <div class="connect-title">线上代理</div>
             <div class="connect-detail">
               联系人： 孙老师
-              <br>联系电话： 0791-88197248
+              <br>联系邮箱： suiguili@gogotoo.net
             </div>
           </div>
         </div>
@@ -333,13 +333,14 @@ export default {
           line-height: 26px;
           font-size: 14px;
           color: #666;
-          text-align: center;
+          text-align: left;
           span{
             display: block;
             font-size: 16px;
             color: #333;
             margin-bottom: 10px;
             font-weight: bold;
+            text-align: center;
           }
         }
       }
