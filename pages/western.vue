@@ -11,12 +11,24 @@
           <table class="table">
             <tbody>
               <tr>
-                <th>课程筛选：</th>
+                <th>项目筛选：</th>
+                <td>
+                  <span
+                    v-for="(item, index) in types"
+                    :key="index"
+                    :class="{active:cid == item.id}"
+                    @click="changeFirst(item, index)">
+                    {{ item.name }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>培训类别：</th>
                 <td>
                   <span
                     v-for="(item, index) in courses"
                     :key="index"
-                    :class="{active:cid == item.id}"
+                    :class="{active:fid == item.id}"
                     @click="changeSecond(item, index)">
                     {{ item.name }}
                   </span>
@@ -111,6 +123,7 @@
             </li>
           </ul>
           <Pagination
+            v-if="result.length > 0"
             :size="size"
             :current="current"
             :total="total"
@@ -150,8 +163,9 @@ export default {
       total: 0,
       categoryId: 1, // 默认21,培训项目id
       cid: this.$route.query.cid || 0,
+      fid: 0,
       orderByClause: 1,
-      firstActive: 1,
+      firstActive: 0,
       secondActive: 0,
       thirdActive: 0,
       classType: 2,
@@ -167,6 +181,10 @@ export default {
         {
           label: '人气',
           value: 2
+        },
+        {
+          label: '推荐',
+          value: 3
         }
       ],
       result: []
@@ -179,45 +197,95 @@ export default {
   },
   // 监听参数字符串的更改，调用所有组件方法
   watchQuery: ['cid'],
+  async asyncData({ $axios, query }) {
+    let cid = query.cid || 0
+    let fid = query.fid || 0
+    console.log('cid', cid)
+    console.log('fid', fid)
+    let res = await $axios('/yxs/api/web/course/getCourseType')
+    let types = [{
+      name: '全部',
+      id: 0
+    }]
+    let courses = [{
+      name: '全部',
+      id: 0
+    }]
+    let typeList = res.data.allClassTypeCate[0]
+    typeList.children.map(item => {
+      item.type = 2
+      types.push(item)
+    })
+
+    let index = 0
+    console.log('types', types)
+    types.forEach((ele, i) => {
+      if (ele.id == cid) {
+        index = i + 1 // 加了一个全部
+      }
+    })
+
+    console.log('typeList', typeList)
+
+    // 培训类别
+    if (typeList.children[index] && typeList.children[index].children) {
+      typeList.children[index].children.map(item => {
+        courses.push(item)
+      })
+    }
+
+    // 初始化数据
+    let list = await $axios('/yxs/api/web/course/more', { params: {
+      current: 1,
+      size: 15,
+      categoryId: fid ? fid : cid,
+      orderByClause: 1,
+      type: 2,
+      userToken: ''
+    }})
+    return {
+      cid,
+      types,
+      courses,
+      result: list.data.list.records,
+      total: list.data.list.total
+    }
+  },
   mounted() {
-    this.getCourseType()
+    // console.log('123')
+    // this.getCourseType()
     this.getTrainList()
     this.getRecommendLessons()
   },
   methods: {
     changeFirst(item, index) {
       this.current = 1
-      if(item.id != 1) {
-        this.$router.push({
-          name: 'train',
-          query: {
-            fid: item.id
-          }
-        })
+      this.categoryId = item.id
+      this.cid = item.id
+      this.fid = 0
+      this.courses = [{
+        name: '全部',
+        id: 0
+      }]
+      if (this.cid == 2) { // 西学中 导航栏“西学中”选中
+        this.tabIndex = 2
       } else {
-        this.categoryId = item.id
-        this.firstActive = index
-        this.secondActive = 0
-        this.courses = [{
-          name: '全部',
-          id: 0
-        }]
-        if(item.children && item.children.length > 0) {
-          item.children.map(item => {
-            this.courses.push(item)
-          })
-        }
-        if(this.cid) {
-          this.getList(this.cid, 2)
-        } else {
-          this.getList(item.id, 1)
-        }
+        this.tabIndex = 3
+      }
+      if(item.children && item.children.length > 0) {
+        item.children.map(item => {
+          this.courses.push(item)
+        })
+      }
+      if(this.cid) {
+        this.getList(this.cid, 2)
+      } else {
+        this.getList(item.id, 1)
       }
     },
     changeSecond(item, index) {
       this.current = 1
-      this.secondActive = index
-      this.cid = item.id
+      this.fid = item.id
       if(item.id == 0) {
         this.getList(this.categoryId, 1)
       } else {
@@ -231,7 +299,7 @@ export default {
     changeThird(item, index) {
       this.current = 1
       this.thirdActive = index
-      this.orderByClause = index == 0 ? 1 : 2
+      this.orderByClause = index + 1
       this.getList(item.id, 3)
     },
     getList(id, i) {
@@ -255,11 +323,12 @@ export default {
           name: '全部',
           id: 0
         }]
-        res.data.allClassTypeCate.map(item => {
+        res.data.allClassTypeCate[0].children.map(item => {
           item.type = 2
           this.types.push(item)
         })
-        this.changeFirst(res.data.allClassTypeCate[0], 1)
+        console.log('types', this.types)
+        this.changeFirst(this.types[0], 1)
       })
     },
     // 推荐培训项目

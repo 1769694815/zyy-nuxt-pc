@@ -134,6 +134,10 @@ export default {
         {
           label: '人气',
           value: 2
+        },
+        {
+          label: '推荐',
+          value: 3
         }
       ],
       result: [],
@@ -188,7 +192,7 @@ export default {
     changeThird(item, index) {
       this.current = 1
       this.thirdActive = index
-      this.orderByClause = index == 0 ? 1 : 2
+      this.orderByClause = index + 1
       this.getList(item.id, 3)
     },
     /**

@@ -63,7 +63,6 @@
           <div class="sub-nav">
             <nuxt-link
               v-for="(item, index) in examSubList"
-              v-if="index > 0"
               :key="index"
               :to="{ name: 'train', query: { fid: 85, cid: item.id }}"
               class="sub-item"
@@ -126,7 +125,7 @@
               卫生
             </nuxt-link>
             <nuxt-link
-              :to="{ name: 'western', query: { fid: 54, cid: 66 }}"
+              :to="{ name: 'train', query: { fid: 54, cid: 66 }}"
               class="sub-item"
               target="_blank">
               文化
@@ -243,6 +242,15 @@
         <img
           class="hot"
           src="~/assets/images/hot.png" >
+          <!-- <div class="subnav">
+            <nuxt-link
+              :to="{ name: 'train', query: { fid: '00' }}"
+              class="pos-right"
+              target="_blank">
+              查看更多
+              <i class="iconfont icongengduo"/>
+            </nuxt-link>
+          </div> -->
       </div>
       <div class="container-content">
         <div
@@ -362,7 +370,6 @@
         <div class="subnav">
           <nuxt-link
             v-for="(item, index) in healthSubList"
-            v-if="index > 0"
             :key="index"
             :to="{ name: 'train', query: { fid: 76, cid: item.id }}"
             :title="item.name"
@@ -400,7 +407,6 @@
         <div class="subnav">
           <nuxt-link
             v-for="(item, index) in examSubList"
-            v-if="index > 0"
             :key="index"
             :to="{ name: 'train', query: { fid: 85, cid: item.id }}"
             :title="item.name"
@@ -438,7 +444,6 @@
         <div class="subnav">
           <nuxt-link
             v-for="(item, index) in theorySubList"
-            v-if="index > 0"
             :key="index"
             :to="{ name: 'train', query: { fid: 55, cid: item.id }}"
             :title="item.name"
@@ -476,7 +481,6 @@
         <div class="subnav">
           <nuxt-link
             v-for="(item, index) in qualificationSubList"
-            v-if="index > 0"
             :key="index"
             :to="{ name: 'train', query: { fid: 79, cid: item.id }}"
             :title="item.name"
@@ -553,71 +557,64 @@
         <a
           href="javascript:;"
           @click="jump(0)">
-          推荐
-          <br>
-          课程
+          <span>推荐</span>
+          <span>课程</span>
         </a>
       </li>
       <li :class="{ 'active' : activeIndex == 1 }">
         <a
           href="javascript:;"
           @click="jump(1)">
-          培训
-          <br>
-          项目
+          <span>培训</span>
+          <span>项目</span>
         </a>
       </li>
       <li :class="{ 'active' : activeIndex == 2 }">
         <a
           href="javascript:;"
           @click="jump(2)">
-          名医
-          <br>
-          师承
+          <span>名医</span>
+          <span>师承</span>
         </a>
       </li>
       <li :class="{ 'active' : activeIndex == 3 }">
         <a
           href="javascript:;"
           @click="jump(3)">
-          中医
-          <br>
-          大讲堂
+          <span>中医</span>
+          <span>大讲堂</span>
         </a>
       </li>
       <li :class="{ 'active' : activeIndex == 4 }">
         <a
           href="javascript:;"
           @click="jump(4)">
-          学历
-          <br>
-          助考
+          <span>学历</span>
+          <span>助考</span>
         </a>
       </li>
       <li :class="{ 'active' : activeIndex == 5 }">
         <a
           href="javascript:;"
           @click="jump(5)">
-          中医<br>
-          药理论
+          <span>中医药</span>
+          <span>理论</span>
         </a>
       </li>
       <li :class="{ 'active' : activeIndex == 6 }">
         <a
           href="javascript:;"
           @click="jump(6)">
-          执业
-          <br>
-          资格
+          <span>执业</span>
+          <span>资格</span>
         </a>
       </li>
       <li :class="{ 'active' : activeIndex == 7 }">
         <a
           href="javascript:;"
           @click="jump(7)">
-          资讯
-          <br>
-          头条
+          <span>资讯</span>
+          <span>头条</span>
         </a>
       </li>
       <li
@@ -757,17 +754,17 @@ export default {
       $axios('/yxs/api/web/navigation'),
       $axios('/yxs/api/web/doctor/recommendList'),
       $axios('/yxs/api/web/news/recommendList'),
-      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'education' }}),
+      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'xlzk' }}),
       $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'career' }}),
       $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'zydjt' }}),
       $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'zyzg' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zydjt' }}),
-      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'education' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'xlzk' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'career' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zyzg' }}),
       $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }}),
       $axios('/yxs/api/web/news/getAllCategory'),
-      $axios('/yxs/api/web/course/indexRecommendList')
+      $axios('/yxs/api/web/course/indexRecommendList', { params: { size: 5, current: 1 }})
     ])
     return {
       friendLinkList: friendLinkList.data,
@@ -785,7 +782,7 @@ export default {
       qualificationSubList: qualificationSubList.data, 
       trainPages: trainList.data.pages,
       toutiaoSubList: toutiaoSubList.data,
-      recommendCourse: recommendCourse.data
+      recommendCourse: recommendCourse.data.records
     }
   },
   created() {
@@ -1010,19 +1007,19 @@ export default {
       function smoothDown () {
         if (distance < total) {
           distance += step
-          document.documentElement.scrollTop = document.body.scrollTop = distance          
+          document.documentElement.scrollTop = document.body.scrollTop = distance - 40       
           setTimeout(smoothDown, 10)
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop = total
+          document.documentElement.scrollTop = document.body.scrollTop  = total - 40
         }
       }
       function smoothUp () {
         if (distance > total) {
           distance -= step
-          document.documentElement.scrollTop = document.body.scrollTop = distance 
+          document.documentElement.scrollTop = document.body.scrollTop = distance - 40
           setTimeout(smoothUp, 10)
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop = total
+          document.documentElement.scrollTop = document.body.scrollTop = total - 40
         }
       }
     }
@@ -1036,7 +1033,8 @@ export default {
     height: auto;
     position: fixed;
     top: 50%;
-    left: 5%;
+    left: 6%;
+    transform: translate(0, -50%);
     z-index: 100;
     background: #666;
     li {
@@ -1055,6 +1053,11 @@ export default {
         line-height: 14px;
         color: #fff;
         text-align: center;
+        span {
+          width: 100%;
+          display: block;
+          text-align: center;
+        }
       }
       &.active {
         background: #fbb03b;
@@ -1108,7 +1111,7 @@ export default {
           cursor: pointer;
           display: block;
           &:hover {
-            color: #3F8A38;
+            color: #4fff3f;
           }
         }
         .sub-nav {
@@ -1122,7 +1125,7 @@ export default {
             cursor: pointer;
             color: #f2f2f2;
             &:hover {
-              color: #3F8A38;
+              color: #4fff3f;
             }
           }
         }
@@ -1487,7 +1490,8 @@ export default {
   .toutiao {
     margin-top: 24px;
     &-item {
-      display: inline-block;
+      // display: inline-block;
+      float: left;
       width: 590px;
       margin-bottom: 24px;
       cursor: pointer;
