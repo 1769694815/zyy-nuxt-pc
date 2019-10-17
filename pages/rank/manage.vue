@@ -21,7 +21,9 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-button style="float: right;margin-left: 10px">导出学员</el-button>
+        <el-button
+          style="float: right;margin-left: 10px"
+          @click="exportStudents">导出学员</el-button>
         <el-button
           style="float: right"
           @click="lotModalShow = true">批量导入学员</el-button>
@@ -121,8 +123,14 @@
     <lot-modal
       v-show="lotModalShow"
       :data-obj="tipData"
+      :class-room-id="classId"
       :user="userInfo"
       @hide-modal="hideLotModal" />
+    <port-modal
+      :show-modal="portModalShow"
+      :class-room-id="classId"
+      :user="userInfo"
+      @hide-modal="hidePortModal" />
   </div>
 </template>
 <script>
@@ -131,6 +139,7 @@ import Pagination from '~/components/pagination.vue'
 import TipModal from '~/components/modal/addTipModal.vue'
 import StuModal from '~/components/modal/addStuModal.vue'
 import LotModal from '~/components/modal/lotStuModal.vue'
+import PortModal from '~/components/modal/PortModal.vue'
 import Cookies from 'js-cookie'
 export default {
   components: {
@@ -138,7 +147,8 @@ export default {
     Pagination,
     TipModal,
     StuModal,
-    LotModal
+    LotModal,
+    PortModal
   },
   data() {
     return {
@@ -157,12 +167,14 @@ export default {
       tipModalShow: false,
       stuModalShow: false,
       lotModalShow: false,
-      tipData: {}
+      tipData: {},
+      portModalShow: false
     }
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.classId = window.localStorage.getItem('zyy_classId')
+    console.log('classId-parant', this.classId)
     this.getList()
     // this.getCourseList()
   },
@@ -304,6 +316,13 @@ export default {
     hideLotModal() {
       this.lotModalShow = false
       this.getList()
+    },
+    hidePortModal() {
+      this.portModalShow = false
+    },
+    // 导出学员
+    exportStudents() {
+      this.portModalShow = true
     }
   }
 }
