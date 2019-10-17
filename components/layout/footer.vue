@@ -20,9 +20,6 @@
           <nuxt-link
             to="/download"
             target="_blank">下载APP</nuxt-link>
-          <nuxt-link
-            to="/index"
-            target="_blank">返回首页</nuxt-link>
           <a
             href="http://www.yixiaoshu.net/i_info/cid/33.html"
             target="_blank">学历报名</a>

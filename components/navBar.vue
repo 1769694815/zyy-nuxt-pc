@@ -119,7 +119,7 @@ export default {
     }
     li {
       display: inline-block;
-      padding: 0 27px;
+      padding: 0 26px;
       cursor: pointer;
       box-sizing: border-box;
       a {
