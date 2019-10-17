@@ -27,71 +27,118 @@
             中医研究所
           </nuxt-link> -->
           <nuxt-link
-            :to="{ name: 'western' }"
+            :to="{ name: 'train', query: { fid: 79 } }"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconxiangmu"/>
-            培训项目
+            <!-- <i class="iconfont iconxiangmu"/> -->
+            执业资格
           </nuxt-link>
           <div class="sub-nav">
-            <nuxt-link
+            <!-- <nuxt-link
               :to="{ name: 'western', query: { cid: 2 }}"
               class="sub-item"
               target="_blank">
               西学中
-            </nuxt-link>
+            </nuxt-link> -->
             <nuxt-link
-              :to="{ name: 'train', query: { fid: 101 }}"
+              :to="{ name: 'train', query: { fid: 79, cid: 80 }}"
               class="sub-item"
               target="_blank">
               执业药师
             </nuxt-link>
             <nuxt-link
-              :to="{ name: 'western', query: { cid: 3 }}"
+              :to="{ name: 'train', query: { fid: 79, cid: 81 }}"
               class="sub-item"
               target="_blank">
-              职业培训
+              健康管理师
             </nuxt-link>
           </div>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 53 }}"
+            :to="{ name: 'train', query: { fid: 85 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconkaoshi"/>
-            自学考试
+            <!-- <i class="iconfont iconkaoshi"/> -->
+            学历助考
           </nuxt-link>
           <div class="sub-nav">
             <nuxt-link
               v-for="(item, index) in examSubList"
               v-if="index > 0"
               :key="index"
-              :to="{ name: 'train', query: { fid: 53, cid: item.id }}"
+              :to="{ name: 'train', query: { fid: 85, cid: item.id }}"
               class="sub-item"
               target="_blank">
               {{ item.name }}
             </nuxt-link>
           </div>
-          <nuxt-link
+          <!-- <nuxt-link
             :to="{ name: 'train', query: { fid: 55 }}"
             class="nav-item"
             target="_blank">
             <i class="iconfont iconwendang"/>
             中医药理论
-          </nuxt-link>
+          </nuxt-link> -->
           <nuxt-link
             :to="{ name: 'train', query: { fid: 63 }}"
             class="nav-item"
             target="_blank">
-            <i class="iconfont iconyisheng"/>
+            <!-- <i class="iconfont iconyisheng"/> -->
             名医师承
           </nuxt-link>
           <nuxt-link
+            :to="{ name: 'train', query: { fid: 76 }}"
+            class="nav-item"
+            target="_blank">
+            <!-- <i class="iconfont iconyisheng"/> -->
+            中医大讲堂
+          </nuxt-link>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 55 }}"
+            class="nav-item"
+            target="_blank">
+            <!-- <i class="iconfont iconyisheng"/> -->
+            中医药理论
+          </nuxt-link>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 54 } }"
+            class="nav-item"
+            target="_blank">
+            <!-- <i class="iconfont iconxiangmu"/> -->
+            中医公开课
+          </nuxt-link>
+          <div class="sub-nav">
+            <!-- <nuxt-link
+              :to="{ name: 'western', query: { cid: 2 }}"
+              class="sub-item"
+              target="_blank">
+              西学中
+            </nuxt-link> -->
+            <nuxt-link
+              :to="{ name: 'train', query: { fid: 54, cid: 61 }}"
+              class="sub-item"
+              target="_blank">
+              保健
+            </nuxt-link>
+            <nuxt-link
+              :to="{ name: 'train', query: { fid: 54, cid: 62 }}"
+              class="sub-item"
+              target="_blank">
+              卫生
+            </nuxt-link>
+            <nuxt-link
+              :to="{ name: 'western', query: { fid: 54, cid: 66 }}"
+              class="sub-item"
+              target="_blank">
+              文化
+            </nuxt-link>
+          </div>
+          <!-- <nuxt-link
             :to="{ name: 'train', query: { fid: 54 }}"
             class="nav-item"
             target="_blank">
             <i class="iconfont icon2jiankangzhishi"/>
             中医健康
-          </nuxt-link>
+          </nuxt-link> -->
         </div>
         <section
           v-if="userInfo"
@@ -190,8 +237,69 @@
         </span>
       </div>
     </div> -->
+    <div class="item-container step_jump">
+      <div class="container-header">
+        <h2>推荐课程</h2>
+        <img
+          class="hot"
+          src="~/assets/images/hot.png" >
+      </div>
+      <div class="container-content">
+        <div
+          v-for="(item, index) in recommendCourse"
+          v-if="index < 5"
+          :key="index"
+          class="list-item">
+          <section-item :data-obj="item" />
+        </div>
+      </div>
+    </div>
+    <div class="bg-f6 train step_jump">
+      <div class="item-container">
+        <div class="container-header">
+          <h2>培训项目</h2>
+          <div class="subnav">
+            <nuxt-link
+              :to="{ name: 'western', query: { cid: 3 }}"
+              target="_blank"
+              title="执业培训"
+              class="subnav-item">职业培训</nuxt-link>
+            <nuxt-link
+              :to="{ name: 'western', query: { cid: 2 }}"
+              target="_blank"
+              title="西学中"
+              class="subnav-item">西学中</nuxt-link>
+            <nuxt-link
+              to="/western"
+              class="pos-right"
+              target="_blank">
+              查看更多
+              <i class="iconfont icongengduo" />
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="train-imgs">
+          <div
+            v-for="(item, index) in trainList"
+            v-if="index < 4"
+            :key="index"
+            class="train-img"
+            @click="toTrainDetail(item)">
+            <img :src="item.middle_picture">
+          </div>
+        </div>
+        <div class="button">
+          <span @click="change2">
+            <i class="iconfont iconrefresh" />
+            换一批
+          </span>
+        </div>
+      </div>
+    </div>
     <!-- 名医师承 -->
-    <div class="bg-f6">
+    <div
+      ref="item3"
+      class="bg-f6 step_jump">
       <div class="item-container">
         <div class="container-header">
           <h2>名医师承</h2>
@@ -245,8 +353,10 @@
         </div>
       </div>
     </div>
-    <!-- 中医健康 -->
-    <div class="item-container">
+    <!-- 中医大讲堂 -->
+    <div
+      ref="item4"
+      class="item-container step_jump">
       <div class="container-header">
         <h2>中医大讲堂</h2>
         <div class="subnav">
@@ -282,20 +392,22 @@
         </div>
       </div>
     </div>
-    <div class="item-container">
+    <div
+      ref="item5"
+      class="item-container step_jump">
       <div class="container-header">
-        <h2>自学考试</h2>
+        <h2>学历助考</h2>
         <div class="subnav">
           <nuxt-link
             v-for="(item, index) in examSubList"
             v-if="index > 0"
             :key="index"
-            :to="{ name: 'train', query: { fid: 53, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: 85, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 53 }}"
+            :to="{ name: 'train', query: { fid: 85 }}"
             class="pos-right"
             target="_blank">
             查看更多
@@ -318,7 +430,9 @@
         </div>
       </div>
     </div>
-    <div class="item-container">
+    <div
+      ref="item6"
+      class="item-container step_jump">
       <div class="container-header">
         <h2>中医药理论</h2>
         <div class="subnav">
@@ -354,49 +468,47 @@
         </div>
       </div>
     </div>
-    <div class="bg-f6 train">
-      <div class="item-container">
-        <div class="container-header">
-          <h2>培训项目</h2>
-          <div class="subnav">
-            <nuxt-link
-              :to="{ name: 'western', query: { cid: 3 }}"
-              target="_blank"
-              title="执业培训"
-              class="subnav-item">职业培训</nuxt-link>
-            <nuxt-link
-              :to="{ name: 'western', query: { cid: 2 }}"
-              target="_blank"
-              title="西学中"
-              class="subnav-item">西学中</nuxt-link>
-            <nuxt-link
-              to="/western"
-              class="pos-right"
-              target="_blank">
-              查看更多
-              <i class="iconfont icongengduo" />
-            </nuxt-link>
-          </div>
-        </div>
-        <div class="train-imgs">
-          <div
-            v-for="(item, index) in trainList"
-            v-if="index < 4"
+    <div
+      ref="item7"
+      class="item-container step_jump">
+      <div class="container-header">
+        <h2>执业资格</h2>
+        <div class="subnav">
+          <nuxt-link
+            v-for="(item, index) in qualificationSubList"
+            v-if="index > 0"
             :key="index"
-            class="train-img"
-            @click="toTrainDetail(item)">
-            <img :src="item.middle_picture">
-          </div>
+            :to="{ name: 'train', query: { fid: 79, cid: item.id }}"
+            :title="item.name"
+            target="_blank"
+            class="subnav-item">{{ item.name }}</nuxt-link>
+          <nuxt-link
+            :to="{ name: 'train', query: { fid: 79 }}"
+            class="pos-right"
+            target="_blank">
+            查看更多
+            <i class="iconfont icongengduo"/>
+          </nuxt-link>
         </div>
-        <div class="button">
-          <span @click="change2">
-            <i class="iconfont iconrefresh" />
-            换一批
-          </span>
+      </div>
+      <div class="container-content">
+        <div class="left-img">
+          <img src="~/assets/images/img_4.png">
+        </div>
+        <div class="right-list">
+          <div
+            v-for="(item, index) in qualificationList"
+            v-if="index < 8"
+            :key="index"
+            class="list-item">
+            <section-item :data-obj="item" /> 
+          </div>
         </div>
       </div>
     </div>
-    <div class="item-container">
+    <div
+      ref="item8"
+      class="item-container step_jump">
       <div class="container-header">
         <h2>资讯头条</h2>
         <div class="subnav">
@@ -435,6 +547,91 @@
           alt="服务与保障">
       </nuxt-link>
     </div>
+    <!-- 左边侧边栏 -->
+    <ul class="left-aside">
+      <li :class="{ 'active' : activeIndex == 0 }">
+        <a
+          href="javascript:;"
+          @click="jump(0)">
+          推荐
+          <br>
+          课程
+        </a>
+      </li>
+      <li :class="{ 'active' : activeIndex == 1 }">
+        <a
+          href="javascript:;"
+          @click="jump(1)">
+          培训
+          <br>
+          项目
+        </a>
+      </li>
+      <li :class="{ 'active' : activeIndex == 2 }">
+        <a
+          href="javascript:;"
+          @click="jump(2)">
+          名医
+          <br>
+          师承
+        </a>
+      </li>
+      <li :class="{ 'active' : activeIndex == 3 }">
+        <a
+          href="javascript:;"
+          @click="jump(3)">
+          中医
+          <br>
+          大讲堂
+        </a>
+      </li>
+      <li :class="{ 'active' : activeIndex == 4 }">
+        <a
+          href="javascript:;"
+          @click="jump(4)">
+          学历
+          <br>
+          助考
+        </a>
+      </li>
+      <li :class="{ 'active' : activeIndex == 5 }">
+        <a
+          href="javascript:;"
+          @click="jump(5)">
+          中医<br>
+          药理论
+        </a>
+      </li>
+      <li :class="{ 'active' : activeIndex == 6 }">
+        <a
+          href="javascript:;"
+          @click="jump(6)">
+          执业
+          <br>
+          资格
+        </a>
+      </li>
+      <li :class="{ 'active' : activeIndex == 7 }">
+        <a
+          href="javascript:;"
+          @click="jump(7)">
+          资讯
+          <br>
+          头条
+        </a>
+      </li>
+      <li
+        v-show="fixedShow"        
+        class="topscroll">
+        <a
+          href="javascript:;"
+          @click="toTop">
+          顶部
+          <br>
+          <i class="iconfont iconarrow-right" />
+        </a>
+      </li>
+    </ul>
     <friend-link :link-list="friendLinkList" />
     <transition name="fade">
       <div
@@ -526,7 +723,11 @@ export default {
       examSubList: [],
       theorySubList: [],
       friendLinkList: [],
-      rankStatus: 0 // 角色的status
+      rankStatus: 0, // 角色的status
+      recommendCourse: [], // 推荐课程
+      qualificationList: [], // 执业资格列表
+      activeIndex: 0, // 描点
+      scrollTop: 0, // 滚动高度
     }
   },
   head() {
@@ -543,11 +744,14 @@ export default {
       examList,
       theoryList,
       healthList,
+      qualificationList,
       healthSubList,
       examSubList,
       theorySubList,
+      qualificationSubList,
       trainList,
-      toutiaoSubList
+      toutiaoSubList,
+      recommendCourse
     ] = await Promise.all([
       $axios('/yxs/api/web/getFriendsName'),
       $axios('/yxs/api/web/navigation'),
@@ -556,11 +760,14 @@ export default {
       $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'education' }}),
       $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'career' }}),
       $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'zydjt' }}),
+      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'zyzg' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zydjt' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'education' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'career' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zyzg' }}),
       $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }}),
-      $axios('/yxs/api/web/news/getAllCategory')
+      $axios('/yxs/api/web/news/getAllCategory'),
+      $axios('/yxs/api/web/course/indexRecommendList')
     ])
     return {
       friendLinkList: friendLinkList.data,
@@ -571,11 +778,14 @@ export default {
       theoryList: theoryList.data,
       healthList: healthList.data,
       healthSubList: healthSubList.data,
+      qualificationList: qualificationList.data,
       examSubList: examSubList.data,
       theorySubList: theorySubList.data,
       trainList: trainList.data.records,
+      qualificationSubList: qualificationSubList.data, 
       trainPages: trainList.data.pages,
-      toutiaoSubList: toutiaoSubList.data
+      toutiaoSubList: toutiaoSubList.data,
+      recommendCourse: recommendCourse.data
     }
   },
   created() {
@@ -739,8 +949,9 @@ export default {
       })
     },
     handleScroll() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      this.fixedShow = scrollTop > 1000 ? true : false
+      this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      this.fixedShow = this.scrollTop > 1000 ? true : false
+      this.onScroll(this.scrollTop + 80)
     },
     search() {
       let url = location.href
@@ -762,12 +973,108 @@ export default {
     },
     openNewPage(url) {
       window.open(url.href, '_blank')
+    },
+    toTop() {
+      let osTop, ispeed
+      let timer = setInterval(function () {
+        osTop = document.documentElement.scrollTop || document.body.scrollTop
+        ispeed = Math.floor(-osTop / 5)
+        document.documentElement.scrollTop = document.body.scrollTop = osTop + ispeed
+        if (osTop == 0) {
+          clearInterval(timer)
+        }
+      }, 30)
+    },
+    // 描点平滑滚动
+    onScroll(scrollTop) {
+      let _artice = document.querySelectorAll('.step_jump')
+      _artice.forEach((item, index) => {
+        if (scrollTop >= item.offsetTop) {
+          this.activeIndex = index
+        }
+      })
+    },
+    jump(index) {
+      let that = this
+      let jump = document.querySelectorAll('.step_jump')
+      let total = jump[index].offsetTop
+      let distance = this.scrollTop
+      let step =  (distance - total) / 50 >> 0
+      if (total < distance) {
+        smoothUp()
+      } else {
+        let newTotal = total - distance 
+        step = newTotal / 50 >> 0
+        smoothDown()
+      }
+      function smoothDown () {
+        if (distance < total) {
+          distance += step
+          document.documentElement.scrollTop = document.body.scrollTop = distance          
+          setTimeout(smoothDown, 10)
+        } else {
+          document.documentElement.scrollTop = document.body.scrollTop = total
+        }
+      }
+      function smoothUp () {
+        if (distance > total) {
+          distance -= step
+          document.documentElement.scrollTop = document.body.scrollTop = distance 
+          setTimeout(smoothUp, 10)
+        } else {
+          document.documentElement.scrollTop = document.body.scrollTop = total
+        }
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+  .left-aside {
+    width: 46px;
+    height: auto;
+    position: fixed;
+    top: 50%;
+    left: 5%;
+    z-index: 100;
+    background: #666;
+    li {
+      width: 46px;
+      height: 46px;
+      box-sizing: border-box;
+      padding: 0 2px;
+      a {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        padding: 10px 0;
+        box-sizing: border-box;
+        border-bottom: 1px solid #777;
+        font-size: 12px;
+        line-height: 14px;
+        color: #fff;
+        text-align: center;
+      }
+      &.active {
+        background: #fbb03b;
+        a {
+          border: 0;
+        }
+      }
+      &.topscroll {
+        background: #3f8a38;
+        a {
+          border: 0;
+        }
+        i.iconarrow-right {
+          transform: rotate(-90deg);
+          font-size: 11px;
+          color: #fff;
+        }
+      }
+    }
+  }
   .carousel {
     height: 400px;
     .imgs {
@@ -787,33 +1094,31 @@ export default {
         position: absolute;
         top: 0;
         padding: 0 20px 20px 20px;
-        width: 160px;
+        width: 184px;
         height: 380px;
         background: rgba(0, 0, 0, .7);
         color: #fff;
         font-size: 16px;
         z-index: 99;
         .nav-item {
-          margin-top: 26px;
-          height: 24px;
-          line-height: 24px;
+          margin-top: 29px;
+          height: 16px;
+          line-height: 16px;
           color: #fff;
           cursor: pointer;
           display: block;
-          &:first-child {
-            margin-top: 25px;
-          }
           &:hover {
             color: #3F8A38;
           }
         }
         .sub-nav {
-          margin-top: 10px;
+          height: 14px;
+          margin-top: 18px;
           font-size: 14px;
           opacity: .6;
           .sub-item {
-            margin-left: 20px;
-            line-height: 30px;
+            margin-right: 14px;
+            line-height: 14px;
             cursor: pointer;
             color: #f2f2f2;
             &:hover {
@@ -1079,7 +1384,7 @@ export default {
     }
   }
   .bg-f6 {
-    background: #f6f6f6;
+    // background: #f6f6f6;
     padding-bottom: 39px;
   }
   .bg-ff {
@@ -1267,6 +1572,10 @@ export default {
   }
   .fade-leave-to, .fade-enter {
     height: 0;
+  }
+  .hot {
+    vertical-align: bottom;
+    margin-left: 10px;
   }
   
 </style>

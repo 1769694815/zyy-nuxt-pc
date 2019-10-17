@@ -4,47 +4,37 @@
     <nav-bar :tab-index="tabIndex"/>
     <div class="train-container">
       <div class="crumb">
-        首页>课程中心
+        首页>培训项目
       </div>
       <div class="train-content">
         <div class="content-left">
           <table class="table">
-            <tr>
-              <th>学习类别：</th>
-              <td>
-                <span
-                  v-for="(item, index) in types"
-                  :key="index"
-                  :class="{active:firstActive == index}"
-                  @click="changeFirst(item, index)">
-                  {{ item.name }}
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>课程筛选：</th>
-              <td>
-                <span
-                  v-for="(item, index) in courses"
-                  :key="index"
-                  :class="{active:cid == item.id}"
-                  @click="changeSecond(item, index)">
-                  {{ item.name }}
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>排序：</th>
-              <td>
-                <span
-                  v-for="(item, index) in orders"
-                  :key="index"
-                  :class="{active:thirdActive == index}"
-                  @click="changeThird(item, index)">
-                  {{ item.label }}
-                </span>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>课程筛选：</th>
+                <td>
+                  <span
+                    v-for="(item, index) in courses"
+                    :key="index"
+                    :class="{active:cid == item.id}"
+                    @click="changeSecond(item, index)">
+                    {{ item.name }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>排序：</th>
+                <td>
+                  <span
+                    v-for="(item, index) in orders"
+                    :key="index"
+                    :class="{active:thirdActive == index}"
+                    @click="changeThird(item, index)">
+                    {{ item.label }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
           </table>
           <ul v-show="classType == 2">
             <li
@@ -154,7 +144,7 @@ export default {
   data() {
     return {
       title: '培训项目',
-      tabIndex: 3,
+      tabIndex: this.$route.query.cid == 2 ? 2 : 3,
       current: 1,
       size: 15,
       total: 0,
@@ -187,6 +177,8 @@ export default {
       title: this.title
     }
   },
+  // 监听参数字符串的更改，调用所有组件方法
+  watchQuery: ['cid'],
   mounted() {
     this.getCourseType()
     this.getTrainList()
@@ -231,6 +223,10 @@ export default {
       } else {
         this.getList(item.id, 2)
       }
+      // 更改navBar的高亮
+      if (item.id == 2) {
+        this.tabIndex = 2
+      }
     },
     changeThird(item, index) {
       this.current = 1
@@ -261,9 +257,6 @@ export default {
         }]
         res.data.allClassTypeCate.map(item => {
           item.type = 2
-          this.types.push(item)
-        })
-        res.data.allCate.map(item => {
           this.types.push(item)
         })
         this.changeFirst(res.data.allClassTypeCate[0], 1)

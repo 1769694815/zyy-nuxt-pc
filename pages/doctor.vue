@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      tabIndex: 4
+      tabIndex: 5
     }
   }
 }
