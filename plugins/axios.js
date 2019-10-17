@@ -16,9 +16,11 @@ export default function({ $axios, redirect, req }) {
   $axios.setHeader('appId', 'zyy')
   $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
   $axios.onRequest(config => {
-    config.data = qs.stringify(config.data, {
-      allowDots: true //Option allowDots can be used to enable dot notation
-    });
+    if (!config.headers.file) {
+      config.data = qs.stringify(config.data, {
+        allowDots: true //Option allowDots can be used to enable dot notation
+      });
+    }
     return config;
   });
 
