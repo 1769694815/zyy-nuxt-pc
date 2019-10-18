@@ -8,9 +8,7 @@
         <p>联系我们：南昌市阳明路56号江西中医药大学继续教育学院（培训学院）</p>
         <p>品牌合作：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
         <div class="link">
-          <nuxt-link
-            to="/index"
-            target="_blank">返回首页</nuxt-link>
+          <nuxt-link to="/">返回首页</nuxt-link>
           <nuxt-link
             to="/about"
             target="_blank">关于我们</nuxt-link>

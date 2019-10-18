@@ -195,9 +195,7 @@
       </div>
       <div class="bottom">
         <div class="link">
-          <nuxt-link
-            to="/index"
-            target="_blank">返回首页</nuxt-link>
+          <nuxt-link to="/">返回首页</nuxt-link>
           <nuxt-link
             to="/about"
             target="_blank">关于我们</nuxt-link>
