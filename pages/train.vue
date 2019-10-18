@@ -271,7 +271,8 @@ export default {
       this.current = 1
       this.thirdActive = index
       this.orderByClause = index + 1
-      this.getList(item.id, 3)
+      let id = this.cid ? this.cid : this.fid
+      this.getList(id, 3)
     },
     /**
      * @description: 
@@ -283,7 +284,7 @@ export default {
         params: {
           current: this.current,
           size: this.size,
-          categoryId: id || this.categoryId,
+          categoryId: id,
           orderByClause: this.orderByClause,
           type: this.classType,
           userToken: ''

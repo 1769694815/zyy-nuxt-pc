@@ -262,7 +262,7 @@ export default {
   methods: {
     changeFirst(item, index) {
       this.$router.push({
-        name: 'train',
+        name: 'western',
         query: {
           fid: item.id
         }
@@ -294,10 +294,10 @@ export default {
     },
     changeSecond(item, index) {
       this.$router.push({
-        name: 'train',
+        name: 'western',
         query: {
           fid: this.fid,
-          cid: id
+          cid: item.id
         }
       })
       // this.current = 1
@@ -316,14 +316,15 @@ export default {
       this.current = 1
       this.thirdActive = index
       this.orderByClause = index + 1
-      this.getList(item.id, 3)
+      let id = this.cid ? this.cid : this.fid
+      this.getList(id, 3)
     },
     getList(id, i) {
       this.$axios('/yxs/api/web/course/more', {
         params: {
           current: this.current,
           size: this.size,
-          categoryId: id || this.categoryId,
+          categoryId: id,
           orderByClause: this.orderByClause,
           type: this.classType,
           userToken: ''
