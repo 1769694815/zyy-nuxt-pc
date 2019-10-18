@@ -268,12 +268,12 @@
           <h2>培训项目</h2>
           <div class="subnav">
             <nuxt-link
-              :to="{ name: 'western', query: { cid: 3 }}"
+              :to="{ name: 'western', query: { fid: 3 }}"
               target="_blank"
               title="执业培训"
               class="subnav-item">职业培训</nuxt-link>
             <nuxt-link
-              :to="{ name: 'western', query: { cid: 2 }}"
+              :to="{ name: 'western', query: { fid: 2 }}"
               target="_blank"
               title="西学中"
               class="subnav-item">西学中</nuxt-link>
@@ -985,11 +985,16 @@ export default {
     // 描点平滑滚动
     onScroll(scrollTop) {
       let _artice = document.querySelectorAll('.step_jump')
-      _artice.forEach((item, index) => {
-        if (scrollTop >= item.offsetTop) {
-          this.activeIndex = index
+      for (let i = 0; i < _artice.length; i++) {
+        if (scrollTop >= _artice[i].offsetTop) {
+          this.activeIndex = i
         }
-      })
+      }
+      // _artice.forEach((item, index) => {
+      //   if (scrollTop >= item.offsetTop) {
+      //     this.activeIndex = index
+      //   }
+      // })
     },
     jump(index) {
       let that = this
@@ -998,11 +1003,13 @@ export default {
       let distance = this.scrollTop
       let step =  (distance - total) / 50 >> 0
       if (total < distance) {
-        smoothUp()
+        // smoothUp()
+        document.documentElement.scrollTop = document.body.scrollTop = total - 40
       } else {
-        let newTotal = total - distance 
-        step = newTotal / 50 >> 0
-        smoothDown()
+        // let newTotal = total - distance 
+        // step = newTotal / 50 >> 0
+        // smoothDown()
+        document.documentElement.scrollTop = document.body.scrollTop  = total - 40
       }
       function smoothDown () {
         if (distance < total) {

@@ -77,6 +77,7 @@
             </li>
           </ul>
           <Pagination
+            v-if="result.length > 0"
             :size="size"
             :current="current"
             :total="total"
@@ -114,7 +115,7 @@ export default {
       current: 1,
       size: 32,
       total: 0,
-      categoryId: this.$route.query.fid || 53, // 默认53,自学考试id
+      categoryId: this.$route.query.fid || 0,
       cid: this.$route.query.cid || 0,
       orderByClause: 1,
       // firstActive: 2,
@@ -149,45 +150,122 @@ export default {
       title: this.title
     }
   },
+  // 监听参数字符串的更改，调用所有组件方法
+  watchQuery: ['fid', 'cid'],
+  async asyncData({ $axios, query }) {
+    let fid = query.fid || 0
+    let cid = query.cid || 0
+    let res = await $axios('/yxs/api/web/course/getCourseType')
+    let types = [{
+      name: '全部',
+      id: 0
+    }]
+    let courses = [{
+      name: '全部',
+      id: 0
+    }]
+    let typeList = res.data.allCate
+    typeList.map(item => {
+      types.push(item)
+    })
+
+    console.log('cid', cid)
+
+    let index = 0
+    types.forEach((ele, i) => {
+      if (ele.id == fid) {
+        index = i // 加了一个全部
+      }
+    })
+
+    console.log('index', index)
+    console.log('types', types)
+
+    let title = types[index].name
+
+    if (types[index].children && types[index].children.length > 0) {
+      types[index].children.map(item => {
+        courses.push(item)
+      })
+    }
+
+    console.log('courses', courses)
+
+    // 初始化数据
+    let list = await $axios('/yxs/api/web/course/more', { params: {
+      current: 1,
+      size: 15,
+      categoryId: cid ? cid : fid,
+      orderByClause: 1,
+      type: 1,
+      userToken: ''
+    }})
+    return {
+      fid,
+      cid,
+      title,
+      types,
+      courses,
+      result: list.data.list.records,
+      total: list.data.list.total
+    }
+
+  },
   mounted() {
-    this.getCourseType()
+    // this.getCourseType()
     this.getTrainList()
     this.getRecommendLessons()
   },
   methods: {
     changeFirst(item, index, flag) {
-      this.current = 1
-      this.title = item.name
-      if(flag) {
-        this.cid = 0
-      }
-      this.categoryId = item.id
-      // this.firstActive = index
-      // this.secondActive = 0
-      this.courses = [{
-        name: '全部',
-        id: 0
-      }]
-      if(item.children && item.children.length > 0) {
-        item.children.map(item => {
-          this.courses.push(item)
-        })
-      }
-      if(this.cid) {
-        this.getList(this.cid, 2)
-      } else {
-        this.getList(item.id, 1)
-      }
+      this.$router.push({
+        name: 'train',
+        query: {
+          fid: item.id
+        }
+      })
+      
+      // this.current = 1
+      // this.title = item.name
+      // this.categoryId = item.id
+      // this.fid = item.id
+      // if(flag) {
+      //   this.cid = 0
+      // }
+      // // this.firstActive = index
+      // // this.secondActive = 0
+      // this.courses = [{
+      //   name: '全部',
+      //   id: 0
+      // }]
+      // if(item.children && item.children.length > 0) {
+      //   item.children.map(item => {
+      //     this.courses.push(item)
+      //   })
+      // }
+      // if(this.cid) {
+      //   this.getList(this.cid, 2)
+      // } else {
+      //   this.getList(item.id, 1)
+      // }
     },
     changeSecond(id, index) {
-      this.current = 1
-      // this.secondActive = index
-      this.cid = id
-      if(id == 0) {
-        this.getList(this.categoryId, 1)
-      } else {
-        this.getList(id, 2)
-      }
+      this.$router.push({
+        name: 'train',
+        query: {
+          fid: this.fid,
+          cid: id
+        }
+      })
+
+      // this.current = 1
+      // // this.secondActive = index
+      // this.cid = id
+      // if(id == 0) {
+      //   this.getList(this.categoryId, 1)
+      // } else {
+      //   this.getList(id, 2)
+      // }
     },
     changeThird(item, index) {
       this.current = 1
@@ -319,17 +397,19 @@ export default {
         }
         td {
           text-align: left;
-          padding: 0 40px;
+          padding: 6px 40px;
           border: 1px solid #E5E5E5;
           background: #f5f5f5;
           font-size: 0;
           cursor: pointer;
           span {
+            display: inline-block;
             margin-left: 20px;
             padding: 8px;
             font-size: 14px;
             text-align: center;
             // white-space: nowrap;
+            line-height: 20px;
             &.active {
               background: #3F8A38;
               font-size: 14px;

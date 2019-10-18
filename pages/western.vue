@@ -16,7 +16,7 @@
                   <span
                     v-for="(item, index) in types"
                     :key="index"
-                    :class="{active:cid == item.id}"
+                    :class="{active:fid == item.id}"
                     @click="changeFirst(item, index)">
                     {{ item.name }}
                   </span>
@@ -28,7 +28,7 @@
                   <span
                     v-for="(item, index) in courses"
                     :key="index"
-                    :class="{active:fid == item.id}"
+                    :class="{active:cid == item.id}"
                     @click="changeSecond(item, index)">
                     {{ item.name }}
                   </span>
@@ -157,7 +157,7 @@ export default {
   data() {
     return {
       title: '培训项目',
-      tabIndex: this.$route.query.cid == 2 ? 2 : 3,
+      tabIndex: this.$route.query.fid == 2 ? 2 : 3,
       current: 1,
       size: 15,
       total: 0,
@@ -196,12 +196,12 @@ export default {
     }
   },
   // 监听参数字符串的更改，调用所有组件方法
-  watchQuery: ['cid'],
+  watchQuery: ['fid', 'cid'],
   async asyncData({ $axios, query }) {
-    let cid = query.cid || 0
     let fid = query.fid || 0
-    console.log('cid', cid)
+    let cid = query.cid || 0
     console.log('fid', fid)
+    console.log('cid', cid)
     let res = await $axios('/yxs/api/web/course/getCourseType')
     let types = [{
       name: '全部',
@@ -220,16 +220,16 @@ export default {
     let index = 0
     console.log('types', types)
     types.forEach((ele, i) => {
-      if (ele.id == cid) {
-        index = i + 1 // 加了一个全部
+      if (ele.id == fid) {
+        index = i
       }
     })
 
-    console.log('typeList', typeList)
+    let title = types[index].name
 
     // 培训类别
-    if (typeList.children[index] && typeList.children[index].children) {
-      typeList.children[index].children.map(item => {
+    if (types[index].children && types[index].children.length > 0) {
+      types[index].children.map(item => {
         courses.push(item)
       })
     }
@@ -238,13 +238,15 @@ export default {
     let list = await $axios('/yxs/api/web/course/more', { params: {
       current: 1,
       size: 15,
-      categoryId: fid ? fid : cid,
+      categoryId: cid ? cid : fid,
       orderByClause: 1,
       type: 2,
       userToken: ''
     }})
     return {
+      fid,
       cid,
+      title,
       types,
       courses,
       result: list.data.list.records,
@@ -259,42 +261,56 @@ export default {
   },
   methods: {
     changeFirst(item, index) {
-      this.current = 1
-      this.categoryId = item.id
-      this.cid = item.id
-      this.fid = 0
-      this.courses = [{
-        name: '全部',
-        id: 0
-      }]
-      if (this.cid == 2) { // 西学中 导航栏“西学中”选中
-        this.tabIndex = 2
-      } else {
-        this.tabIndex = 3
-      }
-      if(item.children && item.children.length > 0) {
-        item.children.map(item => {
-          this.courses.push(item)
-        })
-      }
-      if(this.cid) {
-        this.getList(this.cid, 2)
-      } else {
-        this.getList(item.id, 1)
-      }
+      this.$router.push({
+        name: 'train',
+        query: {
+          fid: item.id
+        }
+      })
+
+      // this.current = 1
+      // this.categoryId = item.id
+      // this.fid = item.id
+      // this.cid = 0
+      // this.courses = [{
+      //   name: '全部',
+      //   id: 0
+      // }]
+      // if (this.fid == 2) { // 西学中 导航栏“西学中”选中
+      //   this.tabIndex = 2
+      // } else {
+      //   this.tabIndex = 3
+      // }
+      // if(item.children && item.children.length > 0) {
+      //   item.children.map(item => {
+      //     this.courses.push(item)
+      //   })
+      // }
+      // if(this.cid) {
+      //   this.getList(this.cid, 2)
+      // } else {
+      //   this.getList(item.id, 1)
+      // }
     },
     changeSecond(item, index) {
-      this.current = 1
-      this.fid = item.id
-      if(item.id == 0) {
-        this.getList(this.categoryId, 1)
-      } else {
-        this.getList(item.id, 2)
-      }
-      // 更改navBar的高亮
-      if (item.id == 2) {
-        this.tabIndex = 2
-      }
+      this.$router.push({
+        name: 'train',
+        query: {
+          fid: this.fid,
+          cid: id
+        }
+      })
+      // this.current = 1
+      // this.cid = item.id
+      // if(item.id == 0) {
+      //   this.getList(this.categoryId, 1)
+      // } else {
+      //   this.getList(item.id, 2)
+      // }
+      // // 更改navBar的高亮
+      // if (item.id == 2) {
+      //   this.tabIndex = 2
+      // }
     },
     changeThird(item, index) {
       this.current = 1
@@ -413,20 +429,24 @@ export default {
           background: #fff;
           color: #666;
           font-size: 14px;
+          border: 1px solid #f5f5f5;
+          border-right: 0;
         }
         td {
           text-align: left;
-          padding: 0 40px;
+          padding: 6px 40px;          
           border: 1px solid #E5E5E5;
           background: #f5f5f5;
           font-size: 0;
           cursor: pointer;
           span {
+            display: inline-block;
             margin-left: 20px;
             padding: 8px;
             font-size: 14px;
             text-align: center;
             // white-space: nowrap;
+            line-height: 20px;
             &.active {
               background: #3F8A38;
               font-size: 14px;

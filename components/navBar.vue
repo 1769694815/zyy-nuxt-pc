@@ -15,7 +15,7 @@
         </li>
         <li>
           <nuxt-link
-            :to="{ name: 'western', query: { cid: 2 }}"
+            :to="{ name: 'western', query: { fid: 2 }}"
             :class="{ active: tabIndex == 2 }">
             西学中
           </nuxt-link>
