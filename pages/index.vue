@@ -268,15 +268,12 @@
           <h2>培训项目</h2>
           <div class="subnav">
             <nuxt-link
-              :to="{ name: 'western', query: { fid: 3 }}"
+              v-for="(item, index) in westernSubList"
+              :key="index"
+              :to="{ name: 'western', query: { fid: item.id }}"
+              :title="item.name"
               target="_blank"
-              title="执业培训"
-              class="subnav-item">职业培训</nuxt-link>
-            <nuxt-link
-              :to="{ name: 'western', query: { fid: 2 }}"
-              target="_blank"
-              title="西学中"
-              class="subnav-item">西学中</nuxt-link>
+              class="subnav-item">{{ item.name }}</nuxt-link>
             <nuxt-link
               to="/western"
               class="pos-right"
@@ -725,6 +722,7 @@ export default {
       qualificationList: [], // 执业资格列表
       activeIndex: 0, // 描点
       scrollTop: 0, // 滚动高度
+      westernSubList: [] // 培训项目副列表
     }
   },
   head() {
@@ -748,7 +746,8 @@ export default {
       qualificationSubList,
       trainList,
       toutiaoSubList,
-      recommendCourse
+      recommendCourse,
+      westernSubList
     ] = await Promise.all([
       $axios('/yxs/api/web/getFriendsName'),
       $axios('/yxs/api/web/navigation'),
@@ -764,7 +763,8 @@ export default {
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zyzg' }}),
       $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }}),
       $axios('/yxs/api/web/news/getAllCategory'),
-      $axios('/yxs/api/web/course/indexRecommendList', { params: { size: 5, current: 1 }})
+      $axios('/yxs/api/web/course/indexRecommendList', { params: { size: 5, current: 1 }}),
+      $axios('/yxs/api/web/course/trainType')
     ])
     return {
       friendLinkList: friendLinkList.data,
@@ -782,7 +782,8 @@ export default {
       qualificationSubList: qualificationSubList.data, 
       trainPages: trainList.data.pages,
       toutiaoSubList: toutiaoSubList.data,
-      recommendCourse: recommendCourse.data.records
+      recommendCourse: recommendCourse.data.records,
+      westernSubList: westernSubList.data[0].children
     }
   },
   created() {
