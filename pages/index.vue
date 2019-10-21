@@ -1041,7 +1041,7 @@ export default {
     height: auto;
     position: fixed;
     top: 50%;
-    left: 6%;
+    left: 5%;
     transform: translate(0, -50%);
     z-index: 100;
     background: #666;
