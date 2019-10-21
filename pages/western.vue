@@ -54,7 +54,7 @@
               :key="index"
               class="common-class"
               @click="toTrainDetail(item.categoryId)">
-              <img :src="item.middle_picture">
+              <img :src="item.middlePicture">
               <div class="info">
                 <div class="title">{{ item.title }}</div>
                 <div
@@ -105,7 +105,7 @@
               :key="index" 
               class="train-class"
               @click="toLessonDetail(item.id)">
-              <img v-lazy="item.middle_picture">
+              <img v-lazy="item.middlePicture">
               <div class="content">
                 <div class="title">{{ item.title }}</div>
                 <div class="info">
