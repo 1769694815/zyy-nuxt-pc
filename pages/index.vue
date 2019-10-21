@@ -41,17 +41,11 @@
               西学中
             </nuxt-link> -->
             <nuxt-link
-              :to="{ name: 'train', query: { fid: 108, cid: 80 }}"
+              v-for="(item, index) in qualificationSubList"
+              :key="index"
+              :to="{ name: 'train', query: { fid: 108, cid: item.id }}"
               class="sub-item"
-              target="_blank">
-              执业药师
-            </nuxt-link>
-            <nuxt-link
-              :to="{ name: 'train', query: { fid: 108, cid: 81 }}"
-              class="sub-item"
-              target="_blank">
-              健康管理师
-            </nuxt-link>
+              target="_blank">{{ item.name }}</nuxt-link>
           </div>
           <nuxt-link
             :to="{ name: 'train', query: { fid: 107 }}"
@@ -118,12 +112,12 @@
               target="_blank">
               保健
             </nuxt-link>
-            <nuxt-link
+            <!-- <nuxt-link
               :to="{ name: 'train', query: { fid: 54, cid: 62 }}"
               class="sub-item"
               target="_blank">
               卫生
-            </nuxt-link>
+            </nuxt-link> -->
             <nuxt-link
               :to="{ name: 'train', query: { fid: 54, cid: 66 }}"
               class="sub-item"
