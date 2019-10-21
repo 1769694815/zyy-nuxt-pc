@@ -27,7 +27,7 @@
             中医研究所
           </nuxt-link> -->
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 79 } }"
+            :to="{ name: 'train', query: { fid: 108 } }"
             class="nav-item"
             target="_blank">
             <!-- <i class="iconfont iconxiangmu"/> -->
@@ -41,13 +41,13 @@
               西学中
             </nuxt-link> -->
             <nuxt-link
-              :to="{ name: 'train', query: { fid: 79, cid: 80 }}"
+              :to="{ name: 'train', query: { fid: 108, cid: 80 }}"
               class="sub-item"
               target="_blank">
               执业药师
             </nuxt-link>
             <nuxt-link
-              :to="{ name: 'train', query: { fid: 79, cid: 81 }}"
+              :to="{ name: 'train', query: { fid: 108, cid: 81 }}"
               class="sub-item"
               target="_blank">
               健康管理师
@@ -405,12 +405,12 @@
           <nuxt-link
             v-for="(item, index) in examSubList"
             :key="index"
-            :to="{ name: 'train', query: { fid: 85, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: 107, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 85 }}"
+            :to="{ name: 'train', query: { fid: 107 }}"
             class="pos-right"
             target="_blank">
             查看更多
