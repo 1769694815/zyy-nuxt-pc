@@ -54,7 +54,7 @@
             </nuxt-link>
           </div>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 85 }}"
+            :to="{ name: 'train', query: { fid: 107 }}"
             class="nav-item"
             target="_blank">
             <!-- <i class="iconfont iconkaoshi"/> -->
@@ -64,7 +64,7 @@
             <nuxt-link
               v-for="(item, index) in examSubList"
               :key="index"
-              :to="{ name: 'train', query: { fid: 85, cid: item.id }}"
+              :to="{ name: 'train', query: { fid: 107, cid: item.id }}"
               class="sub-item"
               target="_blank">
               {{ item.name }}
@@ -479,12 +479,12 @@
           <nuxt-link
             v-for="(item, index) in qualificationSubList"
             :key="index"
-            :to="{ name: 'train', query: { fid: 79, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: 108, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 79 }}"
+            :to="{ name: 'train', query: { fid: 108 }}"
             class="pos-right"
             target="_blank">
             查看更多
