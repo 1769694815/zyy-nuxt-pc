@@ -194,9 +194,9 @@ export default {
             type: 'success'
           })
           window.localStorage.setItem('zyy_userToken', res.data.userToken)
-          this.$router.push({
-            name: 'personal'
-          })
+          // 查询来自的页面name
+          let routerName = window.localStorage.getItem('fromRouter') || { name: 'index' }
+          this.$router.push(JSON.parse(routerName))
         } else {
           this.$message.error(res.msg);
         }
@@ -232,9 +232,9 @@ export default {
             type: 'success'
           })
           window.localStorage.setItem('zyy_userToken', res.data.userToken)
-          this.$router.push({
-            name: 'personal'
-          })
+          // 查询来自的页面name
+          let routerName = window.localStorage.getItem('fromRouter') || { name: 'index' }
+          this.$router.push(JSON.parse(routerName))
         } else {
           this.$message.error(res.msg)
         }
