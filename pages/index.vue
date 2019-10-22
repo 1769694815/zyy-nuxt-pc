@@ -180,12 +180,10 @@
           </div>
           <nuxt-link
             to="/login"
-            class="button login"
-            target="_blank">立即登录</nuxt-link>
+            class="button login">立即登录</nuxt-link>
           <nuxt-link
             to="/register"
-            class="button"
-            target="_blank">免费注册</nuxt-link>
+            class="button">免费注册</nuxt-link>
           <div
             ref="download"
             class="down down-2"

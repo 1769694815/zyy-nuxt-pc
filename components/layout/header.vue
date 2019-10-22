@@ -17,12 +17,10 @@
           <span v-show="loginShow">
             <nuxt-link
               to="/login"
-              target="_blank"
               class="login">我要登录</nuxt-link>
             <nuxt-link
               to="/register"
-              class="register"
-              target="_blank">免费注册</nuxt-link>
+              class="register">免费注册</nuxt-link>
           </span>
         </div>
         <div

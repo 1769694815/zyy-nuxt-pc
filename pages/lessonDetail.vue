@@ -523,7 +523,7 @@ export default {
         let url = this.$router.resolve({
           name: 'login'
         })
-        window.open(url.href, '_blank')
+        window.open(url.href)
         return
       }
       if(this.detailData.memBerStatus == 0 && this.detailData.free == 2) {
@@ -561,7 +561,7 @@ export default {
         let url = this.$router.resolve({
           name: 'login'
         })
-        window.open(url.href, '_blank')
+        window.open(url.href)
         return
       }
       if(this.detailData.memBerStatus == 0 && this.detailData.free == 2) {
