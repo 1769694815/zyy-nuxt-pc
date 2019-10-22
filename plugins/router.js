@@ -10,41 +10,18 @@ export default ({ app, $axios, req, res }) => {
     }
     let isClient = process.client
     let isServer = process.server
-    let token
-    if(req) {
-      if(isServer) {
-        let cookies = getcookiesInServer(req)
-        token = cookies.zyy_accessToken ? cookies.zyy_accessToken : ''
-        console.log('tokenaa', token)
-      }
-      if(isClient) {
-        let token = Cookies.get('zyy_accessToken')
-      }
-      if(token) {
-        $axios.setHeader('appId', 'zyy')
-        $axios.setHeader('Authorization', 'Bearer' + token)
-        next()
-      } else {
-        const clientId = 'zyy_web'
-        const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
-        const encodeStr = Base64.encode(clientId + ':' + clientSecret);
-        let params = {
-          username: '',
-          password: '',
-          scope: 'server',
-          grant_type: 'client_credentials'
+   
+    if (isClient) {
+      console.log('to', to)
+      console.log('from', from)
+      if (to.name == 'login' && from.name) {
+        let fromRouter = {
+          name: from.name,
+          query: from.query
         }
-        $axios.setHeader('appId', 'zyy')
-        $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
-        $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
-        $axios.post('/auth/oauth/token', params).then(res => {
-          Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
-          $axios.setHeader('Authorization', 'Bearer' + res.access_token)
-          next()
-        })
+        window.localStorage.setItem('fromRouter', JSON.stringify(fromRouter))
       }
-    } else {
-      next()
     }
+    next()
   })
 }

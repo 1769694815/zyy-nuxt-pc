@@ -783,42 +783,8 @@ export default {
   }, 
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
-    const clientId = 'zyy_web'
-    const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
-    const encodeStr = Base64.encode(clientId + ':' + clientSecret);
-    let params = {
-      username: '',
-      password: '',
-      scope: 'server',
-      grant_type: 'client_credentials'
-    }
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     console.log('userInfo', this.userInfo)
-    if(!Cookies.get('zyy_accessToken')) {
-      this.$axios.setHeader('appId', 'zyy')
-      this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
-      this.$axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
-      this.$axios.post('/auth/oauth/token', params).then(res => {
-        Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
-        this.$axios.setHeader('Authorization', 'Bearer' + res.access_token)
-        if(this.userInfo) {
-          this.getCourseNum()
-          this.getClassNum()
-          this.getInfo()
-          this.tagShow = true
-        }
-      })
-    } else {
-      this.$axios.setHeader('appId', 'zyy')
-      this.$axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
-      if(this.userInfo) {
-        this.rankStatus = judgeUser().status
-        this.getCourseNum()
-        this.getClassNum()
-        this.getInfo()
-        this.tagShow = true
-      }
-    }
   },
   methods: {
     // 获取首页中医研究所

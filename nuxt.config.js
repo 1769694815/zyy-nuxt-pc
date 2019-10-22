@@ -70,7 +70,7 @@ module.exports = {
   ],
 
   router: {
-    // middleware: 'accessAuth'
+    middleware: 'userAuth'
   },
   /*
   ** Axios module configuration

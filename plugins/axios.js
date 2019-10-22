@@ -2,19 +2,11 @@ import qs from 'qs'
 import { Base64 } from '~/assets/js/base64.js'
 import Cookies from 'js-cookie'
 
-const clientId = 'zyy_web'
-const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
-const encodeStr = Base64.encode(clientId + ':' + clientSecret);
-let params = {
-  username: '',
-  password: '',
-  scope: 'server',
-  grant_type: 'client_credentials'
-}
-
 export default function({ $axios, redirect, req }) {
-  $axios.setHeader('appId', 'zyy')
-  $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
+  let isClient = process.client
+  let isServer = process.server
+
+
   $axios.onRequest(config => {
     if (!config.headers.file) {
       config.data = qs.stringify(config.data, {
@@ -47,21 +39,35 @@ export default function({ $axios, redirect, req }) {
     } else {
       return Promise.reject(error);
     }
-  });
+  })
 
-  if(!Cookies.get('zyy_accessToken')) {
+  // 客户端  客户端可以获取到Cookies, 服务端是获取不到的
+  if (isClient) {
+    let token = Cookies.get('zyy_accessToken') || ''
+    const clientId = 'zyy_web'
+    const clientSecret = '7BPvPjnxRHRHpyKLTdLOtA=='
+    const encodeStr = Base64.encode(clientId + ':' + clientSecret)
+    let params = {
+      username: '',
+      password: '',
+      scope: 'server',
+      grant_type: 'client_credentials'
+    }
     $axios.setHeader('appId', 'zyy')
     $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
     $axios.setHeader('Authorization', 'Basic' + ' ' + encodeStr)
-    $axios.post('/auth/oauth/token', params).then(res => {
-      Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
-      $axios.setHeader('Authorization', 'Bearer' + res.access_token)
-    })
-  } else {
-    $axios.setHeader('appId', 'zyy')
-    $axios.setHeader('Authorization', 'Bearer' + Cookies.get('zyy_accessToken'))
+
+    if (!token) {
+      return $axios.post('/auth/oauth/token', params).then(res => {
+        // console.log('axios_accessToken', res)
+        Cookies.set('zyy_accessToken', res.access_token, { expires: 1 })
+        $axios.setHeader('Authorization', 'Bearer ' + res.access_token)
+      })
+    } else {
+      return new Promise((resolve, reject) => {
+        resolve($axios.setHeader('Authorization', 'Bearer ' + token))
+      })
+    }
   }
-  
-  // $axios.setHeader('Authorization', 'Bearerbeb31048-148a-4910-8c1b-f42cb5a83115')
 }
 
