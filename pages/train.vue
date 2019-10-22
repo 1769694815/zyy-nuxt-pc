@@ -194,7 +194,7 @@ export default {
     // 初始化数据
     let list = await $axios('/yxs/api/web/course/more', { params: {
       current: 1,
-      size: 15,
+      size: 32,
       categoryId: cid ? cid : fid,
       orderByClause: 1,
       type: 1,
