@@ -22,7 +22,7 @@
                   </span>
                 </td>
               </tr>
-              <tr>
+              <tr v-if="courses.length > 1">
                 <th>课程筛选：</th>
                 <td>
                   <span

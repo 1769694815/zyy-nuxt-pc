@@ -22,7 +22,7 @@
                   </span>
                 </td>
               </tr>
-              <tr>
+              <tr v-if="courses.length > 1">
                 <th>培训类别：</th>
                 <td>
                   <span
