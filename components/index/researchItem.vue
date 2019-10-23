@@ -120,7 +120,7 @@ export default {
   }
   
 </style>
-<style>
+<style scoped>
   #text-ellipsis-2 {
     height: 36px;
     display: -webkit-box;

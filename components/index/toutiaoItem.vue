@@ -21,11 +21,7 @@
       <p
         id="text-ellipsis-2"
         class="desc"
-        style="display: -webkit-box;
-              -webkit-box-orient: vertical;
-              -webkit-line-clamp: 2;
-              overflow: hidden;
-              text-overflow: ellipsis;">{{ dataObj.brife }}</p>
+        style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;text-overflow: ellipsis;">{{ dataObj.brife }}</p>
       <div class="foot">
         <span class="date">{{ dataObj.publishedtime }}</span>
         <span class="number">
@@ -97,15 +93,15 @@ export default {
     }
     .desc {
       width: 330px;
-      height: 40px;
-      margin-top: 15px;
+      height: 42px;
+      margin-top: 12px;
       font-size: 14px;
-      line-height: 18px;
+      line-height: 24px;
       color: #999;
       overflow: hidden;
     }
     .foot {
-      margin-top: 24px;
+      margin-top: 20px;
       font-size: 0;
       .date {
         font-size: 13px;
@@ -113,20 +109,22 @@ export default {
       }
       .number {
         // float: right;
-        margin-left: 40px;
+        margin-left: 50px;
         display: inline-block;
         line-height: 16px;
         font-size: 12px;
         color: #999;
         i {
           display: inline-block;
-          vertical-align: top;
+          vertical-align: middle;
+          color: #ccc;
+          margin-right: 5px;
         }
       }
     }
   }
 </style>
-<style>
+<style scoped>
   #text-ellipsis-2 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
