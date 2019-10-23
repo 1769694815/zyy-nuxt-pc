@@ -19,119 +19,70 @@
       </el-carousel>
       <div class="carousel-content">
         <div class="nav-list">
-          <!-- <nuxt-link
-            :to="{ name: 'train', query: { fid: 70 }}"
-            class="nav-item"
-            target="_blank">
-            <i class="iconfont iconyisheng"/>
-            中医研究所
-          </nuxt-link> -->
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 108 } }"
+            :to="{ name: 'train', query: { fid: zyzgId }}"
             class="nav-item"
             target="_blank">
-            <!-- <i class="iconfont iconxiangmu"/> -->
             执业资格
           </nuxt-link>
           <div class="sub-nav">
-            <!-- <nuxt-link
-              :to="{ name: 'western', query: { cid: 2 }}"
-              class="sub-item"
-              target="_blank">
-              西学中
-            </nuxt-link> -->
             <nuxt-link
               v-for="(item, index) in qualificationSubList"
               :key="index"
-              :to="{ name: 'train', query: { fid: 108, cid: item.id }}"
+              :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
               class="sub-item"
               target="_blank">{{ item.name }}</nuxt-link>
           </div>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 107 }}"
+            :to="{ name: 'train', query: { fid: xlzkId }}"
             class="nav-item"
             target="_blank">
-            <!-- <i class="iconfont iconkaoshi"/> -->
             学历助考
           </nuxt-link>
           <div class="sub-nav">
             <nuxt-link
               v-for="(item, index) in examSubList"
               :key="index"
-              :to="{ name: 'train', query: { fid: 107, cid: item.id }}"
+              :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
               class="sub-item"
               target="_blank">
               {{ item.name }}
             </nuxt-link>
           </div>
-          <!-- <nuxt-link
-            :to="{ name: 'train', query: { fid: 55 }}"
-            class="nav-item"
-            target="_blank">
-            <i class="iconfont iconwendang"/>
-            中医药理论
-          </nuxt-link> -->
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 63 }}"
+            :to="{ name: 'train', query: { fid: mingshiId }}"
             class="nav-item"
             target="_blank">
-            <!-- <i class="iconfont iconyisheng"/> -->
             名医师承
           </nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 76 }}"
+            :to="{ name: 'train', query: { fid: zydjtId }}"
             class="nav-item"
             target="_blank">
-            <!-- <i class="iconfont iconyisheng"/> -->
             中医大讲堂
           </nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 55 }}"
+            :to="{ name: 'train', query: { fid: zyyllId }}"
             class="nav-item"
             target="_blank">
-            <!-- <i class="iconfont iconyisheng"/> -->
             中医药理论
           </nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 54 } }"
+            :to="{ name: 'train', query: { fid: zyjkId }}"
             class="nav-item"
             target="_blank">
-            <!-- <i class="iconfont iconxiangmu"/> -->
             中医公开课
           </nuxt-link>
           <div class="sub-nav">
-            <!-- <nuxt-link
-              :to="{ name: 'western', query: { cid: 2 }}"
-              class="sub-item"
-              target="_blank">
-              西学中
-            </nuxt-link> -->
             <nuxt-link
-              :to="{ name: 'train', query: { fid: 54, cid: 61 }}"
+              v-for="(item, index) in zyjkSubList"
+              :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
+              :key="index"
               class="sub-item"
               target="_blank">
-              保健
-            </nuxt-link>
-            <!-- <nuxt-link
-              :to="{ name: 'train', query: { fid: 54, cid: 62 }}"
-              class="sub-item"
-              target="_blank">
-              卫生
-            </nuxt-link> -->
-            <nuxt-link
-              :to="{ name: 'train', query: { fid: 54, cid: 66 }}"
-              class="sub-item"
-              target="_blank">
-              文化
+              {{ item.name }}
             </nuxt-link>
           </div>
-          <!-- <nuxt-link
-            :to="{ name: 'train', query: { fid: 54 }}"
-            class="nav-item"
-            target="_blank">
-            <i class="iconfont icon2jiankangzhishi"/>
-            中医健康
-          </nuxt-link> -->
         </div>
         <section
           v-if="userInfo"
@@ -360,12 +311,12 @@
           <nuxt-link
             v-for="(item, index) in healthSubList"
             :key="index"
-            :to="{ name: 'train', query: { fid: 76, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: item.parendId, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 76 }}"
+            :to="{ name: 'train', query: { fid: zydjtId }}"
             class="pos-right"
             target="_blank">
             查看更多
@@ -397,12 +348,12 @@
           <nuxt-link
             v-for="(item, index) in examSubList"
             :key="index"
-            :to="{ name: 'train', query: { fid: 107, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 107 }}"
+            :to="{ name: 'train', query: { fid: xlzkId }}"
             class="pos-right"
             target="_blank">
             查看更多
@@ -434,12 +385,12 @@
           <nuxt-link
             v-for="(item, index) in theorySubList"
             :key="index"
-            :to="{ name: 'train', query: { fid: 55, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 55 }}"
+            :to="{ name: 'train', query: { fid: zyyllId }}"
             class="pos-right"
             target="_blank">
             查看更多
@@ -471,12 +422,12 @@
           <nuxt-link
             v-for="(item, index) in qualificationSubList"
             :key="index"
-            :to="{ name: 'train', query: { fid: 108, cid: item.id }}"
+            :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
             :title="item.name"
             target="_blank"
             class="subnav-item">{{ item.name }}</nuxt-link>
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 108 }}"
+            :to="{ name: 'train', query: { fid: zyzgId }}"
             class="pos-right"
             target="_blank">
             查看更多
@@ -681,7 +632,7 @@ export default {
   },
   data() {
     return {
-      title: '中医药在线',
+      title: '首页',
       tabIndex: 1,
       current1: 1,
       current2: 1,
@@ -714,7 +665,14 @@ export default {
       qualificationList: [], // 执业资格列表
       activeIndex: 0, // 描点
       scrollTop: 0, // 滚动高度
-      westernSubList: [] // 培训项目副列表
+      westernSubList: [], // 培训项目副列表
+      zyjkSubList: [], // 中医公开课副列表
+      xlzkId: '',
+      zydjtId: '',
+      zyyllId: '',
+      zyzgId: '',
+      mingshiId: '',
+      zyjkId: ''
     }
   },
   head() {
@@ -736,6 +694,8 @@ export default {
       examSubList,
       theorySubList,
       qualificationSubList,
+      famousSubList,
+      zyjkSubList,
       trainList,
       toutiaoSubList,
       recommendCourse,
@@ -753,11 +713,20 @@ export default {
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'xlzk' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'career' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zyzg' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'mingshi' }}),
+      $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zyjk' }}),
       $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }}),
       $axios('/yxs/api/web/news/getAllCategory'),
       $axios('/yxs/api/web/course/indexRecommendList', { params: { size: 5, current: 1 }}),
       $axios('/yxs/api/web/course/trainType')
     ])
+    let xlzkId = examSubList.data.id // 学历助考id
+    let zydjtId = theorySubList.data.id // 中医大讲堂id
+    let zyyllId = theorySubList.data.id // 中医药理论id
+    let zyzgId = qualificationSubList.data.id // 执业资格id
+    let mingshiId = famousSubList.data.id // 名医师承
+    let zyjkId = zyjkSubList.data.id // 中医公开课
+    
     return {
       friendLinkList: friendLinkList.data,
       carousels: carousels.data,
@@ -766,16 +735,23 @@ export default {
       examList: examList.data,
       theoryList: theoryList.data,
       healthList: healthList.data,
-      healthSubList: healthSubList.data,
+      healthSubList: healthSubList.data.list.data,
       qualificationList: qualificationList.data,
-      examSubList: examSubList.data,
-      theorySubList: theorySubList.data,
+      examSubList: examSubList.data.list.data,
+      theorySubList: theorySubList.data.list.data,
       trainList: trainList.data.records,
-      qualificationSubList: qualificationSubList.data, 
+      qualificationSubList: qualificationSubList.data.list.data,
       trainPages: trainList.data.pages,
       toutiaoSubList: toutiaoSubList.data,
       recommendCourse: recommendCourse.data.records,
-      westernSubList: westernSubList.data[0].children
+      westernSubList: westernSubList.data[0].children,
+      zyjkSubList: zyjkSubList.data.list.data,
+      xlzkId: xlzkId,
+      zydjtId: zydjtId,
+      zyyllId: zyyllId,
+      zyzgId: zyzgId,
+      mingshiId: mingshiId,
+      zyjkId: zyjkId
     }
   },
   created() {
@@ -1063,7 +1039,7 @@ export default {
         position: absolute;
         top: 0;
         padding: 0 20px 20px 20px;
-        width: 184px;
+        width: 160px;
         height: 380px;
         background: rgba(0, 0, 0, .7);
         color: #fff;
@@ -1232,8 +1208,7 @@ export default {
   }
   .item-container {
     width: 1200px;
-    margin: 0 auto;
-    padding-top: 40px;
+    margin: 30px auto 0;
     .container-header {
       position: relative;
     }
@@ -1311,7 +1286,7 @@ export default {
     }
     .container-content {
       display: flex;
-      margin-top: 22px;
+      margin-top: 24px;
       margin-bottom: 10px;
       .left-img {
         position: relative;
@@ -1354,7 +1329,7 @@ export default {
   }
   .bg-f6 {
     // background: #f6f6f6;
-    padding-bottom: 39px;
+    // padding-bottom: 39px;
   }
   .bg-ff {
     .button {

@@ -98,8 +98,8 @@ export default {
     height: 50px;
     font-size: 16px;
     .class-center {
-      flex: 0 0 204px;
-      width: 204px;
+      flex: 0 0 180px;
+      width: 180px;
       height: 50px;
       padding-left: 20px;
       line-height: 50px;
@@ -119,7 +119,7 @@ export default {
     }
     li {
       display: inline-block;
-      padding: 0 26px;
+      padding: 0 28px;
       cursor: pointer;
       box-sizing: border-box;
       a {
