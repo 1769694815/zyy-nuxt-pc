@@ -1,7 +1,11 @@
 <template>
   <div class="toutiao-index">
     <div class="crumb">
-      首页><nuxt-link :to="{ name: 'toutiao' }">资讯头条</nuxt-link>><span>{{ name }}</span>
+      <nuxt-link to="/">首页</nuxt-link>
+      <i class="iconfont iconarrow-right" />
+      <nuxt-link :to="{ name: 'toutiao' }">资讯头条</nuxt-link>
+      <i class="iconfont iconarrow-right" />      
+      <span>{{ name }}</span>
     </div>
     <ul class="toutiao-nav">
       <li

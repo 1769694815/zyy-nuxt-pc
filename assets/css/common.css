@@ -38,3 +38,18 @@
   transform: translate(-50%, 0);
   color: #999;
 }
+
+/* 面包屑 */
+.crumb {
+  margin-top: 28px;
+  margin-bottom: 18px;
+}
+
+.crumb a {
+  font-size: 12px;
+  color: #666;
+}
+.crumb i {
+  font-size: 12px;
+  color: #666;
+}

@@ -8,7 +8,11 @@
         class="header">
         <div class="header-content">
           <div class="crumb">
-            首页>课程详情
+            <nuxt-link to="/">首页</nuxt-link>
+            <i class="iconfont iconarrow-right" />
+            <nuxt-link :to="{ name: 'train' }">课程中心</nuxt-link>
+            <i class="iconfont iconarrow-right" />
+            <nuxt-link :to="{ name: 'lessonDetail', query: { id: id }}">{{ navTitle }}</nuxt-link>
           </div>
           <img :src="detailData.middlePicture">
           <div class="content-right">
@@ -343,7 +347,8 @@ export default {
         { label: "模拟习题", value: 3 },
         { label: "评论", value: 4 }
         // { label: "笔记", value: 4 }
-      ]
+      ],
+      navTitle: ''
     }
   },
   head() {
@@ -384,6 +389,7 @@ export default {
         }
       }).then(res => {
         this.detailData = res.data
+        this.navTitle = this.detailData.title
         this.title = this.detailData.title + '_自学考试'
       })
     },

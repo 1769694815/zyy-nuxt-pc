@@ -4,7 +4,9 @@
     <nav-bar :tab-index="tabIndex"/>
     <div class="train-container">
       <div class="crumb">
-        首页>培训项目
+        <nuxt-link to="/">首页</nuxt-link>
+        <i class="iconfont iconarrow-right" />
+        <nuxt-link :to="{ name: 'western' }">培训项目</nuxt-link>
       </div>
       <div class="train-content">
         <div class="content-left">
@@ -409,7 +411,7 @@ export default {
       margin-bottom: 18px;
       font-size: 12px;
       color: #666;
-    }
+      }
     .train-content {
       display: flex;
     }

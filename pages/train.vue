@@ -4,7 +4,10 @@
     <nav-bar :tab-index="tabIndex"/>
     <div class="train-container">
       <div class="crumb">
-        首页>课程中心
+        <nuxt-link to="/">首页</nuxt-link>
+        <i class="iconfont iconarrow-right" />
+        <nuxt-link :to="{ name: 'train' }">课程中心</nuxt-link>
+        <!-- 首页>课程中心 -->
       </div>
       <div class="train-content">
         <div class="content-left">

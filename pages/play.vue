@@ -4,7 +4,11 @@
     <nav-bar />
     <div class="container">
       <div class="crumb">
-        首页>课程中心>{{ info.courseTitle }}
+        <nuxt-link to="/">首页</nuxt-link>
+        <i class="iconfont iconarrow-right" />
+        <nuxt-link :to="{ name: 'train' }">课程中心</nuxt-link>
+        <i class="iconfont iconarrow-right" />
+        <nuxt-link :to="{ name: 'play', query: { courseId: courseId }}">{{ info.courseTitle }}</nuxt-link>
       </div>
       <div class="play-container">
         <div class="play-header">

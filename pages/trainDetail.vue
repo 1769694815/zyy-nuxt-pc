@@ -5,7 +5,11 @@
       <Navbar/>
       <div class="header-content">
         <div class="crumb">
-          首页>课程中心>培训项目
+          <nuxt-link to="/">首页</nuxt-link>
+          <i class="iconfont iconarrow-right" />
+          <nuxt-link :to="{ name: 'western' }">培训项目</nuxt-link>
+          <i class="iconfont iconarrow-right" />
+          <nuxt-link :to="{ name: 'trainDetail', query: { id: id }}">{{ navTitle }}</nuxt-link>
         </div>
         <img :src="detailData.pclogo">
         <div class="content-right">
@@ -212,8 +216,8 @@ export default {
       classIndex: 0,
       id: this.$route.query.id,
       detailData: {},
-      classInfo: '',
-      userInfo: '',
+      classInfo: {},
+      userInfo: {},
       navList:[
         {label:"项目介绍", value: 1},
         {label:"课程介绍", value: 2},
@@ -226,7 +230,8 @@ export default {
         {src: require('~/assets/images/wbc.jpg')},
         {src: require('~/assets/images/wbc.jpg')}
       ],
-      lessonList: []
+      lessonList: [],
+      navTitle: ''
     }
   },
   head() {
@@ -257,7 +262,7 @@ export default {
     }
   },
   mounted() {
-    this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
+    this.userInfo = Cookies.getJSON('zyy_userInfo') || {}
     this.getDetail()
   },
   methods:{
@@ -273,6 +278,7 @@ export default {
       }).then(res => {
         this.detailData = res.data
         this.classInfo = res.data.classList[0]
+        this.navTitle = this.classInfo.title
         this.title = this.classInfo.title + '_培训项目'
         this.getList(res.data.classList[0].roomId)
       })
@@ -293,6 +299,7 @@ export default {
     changeClass(item, index) {
       this.classIndex = index
       this.classInfo = this.detailData.classList[index]
+      this.navTitle = this.classInfo.title
       this.title = this.classInfo.title + '_培训项目'
       this.getList(item.roomId)
     },
