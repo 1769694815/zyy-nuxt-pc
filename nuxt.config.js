@@ -10,7 +10,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: '中医药在线',
+    title: '',
     titleTemplate: `%s_${appConfig.meta.title}`,
     meta: [
       { charset: 'utf-8' },

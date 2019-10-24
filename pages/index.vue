@@ -883,7 +883,7 @@ export default {
     handleScroll() {
       this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       this.fixedShow = this.scrollTop > 1000 ? true : false
-      this.onScroll(this.scrollTop + 80)
+      this.onScroll(this.scrollTop)
     },
     search() {
       let url = location.href
@@ -925,43 +925,36 @@ export default {
           this.activeIndex = i
         }
       }
-      // _artice.forEach((item, index) => {
-      //   if (scrollTop >= item.offsetTop) {
-      //     this.activeIndex = index
-      //   }
-      // })
     },
     jump(index) {
       let that = this
       let jump = document.querySelectorAll('.step_jump')
       let total = jump[index].offsetTop
       let distance = this.scrollTop
-      let step =  (distance - total) / 50 >> 0
+      let step =  (distance - total) / 30 >> 0
       if (total < distance) {
-        // smoothUp()
-        document.documentElement.scrollTop = document.body.scrollTop = total - 40
+        smoothUp()
       } else {
-        // let newTotal = total - distance 
-        // step = newTotal / 50 >> 0
-        // smoothDown()
-        document.documentElement.scrollTop = document.body.scrollTop  = total - 40
+        let newTotal = total - distance 
+        step = newTotal / 30 >> 0
+        smoothDown()
       }
       function smoothDown () {
         if (distance < total) {
           distance += step
-          document.documentElement.scrollTop = document.body.scrollTop = distance - 40       
+          document.documentElement.scrollTop = document.body.scrollTop = distance
           setTimeout(smoothDown, 10)
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop  = total - 40
+          document.documentElement.scrollTop = document.body.scrollTop  = total
         }
       }
       function smoothUp () {
         if (distance > total) {
           distance -= step
-          document.documentElement.scrollTop = document.body.scrollTop = distance - 40
+          document.documentElement.scrollTop = document.body.scrollTop = distance
           setTimeout(smoothUp, 10)
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop = total - 40
+          document.documentElement.scrollTop = document.body.scrollTop = total
         }
       }
     }
