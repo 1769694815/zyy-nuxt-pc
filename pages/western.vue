@@ -13,7 +13,7 @@
           <table class="table">
             <tbody>
               <tr>
-                <th>项目筛选：</th>
+                <th>项目类别：</th>
                 <td>
                   <span
                     v-for="(item, index) in types"
@@ -25,13 +25,25 @@
                 </td>
               </tr>
               <tr v-if="courses.length > 1">
-                <th>培训类别：</th>
+                <th>项目筛选：</th>
                 <td>
                   <span
                     v-for="(item, index) in courses"
                     :key="index"
                     :class="{active:cid == item.id}"
                     @click="changeSecond(item, index)">
+                    {{ item.name }}
+                  </span>
+                </td>
+              </tr>
+              <tr v-if="justCourses.length > 1">
+                <th>继续筛选：</th>
+                <td>
+                  <span
+                    v-for="(item, index) in justCourses"
+                    :key="index"
+                    :class="{active:tid == item.id}"
+                    @click="changeThird(item, index)">
                     {{ item.name }}
                   </span>
                 </td>
@@ -43,7 +55,7 @@
                     v-for="(item, index) in orders"
                     :key="index"
                     :class="{active:thirdActive == index}"
-                    @click="changeThird(item, index)">
+                    @click="changeHour(item, index)">
                     {{ item.label }}
                   </span>
                 </td>
@@ -165,6 +177,7 @@ export default {
       total: 0,
       categoryId: 1, // 默认21,培训项目id
       cid: this.$route.query.cid || 0,
+      tid: this.$route.query.tid || 0,
       fid: 0,
       orderByClause: 1,
       firstActive: 0,
@@ -175,6 +188,7 @@ export default {
       recommendTrains: [],
       types: [],
       courses: [],
+      justCourses: [],
       orders: [
         {
           label: '最新',
@@ -198,10 +212,11 @@ export default {
     }
   },
   // 监听参数字符串的更改，调用所有组件方法
-  watchQuery: ['fid', 'cid'],
+  watchQuery: ['fid', 'cid', 'tid'],
   async asyncData({ $axios, query }) {
     let fid = query.fid || 0
     let cid = query.cid || 0
+    let tid = query.tid || 0
     console.log('fid', fid)
     console.log('cid', cid)
     let res = await $axios('/yxs/api/web/course/getCourseType')
@@ -210,6 +225,10 @@ export default {
       id: 0
     }]
     let courses = [{
+      name: '全部',
+      id: 0
+    }]
+    let justCourses = [{
       name: '全部',
       id: 0
     }]
@@ -236,11 +255,24 @@ export default {
       })
     }
 
+    let courseIndex = 0
+    courses.forEach((ele, i) => {
+      if (ele.id == cid) {
+        courseIndex = i
+      }
+    })
+
+    if (courses[courseIndex].children && courses[courseIndex].children.length > 0) {
+      courses[courseIndex].children.map(item => {
+        justCourses.push(item)
+      })
+    }
+
     // 初始化数据
     let list = await $axios('/yxs/api/web/course/more', { params: {
       current: 1,
       size: 15,
-      categoryId: cid ? cid : fid,
+      categoryId: tid ? tid : (cid ? cid : fid),
       orderByClause: 1,
       type: 2,
       userToken: ''
@@ -251,6 +283,7 @@ export default {
       title,
       types,
       courses,
+      justCourses,
       result: list.data.list.records,
       total: list.data.list.total
     }
@@ -314,11 +347,21 @@ export default {
       //   this.tabIndex = 2
       // }
     },
-    changeThird(item, index) {
+    changeThird(id, index) {
+      this.$router.push({
+        name: 'western',
+        query: {
+          fid: this.fid,
+          cid: this.cid,
+          tid: id
+        }
+      })
+    },
+    changeHour(item, index) {
       this.current = 1
       this.thirdActive = index
       this.orderByClause = index + 1
-      let id = this.cid ? this.cid : this.fid
+      let id = this.tid ? this.tid : (this.cid ? this.cid : this.fid)
       this.getList(id, 3)
     },
     getList(id, i) {

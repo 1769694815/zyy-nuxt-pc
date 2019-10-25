@@ -14,7 +14,7 @@
           <table class="table">
             <tbody>
               <tr>
-                <th>学习类别：</th>
+                <th>课程类别：</th>
                 <td>
                   <span
                     v-for="(item, index) in types"
@@ -37,6 +37,18 @@
                   </span>
                 </td>
               </tr>
+              <tr v-if="justCourses.length > 1">
+                <th>继续筛选：</th>
+                <td>
+                  <span
+                    v-for="(item, index) in justCourses"
+                    :key="index"
+                    :class="{active:item.id == tid}"
+                    @click="changeThird(item.id, index)">
+                    {{ item.name }}
+                  </span>
+                </td>
+              </tr>
               <tr>
                 <th>排序：</th>
                 <td>
@@ -44,7 +56,7 @@
                     v-for="(item, index) in orders"
                     :key="index"
                     :class="{active:thirdActive == index}"
-                    @click="changeThird(item, index)">
+                    @click="changeHour(item, index)">
                     {{ item.label }}
                   </span>
                 </td>
@@ -120,6 +132,7 @@ export default {
       total: 0,
       categoryId: this.$route.query.fid || 0,
       cid: this.$route.query.cid || 0,
+      tid: this.$route.query.tid || 0,
       orderByClause: 1,
       // firstActive: 2,
       // firstId: this.$route.query.fid || 53,
@@ -130,6 +143,7 @@ export default {
       recommendTrains: [],
       types: [],
       courses: [],
+      justCourses: [], // 继续筛选
       orders: [
         {
           label: '最新',
@@ -154,10 +168,11 @@ export default {
     }
   },
   // 监听参数字符串的更改，调用所有组件方法
-  watchQuery: ['fid', 'cid'],
+  watchQuery: ['fid', 'cid', 'tid'],
   async asyncData({ $axios, query }) {
     let fid = query.fid || 0
     let cid = query.cid || 0
+    let tid = query.tid || 0
     let res = await $axios('/yxs/api/web/course/getCourseType')
     let types = [{
       name: '全部',
@@ -167,12 +182,14 @@ export default {
       name: '全部',
       id: 0
     }]
+    let justCourses = [{
+      name: '全部',
+      id: 0
+    }]
     let typeList = res.data.allCate
     typeList.map(item => {
       types.push(item)
     })
-
-    console.log('cid', cid)
 
     let index = 0
     types.forEach((ele, i) => {
@@ -181,8 +198,8 @@ export default {
       }
     })
 
-    console.log('index', index)
-    console.log('types', types)
+    // console.log('index', index)
+    // console.log('types', types)
 
     let title = '课程中心_'
 
@@ -192,13 +209,26 @@ export default {
       })
     }
 
-    console.log('courses', courses)
+    let courseIndex = 0
+    courses.forEach((ele, i) => {
+      if (ele.id == cid) {
+        courseIndex = i
+      }
+    })
+
+    if (courses[courseIndex].children && courses[courseIndex].children.length > 0) {
+      courses[courseIndex].children.map(item => {
+        justCourses.push(item)
+      })
+    }
+
+    // console.log('justCourses', justCourses)
 
     // 初始化数据
     let list = await $axios('/yxs/api/web/course/more', { params: {
       current: 1,
       size: 32,
-      categoryId: cid ? cid : fid,
+      categoryId: tid ? tid : (cid ? cid : fid),
       orderByClause: 1,
       type: 1,
       userToken: ''
@@ -209,6 +239,7 @@ export default {
       title,
       types,
       courses,
+      justCourses,
       result: list.data.list.records,
       total: list.data.list.total
     }
@@ -270,11 +301,21 @@ export default {
       //   this.getList(id, 2)
       // }
     },
-    changeThird(item, index) {
+    changeThird(id, index) {
+      this.$router.push({
+        name: 'train',
+        query: {
+          fid: this.fid,
+          cid: this.cid,
+          tid: id
+        }
+      })
+    },
+    changeHour(item, index) {
       this.current = 1
       this.thirdActive = index
       this.orderByClause = index + 1
-      let id = this.cid ? this.cid : this.fid
+      let id = this.tid ? this.tid : (this.cid ? this.cid : this.fid)
       this.getList(id, 3)
     },
     /**
