@@ -91,7 +91,7 @@ export default {
   },
   head() {
     return {
-      title: '我的关注'
+      title: '我的关注_'
     }
   },
   mounted() {

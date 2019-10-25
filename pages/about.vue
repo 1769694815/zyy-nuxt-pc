@@ -226,7 +226,7 @@ export default {
   },
   data() {
     return {
-      title: "关于我们",
+      title: "关于我们_",
       tabIndex: 8,
       carousels: [
         {

@@ -211,7 +211,7 @@ export default {
   },
   head() {
     return {
-      title: this.info.courseTitle
+      title: this.info.courseTitle + '_'
     }
   },
   computed: {

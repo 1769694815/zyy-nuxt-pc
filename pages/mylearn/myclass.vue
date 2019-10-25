@@ -88,7 +88,7 @@ export default {
   },
   head() {
     return {
-      title: '我的班级'
+      title: '我的班级_'
     }
   },
   mounted() {

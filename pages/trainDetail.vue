@@ -279,7 +279,7 @@ export default {
         this.detailData = res.data
         this.classInfo = res.data.classList[0]
         this.navTitle = this.classInfo.title
-        this.title = this.classInfo.title + '_培训项目'
+        this.title = this.classInfo.title + '_培训项目_'
         this.getList(res.data.classList[0].roomId)
       })
     },

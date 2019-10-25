@@ -216,7 +216,7 @@ export default {
   },
   data() {
     return {
-      title: '资讯头条',
+      title: '资讯头条_',
       size: 10,
       current: 1,
       pages: 0,

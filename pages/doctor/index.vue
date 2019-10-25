@@ -17,7 +17,7 @@
 export default {
   data() {
     return {
-      title: '名医师承',
+      title: '名医师承_',
       list: []
     }
   },

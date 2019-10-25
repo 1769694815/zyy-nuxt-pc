@@ -47,7 +47,7 @@ export default {
   },
   head() {
     return {
-      title: '个人中心'
+      title: '个人中心_'
     }
   },
   mounted() {

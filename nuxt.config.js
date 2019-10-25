@@ -11,7 +11,7 @@ module.exports = {
   */
   head: {
     title: '',
-    titleTemplate: `%s_${appConfig.meta.title}`,
+    titleTemplate: `%s${appConfig.meta.title}`,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
