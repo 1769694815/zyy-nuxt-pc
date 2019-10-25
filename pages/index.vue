@@ -147,113 +147,16 @@
         </section>
       </div>
     </div>
-    <!-- 中医研究所 -->
-    <!-- <div
-      v-if="researchList.length > 0"
-      class="item-container bg-ff">
-      <div class="container-header">
-        <h2>中医研究所</h2>
-        <div class="subnav">
-          <nuxt-link
-            :to="{ name: 'train', query: { fid: 70 }}"
-            class="pos-right"
-            target="_blank">
-            查看更多
-            <i class="iconfont icongengduo"/>
-          </nuxt-link>
-        </div>
-      </div>
-      <div class="list">
-        <div
-          v-for="(item, index) in researchList"
-          v-if="index < 4"
-          :key="index"
-          class="list-item">
-          <research-item :data-obj="item" />
-        </div>
-      </div>
-      <div class="button">
-        <span @click="change1">
-          <i class="iconfont iconrefresh" />
-          换一批
-        </span>
-      </div>
-    </div> -->
-    <div class="item-container step_jump">
-      <div class="container-header">
-        <h2>推荐课程</h2>
-        <img
-          class="hot"
-          src="~/assets/images/hot.png" >
-          <!-- <div class="subnav">
-            <nuxt-link
-              :to="{ name: 'train', query: { fid: '00' }}"
-              class="pos-right"
-              target="_blank">
-              查看更多
-              <i class="iconfont icongengduo"/>
-            </nuxt-link>
-          </div> -->
-      </div>
-      <div class="container-content">
-        <div
-          v-for="(item, index) in recommendCourse"
-          v-if="index < 5"
-          :key="index"
-          class="list-item">
-          <section-item :data-obj="item" />
-        </div>
-      </div>
-    </div>
-    <div class="bg-f6 train step_jump">
-      <div class="item-container">
+    <div class="index-content">
+      <!-- 中医研究所 -->
+      <!-- <div
+        v-if="researchList.length > 0"
+        class="item-container bg-ff">
         <div class="container-header">
-          <h2>培训项目</h2>
+          <h2>中医研究所</h2>
           <div class="subnav">
             <nuxt-link
-              v-for="(item, index) in westernSubList"
-              :key="index"
-              :to="{ name: 'western', query: { fid: item.id }}"
-              :title="item.name"
-              target="_blank"
-              class="subnav-item">{{ item.name }}</nuxt-link>
-            <nuxt-link
-              to="/western"
-              class="pos-right"
-              target="_blank">
-              查看更多
-              <i class="iconfont icongengduo" />
-            </nuxt-link>
-          </div>
-        </div>
-        <div class="train-imgs">
-          <div
-            v-for="(item, index) in trainList"
-            v-if="index < 4"
-            :key="index"
-            class="train-img"
-            @click="toTrainDetail(item)">
-            <img :src="item.middle_picture">
-          </div>
-        </div>
-        <div class="button">
-          <span @click="change2">
-            <i class="iconfont iconrefresh" />
-            换一批
-          </span>
-        </div>
-      </div>
-    </div>
-    <!-- 名医师承 -->
-    <div
-      ref="item3"
-      class="bg-f6 step_jump">
-      <div class="item-container">
-        <div class="container-header">
-          <h2>名医师承</h2>
-          <div class="subnav">
-            <nuxt-link
-              :to="{ name: 'doctor' }"
+              :to="{ name: 'train', query: { fid: 70 }}"
               class="pos-right"
               target="_blank">
               查看更多
@@ -263,224 +166,400 @@
         </div>
         <div class="list">
           <div
-            v-for="(item, index) in famousList"
-            v-if="index < 5"
+            v-for="(item, index) in researchList"
+            v-if="index < 4"
             :key="index"
             class="list-item">
-            <famous-item :data-obj="item"/>
+            <research-item :data-obj="item" />
           </div>
         </div>
-        <div class="imgs">
-          <nuxt-link
-            class="img"
-            to="/train?fid=101"
-            target="_blank">
-            <img
-              src="~/assets/images/famous_1.png"
-              alt="考前辅导"
-              title="考前辅导">
-          </nuxt-link>
-          <nuxt-link
-            class="img"
-            to="/western"
-            target="_blank">
-            <img
-              src="~/assets/images/famous_3.png"
-              alt="培训项目"
-              title="培训项目">
-          </nuxt-link>
-          <nuxt-link
-            class="img"
-            to="/community"
-            target="_blank">
-            <img
-              src="~/assets/images/famous_3.jpg"
-              alt="中医药进社区"
-              title="中医药进社区">
-          </nuxt-link>
+        <div class="button">
+          <span @click="change1">
+            <i class="iconfont iconrefresh" />
+            换一批
+          </span>
         </div>
-      </div>
-    </div>
-    <!-- 中医大讲堂 -->
-    <div
-      ref="item4"
-      class="item-container step_jump">
-      <div class="container-header">
-        <h2>中医大讲堂</h2>
-        <div class="subnav">
-          <nuxt-link
-            v-for="(item, index) in healthSubList"
-            :key="index"
-            :to="{ name: 'train', query: { fid: item.parendId, cid: item.id }}"
-            :title="item.name"
-            target="_blank"
-            class="subnav-item">{{ item.name }}</nuxt-link>
-          <nuxt-link
-            :to="{ name: 'train', query: { fid: zydjtId }}"
-            class="pos-right"
-            target="_blank">
-            查看更多
-            <i class="iconfont icongengduo"/>
-          </nuxt-link>
+      </div> -->
+      <!-- 推荐课程 -->
+      <div class="item-container step_jump">
+        <div class="container-header">
+          <h2>推荐课程</h2>
+          <img
+            class="hot"
+            src="~/assets/images/hot.png" >
         </div>
-      </div>
-      <div class="container-content">
-        <div class="left-img">
-          <img src="~/assets/images/img_1.png">
-        </div>
-        <div class="right-list">
+        <div class="container-content">
           <div
-            v-for="(item, index) in healthList"
-            v-if="index < 8"
+            v-for="(item, index) in recommendCourse"
+            v-if="index < 5"
             :key="index"
             class="list-item">
             <section-item :data-obj="item" />
           </div>
         </div>
       </div>
-    </div>
-    <div
-      ref="item5"
-      class="item-container step_jump">
-      <div class="container-header">
-        <h2>学历助考</h2>
-        <div class="subnav">
-          <nuxt-link
-            v-for="(item, index) in examSubList"
-            :key="index"
-            :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
-            :title="item.name"
-            target="_blank"
-            class="subnav-item">{{ item.name }}</nuxt-link>
-          <nuxt-link
-            :to="{ name: 'train', query: { fid: xlzkId }}"
-            class="pos-right"
-            target="_blank">
-            查看更多
-            <i class="iconfont icongengduo"/>
-          </nuxt-link>
-        </div>
-      </div>
-      <div class="container-content">
-        <div class="left-img">
-          <img src="~/assets/images/img_3.png">
-        </div>
-        <div class="right-list">
-          <div
-            v-for="(item, index) in examList"
-            v-if="index < 8"
-            :key="index"
-            class="list-item">
-            <section-item :data-obj="item" /> 
+      <!-- 培训项目 -->
+      <div class="train step_jump">
+        <div class="item-container">
+          <div class="container-header">
+            <h2>培训项目</h2>
+            <div class="subnav">
+              <nuxt-link
+                v-for="(item, index) in westernSubList"
+                :key="index"
+                :to="{ name: 'western', query: { fid: item.id }}"
+                :title="item.name"
+                target="_blank"
+                class="subnav-item">{{ item.name }}</nuxt-link>
+              <nuxt-link
+                to="/western"
+                class="pos-right"
+                target="_blank">
+                查看更多
+                <i class="iconfont icongengduo" />
+              </nuxt-link>
+            </div>
+          </div>
+          <div class="train-imgs">
+            <div
+              v-for="(item, index) in trainList"
+              v-if="index < 4"
+              :key="index"
+              class="train-img"
+              @click="toTrainDetail(item)">
+              <img :src="item.middle_picture">
+            </div>
+          </div>
+          <div class="button">
+            <span @click="change2">
+              <i class="iconfont iconrefresh" />
+              换一批
+            </span>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      ref="item6"
-      class="item-container step_jump">
-      <div class="container-header">
-        <h2>中医药理论</h2>
-        <div class="subnav">
-          <nuxt-link
-            v-for="(item, index) in theorySubList"
-            :key="index"
-            :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
-            :title="item.name"
-            target="_blank"
-            class="subnav-item">{{ item.name }}</nuxt-link>
-          <nuxt-link
-            :to="{ name: 'train', query: { fid: zyyllId }}"
-            class="pos-right"
-            target="_blank">
-            查看更多
-            <i class="iconfont icongengduo"/>
-          </nuxt-link>
-        </div>
-      </div>
-      <div class="container-content">
-        <div class="left-img">
-          <img src="~/assets/images/img_2.png">
-        </div>
-        <div class="right-list">
-          <div
-            v-for="(item, index) in theoryList"
-            v-if="index < 8"
-            :key="index"
-            class="list-item">
-            <section-item :data-obj="item" /> 
+      <!-- 名医师承 -->
+      <div
+        ref="item3"
+        class="step_jump">
+        <div class="item-container">
+          <div class="container-header">
+            <h2>名医师承</h2>
+            <div class="subnav">
+              <nuxt-link
+                :to="{ name: 'doctor' }"
+                class="pos-right"
+                target="_blank">
+                查看更多
+                <i class="iconfont icongengduo"/>
+              </nuxt-link>
+            </div>
+          </div>
+          <div class="list">
+            <div
+              v-for="(item, index) in famousList"
+              v-if="index < 5"
+              :key="index"
+              class="list-item">
+              <famous-item :data-obj="item"/>
+            </div>
+          </div>
+          <div class="imgs">
+            <nuxt-link
+              class="img"
+              to="/train?fid=101"
+              target="_blank">
+              <img
+                src="~/assets/images/famous_1.png"
+                alt="考前辅导"
+                title="考前辅导">
+            </nuxt-link>
+            <nuxt-link
+              class="img"
+              to="/western"
+              target="_blank">
+              <img
+                src="~/assets/images/famous_3.png"
+                alt="培训项目"
+                title="培训项目">
+            </nuxt-link>
+            <nuxt-link
+              class="img"
+              to="/community"
+              target="_blank">
+              <img
+                src="~/assets/images/famous_3.jpg"
+                alt="中医药进社区"
+                title="中医药进社区">
+            </nuxt-link>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      ref="item7"
-      class="item-container step_jump">
-      <div class="container-header">
-        <h2>执业资格</h2>
-        <div class="subnav">
-          <nuxt-link
-            v-for="(item, index) in qualificationSubList"
-            :key="index"
-            :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
-            :title="item.name"
-            target="_blank"
-            class="subnav-item">{{ item.name }}</nuxt-link>
-          <nuxt-link
-            :to="{ name: 'train', query: { fid: zyzgId }}"
-            class="pos-right"
-            target="_blank">
-            查看更多
-            <i class="iconfont icongengduo"/>
-          </nuxt-link>
+      <!-- 中医大讲堂 -->
+      <div
+        ref="item4"
+        class="item-container step_jump">
+        <div class="container-header">
+          <h2>中医大讲堂</h2>
+          <div class="subnav">
+            <nuxt-link
+              v-for="(item, index) in healthSubList"
+              :key="index"
+              :to="{ name: 'train', query: { fid: item.parendId, cid: item.id }}"
+              :title="item.name"
+              target="_blank"
+              class="subnav-item">{{ item.name }}</nuxt-link>
+            <nuxt-link
+              :to="{ name: 'train', query: { fid: zydjtId }}"
+              class="pos-right"
+              target="_blank">
+              查看更多
+              <i class="iconfont icongengduo"/>
+            </nuxt-link>
+          </div>
         </div>
-      </div>
-      <div class="container-content">
-        <div class="left-img">
-          <img src="~/assets/images/img_4.png">
-        </div>
-        <div class="right-list">
-          <div
-            v-for="(item, index) in qualificationList"
-            v-if="index < 8"
-            :key="index"
-            class="list-item">
-            <section-item :data-obj="item" /> 
+        <div class="container-content">
+          <div class="left-img">
+            <img src="~/assets/images/img_1.png">
+          </div>
+          <div class="right-list">
+            <div
+              v-for="(item, index) in healthList"
+              v-if="index < 8"
+              :key="index"
+              class="list-item">
+              <section-item :data-obj="item" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      ref="item8"
-      class="item-container step_jump">
-      <div class="container-header">
-        <h2>资讯头条</h2>
-        <div class="subnav">
-          <nuxt-link
-            v-for="(item, index) in toutiaoSubList"
+      <!-- 学历助考 -->
+      <div
+        ref="item5"
+        class="item-container step_jump">
+        <div class="container-header">
+          <h2>学历助考</h2>
+          <div class="subnav">
+            <nuxt-link
+              v-for="(item, index) in examSubList"
+              :key="index"
+              :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
+              :title="item.name"
+              target="_blank"
+              class="subnav-item">{{ item.name }}</nuxt-link>
+            <nuxt-link
+              :to="{ name: 'train', query: { fid: xlzkId }}"
+              class="pos-right"
+              target="_blank">
+              查看更多
+              <i class="iconfont icongengduo"/>
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="container-content">
+          <div class="left-img">
+            <img src="~/assets/images/img_3.png">
+          </div>
+          <div class="right-list">
+            <div
+              v-for="(item, index) in examList"
+              v-if="index < 8"
+              :key="index"
+              class="list-item">
+              <section-item :data-obj="item" /> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 中医药理论 -->
+      <div
+        ref="item6"
+        class="item-container step_jump">
+        <div class="container-header">
+          <h2>中医药理论</h2>
+          <div class="subnav">
+            <nuxt-link
+              v-for="(item, index) in theorySubList"
+              :key="index"
+              :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
+              :title="item.name"
+              target="_blank"
+              class="subnav-item">{{ item.name }}</nuxt-link>
+            <nuxt-link
+              :to="{ name: 'train', query: { fid: zyyllId }}"
+              class="pos-right"
+              target="_blank">
+              查看更多
+              <i class="iconfont icongengduo"/>
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="container-content">
+          <div class="left-img">
+            <img src="~/assets/images/img_2.png">
+          </div>
+          <div class="right-list">
+            <div
+              v-for="(item, index) in theoryList"
+              v-if="index < 8"
+              :key="index"
+              class="list-item">
+              <section-item :data-obj="item" /> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 执业资格 -->
+      <div
+        ref="item7"
+        class="item-container step_jump">
+        <div class="container-header">
+          <h2>执业资格</h2>
+          <div class="subnav">
+            <nuxt-link
+              v-for="(item, index) in qualificationSubList"
+              :key="index"
+              :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
+              :title="item.name"
+              target="_blank"
+              class="subnav-item">{{ item.name }}</nuxt-link>
+            <nuxt-link
+              :to="{ name: 'train', query: { fid: zyzgId }}"
+              class="pos-right"
+              target="_blank">
+              查看更多
+              <i class="iconfont icongengduo"/>
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="container-content">
+          <div class="left-img">
+            <img src="~/assets/images/img_4.png">
+          </div>
+          <div class="right-list">
+            <div
+              v-for="(item, index) in qualificationList"
+              v-if="index < 8"
+              :key="index"
+              class="list-item">
+              <section-item :data-obj="item" /> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 资讯头条 -->
+      <div
+        ref="item8"
+        class="item-container step_jump">
+        <div class="container-header">
+          <h2>资讯头条</h2>
+          <div class="subnav">
+            <nuxt-link
+              v-for="(item, index) in toutiaoSubList"
+              :key="index"
+              :to="{ name: 'toutiao', query: { type: item.id }}"
+              :title="item.name"
+              target="_blank"
+              class="subnav-item">{{ item.name }}</nuxt-link>
+            <nuxt-link
+              :to="{ name: 'toutiao' }"
+              class="pos-right"
+              target="_blank">
+              查看更多
+              <i class="iconfont icongengduo"/>
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="toutiao">
+          <div
+            v-for="(item, index) in toutiaoList"
+            v-if="index < 6"
             :key="index"
-            :to="{ name: 'toutiao', query: { type: item.id }}"
-            :title="item.name"
-            target="_blank"
-            class="subnav-item">{{ item.name }}</nuxt-link>
-          <nuxt-link
-            :to="{ name: 'toutiao' }"
-            class="pos-right"
-            target="_blank">
-            查看更多
-            <i class="iconfont icongengduo"/>
-          </nuxt-link>
+            class="toutiao-item">
+            <toutiao-item :data-obj="item"/>
+          </div>
         </div>
       </div>
-      <div class="toutiao">
-        <div
-          v-for="(item, index) in toutiaoList"
-          v-if="index < 6"
-          :key="index"
-          class="toutiao-item">
-          <toutiao-item :data-obj="item"/>
-        </div>
-      </div>
+      <!-- 左边侧边栏 -->
+      <ul
+        :style="{left: asideLeft + 'px'}"
+        :class="['left-aside', {'absolute' : !fixedShow}]">
+        <li :class="{ 'active' : activeIndex == 0 }">
+          <a
+            href="javascript:;"
+            @click="jump(0)">
+            <span>推荐</span>
+            <span>课程</span>
+          </a>
+        </li>
+        <li :class="{ 'active' : activeIndex == 1 }">
+          <a
+            href="javascript:;"
+            @click="jump(1)">
+            <span>培训</span>
+            <span>项目</span>
+          </a>
+        </li>
+        <li :class="{ 'active' : activeIndex == 2 }">
+          <a
+            href="javascript:;"
+            @click="jump(2)">
+            <span>名医</span>
+            <span>师承</span>
+          </a>
+        </li>
+        <li :class="{ 'active' : activeIndex == 3 }">
+          <a
+            href="javascript:;"
+            @click="jump(3)">
+            <span>中医</span>
+            <span>大讲堂</span>
+          </a>
+        </li>
+        <li :class="{ 'active' : activeIndex == 4 }">
+          <a
+            href="javascript:;"
+            @click="jump(4)">
+            <span>学历</span>
+            <span>助考</span>
+          </a>
+        </li>
+        <li :class="{ 'active' : activeIndex == 5 }">
+          <a
+            href="javascript:;"
+            @click="jump(5)">
+            <span>中医药</span>
+            <span>理论</span>
+          </a>
+        </li>
+        <li :class="{ 'active' : activeIndex == 6 }">
+          <a
+            href="javascript:;"
+            @click="jump(6)">
+            <span>执业</span>
+            <span>资格</span>
+          </a>
+        </li>
+        <li :class="{ 'active' : activeIndex == 7 }">
+          <a
+            href="javascript:;"
+            @click="jump(7)">
+            <span>资讯</span>
+            <span>头条</span>
+          </a>
+        </li>
+        <li
+          v-show="fixedShow"        
+          class="topscroll">
+          <a
+            href="javascript:;"
+            @click="toTop">
+            顶部
+            <br>
+            <i class="iconfont iconarrow-right" />
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="foot-img">
       <nuxt-link
@@ -491,84 +570,7 @@
           alt="服务与保障">
       </nuxt-link>
     </div>
-    <!-- 左边侧边栏 -->
-    <ul class="left-aside">
-      <li :class="{ 'active' : activeIndex == 0 }">
-        <a
-          href="javascript:;"
-          @click="jump(0)">
-          <span>推荐</span>
-          <span>课程</span>
-        </a>
-      </li>
-      <li :class="{ 'active' : activeIndex == 1 }">
-        <a
-          href="javascript:;"
-          @click="jump(1)">
-          <span>培训</span>
-          <span>项目</span>
-        </a>
-      </li>
-      <li :class="{ 'active' : activeIndex == 2 }">
-        <a
-          href="javascript:;"
-          @click="jump(2)">
-          <span>名医</span>
-          <span>师承</span>
-        </a>
-      </li>
-      <li :class="{ 'active' : activeIndex == 3 }">
-        <a
-          href="javascript:;"
-          @click="jump(3)">
-          <span>中医</span>
-          <span>大讲堂</span>
-        </a>
-      </li>
-      <li :class="{ 'active' : activeIndex == 4 }">
-        <a
-          href="javascript:;"
-          @click="jump(4)">
-          <span>学历</span>
-          <span>助考</span>
-        </a>
-      </li>
-      <li :class="{ 'active' : activeIndex == 5 }">
-        <a
-          href="javascript:;"
-          @click="jump(5)">
-          <span>中医药</span>
-          <span>理论</span>
-        </a>
-      </li>
-      <li :class="{ 'active' : activeIndex == 6 }">
-        <a
-          href="javascript:;"
-          @click="jump(6)">
-          <span>执业</span>
-          <span>资格</span>
-        </a>
-      </li>
-      <li :class="{ 'active' : activeIndex == 7 }">
-        <a
-          href="javascript:;"
-          @click="jump(7)">
-          <span>资讯</span>
-          <span>头条</span>
-        </a>
-      </li>
-      <li
-        v-show="fixedShow"        
-        class="topscroll">
-        <a
-          href="javascript:;"
-          @click="toTop">
-          顶部
-          <br>
-          <i class="iconfont iconarrow-right" />
-        </a>
-      </li>
-    </ul>
+    
     <friend-link :link-list="friendLinkList" />
     <transition name="fade">
       <div
@@ -672,7 +674,8 @@ export default {
       zyyllId: '',
       zyzgId: '',
       mingshiId: '',
-      zyjkId: ''
+      zyjkId: '',
+      asideLeft: '', // 左侧边栏定位
     }
   },
   head() {
@@ -759,8 +762,13 @@ export default {
   }, 
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.handleResize)
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     console.log('userInfo', this.userInfo)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
     // 获取首页中医研究所
@@ -882,8 +890,20 @@ export default {
     },
     handleScroll() {
       this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      this.fixedShow = this.scrollTop > 1000 ? true : false
+      let fixedShowHeight = document.querySelector('.index-content').offsetTop
+      this.fixedShow = this.scrollTop >= fixedShowHeight / 2  ? true : false
       this.onScroll(this.scrollTop)
+    },
+    handleResize() {
+      console.log('宽度', document.body.offsetWidth)
+      // 可视区域总宽度
+      let offsetWidth = document.body.offsetWidth
+      this.asideLeft = (offsetWidth - 1200) / 2 - 40 - 46
+      console.log(this.asideLeft)
+      if (this.asideLeft < 0) {
+        this.asideLeft = 0
+      }
+
     },
     search() {
       let url = location.href
@@ -920,8 +940,9 @@ export default {
     // 描点平滑滚动
     onScroll(scrollTop) {
       let _artice = document.querySelectorAll('.step_jump')
+      let contentHeight = document.querySelector('.index-content').offsetTop
       for (let i = 0; i < _artice.length; i++) {
-        if (scrollTop >= _artice[i].offsetTop) {
+        if (scrollTop >= _artice[i].offsetTop + contentHeight - 60) {
           this.activeIndex = i
         }
       }
@@ -929,7 +950,7 @@ export default {
     jump(index) {
       let that = this
       let jump = document.querySelectorAll('.step_jump')
-      let total = jump[index].offsetTop
+      let total = jump[index].offsetTop + document.querySelector('.index-content').offsetTop
       let distance = this.scrollTop
       let step =  (distance - total) / 30 >> 0
       if (total < distance) {
@@ -940,21 +961,21 @@ export default {
         smoothDown()
       }
       function smoothDown () {
-        if (distance < total) {
+        if (distance + step < total) {
           distance += step
-          document.documentElement.scrollTop = document.body.scrollTop = distance
+          document.documentElement.scrollTop = document.body.scrollTop = distance - 60
           setTimeout(smoothDown, 10)
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop  = total
+          document.documentElement.scrollTop = document.body.scrollTop  = total - 60
         }
       }
       function smoothUp () {
         if (distance > total) {
           distance -= step
-          document.documentElement.scrollTop = document.body.scrollTop = distance
+          document.documentElement.scrollTop = document.body.scrollTop = distance - 60
           setTimeout(smoothUp, 10)
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop = total
+          document.documentElement.scrollTop = document.body.scrollTop = total - 60
         }
       }
     }
@@ -963,56 +984,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .left-aside {
-    width: 46px;
-    height: auto;
-    position: fixed;
-    top: 50%;
-    left: 5%;
-    transform: translate(0, -50%);
-    z-index: 100;
-    background: #666;
-    li {
-      width: 46px;
-      height: 46px;
-      box-sizing: border-box;
-      padding: 0 2px;
-      a {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-        padding: 10px 0;
-        box-sizing: border-box;
-        border-bottom: 1px solid #777;
-        font-size: 12px;
-        line-height: 14px;
-        color: #fff;
-        text-align: center;
-        span {
-          width: 100%;
-          display: block;
-          text-align: center;
-        }
-      }
-      &.active {
-        background: #fbb03b;
-        a {
-          border: 0;
-        }
-      }
-      &.topscroll {
-        background: #3f8a38;
-        a {
-          border: 0;
-        }
-        i.iconarrow-right {
-          transform: rotate(-90deg);
-          font-size: 11px;
-          color: #fff;
-        }
-      }
-    }
-  }
   .carousel {
     height: 400px;
     .imgs {
@@ -1320,10 +1291,6 @@ export default {
       }
     }
   }
-  .bg-f6 {
-    // background: #f6f6f6;
-    // padding-bottom: 39px;
-  }
   .bg-ff {
     .button {
       margin-top: -20px;
@@ -1515,7 +1482,64 @@ export default {
     vertical-align: bottom;
     margin-left: 10px;
   }
-  
+  .index-content {
+    position: relative;
+    .left-aside {
+      width: 46px;
+      height: auto;
+      position: fixed;
+      top: 50%;
+      left: calc( (100% - 1200px) / 2 - 40px - 46px );
+      transform: translate(0, -50%);
+      z-index: 100;
+      background: #666;
+      &.absolute {
+        position: absolute;
+        top: 0;
+        transform: translate(0, 0);
+      }
+      li {
+        width: 46px;
+        height: 46px;
+        box-sizing: border-box;
+        padding: 0 2px;
+        a {
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          padding: 10px 0;
+          box-sizing: border-box;
+          border-bottom: 1px solid #777;
+          font-size: 12px;
+          line-height: 14px;
+          color: #fff;
+          text-align: center;
+          span {
+            width: 100%;
+            display: block;
+            text-align: center;
+          }
+        }
+        &.active {
+          background: #fbb03b;
+          a {
+            border: 0;
+          }
+        }
+        &.topscroll {
+          background: #3f8a38;
+          a {
+            border: 0;
+          }
+          i.iconarrow-right {
+            transform: rotate(-90deg);
+            font-size: 11px;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
 </style>
 <style>
   .el-carousel__button {
