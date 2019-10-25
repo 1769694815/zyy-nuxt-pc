@@ -59,7 +59,7 @@ export default {
   },
   head() {
     return {
-      title: '学习时长'
+      title: '学习时长_'
     }
   },
   mounted() {

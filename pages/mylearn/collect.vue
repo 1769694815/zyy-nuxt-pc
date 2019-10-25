@@ -102,7 +102,7 @@ export default {
   },
   head() {
     return {
-      title: '我的收藏'
+      title: '我的收藏_'
     }
   },
   mounted() {

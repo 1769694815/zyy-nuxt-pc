@@ -106,7 +106,7 @@ export default {
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     // this.getDetail()
     this.getComment()
-    this.title = this.info.title + '_资讯头条'
+    this.title = this.info.title + '_资讯头条_'
   },
   methods: {
     getDetail() {

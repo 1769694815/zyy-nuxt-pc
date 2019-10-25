@@ -184,7 +184,7 @@ export default {
     console.log('index', index)
     console.log('types', types)
 
-    let title = types[index].name
+    let title = '课程中心_'
 
     if (types[index].children && types[index].children.length > 0) {
       types[index].children.map(item => {

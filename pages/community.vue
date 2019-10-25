@@ -132,7 +132,7 @@ export default {
   },
   data() {
     return {
-      title: '中医药进社区',
+      title: '中医药进社区_',
       tabIndex: 6,
       channels: [],
       rightList: [],

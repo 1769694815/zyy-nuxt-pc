@@ -79,7 +79,7 @@ export default {
   },
   head() {
     return {
-      title: this.name + '_' + this.title 
+      title: this.name + '_' + this.title + '_' 
     }
   },
   // 监听参数字符串的更改，调用所有组件方法

@@ -390,7 +390,7 @@ export default {
       }).then(res => {
         this.detailData = res.data
         this.navTitle = this.detailData.title
-        this.title = this.detailData.title + '_自学考试'
+        this.title = this.detailData.title + '_自学考试_'
       })
     },
     toPlay(item) {

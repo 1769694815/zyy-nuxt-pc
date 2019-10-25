@@ -95,7 +95,7 @@ export default {
   },
   head() {
     return {
-      title: '我的课程'
+      title: '我的课程_'
     }
   },
   mounted() {

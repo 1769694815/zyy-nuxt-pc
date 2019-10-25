@@ -57,7 +57,7 @@ import Cookies from 'js-cookie'
 export default {
   data() {
     return {
-      title: '名医师承',
+      title: '名医师承_',
       id: this.$route.query.id,
       userInfo: '',
       detail: {}
@@ -82,7 +82,7 @@ export default {
         params
       }).then(res => {
         this.detail = res.data
-        this.title = res.data.name + '_名医师承'
+        this.title = res.data.name + '_名医师承_'
       })
     },
     // 关注

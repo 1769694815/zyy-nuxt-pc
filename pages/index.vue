@@ -632,7 +632,7 @@ export default {
   },
   data() {
     return {
-      title: '首页',
+      title: '',
       tabIndex: 1,
       current1: 1,
       current2: 1,

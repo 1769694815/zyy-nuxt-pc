@@ -227,7 +227,7 @@ export default {
       }
     })
 
-    let title = types[index].name
+    let title = '培训项目_'
 
     // 培训类别
     if (types[index].children && types[index].children.length > 0) {
