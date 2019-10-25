@@ -12,8 +12,8 @@ export default ({ app, $axios, req, res }) => {
     let isServer = process.server
    
     if (isClient) {
-      console.log('to', to)
-      console.log('from', from)
+      // console.log('to', to)
+      // console.log('from', from)
       if (to.name == 'login' && from.name) {
         let fromRouter = {
           name: from.name,

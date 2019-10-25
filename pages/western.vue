@@ -217,8 +217,8 @@ export default {
     let fid = query.fid || 0
     let cid = query.cid || 0
     let tid = query.tid || 0
-    console.log('fid', fid)
-    console.log('cid', cid)
+    // console.log('fid', fid)
+    // console.log('cid', cid)
     let res = await $axios('/yxs/api/web/course/getCourseType')
     let types = [{
       name: '全部',
@@ -239,7 +239,7 @@ export default {
     })
 
     let index = 0
-    console.log('types', types)
+    // console.log('types', types)
     types.forEach((ele, i) => {
       if (ele.id == fid) {
         index = i
@@ -389,7 +389,7 @@ export default {
           item.type = 2
           this.types.push(item)
         })
-        console.log('types', this.types)
+        // console.log('types', this.types)
         this.changeFirst(this.types[0], 1)
       })
     },

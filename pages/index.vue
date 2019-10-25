@@ -895,11 +895,10 @@ export default {
       this.onScroll(this.scrollTop)
     },
     handleResize() {
-      console.log('宽度', document.body.offsetWidth)
+      // console.log('宽度', document.body.offsetWidth)
       // 可视区域总宽度
       let offsetWidth = document.body.offsetWidth
       this.asideLeft = (offsetWidth - 1200) / 2 - 40 - 46
-      console.log(this.asideLeft)
       if (this.asideLeft < 0) {
         this.asideLeft = 0
       }

@@ -135,11 +135,11 @@ export default {
   watch: {
     getName: {
       handler: function (val, oldVal) {
-        console.log(val)
+        // console.log(val)
         for (var i in this.pwdList) {
           if (this.pwdList[i].userName == val) {
-            console.log(this.pwdList[i].userName)
-            console.log(this.pwdList[i].password)
+            // console.log(this.pwdList[i].userName)
+            // console.log(this.pwdList[i].password)
             this.form2.password = this.pwdList[i].password
             return
           } else {
@@ -220,7 +220,7 @@ export default {
       }
       // this.$axios.setHeader('Content-Type', 'application/json')
       // this.$axios.setHeader('Content-Type', 'application/json', ['post'])
-      console.log(this.$axios)
+      // console.log(this.$axios)
       this.$axios.post('/admin/api/web/account/login', this.form2).then(res => {
         if(res.code == 0) {
           Cookies.set('zyy_userInfo', res.data, { expires: 30 })
