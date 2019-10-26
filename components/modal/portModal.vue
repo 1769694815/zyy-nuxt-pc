@@ -9,7 +9,7 @@
         label-width="100px">
         <el-select
           v-model="region"
-          placeholder="请选择需要导出的班级"
+          placeholder="请选择需要导出的课程"
           collapse-tags
           multiple
           @change="selectClass">
