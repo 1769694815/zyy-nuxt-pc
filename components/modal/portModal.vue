@@ -10,6 +10,8 @@
         <el-select
           v-model="region"
           placeholder="请选择需要导出的班级"
+          collapse-tags
+          multiple
           @change="selectClass">
           <el-option
             v-for="(item, index) in classList"
@@ -53,11 +55,12 @@ export default {
     return {
       portModalShow: false,
       classList: [],
-      region: '',
+      region: [],
       classId: '',
       courseId: '',
       form: {},
-      userInfo: {}
+      userInfo: {},
+      oldOptions: []
     }
   },
   watch: {
@@ -82,24 +85,62 @@ export default {
       }).then(res => {
         console.log(res)
         this.classList = res
+        this.classList.unshift({
+          id: 0,
+          title: '全部'
+        })
       })
     },
     handleClose() {
       this.$emit('hide-modal')
     },
-    selectClass(e) {
-      console.log(e)
-      this.courseId = e
+    selectClass(val) {
+      console.log(val)
+      let allValues = []
+      for (let item of this.classList) {
+        allValues.push(item.id)
+      }
+
+      const oldVal = this.oldOptions.length === 0 ? [] : this.oldOptions[1]
+
+      if (val.includes(0)) {
+        this.region = allValues
+      }
+
+      if (oldVal.includes(0) && !val.includes(0)) {
+        this.region = []
+      }
+
+      if (oldVal.includes(0) && val.includes(0)) {
+        const index = val.indexOf(0)
+        val.splice(index, 1)
+        this.region = val
+      }
+      
+      if (!oldVal.includes(0) && !val.includes(0)) {
+        if (val.length === allValues.length - 1) {
+          this.region = [0].concat(val)
+        }
+      }
+      this.oldOptions[1] = this.region
+      // this.courseId = e
     },
     confirm() {
       this.handleClose()
       let xhr = new XMLHttpRequest()
       let formData = new FormData()
       let filename = null
+      let url = ''
+      if (this.region.includes(0)) {
+        url = '/api/yxs/classroommember/exportClassMember?classroomId=' + this.classId  + '&flag=true'
+      } else {
+        this.region.join(',')
+        url = '/api/yxs/classroommember/exportClassMember?classroomId=' + this.classId + '&courseId=' + this.region + '&flag=false'
+      }
 
       xhr.open(
         'get',
-        '/api/yxs/classroommember/exportClassMember?classroomId=' + this.classId + '&courseId=' + this.courseId + '&flag=false'
+        url
       )
       filename = '课程成员表.xls'
       xhr.setRequestHeader("Authorization", "Bearer " + Cookies.get('zyy_accessToken'))
@@ -128,4 +169,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-select {
+  width: 100%;
+}
 </style>
