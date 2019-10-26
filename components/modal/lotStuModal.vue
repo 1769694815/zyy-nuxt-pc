@@ -19,15 +19,18 @@
             label-width="100px">
             <el-form-item label="选择文件:">
               <el-upload
-                :on-change="handleChange"
-                :file-list="fileList"
+                ref="upload"
+                :auto-upload="false"
+                :http-request="uploadFile"
                 class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/" >
+                action="" >
                 <el-button
                   size="small"
                   type="primary">点击上传</el-button>
               </el-upload>
-              <span class="down">下载模板示例</span>
+              <span
+                class="down"
+                @click="downloadDemo">下载模板示例</span>
             </el-form-item>
             <el-form-item label="支付金额:">
               <el-input
@@ -50,6 +53,7 @@
   </div>
 </template>
 <script>
+import Cookies from 'js-cookie'
 export default {
   props: {
     dataObj: {
@@ -63,6 +67,10 @@ export default {
       default: function() {
         return {}
       }
+    },
+    classRoomId: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -75,7 +83,8 @@ export default {
       form: {
         price: '',
         remark: ''
-      }
+      },
+      classId: ''
     }
   },
   watch: {
@@ -84,6 +93,9 @@ export default {
     },
     user(newVal, oldVal) {
       this.userInfo = newVal
+    },
+    classRoomId(newVal, oldVal) {
+      this.classId = newVal
     }
   },
   methods: {
@@ -92,9 +104,60 @@ export default {
       this.$emit('hide-modal')
     },
     confirm() {
-      
+      this.$refs.upload.submit()
     },
     handleChange() {
+
+    },
+    uploadFile(e) {
+      let form = new FormData()
+      form.append('excel', e.file)
+      form.append('remark', this.form.remark)
+      form.append('price', this.form.price)
+      form.append('classroomId', this.classId)
+      form.append('userToken', this.userInfo.userToken)
+      form.append('type', 0)
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'file': true
+        }
+      }
+      this.$axios.post('/admin/user/implAddUserPC', form, config).then(res => {
+        console.log('上传', res)
+        if (res.code == 0) {
+          this.$message({
+            message: '导入成功',
+            type: 'success'
+          })
+          this.handleClose()
+        }
+      })
+    },
+    downloadDemo() {
+      let xhr = new XMLHttpRequest()
+      let formData = new FormData()
+      xhr.open('get', '/api/admin/user/downloadDemo')
+      xhr.setRequestHeader("Authorization", "Bearer " + Cookies.get('zyy_accessToken'))
+      xhr.responseType = 'blob'
+      xhr.onload = function() {
+        if(this.status == 200) {
+          let blob = this.response
+          let filename = '下载模板.xls'
+          if (window.navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename)
+          } else {
+            let a = document.createElement('a')
+            let url = window.URL.createObjectURL(blob)
+            a.href = url
+            a.download = filename
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(url)
+          }
+        }
+      }
+      xhr.send(formData)
 
     }
   }
