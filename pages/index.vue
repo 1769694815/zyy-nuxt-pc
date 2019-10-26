@@ -230,12 +230,12 @@
               <img :src="item.middle_picture">
             </div>
           </div>
-          <div class="button">
+          <!-- <div class="button">
             <span @click="change2">
               <i class="iconfont iconrefresh" />
               换一批
             </span>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- 名医师承 -->
@@ -941,7 +941,7 @@ export default {
       let _artice = document.querySelectorAll('.step_jump')
       let contentHeight = document.querySelector('.index-content').offsetTop
       for (let i = 0; i < _artice.length; i++) {
-        if (scrollTop >= _artice[i].offsetTop + contentHeight - 60) {
+        if (scrollTop >= _artice[i].offsetTop + contentHeight - 70) {
           this.activeIndex = i
         }
       }
@@ -951,30 +951,30 @@ export default {
       let jump = document.querySelectorAll('.step_jump')
       let total = jump[index].offsetTop + document.querySelector('.index-content').offsetTop
       let distance = this.scrollTop
-      let step =  (distance - total) / 30 >> 0
+      let step =  (distance - total) / 50 >> 0
       if (total < distance) {
         smoothUp()
       } else {
         let newTotal = total - distance 
-        step = newTotal / 30 >> 0
+        step = newTotal / 50 >> 0
         smoothDown()
       }
       function smoothDown () {
-        if (distance + step < total) {
+        if ((distance + step) < total) {
           distance += step
-          document.documentElement.scrollTop = document.body.scrollTop = distance - 60
+          document.documentElement.scrollTop = document.body.scrollTop = distance - 70
           setTimeout(smoothDown, 10)
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop  = total - 60
+          document.documentElement.scrollTop = document.body.scrollTop  = total - 70
         }
       }
       function smoothUp () {
-        if (distance > total) {
+        if ((distance - step) > total) {
           distance -= step
-          document.documentElement.scrollTop = document.body.scrollTop = distance - 60
+          document.documentElement.scrollTop = document.body.scrollTop = distance - 70
           setTimeout(smoothUp, 10)
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop = total - 60
+          document.documentElement.scrollTop = document.body.scrollTop = total - 70
         }
       }
     }
