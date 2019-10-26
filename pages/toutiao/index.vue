@@ -219,16 +219,17 @@ export default {
         .number {
           display: flex;
           align-items: center;
-          margin-left: 20px;
+          margin-left: 50px;
           display: inline-block;
           vertical-align: top;
           height: 16px;
           line-height: 16px;
+          color: #999;
           i {
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             margin-right: 4px;
-            color: #aaa;
+            color: #ccc;
           }
         }
       }
