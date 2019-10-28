@@ -1,3 +1,11 @@
+<!--
+ * @Author: chenjg
+ * @Date: 2019-10-25 09:11:09
+ * @LastEditTime: 2019-10-28 09:59:29
+ * @LastEditors: chenjg
+ * @Description: 
+ * @输出一段不带属性的自定义信息
+ -->
 <template>
   <div class="container-detail">
     <div class="crumb">
@@ -98,22 +106,28 @@ export default {
       userInfo: '',
       commentList: [],
       categoryName: '',
-      categoryId: ''
+      categoryId: '',
+      description: ''
     }
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.description }
+      ]
     }
   },
   async asyncData ({ $axios, query }) {
     // console.log('query', query)
     let { data } = await $axios('/yxs/api/web/news/detail', {params: { id: query.id }})
+    let desc = data.body.replace(/<[^<>]+>/g,'').replace(/&nbsp;/ig,'').substr(0, 100)
     return {
       info: data,
       categoryName: data.categoryName,
       categoryId: data.categoryId,
-      title: data.title + '_资讯头条'
+      title: data.title + '_资讯头条',
+      description: desc
     }
   },
   mounted() {
