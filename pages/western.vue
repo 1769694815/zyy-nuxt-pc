@@ -43,7 +43,7 @@
                     v-for="(item, index) in justCourses"
                     :key="index"
                     :class="{active:tid == item.id}"
-                    @click="changeThird(item, index)">
+                    @click="changeThird(item.id, index)">
                     {{ item.name }}
                   </span>
                 </td>
