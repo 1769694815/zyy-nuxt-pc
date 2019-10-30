@@ -214,12 +214,10 @@ export default {
     return {
       title: this.title,
       link: [
-        { rel: 'stylesheet', href: '/aliplayer/aliplayer-min.css' },
-        { rel: 'stylesheet', href: '/aliplayer/share.min.css' }
+        { rel: 'stylesheet', href: '/aliplayer/aliplayer-min.css' }
       ],
       script: [
-        { src: '/aliplayer/aliplayer-min.js', type: 'text/javascript'},
-        { src: '/aliplayer/social-share.min.js', type: 'text/javascript'}        
+        { src: '/aliplayer/aliplayer-min.js', type: 'text/javascript'}       
       ]
     }
   },
