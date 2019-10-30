@@ -211,7 +211,15 @@ export default {
   },
   head() {
     return {
-      title: this.info.courseTitle + '_'
+      title: this.info.courseTitle + '_',
+      link: [
+        { rel: 'stylesheet', href: '/aliplayer/aliplayer-min.css' },
+        { rel: 'stylesheet', href: '/aliplayer/share.min.css' }
+      ],
+      script: [
+        { src: '/aliplayer/aliplayer-min.js', type: 'text/javascript'},
+        { src: '/aliplayer/social-share.min.js', type: 'text/javascript'}        
+      ]
     }
   },
   computed: {
