@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-10-30 17:11:37
+ * @LastEditTime: 2019-10-30 17:32:47
  * @LastEditors: chenjg
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -521,6 +521,16 @@ export default {
       player2: null,
       player3: null,
       list: []
+    }
+  },
+  head() {
+    return {
+      link: [
+        { rel: 'stylesheet', href: '/aliplayer/aliplayer-min.css' }
+      ],
+      script: [
+        { src: '/aliplayer/aliplayer-min.js', type: 'text/javascript'}      
+      ]
     }
   },
   mounted() {
