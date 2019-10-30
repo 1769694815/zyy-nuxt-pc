@@ -396,7 +396,9 @@ export default {
     //   wechatQrcodeHelper: '<p>微信里点扫一扫</p><p>二维码便可将本文分享至朋友圈。</p>'
     // });
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
-    // this.getDetail()
+    if (this.userInfo) {
+      this.getDetail()
+    }
     this.getComment()
   },
   methods: {
@@ -412,8 +414,6 @@ export default {
         }
       }).then(res => {
         this.detailData = res.data
-        this.navTitle = this.detailData.title
-        this.title = this.detailData.title + '_自学考试_'
       })
     },
     toPlay(item) {
