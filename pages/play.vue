@@ -180,6 +180,7 @@ export default {
   },
   data() {
     return {
+      title: '',
       maskShow: false,
       nextShow: false,
       lastShow: false,
@@ -211,7 +212,15 @@ export default {
   },
   head() {
     return {
-      title: this.info.courseTitle + '_'
+      title: this.title,
+      link: [
+        { rel: 'stylesheet', href: '/aliplayer/aliplayer-min.css' },
+        { rel: 'stylesheet', href: '/aliplayer/share.min.css' }
+      ],
+      script: [
+        { src: '/aliplayer/aliplayer-min.js', type: 'text/javascript'},
+        { src: '/aliplayer/social-share.min.js', type: 'text/javascript'}        
+      ]
     }
   },
   computed: {
@@ -282,6 +291,7 @@ export default {
         }).then(res => {
           let info = res.data
           this.info = res.data
+          this.title = res.data.courseTitle + '_'
           this.lessonId = res.data.lessonId
           this.courseId = res.data.courseId || ''
           this.watched = res.data.startDuration

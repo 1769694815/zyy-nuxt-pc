@@ -95,7 +95,7 @@
               v-for="(item,index) in list"
               :key="index">
               <td>{{ item.studentName? item.studentName : '无' }}</td>
-              <td>{{ item.name? item.name : '无' }}</td>
+              <td>{{ item.realName? item.realName : '无' }}</td>
               <td>{{ item.phone? item.phone:'无' }}</td>
               <td>{{ item.answerTime? item.answerTime : '0' }}</td>
               <td>{{ item.submitTime? dateFormatter(item.submitTime) : '0' }}</td>

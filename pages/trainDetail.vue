@@ -239,6 +239,32 @@ export default {
       title: this.title
     }
   },
+  async asyncData({ $axios, query }) {
+    let res = await $axios('/yxs/api/web/course/trainDetail', {
+      params: {
+        id: query.id,
+        userToken: ''
+      }
+    })
+
+    let roomId = res.data.classList[0].roomId
+    let list = await $axios('/yxs/api/web/course/courseTeaching', {
+      params: {
+        classroomId: roomId,
+        userToken: ''
+      }
+    })
+
+    return {
+      detailData: res.data,
+      classInfo: res.data.classList[0],
+      navTitle: res.data.classList[0].title,
+      title: res.data.classList[0].title + '_培训项目_',
+      teacherList: list.data.list,
+      memberList: list.data.userList,
+      courseList: list.data.courseList
+    }
+  },
   computed:{
     status() {
       return function(s) {
@@ -263,7 +289,9 @@ export default {
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo') || {}
-    this.getDetail()
+    if (this.userInfo) {
+      this.getDetail()
+    }
   },
   methods:{
     switchTab(index){
@@ -278,8 +306,6 @@ export default {
       }).then(res => {
         this.detailData = res.data
         this.classInfo = res.data.classList[0]
-        this.navTitle = this.classInfo.title
-        this.title = this.classInfo.title + '_培训项目_'
         this.getList(res.data.classList[0].roomId)
       })
     },

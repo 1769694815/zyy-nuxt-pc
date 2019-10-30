@@ -30,7 +30,7 @@
         <li>
           <!-- 正式环境107  测试环境 85 -->
           <nuxt-link
-            :to="{ name: 'train', query: { fid: 85 }}"
+            :to="{ name: 'train', query: { fid: 107 }}"
             :class="{ active: tabIndex == 4 }">
             学历助考
           </nuxt-link>

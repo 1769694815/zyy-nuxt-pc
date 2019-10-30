@@ -285,7 +285,8 @@ export default {
       courses,
       justCourses,
       result: list.data.list.records,
-      total: list.data.list.total
+      total: list.data.list.total,
+      categoryId: tid ? tid : (cid ? cid : fid)
     }
   },
   mounted() {
@@ -439,7 +440,7 @@ export default {
     currentChange(val) {
       window.scrollTo(0, 0)
       this.current = val
-      this.getList()
+      this.getList(this.categoryId)
     }
   }
 }

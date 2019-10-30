@@ -21,13 +21,13 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css' },
-      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css' }
+      // { rel: 'stylesheet', href: '/aliplayer/aliplayer-min.css' },
+      // { rel: 'stylesheet', href: '/aliplayer/share.min.css' }
     ],
     script: [
-      { src: 'https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min.js', type: 'text/javascript'},
+      // { src: '/aliplayer/aliplayer-min.js', type: 'text/javascript'},
       // { src: 'https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-flash-min.js', type: 'text/javascript'}
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js', type: 'text/javascript'}
+      // { src: '/aliplayer/social-share.min.js', type: 'text/javascript'}
     ]
   },
 

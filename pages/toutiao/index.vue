@@ -79,7 +79,7 @@ export default {
   },
   head() {
     return {
-      title: this.name + '_' + this.title + '_' 
+      title: this.title
     }
   },
   // 监听参数字符串的更改，调用所有组件方法
@@ -101,7 +101,7 @@ export default {
     }
     // console.log('type', type)
     let list = await $axios('/yxs/api/web/news/getArticleMore', { params: {
-      size: 10,
+      size: 20,
       current: 1,
       type
     }})
@@ -111,7 +111,8 @@ export default {
       listData: list.data.records,
       total: list.data.total,
       name,
-      type
+      type,
+      title: name + '_资讯头条_'
     }
   },
   mounted() {

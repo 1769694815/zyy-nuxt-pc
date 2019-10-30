@@ -19,7 +19,7 @@
                   <span
                     v-for="(item, index) in types"
                     :key="index"
-                    :class="{active:categoryId == item.id}"
+                    :class="{active:fid == item.id}"
                     @click="changeFirst(item, index, true)">
                     {{ item.name }}
                   </span>
@@ -241,7 +241,8 @@ export default {
       courses,
       justCourses,
       result: list.data.list.records,
-      total: list.data.list.total
+      total: list.data.list.total,
+      categoryId: tid ? tid : (cid ? cid : fid)
     }
 
   },

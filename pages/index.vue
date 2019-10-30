@@ -676,6 +676,7 @@ export default {
       mingshiId: '',
       zyjkId: '',
       asideLeft: '', // 左侧边栏定位
+      flag: false
     }
   },
   head() {
@@ -757,14 +758,25 @@ export default {
       zyjkId: zyjkId
     }
   },
+  // computed: {
+  //   learnNum(num1, num2) {
+  //     return function(num1, num2) {
+  //       return num1 + num2
+  //     }
+  //   }
+  // },
   created() {
 
-  }, 
+  },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     console.log('userInfo', this.userInfo)
+    if (this.userInfo) {
+      this.getCourseNum()
+      this.getClassNum()
+    }
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll)
@@ -940,9 +952,11 @@ export default {
     onScroll(scrollTop) {
       let _artice = document.querySelectorAll('.step_jump')
       let contentHeight = document.querySelector('.index-content').offsetTop
-      for (let i = 0; i < _artice.length; i++) {
-        if (scrollTop >= _artice[i].offsetTop + contentHeight - 70) {
-          this.activeIndex = i
+      if (!this.flag) {
+        for (let i = 0; i < _artice.length; i++) {
+          if (scrollTop >= _artice[i].offsetTop + contentHeight - 70) {
+            this.activeIndex = i
+          }
         }
       }
     },
@@ -952,6 +966,8 @@ export default {
       let total = jump[index].offsetTop + document.querySelector('.index-content').offsetTop
       let distance = this.scrollTop
       let step =  (distance - total) / 50 >> 0
+      this.activeIndex = index
+      this.flag = true
       if (total < distance) {
         smoothUp()
       } else {
@@ -965,6 +981,7 @@ export default {
           document.documentElement.scrollTop = document.body.scrollTop = distance - 70
           setTimeout(smoothDown, 10)
         } else {
+          that.flag = false
           document.documentElement.scrollTop = document.body.scrollTop  = total - 70
         }
       }
@@ -974,6 +991,7 @@ export default {
           document.documentElement.scrollTop = document.body.scrollTop = distance - 70
           setTimeout(smoothUp, 10)
         } else {
+          that.flag = false
           document.documentElement.scrollTop = document.body.scrollTop = total - 70
         }
       }
