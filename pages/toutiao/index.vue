@@ -101,7 +101,7 @@ export default {
     }
     // console.log('type', type)
     let list = await $axios('/yxs/api/web/news/getArticleMore', { params: {
-      size: 10,
+      size: 20,
       current: 1,
       type
     }})
