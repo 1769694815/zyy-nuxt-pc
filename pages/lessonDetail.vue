@@ -348,12 +348,35 @@ export default {
         { label: "评论", value: 4 }
         // { label: "笔记", value: 4 }
       ],
-      navTitle: ''
+      navTitle: '',
+      description: ''
     }
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.description }
+      ]
+    }
+  },
+  async asyncData({ $axios, query }) {
+    let id = query.id || '',
+        classId = query.classId || ''
+    let res = await $axios('/yxs/api/web/course/courseDetail', {
+      params: {
+        id,
+        classId,
+        userToken: ''
+      }
+    })
+    let desc = res.data.brife ? res.data.brife.replace(/<[^<>]+>/g,'').replace(/&nbsp;/ig,'').substr(0, 100) : res.data.title
+
+    return {
+      detailData: res.data,
+      navTitle: res.data.title,
+      description: desc,
+      title: res.data.title + '_自学考试_'
     }
   },
   computed: {
@@ -373,7 +396,7 @@ export default {
     //   wechatQrcodeHelper: '<p>微信里点扫一扫</p><p>二维码便可将本文分享至朋友圈。</p>'
     // });
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
-    this.getDetail()
+    // this.getDetail()
     this.getComment()
   },
   methods: {
