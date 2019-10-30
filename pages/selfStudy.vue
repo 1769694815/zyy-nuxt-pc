@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-10-29 18:06:20
+ * @LastEditTime: 2019-10-30 17:11:37
  * @LastEditors: chenjg
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -100,7 +100,7 @@
               </tr>
               <tr>
                 <td>分子生物学</td>
-                <td>物理化学（一）</td>
+                <td>物理化学（二）</td>
                 <td>药理学（四）</td>
               </tr>
               <tr>
@@ -111,7 +111,7 @@
               <tr>
                 <td>数理统计</td>
                 <td>药事管理学（二）</td>
-                <td>药用植物与生物学</td>
+                <td>药用植物与生药学</td>
               </tr>
               <tr>
                 <td
@@ -119,7 +119,8 @@
                   width="228">中国近代史纲要</td>
                 <td
                   class="red"
-                  width="228">马克思主义基础原理概论</td>
+                  width="228"
+                  colspan="2">马克思主义基本原理概论</td>
               </tr>
             </tbody>
           </table>
@@ -157,7 +158,7 @@
               <tr>
                 <td class="red">英语（二）</td>
                 <td class="red">中国近现代史纲要</td>
-                <td class="red">马克思主义基础原理概论</td>
+                <td class="red">马克思主义基本原理概论</td>
               </tr>
             </tbody>
           </table>
@@ -213,9 +214,20 @@
           <div class="title">
             <div class="text">如何准备</div>
           </div> 
-          <div class="desc">
-            <p>1. 中药学本科段报考对象限定为已取得卫生类职业资格的在职人员，具有中药士、药剂士及以上技术职务，或从事中药生产、经营等工作三年（含三年）以上的在职人员中的专科毕业生。</p>
-            <p>2. 药学专业本科限定为具有医学类专科以上学历的在职人员或在校学生。</p>
+          <div class="prepare">
+            <div class="text">
+              <span>熟悉题型</span>
+              <span>大量刷题</span>
+            </div>
+            <div class="sign">+</div>
+            <div class="text">
+              <span>掌握要点</span>
+              <span>解疑解惑</span>
+            </div>
+            <div class="sign">=</div>
+            <div class="text">
+              <span>成功拿证</span>
+            </div>
           </div>
         </div>
       </div>
@@ -226,33 +238,23 @@
       </div>
       <div class="class-content">
         <div class="left">
-          <div class="player-item">
-            <div class="player">1</div>
-            <div class="info">
-              <div class="text"> 药事管理学</div>
-              <div class="info-right">
-                <span>共29节</span>
-                <span>5人学过</span>
-              </div>
+          <div
+            v-for="(item, index) in list"
+            v-if="index < 3"
+            :key="index"
+            class="player-item">
+            <div class="player">
+              <div
+                :id="'J_prismPlayer' + (index + 1)"
+                class="prism-player" />
             </div>
-          </div>
-          <div class="player-item">
-            <div class="player">1</div>
             <div class="info">
-              <div class="text"> 药事管理学</div>
+              <div
+                class="text"
+                @click="toDetail(item.id)">{{ item.title }}</div>
               <div class="info-right">
-                <span>共29节</span>
-                <span>5人学过</span>
-              </div>
-            </div>
-          </div>
-          <div class="player-item">
-            <div class="player">1</div>
-            <div class="info">
-              <div class="text"> 药事管理学</div>
-              <div class="info-right">
-                <span>共29节</span>
-                <span>5人学过</span>
+                <span>共{{ item.lessonNum }}节</span>
+                <span>{{ item.learnNum }}人学过</span>
               </div>
             </div>
           </div>
@@ -273,7 +275,7 @@
                   class="subject">
                   中药学
                 </td>
-                <td>数理统计</td>
+                <td @click="toDetail(118)">数理统计</td>
                 <td>周丽&何雁&刘建国</td>
                 <td>400/180</td>
                 <td>
@@ -283,8 +285,8 @@
                 </td>
               </tr>
               <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+                <td @click="toDetail(114)">药事管理学（二）</td>
+                <td>俞双燕</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -293,9 +295,9 @@
                 </td>
               </tr>
               <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
+                <td @click="toDetail(73)">分析化学（二）</td>
+                <td>廖夫生</td>
+                <td>400/181</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -303,9 +305,9 @@
                 </td>
               </tr>
               <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
+                <td @click="toDetail(61)">中药制剂</td>
+                <td>廖夫生</td>
+                <td>400/182</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -313,9 +315,9 @@
                 </td>
               </tr>
               <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
+                <td @click="toDetail(96)">中药制药工程原理与设备</td>
+                <td>黄萧&肖雄</td>
+                <td>400/183</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -323,9 +325,9 @@
                 </td>
               </tr>
               <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
+                <td @click="toDetail(78)">药理学</td>
+                <td>徐桂香</td>
+                <td>400/184</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -333,9 +335,9 @@
                 </td>
               </tr>
               <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
+                <td @click="toDetail(61)">中药制剂分析</td>
+                <td>廖夫生</td>
+                <td>400/185</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -343,23 +345,53 @@
                 </td>
               </tr>
               <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
+                <td @click="toDetail(59)">中药炮制学</td>
+                <td>龚千锋</td>
+                <td>400/186</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
                     alt="">
                 </td>
               </tr>
-              <tr>
+              <tr class="yaoxue">
                 <td
                   rowspan="10"
                   class="subject"
                   style="background: #01c6ae">
                   药学 
                 </td>
-                <td>数理统计</td>
+                <td @click="toDetail(117)">有机化学（五）</td>
+                <td>万屏南</td>
+                <td>400/180</td>
+                <td>
+                  <img
+                    src="../assets/images/duigou.png"
+                    alt="">
+                </td>
+              </tr>
+              <tr class="yaoxue">
+                <td @click="toDetail(92)">药用植物与生物学</td>
+                <td>徐艳琴&葛菲 </td>
+                <td>400/180</td>
+                <td>
+                  <img
+                    src="../assets/images/duigou.png"
+                    alt="">
+                </td>
+              </tr>
+              <tr class="yaoxue">
+                <td @click="toDetail(94)">药物化学（二）</td>
+                <td>杨尊华</td>
+                <td>400/180</td>
+                <td>
+                  <img
+                    src="../assets/images/duigou.png"
+                    alt="">
+                </td>
+              </tr>
+              <tr class="yaoxue">
+                <td @click="toDetail(118)">数理统计</td>
                 <td>周丽&何雁&刘建国</td>
                 <td>400/180</td>
                 <td>
@@ -368,9 +400,9 @@
                     alt="">
                 </td>
               </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+              <tr class="yaoxue">
+                <td @click="toDetail(114)">药事管理学（二）</td>
+                <td>俞双燕</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -378,9 +410,9 @@
                     alt="">
                 </td>
               </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+              <tr class="yaoxue">
+                <td @click="toDetail(116)">分子生物学</td>
+                <td>余英才</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -388,9 +420,9 @@
                     alt="">
                 </td>
               </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+              <tr class="yaoxue">
+                <td @click="toDetail(115)">物理化学</td>
+                <td>杨婕</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -398,9 +430,9 @@
                     alt="">
                 </td>
               </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+              <tr class="yaoxue">
+                <td @click="toDetail(95)">药物分析</td>
+                <td>廖夫生</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -408,9 +440,9 @@
                     alt="">
                 </td>
               </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+              <tr class="yaoxue">
+                <td @click="toDetail(93)">药剂学</td>
+                <td>廖夫生</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -418,39 +450,9 @@
                     alt="">
                 </td>
               </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
-                <td>
-                  <img
-                    src="../assets/images/duigou.png"
-                    alt="">
-                </td>
-              </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
-                <td>
-                  <img
-                    src="../assets/images/duigou.png"
-                    alt="">
-                </td>
-              </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
-                <td>400/180</td>
-                <td>
-                  <img
-                    src="../assets/images/duigou.png"
-                    alt="">
-                </td>
-              </tr>
-              <tr>
-                <td>数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+              <tr class="yaoxue">
+                <td @click="toDetail(78)">药理学</td>
+                <td>徐桂香</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -460,7 +462,9 @@
               </tr>
             </tbody>
           </table>
-          <div class="more">更多视频 >></div>
+          <div
+            class="more"
+            @click="toMore">更多视频 >></div>
         </div>
       </div>
     </div>
@@ -499,17 +503,204 @@
           <p>2. 电子注册，唯一编码，学信网终身可查。</p>
           <p>3. 含金量高，待遇等同在校统招生，企事业单位认可度高，可申请优先 办
           理居住证</p>
-          <div class="button">本科证书咨询</div>
+          <div
+            class="button"
+            @click="showModal">本科证书咨询</div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import Cookies from 'js-cookie'
 export default {
   data() {
     return {
-
+      userInfo: {},
+      player1: null,
+      player2: null,
+      player3: null,
+      list: []
+    }
+  },
+  mounted() {
+    this.userInfo = Cookies.getJSON('zyy_userInfo')
+    if(!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+      return
+    }
+    this.getList()
+  },
+  methods: {
+    getList() {
+       this.$axios('/yxs/api/web/course/getRecommendList', {
+        params: {
+          type: 'education'
+        }
+      }).then(res => {
+        this.list = res.data
+        console.log(this.list)
+        for(let i = 0; i < this.list.length; i ++) {
+          if(i > 2 || this.list.length == 0) {
+            break;
+          }
+          this.getPlayerInfo(this.list[i].id, i + 1)
+        }
+      })
+    },
+    getPlayerInfo(id, index) {
+      this.$axios.post('/yxs/api/web/user/startLearnCourse', {
+        courseId: id,
+        userToken: this.userInfo.userToken
+      }).then(res => {
+        let info = res.data
+        this.createPlayer(info, index)
+      })
+    },
+    createPlayer(info, index) {
+      let player = new Aliplayer({
+        "id": "J_prismPlayer" + index,
+        "vid": info.videoId,
+        "playauth": info.playAuth,
+        "qualitySort": "asc",
+        "format": "m3u8",
+        "mediaType": "video",
+        "width": "100%",
+        "height": "274px",
+        "autoplay": true,
+        "isLive": false,
+        "cover": info.cover,
+        "rePlay": false,
+        "playsinline": true,
+        "preload": true,
+        "controlBarVisibility": "hover",
+        "useFlashPrism": true,
+        "encryptType": 1,
+        "skinLayout": [
+          {
+            "name": "bigPlayButton",
+            "align": "blabs",
+            "x": 30,
+            "y": 80
+          },
+          {
+            "name": "controlBar",
+            "align": "blabs",
+            "x": 0,
+            "y": 0,
+            "children": [
+              {
+                "name": "progress",
+                "align": "tlabs",
+                "x": 0,
+                "y": 0
+              },
+              {
+                "name": "playButton",
+                "align": "tl",
+                "x": 15,
+                "y": 26
+              },
+              {
+                "name": "nextButton",
+                "align": "tl",
+                "x": 10,
+                "y": 26
+              },
+              {
+                "name": "timeDisplay",
+                "align": "tl",
+                "x": 10,
+                "y": 24
+              },
+              {
+                "name": "fullScreenButton",
+                "align": "tr",
+                "x": 10,
+                "y": 25
+              },
+              {
+                "name": "streamButton",
+                "align": "tr",
+                "x": 10,
+                "y": 23
+              },
+              {
+                "name": "volume",
+                "align": "tr",
+                "x": 10,
+                "y": 25
+              }
+            ]
+          },
+          {
+            "name": "fullControlBar",
+            "align": "tlabs",
+            "x": 0,
+            "y": 0,
+            "children": [
+              {
+                "name": "fullTitle",
+                "align": "tl",
+                "x": 25,
+                "y": 6
+              },
+              {
+                "name": "fullNormalScreenButton",
+                "align": "tr",
+                "x": 24,
+                "y": 13
+              },
+              {
+                "name": "fullTimeDisplay",
+                "align": "tr",
+                "x": 10,
+                "y": 12
+              },
+              {
+                "name": "fullZoom",
+                "align": "cc"
+              }
+            ]
+          }
+        ]
+      }, function (player) {
+        console.log("播放器创建了。");
+      });
+      if(index == 1) {
+        this.player1 = player
+      } else if(index == 2) {
+        this.player2 = player
+      } else {
+        this.player3 = player
+      }
+    },
+    toDetail(id) {
+      let url = this.$router.resolve({
+        name: 'lessonDetail',
+        query: {
+          id
+        }
+      })
+      window.open(url.href, '_blank')
+    },
+    showModal() {
+      this.$alert('<div style="text-align: center">证书咨询请拨打下方联系电话</div><div style="text-align: center">郭老师18160712043</div>', '温馨提示', {
+        dangerouslyUseHTMLString: true,
+        confirmButtonText: '我知道啦'
+      });
+    },
+    toMore() {
+      let url = this.$router.resolve({
+        name: 'train',
+        query: {
+          fid: 107,
+          cid: 53
+        }
+      })
+      window.open(url.href, '_blank')
     }
   }
 }
@@ -771,7 +962,7 @@ export default {
           font-weight: 700;
         }
       }
-      .desc {
+      .desc, .prepare {
         width: 590px;
         height: 266px;
         padding: 20px;
@@ -790,6 +981,31 @@ export default {
           font-size: 16px;
           margin-right: 20px;
           margin-top: 20px;
+        }
+      }
+      .prepare {
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        .text {
+          span {
+            display: block;
+            width: 152px;
+            height: 46px;
+            line-height: 46px;
+            text-align: center;
+            box-sizing: border-box;
+            border: 1px solid #01c6ae;
+            &:nth-child(2) {
+              margin-top: 30px;
+            }
+          }
+        }
+        .sign {
+          margin: 0 10px;
+          color: #ffb085;
+          font-size: 30px;
+          font-weight: 700;
         }
       }
     }
@@ -845,6 +1061,7 @@ export default {
             margin-left: 30px;
             font-size: 18px;
             color: #7f8584;
+            cursor: pointer;
           }
           .info-right {
             // margin-right: 30px;
@@ -852,7 +1069,7 @@ export default {
               display: inline-block;
               margin-right: 30px;
               font-size: 14px;
-              color: #999; 
+              color: #999;
             }
           }
         }
@@ -872,12 +1089,13 @@ export default {
           font-weight: 500;
         }
         td {
-          height: 49px;
-          line-height: 49px;
+          height: 50px;
+          line-height: 50px;
           background: #f9f1ed;
           font-size: 14px;
           color: #333;
           text-align: center;
+          cursor: pointer;
         }
         .subject {
           // height: 414px;
@@ -885,6 +1103,13 @@ export default {
           vertical-align: middle;
           font-size: 18px;
           color: #fff;
+        }
+      }
+      .yaoxue {
+        td {
+          height: 47px;
+          line-height: 47px;
+          background: #e8f8f6;
         }
       }
       .more {
@@ -896,6 +1121,7 @@ export default {
         background: #f9f1ed;
         text-align: center;
         color: #f4691d;
+        cursor: pointer;
       }
     }
   }
@@ -1046,6 +1272,7 @@ export default {
         font-size: 30px;
         text-align: center;
         border-radius: 6px;
+        cursor: pointer;
       }
     }
   }
