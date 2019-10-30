@@ -79,7 +79,7 @@ export default {
   },
   head() {
     return {
-      title: this.name + '_' + this.title + '_' 
+      title: this.title
     }
   },
   // 监听参数字符串的更改，调用所有组件方法
@@ -111,7 +111,8 @@ export default {
       listData: list.data.records,
       total: list.data.total,
       name,
-      type
+      type,
+      title: name + '_资讯头条_'
     }
   },
   mounted() {
