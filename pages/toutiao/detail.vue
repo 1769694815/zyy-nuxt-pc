@@ -1,8 +1,8 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 09:11:09
- * @LastEditTime: 2019-10-28 09:59:29
- * @LastEditors: chenjg
+ * @LastEditTime: 2019-10-30 17:35:44
+ * @LastEditors: xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
  -->
@@ -115,6 +115,12 @@ export default {
       title: this.title,
       meta: [
         { hid: 'description', name: 'description', content: this.description }
+      ],
+      link: [
+        { rel: 'stylesheet', href: '/aliplayer/share.min.css' }   
+      ],
+      script: [
+        { src: '/aliplayer/social-share.min.js', type: 'text/javascript'}
       ]
     }
   },

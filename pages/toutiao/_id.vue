@@ -94,7 +94,16 @@ export default {
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.description }
+      ],
+      link: [
+        { rel: 'stylesheet', href: '/aliplayer/share.min.css' }   
+      ],
+      script: [
+        { src: '/aliplayer/social-share.min.js', type: 'text/javascript'}
+      ]
     }
   },
   async asyncData ({ $axios, params }) {

@@ -725,7 +725,7 @@ export default {
       $axios('/yxs/api/web/course/trainType')
     ])
     let xlzkId = examSubList.data.id // 学历助考id
-    let zydjtId = theorySubList.data.id // 中医大讲堂id
+    let zydjtId = healthSubList.data.id // 中医大讲堂id
     let zyyllId = theorySubList.data.id // 中医药理论id
     let zyzgId = qualificationSubList.data.id // 执业资格id
     let mingshiId = famousSubList.data.id // 名医师承

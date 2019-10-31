@@ -273,6 +273,7 @@ export default {
         type: 'warning'
       }).then(res => {
         Cookies.remove('zyy_userInfo')
+        window.localStorage.removeItem('fromRouter')
         let url = this.$router.push({
           name: 'login'
         })
