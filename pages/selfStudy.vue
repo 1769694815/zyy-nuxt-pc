@@ -1,14 +1,15 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-10-30 17:32:47
+ * @LastEditTime: 2019-10-31 15:10:17
  * @LastEditors: chenjg
  * @Description: 
  * @输出一段不带属性的自定义信息
  -->
 <template>
   <div class="container">
-    <div class="wrap">
+    <v-header />
+    <!-- <div class="wrap">
       <div class="welcome">
         <div class="left">
           HI，欢迎来到中医药在线医学自考专题!
@@ -18,11 +19,12 @@
           <span class="register">免费注册</span>
         </div>
       </div>
-    </div>
-    <div class="header">
+    </div> -->
+    <div class="self-header">
       <img
         src="~/assets/images/logo.png"
-        alt="">
+        alt=""
+        @click="toIndex">
       <div class="text">全国中医药考试领军平台</div>
     </div>
     <div class="main"> 
@@ -32,16 +34,16 @@
           <span>中药学/药学</span>
         </div>
         <div class="main-pic">
-          <img
+          <!-- <img
             src="~/assets/images/main-pic.png"
-            alt="">
+            alt=""> -->
         </div>
         <div class="list">
           <div class="list-item">
             <img
               src="~/assets/images/item-icon1.png"
               alt="">
-            <div class="title">国家认可  正规学历</div>
+            <div class="title">国家认可 正规学历</div>
             <p>由教育局备案，重点大学颁发的正规证书，学信网终身可查、全国事业单位高度认可</p>
           </div>
           <div class="list-item">
@@ -182,7 +184,7 @@
             <p>二、普通高考和成 人高考专科毕业者可免考 03708 中国近现代史纲要 
             03709 马克思主义基本原理概论。 </p>
             <p>三、凡参加全国英语等级考试(PETS)三 级及以上笔试成绩合格者或大
-            学英语四、六级(省内)合格证书者可免考00015《英语(二)》"</p>
+            学英语四、六级(省内)合格证书者可免考00015《英语(二)》</p>
           </div>
         </div>
         <div class="section-item">
@@ -513,14 +515,19 @@
 </template>
 <script>
 import Cookies from 'js-cookie'
+import Header from '../components/layout/selfHeader.vue'
 export default {
+  components: {
+    "v-header": Header
+  },
   data() {
     return {
       userInfo: {},
       player1: null,
       player2: null,
       player3: null,
-      list: []
+      list: [],
+      token: ''
     }
   },
   head() {
@@ -535,13 +542,8 @@ export default {
   },
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
-    if(!this.userInfo) {
-      this.$router.push({
-        name: 'login'
-      })
-      return
-    }
-    this.getList()
+    this.login()
+    // this.getList()
   },
   methods: {
     getList() {
@@ -563,7 +565,7 @@ export default {
     getPlayerInfo(id, index) {
       this.$axios.post('/yxs/api/web/user/startLearnCourse', {
         courseId: id,
-        userToken: this.userInfo.userToken
+        userToken: this.token
       }).then(res => {
         let info = res.data
         this.createPlayer(info, index)
@@ -579,7 +581,7 @@ export default {
         "mediaType": "video",
         "width": "100%",
         "height": "274px",
-        "autoplay": true,
+        "autoplay": false,
         "isLive": false,
         "cover": info.cover,
         "rePlay": false,
@@ -687,6 +689,19 @@ export default {
         this.player3 = player
       }
     },
+    // 登录
+    login() {
+      this.$axios.post('/admin/api/web/account/login', {
+        type: 'PWD',
+        userName: 'may001',
+        password: '123456'
+      }).then(res => {
+        if(res.code == 0) {
+          this.token = res.data.userToken
+          this.getList()
+        }
+      })
+    },
     toDetail(id) {
       let url = this.$router.resolve({
         name: 'lessonDetail',
@@ -706,9 +721,15 @@ export default {
       let url = this.$router.resolve({
         name: 'train',
         query: {
-          fid: 107,
+          fid: 85,
           cid: 53
         }
+      })
+      window.open(url.href, '_blank')
+    },
+    toIndex() {
+      let url = this.$router.resolve({
+        name: 'index'
       })
       window.open(url.href, '_blank')
     }
@@ -745,7 +766,7 @@ export default {
       }
     }
   }
-  .header {
+  .self-header {
     width: 1200px;
     height: 80px;
     margin: 0 auto;
@@ -754,8 +775,8 @@ export default {
     align-items: center;
     line-height: 80px;
     img {
-      width: 235px;
-      height: 59px;
+      height: 80px;
+      cursor: pointer;
     }
     .text {
       color: #666;
@@ -766,7 +787,7 @@ export default {
     position: relative;
     width: 100%;
     height: 700px;
-    background: url('../assets/images/main-bg.png') top center no-repeat;
+    background: url('../assets/images/self-banner.png') top center no-repeat;
     &-wrap {
       width: 1200px;
       margin: 0 auto;
@@ -792,15 +813,17 @@ export default {
         position: absolute;
         bottom: -108px;
         display: flex;
+        text-align: center;
         &-item {
           width: 285px;
           height: 368px;
           margin-left: 20px;
-          padding: 0 50px;
+          padding: 0 48px;
           box-sizing: border-box;
           background: #fff;
           box-shadow: 0px 0px 15px 0px 
       rgba(0, 0, 0, 0.1);
+          font-family: 'MicrosoftYaHei';
           border-radius: 6px;
           text-align: center;
           &:first-child {
@@ -812,16 +835,24 @@ export default {
             margin-top: 40px;
           }
           .title {
+            display: flex;
+            justify-content: space-between;
+            width: 188px;
             margin-top: 40px;
             font-size: 20px;
             color: #333;
+            letter-spacing: 2px;
           }
           p {
+            width: 190px;
             margin-top: 20px;
             line-height: 26px;
             font-size: 16px;
             color: #999;
             text-align: left;
+            font-weight: normal;
+	          font-stretch: normal;
+            letter-spacing: 2px;
           }
         }
       }
@@ -1202,7 +1233,7 @@ export default {
         span {
           font-size: 75px;
           color: #ff8a4b;
-        } 
+        }
       }
       .tip {
         margin-top: 20px;
