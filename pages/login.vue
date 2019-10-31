@@ -233,7 +233,7 @@ export default {
           })
           window.localStorage.setItem('zyy_userToken', res.data.userToken)
           // 查询来自的页面name
-          let routerName = window.localStorage.getItem('fromRouter') || { name: 'index' }
+          let routerName = window.localStorage.getItem('fromRouter') || JSON.stringify({ name: 'index' })
           this.$router.push(JSON.parse(routerName))
         } else {
           this.$message.error(res.msg)

@@ -14,7 +14,7 @@ export default ({ app, $axios, req, res }) => {
     if (isClient) {
       // console.log('to', to)
       // console.log('from', from)
-      if (to.name == 'login' && from.name) {
+      if (to.name == 'login' && from.name == 'lessonDetail' && from.name == 'trainDetail') {
         let fromRouter = {
           name: from.name,
           query: from.query
