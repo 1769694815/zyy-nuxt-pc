@@ -19,7 +19,7 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item"
-            @click="openNewPage($router.resolve({ name: 'lessonDetail', query: {id: item.courseId }}))">
+            @click="openNewPage(item)">
             <div class="img-box">
               <img :src="item.middlePicture">
             </div>
@@ -31,7 +31,7 @@
                 {{ item.dayCount }}天后到期
               </p>
               <p
-                v-if="item.dayCount <= 0"
+                v-if="item.dayCount <= 0 && item.price != 0"
                 class="desc">
                 已到期
               </p>
@@ -131,7 +131,18 @@ export default {
         this.total = res.data.total
       })
     },
-    openNewPage(url) {
+    openNewPage(item) {
+      console.log('课程信息', item)
+      // if (item.price > 0 && item.dayCount <= 0) {
+      //   console.log('该课程已过期')
+      //   this.$confirm('该课程已过期，是否重新购买')
+      // }
+      let url = this.$router.resolve({
+        name: 'lessonDetail',
+        query: {
+          id: item.courseId
+        }
+      })
       window.open(url.href, '_blank')
     },
     sizeChange(val) {
