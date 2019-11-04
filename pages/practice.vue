@@ -381,7 +381,7 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.scroll)
     this.userInfo = Cookies.getJSON('zyy_userInfo')
-    this.getList()
+    // this.getList()
     this.getLessonList()
     this.getTypeList()
   },
