@@ -773,8 +773,8 @@ export default {
     window.addEventListener('resize', this.handleResize)
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     console.log('userInfo', this.userInfo)
-    this.rankStatus = judgeUser().status
     if (this.userInfo) {
+      this.rankStatus = judgeUser().status
       this.getCourseNum()
       this.getClassNum()
     }
