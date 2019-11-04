@@ -555,7 +555,7 @@ export default {
           .intro {
             margin-top: 20px;
             line-height: 24px;
-            text-indent: 30px;
+            // text-indent: 30px;
           }
           li{
             display: flex;
