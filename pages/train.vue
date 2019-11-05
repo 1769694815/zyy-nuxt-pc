@@ -128,7 +128,7 @@ export default {
       title: '自学考试',
       tabIndex: 4,
       current: 1,
-      size: 32,
+      size: 40,
       total: 0,
       categoryId: this.$route.query.fid || 0,
       cid: this.$route.query.cid || 0,
@@ -227,7 +227,7 @@ export default {
     // 初始化数据
     let list = await $axios('/yxs/api/web/course/more', { params: {
       current: 1,
-      size: 32,
+      size: 40,
       categoryId: tid ? tid : (cid ? cid : fid),
       orderByClause: 1,
       type: 1,
