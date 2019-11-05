@@ -330,14 +330,15 @@ export default {
       this.getList(item.roomId)
     },
     signup() {
-      if(this.userInfo) {
+      if(this.userInfo.userToken) {
+        console.log(this.userInfo)
         this.showModal = true
       } else {
         this.$router.push({ name: 'login' })
       }
     },
     toplay() {
-      if(this.userInfo) {
+      if(this.userInfo.userToken) {
         let url = this.$router.resolve({ name: 'play', query: { classId: this.classInfo.roomId }})
         window.open(url.href, '_blank')
       }
@@ -554,7 +555,7 @@ export default {
           .intro {
             margin-top: 20px;
             line-height: 24px;
-            text-indent: 30px;
+            // text-indent: 30px;
           }
           li{
             display: flex;

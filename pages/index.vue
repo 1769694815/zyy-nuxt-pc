@@ -774,6 +774,7 @@ export default {
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     console.log('userInfo', this.userInfo)
     if (this.userInfo) {
+      this.rankStatus = judgeUser().status
       this.getCourseNum()
       this.getClassNum()
     }

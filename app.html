@@ -33,9 +33,9 @@
         var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
         reIE.test(userAgent);
         var fIEVersion = parseFloat(RegExp["$1"]);
-        if (fIEVersion < 10) {
+        if (fIEVersion < 11) {
           console.log(fIEVersion)
-          var str = '<div id="message-box">您的浏览器版本过低，请使用360浏览器访问</div>'
+          var str = '<div id="message-box">当前版本过低，建议更新浏览器版本或使用360浏览器</div>'
           document.write(str);
         }
       }

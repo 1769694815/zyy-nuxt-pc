@@ -37,6 +37,12 @@
         </li>
         <li>
           <nuxt-link
+            :to="{ name: 'selfStudy' }">
+            自学考试
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
             :to="{ name: 'doctor' }"
             :class="{ active: tabIndex == 5 }">
             名医师承
@@ -120,7 +126,7 @@ export default {
     }
     li {
       display: inline-block;
-      padding: 0 28px;
+      padding: 0 22px;
       cursor: pointer;
       box-sizing: border-box;
       a {
