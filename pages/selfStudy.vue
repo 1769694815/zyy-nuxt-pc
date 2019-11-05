@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-10-31 15:10:17
+ * @LastEditTime: 2019-11-05 16:36:38
  * @LastEditors: chenjg
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -65,7 +65,7 @@
               src="~/assets/images/item-icon4.png"
               alt="">
             <div class="title">时间短  适合上班族</div>
-            <p>江西本地最优秀的中医药大学老师+专业报考团队为您保驾护航，最短仅需1.5年，圆你名校本科梦</p>
+            <p>江西本地最优秀的中医药大学老师+ 专业报考团队为您保驾护航，最短仅需1.5年,圆你名校本科梦</p>
           </div>
         </div>
       </div>
@@ -207,8 +207,8 @@
               <li>中药师</li>
               <li>药剂师</li>
               <li>执业药师</li>
-              <li>质量管理师</li>
-              <li>验收员中药师</li>
+              <li style="width: 165px">质量管理师</li>
+              <li style="width: 224px">验收员中药师</li>
             </ul>
           </div>
         </div>
@@ -471,25 +471,27 @@
       </div>
     </div>
     <div class="question-wrap">
-      <div class="wrap-1200">
-        <div class="text">自考专题所有课程均由江西中医药大学名师录制，质量可信赖，适用于江西省本地所有中药学/药学自考考生</div>
-        <div class="title">
-          <span style="color: #01c6ae">精品</span>课程
-          <span style="color: #ff8a4b">海量</span>刷题
+      <div class="question-content">
+        <div class="wrap-1200">
+          <div class="text">自考专题所有课程均由江西中医药大学名师录制，质量可信赖，适用于江西省本地所有中药学/药学自考考生</div>
+          <div class="title">
+            <span style="color: #01c6ae">精品</span>课程
+            <span style="color: #ff8a4b">海量</span>刷题
+          </div>
+          <div class="desc">
+            考生根据自身复习水平，可自由选择课程进行购买
+          </div>
+          <div class="item">
+            <span class="mes">名师讲解专业辅导课程</span>
+            <span class="add"> + </span>
+            <span class="mes">考前抢分试卷</span>
+            <span class="add"> + </span>
+            <span class="mes">海量题库练习</span>
+          </div>
+          <div class="price">仅需要<span>180</span>元/门</div>
+          <div class="tip">祝愿每位考生都能考试顺顺利利，一次过关！</div>
+          <div class="concat">考前课程咨询  电话/微信号：19100170509 刘老师</div>
         </div>
-        <div class="desc">
-          考生根据自身复习水平，可自由选择课程进行购买
-        </div>
-        <div class="item">
-          <span class="mes">名师讲解专业辅导课程</span>
-          <span class="add"> + </span>
-          <span class="mes">考前抢分试卷</span>
-          <span class="add"> + </span>
-          <span class="mes">海量题库练习</span>
-        </div>
-        <div class="price">仅需要<span>180</span>元/门</div>
-        <div class="tip">祝愿每位考生都能考试顺顺利利，一次过关！</div>
-        <div class="concat">考前课程咨询  电话/微信号：19100170509 刘老师</div>
       </div>
     </div>
     <div class="foot-wrap">
@@ -500,11 +502,9 @@
           ）终身可查
         </div>
         <div class="content">
-          <p>1. 所有学员成绩合格者可获取所报考院校专业对应的学历证书，该证书 属
-          于国民教育系列学历证书，国家承认，社会认可</p>
+          <p>1. 所有学员成绩合格者可获取所报考院校专业对应的学历证书，该证书属于国民教育系列学历证书，国家承认，社会认可。</p>
           <p>2. 电子注册，唯一编码，学信网终身可查。</p>
-          <p>3. 含金量高，待遇等同在校统招生，企事业单位认可度高，可申请优先 办
-          理居住证</p>
+          <p>3. 含金量高，待遇等同在校统招生，企事业单位认可度高，可申请优先办理居住证</p>
           <div
             class="button"
             @click="showModal">本科证书咨询</div>
@@ -850,6 +850,7 @@ export default {
             font-size: 16px;
             color: #999;
             text-align: left;
+            font-family: 'MicrosoftYaHei-bold';
             font-weight: normal;
 	          font-stretch: normal;
             letter-spacing: 2px;
@@ -867,6 +868,7 @@ export default {
       position: relative;
       padding-bottom: 38px;
       font-size: 52px;
+      font-family: 'MicrosoftYaHei';
       font-weight: 700;
       color: #333;
       text-align: center;
@@ -1014,11 +1016,13 @@ export default {
         color: #666;
         li {
           float: left;
+          width: 123px;
           height: 46px;
           line-height: 46px;
           border: 1px solid #ffb085;
           box-sizing: border-box;
-          padding: 0 35px;
+          // padding: 0 35px;
+          text-align: center;
           font-size: 16px;
           margin-right: 20px;
           margin-top: 20px;
@@ -1156,7 +1160,7 @@ export default {
       .more {
         width: 100%;
         height: 70px;
-        margin-top: 25px; 
+        margin-top: 24px; 
         line-height: 70px;
         font-size: 22px;
         background: #f9f1ed;
@@ -1170,6 +1174,11 @@ export default {
     width: 100%;
     height: 806px;
     background: url('../assets/images/question-bg.png') no-repeat;
+    .question-content {
+      width: 100%;
+      height: 806px;
+      background: rgba(44, 44, 44, .7);
+    }
     .wrap-1200 {
       width: 1200px;
       margin: 0 auto;
@@ -1261,7 +1270,7 @@ export default {
     height: 646px;
     background: url('../assets/images/foot-bg.png') no-repeat;
     background-size: cover;
-    .foot-content {
+    .foot-content { 
       position: relative;
       width: 1200px;
       margin: 0 auto;
@@ -1303,6 +1312,9 @@ export default {
       font-size: 16px;
       line-height: 34px;
       color: #fff;
+      p {
+        letter-spacing: 2px;
+      }
       .button {
         margin-top: 50px;
         width: 100%;
