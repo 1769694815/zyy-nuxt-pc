@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-11-05 16:36:38
+ * @LastEditTime: 2019-11-06 09:32:09
  * @LastEditors: chenjg
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -823,7 +823,7 @@ export default {
           background: #fff;
           box-shadow: 0px 0px 15px 0px 
       rgba(0, 0, 0, 0.1);
-          font-family: 'MicrosoftYaHei';
+          font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
           border-radius: 6px;
           text-align: center;
           &:first-child {
@@ -850,7 +850,7 @@ export default {
             font-size: 16px;
             color: #999;
             text-align: left;
-            font-family: 'MicrosoftYaHei-bold';
+            font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
             font-weight: normal;
 	          font-stretch: normal;
             letter-spacing: 2px;
@@ -868,7 +868,7 @@ export default {
       position: relative;
       padding-bottom: 38px;
       font-size: 52px;
-      font-family: 'MicrosoftYaHei';
+      font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
       font-weight: 700;
       color: #333;
       text-align: center;
