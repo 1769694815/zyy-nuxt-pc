@@ -777,6 +777,7 @@ export default {
       this.rankStatus = judgeUser().status
       this.getCourseNum()
       this.getClassNum()
+      this.getInfo()
     }
   },
   destroyed() {
