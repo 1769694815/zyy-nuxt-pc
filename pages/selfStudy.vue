@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-11-06 09:32:09
+ * @LastEditTime: 2019-11-07 16:42:44
  * @LastEditors: chenjg
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -721,7 +721,7 @@ export default {
       let url = this.$router.resolve({
         name: 'train',
         query: {
-          fid: 85,
+          fid: 107,
           cid: 53
         }
       })
