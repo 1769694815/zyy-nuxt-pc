@@ -126,7 +126,7 @@ export default {
     }
     li {
       display: inline-block;
-      padding: 0 22px;
+      padding: 0 20px;
       cursor: pointer;
       box-sizing: border-box;
       a {
