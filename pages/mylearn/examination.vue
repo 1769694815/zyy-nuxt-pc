@@ -20,7 +20,7 @@
             :key="index"
             :class="(index%2 == 0)? 'bg' : ''">
             <div 
-              v-if="tab != 3"
+              v-if="tab != 1"
               class="center-left">
               <div class="title">
                 {{ item.paperTitle }}
@@ -37,7 +37,7 @@
             </div>
             <div class="center-right">
               <span 
-                v-if="item.markingStatus != 0 && tab == 1"
+                v-if="item.markingStatus != 0 && tab == 3"
                 @click="openSimulationExam(item.paperId, 2, item.resultId, item.courseId, item.title)">
                 得分{{ item.score }},批阅详情 >
               </span>
@@ -47,15 +47,15 @@
                 得分{{ item.score }},批阅详情 >
               </span>
               <span
-                v-if="item.markingStatus != 0 && tab != 3 && item.examNum > 0"
+                v-if="item.markingStatus != 0 && tab != 1 && item.examNum > 0"
                 style="margin-left: 10px;"
                 @click="openTip(item.paperId)">重考</span>
               <span
-                v-else-if="tab === 3"
+                v-else-if="tab === 1"
                 class="toexam"
                 @click="openTip(item.paperId)">立即考试</span>
               <span
-                v-else-if="item.markingStatus == 0 && tab != 3"
+                v-else-if="item.markingStatus == 0 && tab != 1"
                 @click="openExam(item.paperId,2,item.resultId)">老师批阅中</span>
             </div>
           </li>
@@ -112,14 +112,14 @@ export default {
     return {
       tab: 1,
       tabIndex: 2,
-      type: 0,
+      type: 3,
       title: '',
       showModal: false,
       userInfo: '',
       navList:[
-        { label: '模拟考试记录', value: 0 },
-        { label: '已考试卷', value: 1 },
         { label: '待考试卷', value: 2 },
+        { label: '已考试卷', value: 1 },
+        { label: '真题/模拟记录', value: 0 },
       ],
       size: 10,
       current: 1,
@@ -209,7 +209,7 @@ export default {
     switchTab(index, item){
       this.tab = index + 1;
       console.log(this.tab)
-      this.type = item.value
+      this.type = item.value + 1
       this.contentList = [];
       this.current = 1
       this.getList()
@@ -225,7 +225,7 @@ export default {
       let params = {
         userToken: this.userInfo.userToken,
         current: this.current,
-        type: this.tab
+        type: this.type
       }
       this.$axios('/yxs/api/web/question/myExamList', {
        params
