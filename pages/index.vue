@@ -202,7 +202,7 @@
       <div class="train step_jump">
         <div class="item-container">
           <div class="container-header">
-            <h2>培训项目</h2>
+            <h2 @mouseover="courseMouse('pxxm', 0)">培训项目</h2>
             <div class="subnav">
               <nuxt-link
                 v-for="(item, index) in westernSubList"
@@ -210,7 +210,9 @@
                 :to="{ name: 'western', query: { fid: item.id }}"
                 :title="item.name"
                 target="_blank"
-                class="subnav-item">{{ item.name }}</nuxt-link>
+                class="subnav-item">
+                <span @mouseover="courseMouse('pxxm', index + 1)">{{ item.name }}</span>  
+              </nuxt-link>
               <nuxt-link
                 to="/western"
                 class="pos-right"
@@ -220,14 +222,18 @@
               </nuxt-link>
             </div>
           </div>
-          <div class="train-imgs">
+          <div
+            v-for="(item, index) in trainList"
+            v-if="trainListId == index"
+            :key="index"
+            class="train-imgs">
             <div
-              v-for="(item, index) in trainList"
-              v-if="index < 4"
-              :key="index"
+              v-for="(val, i) in item.list"
+              v-if="i < 4"
+              :key="i"
               class="train-img"
-              @click="toTrainDetail(item)">
-              <img :src="item.middle_picture">
+              @click="toTrainDetail(val)">
+              <img :src="val.middlePicture">
             </div>
           </div>
           <!-- <div class="button">
@@ -300,7 +306,7 @@
         ref="item4"
         class="item-container step_jump">
         <div class="container-header">
-          <h2>中医大讲堂</h2>
+          <h2 @mouseover="courseMouse('zydjt', 0)">中医大讲堂</h2>
           <div class="subnav">
             <nuxt-link
               v-for="(item, index) in healthSubList"
@@ -308,7 +314,9 @@
               :to="{ name: 'train', query: { fid: item.parendId, cid: item.id }}"
               :title="item.name"
               target="_blank"
-              class="subnav-item">{{ item.name }}</nuxt-link>
+              class="subnav-item">
+              <span @mouseover="courseMouse('zydjt', index + 1)">{{ item.name }}</span>
+            </nuxt-link>
             <nuxt-link
               :to="{ name: 'train', query: { fid: zydjtId }}"
               class="pos-right"
@@ -322,13 +330,17 @@
           <div class="left-img">
             <img src="~/assets/images/img_1.png">
           </div>
-          <div class="right-list">
+          <div
+            v-for="(item, index) in healthList"
+            v-if="healthListId == index"
+            :key="index"
+            class="right-list">
             <div
-              v-for="(item, index) in healthList"
-              v-if="index < 8"
-              :key="index"
+              v-for="(val, i) in item.list"
+              v-if="i < 8"
+              :key="i"
               class="list-item">
-              <section-item :data-obj="item" />
+              <section-item :data-obj="val" />
             </div>
           </div>
         </div>
@@ -338,7 +350,7 @@
         ref="item5"
         class="item-container step_jump">
         <div class="container-header">
-          <h2>学历助考</h2>
+          <h2 @mouseover="courseMouse('xlzk', 0)">学历助考</h2>
           <div class="subnav">
             <nuxt-link
               v-for="(item, index) in examSubList"
@@ -346,7 +358,9 @@
               :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
               :title="item.name"
               target="_blank"
-              class="subnav-item">{{ item.name }}</nuxt-link>
+              class="subnav-item">
+              <span @mouseover="courseMouse('xlzk', index + 1)">{{ item.name }}</span>
+            </nuxt-link>
             <nuxt-link
               :to="{ name: 'train', query: { fid: xlzkId }}"
               class="pos-right"
@@ -360,13 +374,17 @@
           <div class="left-img">
             <img src="~/assets/images/img_3.png">
           </div>
-          <div class="right-list">
+          <div
+            v-for="(item, index) in examList"
+            v-if="examListId == index"
+            :key="index"
+            class="right-list">
             <div
-              v-for="(item, index) in examList"
-              v-if="index < 8"
-              :key="index"
+              v-for="(val, i) in item.list"
+              v-if="i < 8"
+              :key="i"
               class="list-item">
-              <section-item :data-obj="item" /> 
+              <section-item :data-obj="val" />
             </div>
           </div>
         </div>
@@ -376,7 +394,7 @@
         ref="item6"
         class="item-container step_jump">
         <div class="container-header">
-          <h2>中医药理论</h2>
+          <h2 @mouseover="courseMouse('zyyll', 0)">中医药理论</h2>
           <div class="subnav">
             <nuxt-link
               v-for="(item, index) in theorySubList"
@@ -384,7 +402,9 @@
               :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
               :title="item.name"
               target="_blank"
-              class="subnav-item">{{ item.name }}</nuxt-link>
+              class="subnav-item">
+              <span @mouseover="courseMouse('zyyll', index + 1)">{{ item.name }}</span>
+            </nuxt-link>
             <nuxt-link
               :to="{ name: 'train', query: { fid: zyyllId }}"
               class="pos-right"
@@ -398,13 +418,17 @@
           <div class="left-img">
             <img src="~/assets/images/img_2.png">
           </div>
-          <div class="right-list">
+          <div
+            v-for="(item, index) in theoryList"
+            v-if="theoryListId == index"
+            :key="index"
+            class="right-list">
             <div
-              v-for="(item, index) in theoryList"
-              v-if="index < 8"
-              :key="index"
+              v-for="(val, i) in item.list"
+              v-if="i < 8"
+              :key="i"
               class="list-item">
-              <section-item :data-obj="item" /> 
+              <section-item :data-obj="val" /> 
             </div>
           </div>
         </div>
@@ -414,7 +438,7 @@
         ref="item7"
         class="item-container step_jump">
         <div class="container-header">
-          <h2>执业资格</h2>
+          <h2 @mouseover="courseMouse('zyzg', 0)">执业资格</h2>
           <div class="subnav">
             <nuxt-link
               v-for="(item, index) in qualificationSubList"
@@ -422,7 +446,9 @@
               :to="{ name: 'train', query: { fid: item.parentId, cid: item.id }}"
               :title="item.name"
               target="_blank"
-              class="subnav-item">{{ item.name }}</nuxt-link>
+              class="subnav-item">
+              <span @mouseover="courseMouse('zyzg', index + 1)">{{ item.name }}</span>
+            </nuxt-link>
             <nuxt-link
               :to="{ name: 'train', query: { fid: zyzgId }}"
               class="pos-right"
@@ -436,13 +462,17 @@
           <div class="left-img">
             <img src="~/assets/images/img_4.png">
           </div>
-          <div class="right-list">
+          <div
+            v-for="(item, index) in qualificationList"
+            v-if="qualificationListId == index"
+            :key="index"
+            class="right-list">
             <div
-              v-for="(item, index) in qualificationList"
-              v-if="index < 8"
-              :key="index"
+              v-for="(val, i) in item.list"
+              v-if="i < 8"
+              :key="i"
               class="list-item">
-              <section-item :data-obj="item" /> 
+              <section-item :data-obj="val" /> 
             </div>
           </div>
         </div>
@@ -452,7 +482,7 @@
         ref="item8"
         class="item-container step_jump">
         <div class="container-header">
-          <h2>资讯头条</h2>
+          <h2 @mouseover="courseMouse('toutiao', 0)">资讯头条</h2>
           <div class="subnav">
             <nuxt-link
               v-for="(item, index) in toutiaoSubList"
@@ -460,7 +490,9 @@
               :to="{ name: 'toutiao', query: { type: item.id }}"
               :title="item.name"
               target="_blank"
-              class="subnav-item">{{ item.name }}</nuxt-link>
+              class="subnav-item">
+              <span @mouseover="courseMouse('toutiao', index + 1)">{{ item.name }}</span>
+            </nuxt-link>
             <nuxt-link
               :to="{ name: 'toutiao' }"
               class="pos-right"
@@ -470,13 +502,17 @@
             </nuxt-link>
           </div>
         </div>
-        <div class="toutiao">
+        <div
+          v-for="(item, index) in toutiaoList"
+          v-if="toutiaoListId == index"
+          :key="index"
+          class="toutiao">
           <div
-            v-for="(item, index) in toutiaoList"
-            v-if="index < 6"
-            :key="index"
+            v-for="(val, i) in item.list"
+            v-if="i < 6"
+            :key="i"
             class="toutiao-item">
-            <toutiao-item :data-obj="item"/>
+            <toutiao-item :data-obj="val"/>
           </div>
         </div>
       </div>
@@ -676,7 +712,13 @@ export default {
       mingshiId: '',
       zyjkId: '',
       asideLeft: '', // 左侧边栏定位
-      flag: false
+      flag: false,
+      examListId: 0, // 学历助考数据列表下标
+      theoryListId: 0, // 中医药理论数据列表下标
+      qualificationListId: 0, // 职业资格数据列表下标
+      healthListId: 0, // 中医药大讲堂数据列表下标
+      trainListId: 0, // 培训项目数据列表下标
+      toutiaoListId: 0
     }
   },
   head() {
@@ -708,18 +750,18 @@ export default {
       $axios('/yxs/api/web/getFriendsName'),
       $axios('/yxs/api/web/navigation'),
       $axios('/yxs/api/web/doctor/recommendList'),
-      $axios('/yxs/api/web/news/recommendList'),
-      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'xlzk' }}),
-      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'career' }}),
-      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'zydjt' }}),
-      $axios('/yxs/api/web/course/getRecommendList', { params: { type: 'zyzg' }}),
+      $axios('/yxs/api/web/news/getIndexRecommendList'),
+      $axios('/yxs/api/web/course/getIndexCourseList', { params: { code: 'xlzk' }}),
+      $axios('/yxs/api/web/course/getIndexCourseList', { params: { code: 'career' }}),
+      $axios('/yxs/api/web/course/getIndexCourseList', { params: { code: 'zydjt' }}),
+      $axios('/yxs/api/web/course/getIndexCourseList', { params: { code: 'zyzg' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zydjt' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'xlzk' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'career' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zyzg' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'mingshi' }}),
       $axios('/yxs/api/web/course/getCategoryByCode', { params: { code: 'zyjk' }}),
-      $axios('/yxs/api/web/course/getRecommendTrainList', { params: { type: '', current: 1, size: 4 }}),
+      $axios('/yxs/api/web/course/getIndexRecommendTrainList'),
       $axios('/yxs/api/web/news/getAllCategory'),
       $axios('/yxs/api/web/course/indexRecommendList', { params: { size: 5, current: 1 }}),
       $axios('/yxs/api/web/course/trainType')
@@ -743,12 +785,12 @@ export default {
       qualificationList: qualificationList.data,
       examSubList: examSubList.data.list.data,
       theorySubList: theorySubList.data.list.data,
-      trainList: trainList.data.records,
+      trainList: trainList.data,
       qualificationSubList: qualificationSubList.data.list.data,
-      trainPages: trainList.data.pages,
+      // trainPages: trainList.data.pages,
       toutiaoSubList: toutiaoSubList.data,
       recommendCourse: recommendCourse.data.records,
-      westernSubList: westernSubList.data[0].children,
+      westernSubList: westernSubList.data,
       zyjkSubList: zyjkSubList.data.list.data,
       xlzkId: xlzkId,
       zydjtId: zydjtId,
@@ -779,12 +821,48 @@ export default {
       this.getClassNum()
       this.getInfo()
     }
+    
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    courseMouse(type, index) {
+      // console.log('type', type)
+      // console.log('index', index)
+      switch (type) {
+        case 'xlzk':
+          if (this.examListId != index) {
+            this.examListId = index
+          }
+          break;
+        case 'zyyll':
+          if (this.theoryListId != index) {
+            this.theoryListId = index
+          }
+          break;
+        case 'zyzg':
+          if (this.qualificationListId != index) {
+            this.qualificationListId = index
+          }
+          break;
+        case 'zydjt':
+          if (this.healthListId != index) {
+            this.healthListId = index
+          }
+          break;
+        case 'pxxm':
+          if (this.trainListId != index) {
+            this.trainListId = index
+          }
+          break;
+        case 'toutiao':
+          if (this.toutiaoListId != index) {
+            this.toutiaoListId = index
+          }
+      }
+    },
     // 获取首页中医研究所
     getResearchList() {
       this.$axios('/yxs/api/web/doctor/recommendCourseList', {
@@ -1200,13 +1278,14 @@ export default {
       font-size: 24px;
       color: #333;
       font-weight: 400;
+      cursor: default;
     }
     .subnav {
       display: inline-block;
       font-size: 0;
       span {
         display: inline-block;
-        margin-left: 16px;
+        // margin-left: 16px;
         font-size: 14px;
         color: #666;
         cursor: pointer;
