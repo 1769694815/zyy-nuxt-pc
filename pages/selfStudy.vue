@@ -1,8 +1,8 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-11-07 16:42:44
- * @LastEditors: chenjg
+ * @LastEditTime: 2019-11-11 13:44:51
+ * @LastEditors: xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
  -->
@@ -25,7 +25,7 @@
         src="~/assets/images/logo.png"
         alt=""
         @click="toIndex">
-      <div class="text">全国中医药考试领军平台</div>
+      <div class="text">医学在线教育领先品牌</div>
     </div>
     <div class="main"> 
       <div class="main-wrap">
@@ -299,7 +299,7 @@
               <tr>
                 <td @click="toDetail(73)">分析化学（二）</td>
                 <td>廖夫生</td>
-                <td>400/181</td>
+                <td>400/180</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -309,7 +309,7 @@
               <tr>
                 <td @click="toDetail(61)">中药制剂</td>
                 <td>廖夫生</td>
-                <td>400/182</td>
+                <td>400/180</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -319,7 +319,7 @@
               <tr>
                 <td @click="toDetail(96)">中药制药工程原理与设备</td>
                 <td>黄萧&肖雄</td>
-                <td>400/183</td>
+                <td>400/180</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -329,7 +329,7 @@
               <tr>
                 <td @click="toDetail(78)">药理学</td>
                 <td>徐桂香</td>
-                <td>400/184</td>
+                <td>400/180</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -339,7 +339,7 @@
               <tr>
                 <td @click="toDetail(61)">中药制剂分析</td>
                 <td>廖夫生</td>
-                <td>400/185</td>
+                <td>400/180</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"
@@ -349,7 +349,7 @@
               <tr>
                 <td @click="toDetail(59)">中药炮制学</td>
                 <td>龚千锋</td>
-                <td>400/186</td>
+                <td>400/360</td>
                 <td>
                   <img
                     src="../assets/images/duigou.png"

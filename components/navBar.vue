@@ -37,7 +37,8 @@
         </li>
         <li>
           <nuxt-link
-            :to="{ name: 'selfStudy' }">
+            :to="{ name: 'selfStudy' }"
+            target="_blank">
             自学考试
           </nuxt-link>
         </li>
