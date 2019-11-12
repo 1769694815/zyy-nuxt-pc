@@ -222,20 +222,22 @@
               </nuxt-link>
             </div>
           </div>
-          <div
-            v-for="(item, index) in trainList"
-            v-if="trainListId == index"
-            :key="index"
-            class="train-imgs">
+          <transition name="mouse">
             <div
-              v-for="(val, i) in item.list"
-              v-if="i < 4"
-              :key="i"
-              class="train-img"
-              @click="toTrainDetail(val)">
-              <img :src="val.middlePicture">
+              v-for="(item, index) in trainList"
+              v-if="trainListId == index"
+              :key="index"
+              class="train-imgs">
+              <div
+                v-for="(val, i) in item.list"
+                v-if="i < 4"
+                :key="i"
+                class="train-img"
+                @click="toTrainDetail(val)">
+                <img :src="val.middlePicture">
+              </div>
             </div>
-          </div>
+          </transition>
           <!-- <div class="button">
             <span @click="change2">
               <i class="iconfont iconrefresh" />
@@ -330,19 +332,21 @@
           <div class="left-img">
             <img src="~/assets/images/img_1.png">
           </div>
-          <div
-            v-for="(item, index) in healthList"
-            v-if="healthListId == index"
-            :key="index"
-            class="right-list">
+          <transition name="mouse">
             <div
-              v-for="(val, i) in item.list"
-              v-if="i < 8"
-              :key="i"
-              class="list-item">
-              <section-item :data-obj="val" />
+              v-for="(item, index) in healthList"
+              v-if="healthListId == index"
+              :key="index"
+              class="right-list">
+              <div
+                v-for="(val, i) in item.list"
+                v-if="i < 8"
+                :key="i"
+                class="list-item">
+                <section-item :data-obj="val" />
+              </div>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
       <!-- 学历助考 -->
@@ -374,19 +378,21 @@
           <div class="left-img">
             <img src="~/assets/images/img_3.png">
           </div>
-          <div
-            v-for="(item, index) in examList"
-            v-if="examListId == index"
-            :key="index"
-            class="right-list">
+          <transition name="mouse">
             <div
-              v-for="(val, i) in item.list"
-              v-if="i < 8"
-              :key="i"
-              class="list-item">
-              <section-item :data-obj="val" />
+              v-for="(item, index) in examList"
+              v-if="examListId == index"
+              :key="index"
+              class="right-list">
+              <div
+                v-for="(val, i) in item.list"
+                v-if="i < 8"
+                :key="i"
+                class="list-item">
+                <section-item :data-obj="val" />
+              </div>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
       <!-- 中医药理论 -->
@@ -418,19 +424,21 @@
           <div class="left-img">
             <img src="~/assets/images/img_2.png">
           </div>
-          <div
-            v-for="(item, index) in theoryList"
-            v-if="theoryListId == index"
-            :key="index"
-            class="right-list">
+          <transition name="mouse">
             <div
-              v-for="(val, i) in item.list"
-              v-if="i < 8"
-              :key="i"
-              class="list-item">
-              <section-item :data-obj="val" /> 
+              v-for="(item, index) in theoryList"
+              v-if="theoryListId == index"
+              :key="index"
+              class="right-list">
+              <div
+                v-for="(val, i) in item.list"
+                v-if="i < 8"
+                :key="i"
+                class="list-item">
+                <section-item :data-obj="val" /> 
+              </div>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
       <!-- 执业资格 -->
@@ -462,25 +470,27 @@
           <div class="left-img">
             <img src="~/assets/images/img_4.png">
           </div>
-          <div
-            v-for="(item, index) in qualificationList"
-            v-if="qualificationListId == index"
-            :key="index"
-            class="right-list">
+          <transition name="mouse">
             <div
-              v-for="(val, i) in item.list"
-              v-if="i < 8"
-              :key="i"
-              class="list-item">
-              <section-item :data-obj="val" /> 
+              v-for="(item, index) in qualificationList"
+              v-if="qualificationListId == index"
+              :key="index"
+              class="right-list">
+              <div
+                v-for="(val, i) in item.list"
+                v-if="i < 8"
+                :key="i"
+                class="list-item">
+                <section-item :data-obj="val" /> 
+              </div>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
       <!-- 资讯头条 -->
       <div
         ref="item8"
-        class="item-container step_jump">
+        class="item-container step_jump headline">
         <div class="container-header">
           <h2 @mouseover="courseMouse('toutiao', 0)">资讯头条</h2>
           <div class="subnav">
@@ -502,19 +512,21 @@
             </nuxt-link>
           </div>
         </div>
-        <div
-          v-for="(item, index) in toutiaoList"
-          v-if="toutiaoListId == index"
-          :key="index"
-          class="toutiao">
+        <transition name="mouse">
           <div
-            v-for="(val, i) in item.list"
-            v-if="i < 6"
-            :key="i"
-            class="toutiao-item">
-            <toutiao-item :data-obj="val"/>
+            v-for="(item, index) in toutiaoList"
+            v-if="toutiaoListId == index"
+            :key="index"
+            class="toutiao">
+            <div
+              v-for="(val, i) in item.list"
+              v-if="i < 6"
+              :key="i"
+              class="toutiao-item">
+              <toutiao-item :data-obj="val"/>
+            </div>
           </div>
-        </div>
+        </transition>
       </div>
       <!-- 左边侧边栏 -->
       <ul
@@ -1350,6 +1362,7 @@ export default {
       display: flex;
       margin-top: 24px;
       margin-bottom: 10px;
+      position: relative;
       .left-img {
         position: relative;
         width: 224px;
@@ -1372,6 +1385,10 @@ export default {
         }
       }
       .right-list {
+        width: 956px;
+        position: absolute;
+        top: 0;
+        right: 0;
         flex: 1;
         margin-left: 20px;
         .list-item {
@@ -1419,6 +1436,11 @@ export default {
   }
   .train {
     margin-top: 40px;
+    position: relative;
+    height: 210px;
+    .train-imgs {
+      position: absolute;
+    }
     .train-img {
       position: relative;
       display: inline-block;
@@ -1486,7 +1508,12 @@ export default {
       }
     }
   }
+  .headline {
+    height: 474px;
+    position: relative;
+  }
   .toutiao {
+    position: absolute;
     margin-top: 24px;
     &-item {
       // display: inline-block;
@@ -1654,5 +1681,15 @@ export default {
   }
   .el-carousel__indicator.is-active .el-carousel__button {
     background: #3F8A38;
+  }
+  .mouse-enter-active {
+    transition: all .9s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+  }
+  .mouse-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+  }
+  .mouse-enter,
+  .mouse-leave-to {
+    opacity: 0;
   }
 </style>
