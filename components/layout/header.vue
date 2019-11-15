@@ -202,12 +202,12 @@ export default {
           path: 'teacher-classes'
         },
         {
-          label: '我的收藏',
-          path: 'teacher-collect'
-        },
-        {
           label: '试卷管理',
           path: 'teacher-exam'
+        },
+        {
+          label: '我的收藏',
+          path: 'teacher-collect'
         }
       ],
       personalList: [
