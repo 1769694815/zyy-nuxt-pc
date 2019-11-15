@@ -292,6 +292,12 @@ export default {
       })
     },
     exportExam () {
+      const loading = this.$loading({
+        lock: true,
+        text: '导出中...',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
       let xhr = new XMLHttpRequest()
       let formData = new FormData()
       let filename = null
@@ -305,6 +311,7 @@ export default {
       xhr.setRequestHeader("Authorization", "Bearer " + Cookies.get('zyy_accessToken'))
       xhr.responseType = 'blob'
       xhr.onload = function(e) {
+        loading.close()
         if(this.status == 200) {
           let blob = this.response
           console.log(blob)
