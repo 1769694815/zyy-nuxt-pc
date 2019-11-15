@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 09:11:09
- * @LastEditTime: 2019-10-30 17:35:44
+ * @LastEditTime: 2019-11-15 16:49:15
  * @LastEditors: xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -117,10 +117,10 @@ export default {
         { hid: 'description', name: 'description', content: this.description }
       ],
       link: [
-        { rel: 'stylesheet', href: '/aliplayer/share.min.css' }   
+        { rel: 'stylesheet', href: 'https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css' }   
       ],
       script: [
-        { src: '/aliplayer/social-share.min.js', type: 'text/javascript'}
+        { src: 'https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js', type: 'text/javascript'}
       ]
     }
   },
