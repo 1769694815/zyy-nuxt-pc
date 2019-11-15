@@ -24,6 +24,7 @@ export default {
       list: [
         { label: '在教课程', name: 'teacher' },
         { label: '在教班级', name: 'teacher-classes' },
+        { label: '试卷管理', name: 'teacher-exam' },
         { label: '我的收藏', name: 'teacher-collect' }
       ]
     }

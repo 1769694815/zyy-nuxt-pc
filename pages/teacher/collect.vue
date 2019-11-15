@@ -83,7 +83,7 @@ export default {
   },
   data() {
     return {
-      tabIndex: 3,
+      tabIndex: 4,
       size: 10,
       current: 1,
       isEdit: false,

@@ -59,7 +59,7 @@
               <td 
                 align="right" 
                 width="120">交卷时间：</td>
-              <td>
+              <td colspan="3">
                 <el-date-picker
                   v-model="date"
                   :picker-options="pickerOptions"
@@ -70,6 +70,10 @@
                   start-placeholder="开始日期"
                   end-placeholder="结束日期"/>
               </td>
+              <td>
+                <span 
+                  class="button"
+                  @click="exportExam()">导出</span></td>
             </tr>
           </tbody>
         </table>
@@ -286,6 +290,38 @@ export default {
            this.showStudentList = false
         }
       })
+    },
+    exportExam () {
+      let xhr = new XMLHttpRequest()
+      let formData = new FormData()
+      let filename = null
+      let url = '/api/yxs/api/web/user/exportTestScores?paperId=' + this.paperId + '&userToken=' + this.userInfo.userToken
+
+      xhr.open(
+        'get',
+        url
+      )
+      filename = this.title + '.xls'
+      xhr.setRequestHeader("Authorization", "Bearer " + Cookies.get('zyy_accessToken'))
+      xhr.responseType = 'blob'
+      xhr.onload = function(e) {
+        if(this.status == 200) {
+          let blob = this.response
+          console.log(blob)
+          if (window.navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename)
+          } else {
+            let a = document.createElement('a')
+            let url = window.URL.createObjectURL(blob)
+            a.href = url
+            a.download = filename
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(url)
+          }
+        }
+      }
+      xhr.send(formData)
     },
     getStatus(index){
       if(index == 2){

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class="teach-left">
+    <left-tab :tab-index="tabIndex" />
+    <!-- <div class="teach-left">
       <span>试卷管理</span>
-    </div>
+    </div> -->
     <div class="teach-right">
       <div class="search">
         <table 
@@ -82,6 +83,10 @@
                 </el-select>
               </td>
               <!-- <td><span class="button">添加题目</span></td> -->
+              <td>
+                <span 
+                  class="button"
+                  @click="exportExam()">导出</span></td>
             </tr>    
           </tbody>
         </table>
@@ -140,19 +145,27 @@
           @currentChange="currentChange" />
       </div>
     </div>
+    <port-modal
+      :show-modal="portModalShow"
+      :user="userInfo"
+      @hide-modal="hidePortModal" />
   </div>
 </template>
 <script>
+import LeftTab from '~/components/mine/teacherLeftTab.vue'
 import Pagination from '~/components/pagination.vue'
+import PortModal from './protModal.vue'
 import Cookies from 'js-cookie'
 import { formatStamp2 } from '~/assets/js/util.js'
 export default {
   components: {
+    LeftTab,
+    PortModal,
     Pagination
   },
   data() {
     return {
-      userInfo: '',
+      userInfo: {},
       total: 0,
       size: 10,
       current: 1,
@@ -195,7 +208,9 @@ export default {
         {
           value: '2',
           label: '历年真题'
-        }]
+        }],
+      tabIndex: 3,
+      portModalShow: false
     }
   },
   mounted() {
@@ -255,6 +270,12 @@ export default {
         this.showTable = true
         this.getCourseList()
       })
+    },
+    exportExam () {
+      this.portModalShow = true
+    },
+    hidePortModal() {
+      this.portModalShow = false
     },
     getCourseList() {
       let params = {
