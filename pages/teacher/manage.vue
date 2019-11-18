@@ -1,8 +1,10 @@
 <template>
   <div>
     <div class="teach">
-      <div class="top">
-        试卷管理 >  {{ title }}
+      <div class="crumb">
+        <nuxt-link :to="{ name : 'teacher-exam' }">试卷管理</nuxt-link>
+        <i class="iconfont iconarrow-right" />
+        {{ title }}
       </div>
       <div class="search">
         <table 
@@ -355,9 +357,18 @@ export default {
 <style lang="scss" scoped>
   .teach{
     width: 100%;
-    .top{
-      line-height: 63px;
+    .crumb {
+      margin-top: 28px;
+      margin-bottom: 18px;
       font-size: 12px;
+      color: #666;
+      a {
+        font-size: 12px;
+        color: #666;
+        &:hover {
+          color: #3f8a38;
+        }
+      }
     }
     .search{
       display: table;
