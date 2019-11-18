@@ -122,7 +122,7 @@ export default {
     switchTab(index, item) {
       this.type = item.id
       this.tab = item.id
-      this.title = item.name + '_资讯头条'
+      this.title = item.name + '_资讯头条_'
     },
     getList() {
       this.$axios('/yxs/api/web/news/getArticleMore', {

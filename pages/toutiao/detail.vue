@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 09:11:09
- * @LastEditTime: 2019-11-15 16:49:15
+ * @LastEditTime: 2019-11-18 14:47:00
  * @LastEditors: xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -132,7 +132,7 @@ export default {
       info: data,
       categoryName: data.categoryName,
       categoryId: data.categoryId,
-      title: data.title + '_资讯头条',
+      title: data.title + '_资讯头条_',
       description: desc
     }
   },
