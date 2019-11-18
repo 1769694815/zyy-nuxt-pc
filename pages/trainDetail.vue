@@ -77,10 +77,10 @@
             v-else
             class="bottom">
             <div
-              v-if="classInfo.closeStatus == 2"
+              v-if="classInfo.closeStatus == 2 && classInfo.memberStatus == 0"
               class="b1">报名结束</div>
             <div
-              v-if="classInfo.memberStatus == 1 && classInfo.closeStatus == 1"
+              v-if="(classInfo.dayCount > 0 || classInfo.expiryMode == 'forever') && classInfo.memberStatus == 1"
               class="bottom">
               <div class="b1">已加入本班</div>
               <div
@@ -93,6 +93,14 @@
               <div
                 class="b3"
                 @click="signup">立即报名</div>
+            </div>
+            <!-- 已过期，还在报名时间内，可重新报名 -->
+            <div
+              v-if="classInfo.memberStatus == 1 && classInfo.closeStatus == 1 && classInfo.dayCount <= 0 && classInfo.expiryMode != 'forever'"
+              class="bottom">
+              <div
+                class="b3"
+                @click="signup">重新报名</div>
             </div>
             <div
               v-if="classInfo.closeStatus == 0"

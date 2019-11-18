@@ -97,13 +97,13 @@
               v-else
               class="bottom">
               <div
-                v-if="detailData.memBerStatus == 0 && detailData.price == 0"
+                v-if="detailData.buyFlag == 3"
                 class="b1"
                 @click="join">
                 免费加入
               </div>
               <div
-                v-if="detailData.memBerStatus == 0 && detailData.price != 0"
+                v-if="detailData.buyFlag == 1 || (detailData.buyFlag == 2 && detailData.dayCount <= 0)"
                 class="flex">
                 <div
                   class="b1"
@@ -113,7 +113,7 @@
                   @click="buyLesson">立即购买</div>
               </div>
               <div
-                v-if="detailData.memBerStatus == 1"
+                v-if="detailData.buyFlag == 2 && detailData.dayCount > 0"
                 class="b2"
                 @click="toPlay">继续学习
               </div>

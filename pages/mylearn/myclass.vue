@@ -19,7 +19,7 @@
             v-for="(item,index) in contentList"
             :key="index"
             class="list-item"
-            @click="openNewPage($router.resolve({ name: 'play', query: { classId: item.classroomId, courseId: item.courseId }}))">
+            @click="openNewPage(item)">
             <img :src="item.middlePicture">
             <div class="content">
               <div class="title">{{ item.title }}</div>
@@ -129,7 +129,13 @@ export default {
         this.contentList = res.data.records
       })
     },
-    openNewPage(url) {
+    openNewPage(item) {
+      let url = ''
+      if (item.dayCount <= 0 && item.expiryMode != 'forever') {
+        url = this.$router.resolve({ name: 'trainDetail', query: { id: item.trainId }})
+      } else {
+        url = this.$router.resolve({ name: 'play', query: { classId: item.classroomId, courseId: item.courseId }})
+      }
       window.open(url.href, '_blank')
     }
   }
