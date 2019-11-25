@@ -175,7 +175,7 @@
                   <span
                     v-if="item.free == 1"
                     class="free">免费</span>
-                  <span>{{ item.title }}</span>
+                  <span class="course-title">{{ item.title }}</span>
                   <div class="right">
                     {{ timestr(item.length) }}
                     <i class="iconfont iconshipin" />
@@ -868,6 +868,10 @@ export default {
                 border: 2px solid #999;
                 border-radius: 50%;
                 background: #fff;
+              }
+              .course-title {
+                width: 600px;
+                line-height: 20px;
               }
               .free {
                 width: 40px;
