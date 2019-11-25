@@ -1119,7 +1119,7 @@ export default {
         font-size: 16px;
         z-index: 99;
         .nav-item {
-          margin-top: 29px;
+          margin-top: 26px;
           height: 16px;
           line-height: 16px;
           color: #fff;
@@ -1130,12 +1130,13 @@ export default {
           }
         }
         .sub-nav {
-          height: 14px;
-          margin-top: 18px;
+          margin-top: 8px;
           font-size: 14px;
           opacity: .6;
           .sub-item {
+            display: inline-block;
             margin-right: 14px;
+            margin-top: 10px;
             line-height: 14px;
             cursor: pointer;
             color: #f2f2f2;
