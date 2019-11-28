@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-11-11 13:44:51
+ * @LastEditTime: 2019-11-28 13:43:24
  * @LastEditors: xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -267,7 +267,7 @@
               <tr>
                 <th width="93">分类</th>
                 <th width="202">科目名称</th>
-                <th width="176">讲师</th>
+                <th width="176">课时数</th>
                 <th width="136">原价/优惠价</th>
                 <th width="90">免费试听</th>
               </tr>
@@ -278,7 +278,7 @@
                   中药学
                 </td>
                 <td @click="toDetail(118)">数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+                <td>共30节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -288,7 +288,7 @@
               </tr>
               <tr>
                 <td @click="toDetail(114)">药事管理学（二）</td>
-                <td>俞双燕</td>
+                <td>共29节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -298,7 +298,7 @@
               </tr>
               <tr>
                 <td @click="toDetail(73)">分析化学（二）</td>
-                <td>廖夫生</td>
+                <td>共30节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -308,7 +308,7 @@
               </tr>
               <tr>
                 <td @click="toDetail(61)">中药制剂</td>
-                <td>廖夫生</td>
+                <td>共28节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -318,7 +318,7 @@
               </tr>
               <tr>
                 <td @click="toDetail(96)">中药制药工程原理与设备</td>
-                <td>黄萧&肖雄</td>
+                <td>共29节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -328,7 +328,7 @@
               </tr>
               <tr>
                 <td @click="toDetail(78)">药理学</td>
-                <td>徐桂香</td>
+                <td>共29节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -338,7 +338,7 @@
               </tr>
               <tr>
                 <td @click="toDetail(61)">中药制剂分析</td>
-                <td>廖夫生</td>
+                <td>共28节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -348,7 +348,7 @@
               </tr>
               <tr>
                 <td @click="toDetail(59)">中药炮制学</td>
-                <td>龚千锋</td>
+                <td>共30节</td>
                 <td>400/360</td>
                 <td>
                   <img
@@ -364,7 +364,7 @@
                   药学 
                 </td>
                 <td @click="toDetail(117)">有机化学（五）</td>
-                <td>万屏南</td>
+                <td>共28节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -374,7 +374,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(92)">药用植物与生物学</td>
-                <td>徐艳琴&葛菲 </td>
+                <td>共30节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -384,7 +384,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(94)">药物化学（二）</td>
-                <td>杨尊华</td>
+                <td>共31节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -394,7 +394,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(118)">数理统计</td>
-                <td>周丽&何雁&刘建国</td>
+                <td>共30节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -404,7 +404,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(114)">药事管理学（二）</td>
-                <td>俞双燕</td>
+                <td>共29节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -414,7 +414,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(116)">分子生物学</td>
-                <td>余英才</td>
+                <td>共30节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -424,7 +424,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(115)">物理化学</td>
-                <td>杨婕</td>
+                <td>共30节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -434,7 +434,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(95)">药物分析</td>
-                <td>廖夫生</td>
+                <td>共30节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -444,7 +444,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(93)">药剂学</td>
-                <td>廖夫生</td>
+                <td>共30节</td>
                 <td>400/180</td>
                 <td>
                   <img
@@ -454,7 +454,7 @@
               </tr>
               <tr class="yaoxue">
                 <td @click="toDetail(78)">药理学</td>
-                <td>徐桂香</td>
+                <td>共29节</td>
                 <td>400/180</td>
                 <td>
                   <img
