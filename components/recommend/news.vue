@@ -4,7 +4,7 @@
     <ul class="list">
       <li
         v-for="(item, index) in recommendNews"
-        v-if="index < 4"
+        v-if="index < 6"
         :key="index"
         class="item">
         <nuxt-link

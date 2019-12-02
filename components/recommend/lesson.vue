@@ -4,7 +4,7 @@
     <div class="list">
       <div
         v-for="(item, index) in recommendLessons"
-        v-if="index < 6"
+        v-if="index < 3"
         :key="index"
         class="item"
         @click="openNewPage($router.resolve({ name: 'lessonDetail', query: { id: item.id }}))">
