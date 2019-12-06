@@ -419,6 +419,7 @@ export default {
         height: 34px;
         line-height: 34px;
         input {
+          font-size: 16px;
           padding-left: 10px;
           width: 100%;
           height: 28px;

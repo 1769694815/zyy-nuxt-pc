@@ -848,7 +848,7 @@ export default {
             padding-bottom: 20px;
             li {
               position: relative;
-              height: 50px;
+              // height: 50px;
               line-height: 50px;
               padding: 0 10px;
               cursor: pointer;
