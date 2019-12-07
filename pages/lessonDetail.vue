@@ -870,7 +870,7 @@ export default {
                 background: #fff;
               }
               .course-title {
-                width: 590px;
+                width: 580px;
                 line-height: 20px;
               }
               .free {
