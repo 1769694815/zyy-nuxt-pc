@@ -139,7 +139,7 @@ import Pagination from '~/components/pagination.vue'
 import TipModal from '~/components/modal/addTipModal.vue'
 import StuModal from '~/components/modal/addStuModal.vue'
 import LotModal from '~/components/modal/lotStuModal.vue'
-import PortModal from '~/components/modal/PortModal.vue'
+import PortModal from '~/components/modal/portModal.vue'
 import Cookies from 'js-cookie'
 export default {
   components: {
