@@ -214,23 +214,23 @@ export default {
   // 监听参数字符串的更改，调用所有组件方法
   watchQuery: ['fid', 'cid', 'tid'],
   async asyncData({ $axios, query }) {
-    let fid = query.fid || 0
-    let cid = query.cid || 0
-    let tid = query.tid || 0
     // console.log('fid', fid)
     // console.log('cid', cid)
     let res = await $axios('/yxs/api/web/course/getCourseType')
+    let fid = query.fid || res.data.allClassTypeCate[0].parentId
+    let cid = query.cid || fid
+    let tid = query.tid || cid
     let types = [{
       name: '全部',
-      id: res.data.allClassTypeCate[0].parentId
+      id: fid
     }]
     let courses = [{
       name: '全部',
-      id: res.data.allClassTypeCate[0].parentId
+      id: fid
     }]
     let justCourses = [{
       name: '全部',
-      id: res.data.allClassTypeCate[0].parentId
+      id: cid
     }]
     let typeList = res.data.allClassTypeCate[0]
     typeList.children.map(item => {
@@ -280,6 +280,7 @@ export default {
     return {
       fid,
       cid,
+      tid,
       title,
       types,
       courses,
