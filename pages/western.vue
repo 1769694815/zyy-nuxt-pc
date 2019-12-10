@@ -222,15 +222,15 @@ export default {
     let res = await $axios('/yxs/api/web/course/getCourseType')
     let types = [{
       name: '全部',
-      id: 0
+      id: res.data.allClassTypeCate[0].parentId
     }]
     let courses = [{
       name: '全部',
-      id: 0
+      id: res.data.allClassTypeCate[0].parentId
     }]
     let justCourses = [{
       name: '全部',
-      id: 0
+      id: res.data.allClassTypeCate[0].parentId
     }]
     let typeList = res.data.allClassTypeCate[0]
     typeList.children.map(item => {
@@ -384,7 +384,7 @@ export default {
       this.$axios('/yxs/api/web/course/getCourseType').then(res => {
         this.types = [{
           name: '全部',
-          id: 0
+          id: res.data.allClassTypeCate[0].parentId
         }]
         res.data.allClassTypeCate[0].children.map(item => {
           item.type = 2
