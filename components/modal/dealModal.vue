@@ -1,7 +1,7 @@
 <!--
  * @Author: xwen
  * @Date: 2019-09-21 14:09:38
- * @LastEditTime: 2019-09-21 16:36:13
+ * @LastEditTime: 2019-12-10 17:05:02
  * @LastEditors: xwen
  * @Description: 协议弹窗
  -->
@@ -49,8 +49,8 @@ export default {
     getDetail() {
       this.$axios('/yxs/api/news/detail?id=&type=1').then(res => {
         if (res.code == 0) {
-          this.title = res.data.title
-          this.body = res.data.body
+          this.title = res.data[0].title
+          this.body = res.data[0].body
         }
       })
     },
