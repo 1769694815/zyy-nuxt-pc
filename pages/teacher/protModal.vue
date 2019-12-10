@@ -106,7 +106,7 @@ export default {
     //     val.splice(index, 1)
     //     this.region = val
     //   }
-      
+
     //   if (!oldVal.includes(0) && !val.includes(0)) {
     //     if (val.length === allValues.length - 1) {
     //       this.region = [0].concat(val)
