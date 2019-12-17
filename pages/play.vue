@@ -446,25 +446,25 @@ export default {
             }
             _this.playFlag = true
           })
-          _this.player.on('startSeek', function (e) {
-            // console.log('开始拖拽', e.paramData)
-            _this.startSeekTime = parseInt(e.paramData)
-            // 缓存最大的已播放时间
-            if (e.paramData > _this.watched) {
-              _this.watched = e.paramData
-            }
-          })
-          _this.player.on('completeSeek', function (e) {
-            // console.log('完成拖拽', e)
-            _this.completeSeekTime = parseInt(e.paramData)
-            if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
-              _this.$message({
-                type: 'warning',
-                message: '只能拖动已观看的部分哦，请认真学习'
-              })
-              _this.player.seek(_this.startSeekTime)
-            }
-          })
+          // _this.player.on('startSeek', function (e) {
+          //   // console.log('开始拖拽', e.paramData)
+          //   _this.startSeekTime = parseInt(e.paramData)
+          //   // 缓存最大的已播放时间
+          //   if (e.paramData > _this.watched) {
+          //     _this.watched = e.paramData
+          //   }
+          // })
+          // _this.player.on('completeSeek', function (e) {
+          //   // console.log('完成拖拽', e)
+          //   _this.completeSeekTime = parseInt(e.paramData)
+          //   if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
+          //     _this.$message({
+          //       type: 'warning',
+          //       message: '只能拖动已观看的部分哦，请认真学习'
+          //     })
+          //     _this.player.seek(_this.startSeekTime)
+          //   }
+          // })
         })
       } else {
         this.$axios.post('/yxs/api/web/user/startLearnCourse', {
@@ -632,25 +632,25 @@ export default {
             }
             _this.playFlag = true
           })
-          _this.player.on('startSeek', function (e) {
-            // console.log('开始拖拽', e.paramData)
-            _this.startSeekTime = parseInt(e.paramData)
-            // 缓存最大的已播放时间
-            if (e.paramData > _this.watched) {
-              _this.watched = e.paramData
-            }
-          })
-          _this.player.on('completeSeek', function (e) {
-            // console.log('完成拖拽', e)
-            _this.completeSeekTime = parseInt(e.paramData)
-            if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
-              _this.$message({
-                type: 'warning',
-                message: '只能拖动已观看的部分哦，请认真学习'
-              })
-              _this.player.seek(_this.startSeekTime)
-            }
-          })
+          // _this.player.on('startSeek', function (e) {
+          //   // console.log('开始拖拽', e.paramData)
+          //   _this.startSeekTime = parseInt(e.paramData)
+          //   // 缓存最大的已播放时间
+          //   if (e.paramData > _this.watched) {
+          //     _this.watched = e.paramData
+          //   }
+          // })
+          // _this.player.on('completeSeek', function (e) {
+          //   // console.log('完成拖拽', e)
+          //   _this.completeSeekTime = parseInt(e.paramData)
+          //   if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
+          //     _this.$message({
+          //       type: 'warning',
+          //       message: '只能拖动已观看的部分哦，请认真学习'
+          //     })
+          //     _this.player.seek(_this.startSeekTime)
+          //   }
+          // })
         })
       }
     },
