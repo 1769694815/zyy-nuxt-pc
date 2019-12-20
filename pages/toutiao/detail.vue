@@ -1,8 +1,8 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 09:11:09
- * @LastEditTime: 2019-11-18 14:47:00
- * @LastEditors: xwen
+ * @LastEditTime : 2019-12-20 10:18:02
+ * @LastEditors  : xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
  -->
@@ -14,6 +14,8 @@
       <nuxt-link :to="{ name: 'toutiao' }">资讯头条</nuxt-link>
       <i class="iconfont iconarrow-right" />
       <nuxt-link :to="{ name: 'toutiao', query: { type: categoryId }}">{{ categoryName }}</nuxt-link>
+      <i class="iconfont iconarrow-right" />
+      <nuxt-link :to="{ name: 'toutiao-detail', query: { id: info.id }}">{{ info.title }}</nuxt-link>
     </div>
     <div class="article">
       <div class="article-header">
