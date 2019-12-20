@@ -208,6 +208,7 @@ export default {
       videoDuration: 1, // 视频总时长
       results: '0.00%', // 当前视频播放进度
       timer3: null, // 将视频进度传给后台的计时器
+      drag: 0
     }
   },
   head() {
@@ -296,6 +297,7 @@ export default {
           this.timing = res.data.videoTimingInterface * 1000
           this.isLearnEnd = res.data.status
           this.isLearnEnd == 1 ? this.results = '0.00%' : this.results = '完'
+          this.drag = res.data.drag
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
@@ -446,25 +448,27 @@ export default {
             }
             _this.playFlag = true
           })
-          // _this.player.on('startSeek', function (e) {
-          //   // console.log('开始拖拽', e.paramData)
-          //   _this.startSeekTime = parseInt(e.paramData)
-          //   // 缓存最大的已播放时间
-          //   if (e.paramData > _this.watched) {
-          //     _this.watched = e.paramData
-          //   }
-          // })
-          // _this.player.on('completeSeek', function (e) {
-          //   // console.log('完成拖拽', e)
-          //   _this.completeSeekTime = parseInt(e.paramData)
-          //   if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
-          //     _this.$message({
-          //       type: 'warning',
-          //       message: '只能拖动已观看的部分哦，请认真学习'
-          //     })
-          //     _this.player.seek(_this.startSeekTime)
-          //   }
-          // })
+          if (_this.drag == 1) {
+            _this.player.on('startSeek', function (e) {
+              // console.log('开始拖拽', e.paramData)
+              _this.startSeekTime = parseInt(e.paramData)
+              // 缓存最大的已播放时间
+              if (e.paramData > _this.watched) {
+                _this.watched = e.paramData
+              }
+            })
+            _this.player.on('completeSeek', function (e) {
+              // console.log('完成拖拽', e)
+              _this.completeSeekTime = parseInt(e.paramData)
+              if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
+                _this.$message({
+                  type: 'warning',
+                  message: '只能拖动已观看的部分哦，请认真学习'
+                })
+                _this.player.seek(_this.startSeekTime)
+              }
+            })
+          }
         })
       } else {
         this.$axios.post('/yxs/api/web/user/startLearnCourse', {
@@ -481,6 +485,7 @@ export default {
           this.timing = res.data.videoTimingInterface * 1000
           this.isLearnEnd = res.data.status
           this.isLearnEnd == 1 ? this.results = '0.00%' : this.results = '完'
+          this.drag = res.data.drag
           for(let i in info.lessons) {
             if(info.lessons[i].lessonId == this.lessonId) {
               this.playIndex = i
@@ -632,25 +637,27 @@ export default {
             }
             _this.playFlag = true
           })
-          // _this.player.on('startSeek', function (e) {
-          //   // console.log('开始拖拽', e.paramData)
-          //   _this.startSeekTime = parseInt(e.paramData)
-          //   // 缓存最大的已播放时间
-          //   if (e.paramData > _this.watched) {
-          //     _this.watched = e.paramData
-          //   }
-          // })
-          // _this.player.on('completeSeek', function (e) {
-          //   // console.log('完成拖拽', e)
-          //   _this.completeSeekTime = parseInt(e.paramData)
-          //   if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
-          //     _this.$message({
-          //       type: 'warning',
-          //       message: '只能拖动已观看的部分哦，请认真学习'
-          //     })
-          //     _this.player.seek(_this.startSeekTime)
-          //   }
-          // })
+          if (_this.drag == 1) {
+            _this.player.on('startSeek', function (e) {
+              // console.log('开始拖拽', e.paramData)
+              _this.startSeekTime = parseInt(e.paramData)
+              // 缓存最大的已播放时间
+              if (e.paramData > _this.watched) {
+                _this.watched = e.paramData
+              }
+            })
+            _this.player.on('completeSeek', function (e) {
+              // console.log('完成拖拽', e)
+              _this.completeSeekTime = parseInt(e.paramData)
+              if (_this.completeSeekTime - _this.watched > 0 && _this.isLearnEnd == 1) {
+                _this.$message({
+                  type: 'warning',
+                  message: '只能拖动已观看的部分哦，请认真学习'
+                })
+                _this.player.seek(_this.startSeekTime)
+              }
+            })
+          }
         })
       }
     },
