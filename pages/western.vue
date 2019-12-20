@@ -7,6 +7,14 @@
         <nuxt-link to="/">首页</nuxt-link>
         <i class="iconfont iconarrow-right" />
         <nuxt-link :to="{ name: 'western' }">培训项目</nuxt-link>
+        <nuxt-link
+          v-for="(item, index) in navList"
+          v-if="item.name != '全部'"
+          :to="{ name: 'western', query: queryParams(navList, index) }"
+          :key="index">
+          <i class="iconfont iconarrow-right" />
+          {{ item.name }}
+        </nuxt-link>
       </div>
       <div class="train-content">
         <div class="content-left">
@@ -203,7 +211,8 @@ export default {
           value: 3
         }
       ],
-      result: []
+      result: [],
+      navList: []
     }
   },
   head() {
@@ -232,6 +241,7 @@ export default {
       name: '全部',
       id: cid
     }]
+    let navList = []
     let typeList = res.data.allClassTypeCate[0]
     typeList.children.map(item => {
       item.type = 2
@@ -255,6 +265,8 @@ export default {
       })
     }
 
+    navList.push(types[index])
+
     let courseIndex = 0
     courses.forEach((ele, i) => {
       if (ele.id == cid) {
@@ -262,11 +274,22 @@ export default {
       }
     })
 
+    navList.push(courses[courseIndex])
+    
     if (courses[courseIndex].children && courses[courseIndex].children.length > 0) {
       courses[courseIndex].children.map(item => {
         justCourses.push(item)
       })
     }
+    
+    let justIndex = 0
+    justCourses.forEach((ele, i) => {
+      if (ele.id == tid) {
+        justIndex = i
+      }
+    })
+
+    navList.push(justCourses[justIndex])
 
     // 初始化数据
     let list = await $axios('/yxs/api/web/course/more', { params: {
@@ -287,7 +310,30 @@ export default {
       justCourses,
       result: list.data.list.records,
       total: list.data.list.total,
-      categoryId: tid ? tid : (cid ? cid : fid)
+      categoryId: tid ? tid : (cid ? cid : fid),
+      navList
+    }
+  },
+  computed: {
+    queryParams (list, index) {
+      return function (list, index) {
+        if (index == 0) {
+          return {
+            fid: list[0].id
+          }
+        } else if (index == 1) {
+          return {
+            fid: list[0].id,
+            cid: list[1].id
+          }
+        } else if (index == 2) {
+          return {
+            fid: list[0].id,
+            cid: list[1].id,
+            tid: list[2].id
+          }
+        }
+      }
     }
   },
   mounted() {

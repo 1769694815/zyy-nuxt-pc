@@ -7,6 +7,14 @@
         <nuxt-link to="/">首页</nuxt-link>
         <i class="iconfont iconarrow-right" />
         <nuxt-link :to="{ name: 'train' }">课程中心</nuxt-link>
+        <nuxt-link
+          v-for="(item, index) in navList"
+          v-if="item.name != '全部'"
+          :to="{ name: 'train', query: queryParams(navList, index) }"
+          :key="index">
+          <i class="iconfont iconarrow-right" />
+          {{ item.name }}
+        </nuxt-link>
         <!-- 首页>课程中心 -->
       </div>
       <div class="train-content">
@@ -159,6 +167,7 @@ export default {
         }
       ],
       result: [],
+      navList: []
 
     }
   },
@@ -186,6 +195,7 @@ export default {
       name: '全部',
        id: cid
     }]
+    let navList = []
     let typeList = res.data.allCate
     typeList.map(item => {
       types.push(item)
@@ -208,6 +218,9 @@ export default {
         courses.push(item)
       })
     }
+    
+    console.log('types', types[index])
+    navList.push(types[index])
 
     let courseIndex = 0
     courses.forEach((ele, i) => {
@@ -216,11 +229,23 @@ export default {
       }
     })
 
+    console.log(courses[courseIndex])
+    navList.push(courses[courseIndex])
+    
     if (courses[courseIndex].children && courses[courseIndex].children.length > 0) {
       courses[courseIndex].children.map(item => {
         justCourses.push(item)
       })
     }
+
+    let justIndex = 0
+    justCourses.forEach((ele, i) => {
+      if (ele.id == tid) {
+        justIndex = i
+      }
+    })
+
+    navList.push(justCourses[justIndex])
 
     // console.log('justCourses', justCourses)
 
@@ -243,9 +268,32 @@ export default {
       justCourses,
       result: list.data.list.records,
       total: list.data.list.total,
-      categoryId: tid ? tid : (cid ? cid : fid)
+      categoryId: tid ? tid : (cid ? cid : fid),
+      navList
     }
 
+  },
+  computed: {
+    queryParams (list, index) {
+      return function (list, index) {
+        if (index == 0) {
+          return {
+            fid: list[0].id
+          }
+        } else if (index == 1) {
+          return {
+            fid: list[0].id,
+            cid: list[1].id
+          }
+        } else if (index == 2) {
+          return {
+            fid: list[0].id,
+            cid: list[1].id,
+            tid: list[2].id
+          }
+        }
+      }
+    }
   },
   mounted() {
     // this.getCourseType()
