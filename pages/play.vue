@@ -241,7 +241,7 @@ export default {
     }
   },
   mounted() {
-    window.scrollTo(0, 200)
+    window.scrollTo(0, 150)
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     if(!this.userInfo) {
       this.$router.push({
@@ -288,6 +288,18 @@ export default {
           courseId: this.courseId,
           userToken: this.userInfo.userToken
         }).then(res => {
+          if (res.code == 1) {
+            this.$message({
+              type: 'error',
+              message: res.msg
+            })
+            setTimeout(() => {
+              this.$router.push({
+                name: 'index'
+              })
+            }, 500)
+            return
+          }
           let info = res.data
           this.info = res.data
           this.title = res.data.courseTitle + '_'
@@ -477,6 +489,18 @@ export default {
           classId: this.classId,
           userToken: this.userInfo.userToken
         }).then(res => {
+          if (res.code == 1) {
+            this.$message({
+              type: 'error',
+              message: res.msg
+            })
+            setTimeout(() => {
+              this.$router.push({
+                name: 'index'
+              })
+            }, 500)
+            return
+          }
           let info = res.data
           this.info = res.data
           this.lessonId = res.data.lessonId
