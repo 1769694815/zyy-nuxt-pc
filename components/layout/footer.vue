@@ -63,7 +63,7 @@ export default {
 <style lang="scss" scoped>
   .footer {
     background: #3e3e3e;
-    height: 163px;
+    // height: 163px;
     color: #B5B5B5;
     &-content {
       width: 1200px;

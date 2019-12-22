@@ -1,8 +1,8 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2019-11-28 13:43:24
- * @LastEditors: xwen
+ * @LastEditTime : 2019-12-22 17:05:13
+ * @LastEditors  : xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
  -->
@@ -25,20 +25,20 @@
         src="~/assets/images/logo.png"
         alt=""
         @click="toIndex">
-      <div class="text">医学在线教育领先品牌</div>
+        <!-- <div class="text">医学在线教育领先品牌</div> -->
     </div>
     <div class="main"> 
       <div class="main-wrap">
         <div class="tips">
-          <span>医学自考专题</span>
-          <span>中药学/药学</span>
+          <span>2020年中药学</span>
+          <span>药学自考</span>
         </div>
         <div class="main-pic">
           <!-- <img
             src="~/assets/images/main-pic.png"
             alt=""> -->
         </div>
-        <div class="list">
+        <!-- <div class="list">
           <div class="list-item">
             <img
               src="~/assets/images/item-icon1.png"
@@ -67,7 +67,7 @@
             <div class="title">时间短  适合上班族</div>
             <p>江西本地最优秀的中医药大学老师+ 专业报考团队为您保驾护航，最短仅需1.5年,圆你名校本科梦</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="table-wrap">
@@ -85,7 +85,7 @@
                 <th
                   colspan="3"
                   class="text"
-                  width="458">药学课程</th>
+                  width="457">药学课程</th>
               </tr>
               <tr>
                 <th
@@ -236,10 +236,43 @@
     </div>
     <div class="class-wrap">
       <div class="title">
-        中药学/药学 <span>专业自考</span>课程
+        <div
+          :class="['span', { 'active' : type == 1 }]"
+          @click="changeType(1)">中药学</div>
+        <div
+          :class="['span', { 'active' : type == 2 }]"
+          @click="changeType(2)">药学</div>
       </div>
       <div class="class-content">
-        <div class="left">
+        <table>
+          <tbody>
+            <tr>
+              <th width="335">课程名称</th>
+              <th width="170">课时</th>
+              <th width="215">限时价格</th>
+              <th width="202">原价</th>
+              <th width="158">试听</th>
+              <th width="116">咨询</th>
+            </tr>
+            <tr
+              v-for="(item, index) in courseList" 
+              :key="index">
+              <td><div @click="toDetail(item.id)">{{ item.name }}</div></td>
+              <td>{{ item.time }}h</td>
+              <td>¥ <span>{{ item.newPrice }}</span></td>
+              <td>¥ <span>{{ item.price }}</span></td>
+              <td><div @click="getPlayerInfo(item.id)">免费试听</div></td>
+              <td>
+                <div>
+                  <a
+                    href="tencent://message/?uin=2111984366"
+                    target="_blank">咨询</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <div class="left">
           <div
             v-for="(item, index) in list"
             v-if="index < 3"
@@ -467,13 +500,195 @@
           <div
             class="more"
             @click="toMore">更多视频 >></div>
+        </div> -->
+      </div>
+    </div>
+    <div class="selfStudy-wrap">
+      <div class="title">
+        自考好课 提分<span>“课”</span>不容缓
+      </div>
+      <div class="selfStudy-content">
+        <div class="left">
+          <div class="con">
+            <span/>
+            知识点层层打通
+          </div>
+          <div class="con">
+            <span/>
+            高效备考无压力
+          </div>
+          <p>考前课程咨询</p>
+          <p>19100170509</p>
+          <p class="text">刘老师（电话/微信号）</p>
         </div>
+        <div class="right">
+          <div
+            style="width: 190px"
+            class="ord">
+            <div class="name">适合考生:</div>
+            <p>基础薄弱</p>
+            <p>+</p>
+            <p>复习效率低</p>
+            <p>+</p>
+            <p>备考时间有限</p>
+            <p>+</p>
+            <p>缺乏专业指导</p>
+          </div>
+          <div
+            style="width: 247px"
+            class="two">
+            <div class="name">课程特点:</div>
+            <p><span>基础梳理精讲：</span>江西中医药大
+            学资深教授，数十年教龄</p>
+            <p><span>考点串讲分析：</span>主考院校命题
+            评测，掌握考试得分重点</p>
+            <p><span>题库密集刷题：</span>刷爆真题，抢
+            分逆袭</p>
+          </div>
+          <div
+            style="width: 222px"
+            class="ord">
+            <div class="name">配套资料:</div>
+            <p>
+              <img src="../assets/images/self_01.png">
+              《报考指南》
+            </p>
+            <p>
+              <img src="../assets/images/self_01.png">
+              《参考书目》
+            </p>
+            <p>
+              <img src="../assets/images/self_01.png">
+              《优化训练题库》
+            </p>
+            <p>
+              <img src="../assets/images/self_01.png">
+              《模拟试卷》
+            </p>
+          </div>
+          <div
+            style="width: 187px"
+            class="two">
+            <div class="name">专项服务:</div>
+            <p>
+              <img src="../assets/images/self_01.png">
+              报考提醒
+            </p>
+            <p>
+              <img src="../assets/images/self_01.png">
+              成绩查询提醒
+            </p>
+            <p>
+              <img src="../assets/images/self_01.png">
+              班主任跟踪学习
+            </p>
+            <p>
+              <img src="../assets/images/self_01.png">
+              定期模考
+            </p>
+            <p>
+              <img src="../assets/images/self_01.png">
+              考不过重读
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="teacher-wrap">
+      <div class="title">
+        名师教学团队 <span>备考无忧</span>
+      </div>
+      <div class="teacher-content">
+        <div class="teacher-list swiper-container">
+          <div class="swiper-wrapper">
+            <div class="teacher-item swiper-slide">
+              <div class="head">
+                <img src="../assets/images/self_header.png">
+                <p class="name">余老师</p>
+              </div>
+              <div class="desc">教授、副教授，主讲《生物化学》《分子生物学》</div>
+            </div>
+            <div class="teacher-item swiper-slide">
+              <div class="head">
+                <img src="../assets/images/self_header.png">
+                <p class="name">俞老师</p>
+              </div>
+              <div class="desc">
+                教授，硕士生导师，国家执业药师，CFDA国家执业药师工作专家，国家执业药师《药事管理与法规》师资，主讲《药事管理学》、《药事管理与法规》</div>
+            </div>
+            <div class="teacher-item swiper-slide">
+              <div class="head">
+                <img src="../assets/images/self_header.png">
+                <p class="name">傅老师</p>
+              </div>
+              <div class="desc">主管中药师，多年一线教学经验。主讲《药剂学》《中药药剂学》</div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-button-prev swiper-button" />
+        <div class="swiper-button-next swiper-button" />
+      </div>
+    </div>
+    <div class="xlts-wrap">
+      <div class="title">
+        2020年<span>学历提升</span>为什么选择自考？
+      </div>
+      <div class="xlts-content">
+        <div class="list-item">
+          <img
+            src="../assets/images/tab1.png" 
+            alt="">
+          <div class="con">
+            <div class="name">国家认可的正规学历</div>
+            <p>由省高等教育自学考试委员会和主考院校大学颁发的正规证书，学信网终身可查</p>
+          </div>
+        </div>
+        <div class="list-item">
+          <img
+            style="width: 135px; height: 129px"
+            src="../assets/images/tab2.png" 
+            alt="">
+          <div class="con">
+            <div class="name">高含金量，仅次统招</div>
+            <p>含金量仅次与统招，国企、外企和医院等单位均高度认可，参加公职考试，升职加薪的硬文凭</p>
+          </div>
+        </div>
+        <div class="list-item">
+          <img
+            src="../assets/images/tab3.png" 
+            alt="">
+          <div class="con">
+            <div class="name">学费低，人人可学</div>
+            <p>全科考试不足3000元，单门考前辅导课程仅需180元，含名师授课视频、课后习题和模拟试卷等资料</p>
+          </div>
+        </div>
+        <div class="list-item">
+          <img
+            style="width: 135px; height: 126px"
+            src="../assets/images/tab4.png" 
+            alt="">
+          <div class="con">
+            <div class="name">时间短，适合上班族</div>
+            <p>名师授课专业报考辅导，最短仅需2年,圆你名校本科梦</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-wrap">
+      <div class="title">
+        <span>支持多终端</span> 听课更方便
+      </div>
+      <div class="sb-content">
+        <div class="text">支持电脑和手机等多平台学习
+        可离线缓存，随时学，反复听
+        碎片化时间，学习高效方便</div>
+        <img src="../assets/images/sb.png">
       </div>
     </div>
     <div class="question-wrap">
       <div class="question-content">
         <div class="wrap-1200">
-          <div class="text">自考专题所有课程均由江西中医药大学名师录制，质量可信赖，适用于江西省本地所有中药学/药学自考考生</div>
+          <!-- <div class="text">自考专题所有课程均由江西中医药大学名师录制，质量可信赖，适用于江西省本地所有中药学/药学自考考生</div> -->
           <div class="title">
             <span style="color: #01c6ae">精品</span>课程
             <span style="color: #ff8a4b">海量</span>刷题
@@ -511,32 +726,248 @@
         </div>
       </div>
     </div>
+    <div class="zx-wrap">
+      <div class="zx-content">
+        <img
+          class="yisheng"
+          src="../assets/images/yisheng.png">
+        <div class="text">一对一报考咨询解你所惑</div>
+        <div class="qrcodes">
+          <div class="qrcode">
+            <img src="../assets/images/self_wx.png">
+            <p>微信扫码咨询</p>
+          </div>
+          <div class="qrcode">
+            <img src="../assets/images/self_qq.png">
+            <p>QQ扫码咨询</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fotter">
+      <p>课程购买咨询：0791-87119966 平台（渠道）合作：0791-88197248 </p>  
+      <p class="pl">版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved</p>
+      <p class="pl">备案号： 赣ICP备15008425号-5</p>
+      <p class="pl">技术支持：<a href="http://www.yunduancn.com/">云端科技</a></p>
+    </div>
+    <div
+      v-if="advertisingShow"
+      class="advertising">
+      <div class="advertising-content">
+        <div class="gift">
+          <img src="../assets/images/gift.png">
+          <p>您有一份好礼</p>
+        </div>
+        <div class="form">
+          <p>输入手机号，免费领取2020自考学习资料</p>
+          <div class="form-item">
+            <input
+              v-model="phone"
+              class="phone"
+              placeholder="输入手机号"
+              type="text">
+            <div class="code-item">
+              <input
+                v-model="code"
+                class="code"
+                placeholder="手机验证码"
+                type="text">
+              <div
+                v-if="!timeShow"
+                class="code-btn"
+                @click="getCode">获取验证码</div>
+              <div
+                v-else
+                class="code-btn">{{ count }}s后重试</div>
+            </div>
+            <div
+              class="submit"
+              @click="confirm">免费领取</div>
+          </div>
+          <div class="agreement">
+            <label>
+              <input
+                v-model="checkbox"
+                :checked="checkbox"
+                type="checkbox"
+                class="checkbox">
+              <div class="show-box" />
+            </label>
+            <p>
+              我已阅读并接受
+              <span @click="clickDealModal(0)">《中医药在线注册条款》</span>
+              和
+              <span @click="clickDealModal(1)">《隐私权保护政策》</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="advertising-close"
+        @click="advertisingShow = false">
+        <i class="el-icon-close" />
+      </div>
+    </div>
+    <!-- 视频弹窗 -->
+    <video-modal
+      v-show="showVideoModal"
+      :user-info="userInfo"
+      :data="videoInfo"
+      @hide-modal="hideModal" />
+    <!-- 协议 -->
+    <deal-modal
+      :show-modal="dealShowModal"
+      :deal-type="dealType"
+      @agree="agree"
+      @hide-modal="dealHideModal" />
   </div>
 </template>
 <script>
 import Cookies from 'js-cookie'
 import Header from '../components/layout/selfHeader.vue'
+import VideoModal from '../components/modal/videoModal.vue'
+import DealModal from '../components/modal/dealModal.vue'
+import Swiper from 'swiper'
+import 'swiper/css/swiper.css'
 export default {
+  layout: 'selfStudy',
   components: {
-    "v-header": Header
+    "v-header": Header,
+    'video-modal': VideoModal,
+    'deal-modal': DealModal
   },
   data() {
     return {
       userInfo: {},
-      player1: null,
-      player2: null,
-      player3: null,
+      player: null,
+      dealShowModal: false,
+      dealType: 0,  // 1：注册条款  0： 隐私保护
+      advertisingShow: true,
       list: [],
-      token: ''
+      token: '',
+      phone: '',
+      code: '',
+      timeShow: false,
+      timer: null,
+      count: '',
+      checkbox: false,
+      videoInfo: {},
+      showVideoModal: false,
+      type: 1, // 1: 中药  2：西药
+      courseList: [],
+      chinaList: [{
+        id: 118,
+        name: '数理统计',
+        time: 30,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 114,
+        name: '药事管理学（二）',
+        time: 29,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 73,
+        name: '分析化学（二）',
+        time: 30,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 61,
+        name: '中药制剂',
+        time: 28,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 96,
+        name: '中药制药工程原理与设备',
+        time: 29,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 175,
+        name: '药理学',
+        time: 0,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 61,
+        name: '中药制剂分析',
+        time: 28,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 59,
+        name: '中药炮制学',
+        time: 30,
+        price: 400,
+        newPrice: 180
+      }],
+      westernList: [{
+        id: 117,
+        name: '有机化学（五）',
+        time: 28,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 92,
+        name: '药用植物学与生物学',
+        time: 31,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 94,
+        name: '药物化学（二）',
+        time: 30,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 118,
+        name: '数理统计',
+        time: 30,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 114,
+        name: '药事管理学（二）',
+        time: 29,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 116,
+        name: '分子生物学',
+        time: 30,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 115,
+        name: '物理化学',
+        time: 30,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 95,
+        name: '药物分析',
+        time: 30,
+        price: 400,
+        newPrice: 180
+      }, {
+        id: 93,
+        name: '药剂学',
+        time: 33,
+        price: 400,
+        newPrice: 180
+      }]
     }
   },
   head() {
     return {
       link: [
-        { rel: 'stylesheet', href: '/aliplayer/aliplayer-min.css' }
+        { rel: 'stylesheet', href: 'https://g.alicdn.com/de/prismplayer/2.8.7/skins/default/aliplayer-min.css' }
       ],
       script: [
-        { src: '/aliplayer/aliplayer-min.js', type: 'text/javascript'}      
+        { src: 'https://g.alicdn.com/de/prismplayer/2.8.7/aliplayer-min.js', type: 'text/javascript'}      
       ]
     }
   },
@@ -544,8 +975,97 @@ export default {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.login()
     // this.getList()
+    this.courseList = this.chinaList
+    new Swiper('.swiper-container', {
+      loop: true,
+      slidesPerView: 3,
+      spaceBetween: 33,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      }
+    })
   },
   methods: {
+    clickDealModal(type) {
+      console.log('type', type)
+      this.dealType = type
+      this.dealShowModal = true
+    },
+    agree () {
+      this.dealShowModal = false
+      this.checkbox = true
+    },
+    dealHideModal() {
+      this.dealShowModal = false
+    },
+    hideModal() {
+      this.showVideoModal = false
+      this.player.dispose()
+    },
+    changeType (type) {
+      if (type == 1) {
+        this.type = 1
+        this.courseList = this.chinaList
+      } else {
+        this.type = 2
+        this.courseList = this.westernList
+      }
+    },
+    getCode() {
+      if (!this.phone) {
+        this.$message({
+          message: '请输入手机号',
+          type: 'warning'
+        })
+      } else {
+        this.$message({
+          message: '已发送验证码，请查收!',
+          type: 'success'
+        })
+        const TIME_COUNT = 60
+        if (!this.timer) {
+          this.count = TIME_COUNT
+          this.timeShow = true
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--
+            } else {
+              this.timeShow = false
+              clearInterval(this.timer)
+              this.timer = null
+            }
+          }, 1000)
+        }
+      }
+    },
+    confirm() {
+      if (!this.phone) {
+        this.$message({
+          message: '请输入手机号',
+          type: 'warning'
+        })
+        return
+      }
+      if (!this.code) {
+        this.$message({
+          message: '请输入验证码',
+          type: 'warning'
+        })
+        return
+      }
+      if (!this.checkbox) {
+        this.$message({
+          message: '请阅读并接受相关注册条款和隐私权保护政策',
+          type: 'warning'
+        })
+        return
+      }
+      this.$message({
+        message: '领取成功，请耐心等待客服与您联系！',
+        type: 'success'
+      })
+    },
     getList() {
        this.$axios('/yxs/api/web/course/getRecommendList', {
         params: {
@@ -562,132 +1082,39 @@ export default {
         }
       })
     },
-    getPlayerInfo(id, index) {
+    getPlayerInfo(id) {
+      this.showVideoModal = true
       this.$axios.post('/yxs/api/web/user/startLearnCourse', {
         courseId: id,
         userToken: this.token
       }).then(res => {
         let info = res.data
-        this.createPlayer(info, index)
+        this.videoInfo = res.data
+        this.createPlayer(info)
       })
     },
-    createPlayer(info, index) {
-      let player = new Aliplayer({
-        "id": "J_prismPlayer" + index,
+    createPlayer(info) {
+      this.player = new Aliplayer({
+        "id": "J_prismPlayer",
         "vid": info.videoId,
         "playauth": info.playAuth,
         "qualitySort": "asc",
         "format": "m3u8",
         "mediaType": "video",
         "width": "100%",
-        "height": "274px",
-        "autoplay": false,
+        "height": "460px",
+        "autoplay": true,
         "isLive": false,
         "cover": info.cover,
         "rePlay": false,
         "playsinline": true,
         "preload": true,
         "controlBarVisibility": "hover",
-        "useFlashPrism": true,
-        "encryptType": 1,
-        "skinLayout": [
-          {
-            "name": "bigPlayButton",
-            "align": "blabs",
-            "x": 30,
-            "y": 80
-          },
-          {
-            "name": "controlBar",
-            "align": "blabs",
-            "x": 0,
-            "y": 0,
-            "children": [
-              {
-                "name": "progress",
-                "align": "tlabs",
-                "x": 0,
-                "y": 0
-              },
-              {
-                "name": "playButton",
-                "align": "tl",
-                "x": 15,
-                "y": 26
-              },
-              {
-                "name": "nextButton",
-                "align": "tl",
-                "x": 10,
-                "y": 26
-              },
-              {
-                "name": "timeDisplay",
-                "align": "tl",
-                "x": 10,
-                "y": 24
-              },
-              {
-                "name": "fullScreenButton",
-                "align": "tr",
-                "x": 10,
-                "y": 25
-              },
-              {
-                "name": "streamButton",
-                "align": "tr",
-                "x": 10,
-                "y": 23
-              },
-              {
-                "name": "volume",
-                "align": "tr",
-                "x": 10,
-                "y": 25
-              }
-            ]
-          },
-          {
-            "name": "fullControlBar",
-            "align": "tlabs",
-            "x": 0,
-            "y": 0,
-            "children": [
-              {
-                "name": "fullTitle",
-                "align": "tl",
-                "x": 25,
-                "y": 6
-              },
-              {
-                "name": "fullNormalScreenButton",
-                "align": "tr",
-                "x": 24,
-                "y": 13
-              },
-              {
-                "name": "fullTimeDisplay",
-                "align": "tr",
-                "x": 10,
-                "y": 12
-              },
-              {
-                "name": "fullZoom",
-                "align": "cc"
-              }
-            ]
-          }
-        ]
+        "useH5Prism": true,
+        "encryptType": 1
       }, function (player) {
         console.log("播放器创建了。");
-      });
-      if(index == 1) {
-        this.player1 = player
-      } else if(index == 2) {
-        this.player2 = player
-      } else {
-        this.player3 = player
-      }
+      })
     },
     // 登录
     login() {
@@ -698,7 +1125,7 @@ export default {
       }).then(res => {
         if(res.code == 0) {
           this.token = res.data.userToken
-          this.getList()
+          // this.getList()
         }
       })
     },
@@ -786,8 +1213,8 @@ export default {
   .main {
     position: relative;
     width: 100%;
-    height: 700px;
-    background: url('../assets/images/self-banner.png') top center no-repeat;
+    height: 556px;
+    background: url('../assets/images/self-banner.jpg') top center no-repeat;
     &-wrap {
       width: 1200px;
       margin: 0 auto;
@@ -860,13 +1287,18 @@ export default {
     }
   }
   .table-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    padding-top: 200px;
-    padding-bottom: 60px; 
+    position: relative;
+    width: 1270px;
+    height: 721px;
+    margin: -82px auto;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 70px 35px 35px;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
     .title {
       position: relative;
-      padding-bottom: 38px;
+      padding-bottom: 30px;
       font-size: 52px;
       font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
       font-weight: 700;
@@ -888,14 +1320,14 @@ export default {
       }
     }
     .table-flex {
-      margin-top: 60px;
+      margin-top: 58px;
       display: flex;
       justify-content: space-between;
       .table1, .table2 {
-        width: 590px;
-        height: 422px;
+        width: 587px;
+        height: 420px;
         td {
-          width: 150px;
+          width: 130px;
           vertical-align: middle;
           padding: 0 20px;
           text-align: center;
@@ -911,7 +1343,8 @@ export default {
           font-size: 20px;
           color: #fff;
           font-weight: 500;
-          background: url('../assets/images/subject-bg.png') no-repeat;
+          background: url('../assets/images/subject-bg.jpg') no-repeat;
+          background-size: 100% 100%;
         }
         .red {
           font-size: 14px;
@@ -948,9 +1381,11 @@ export default {
     }
   }
   .section-wrap {
+    position: relative;
+    top: 120px;
     width: 100%;
     height: 806px;
-    background: #eee;
+    background: url('../assets/images/section-bg.jpg') no-repeat;
     .section-content {
       width: 1200px;
       margin: 0 auto;
@@ -1057,32 +1492,31 @@ export default {
   }
   .class-wrap {
     padding: 90px 0;
-    .title { 
-      position: relative;
-      padding-bottom: 38px;
-      font-size: 52px;
-      font-weight: 700;
-      color: #333;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-      &::after {
-        position: absolute;
-        content: '';
-        bottom: 0;
-        left: 50%;
-        margin-left: -150px;
+    position: relative;
+    top: 90px;
+    .title {
+      width: 1200px;
+      height: 88px;
+      line-height: 88px;
+      margin: 0 auto;
+      font-size: 30px;
+      color: #fff;
+      background: #01c6ae;
+      display: flex;
+      .span {
         width: 300px;
-        height: 8px;
-        background: #01c6ae;
-      }
-      span {
-        color: #ff8a4b;
+        text-align: center;
+        background: #00b7a1;
+        cursor: pointer;
+        &.active {
+          background: #ff8a4b;
+        }
       }
     }
     .class-content {
       display: flex;
       width: 1200px;
-      margin: 60px auto 0;
+      margin: 40px auto 0;
       .left {
         margin-top: 2px;
         width: 475px;
@@ -1124,23 +1558,74 @@ export default {
         width: 705px;
       }
       table {
-        width: 705px;
+        width: 1200px;
         th {
-          background: #b5b5b5;
-          color: #fff;
-          font-size: 18px;
-          height: 50px;
-          line-height: 50px;
-          font-weight: 500;
+          background: #e8f8f6;
+          color: #666;
+          font-size: 20px;
+          font-weight: normal;
+          height: 85px;
+          line-height: 85px;
+          &:first-child {
+            box-sizing: border-box;
+            padding-left: 40px;
+            text-align: left;
+          }
         }
         td {
-          height: 50px;
-          line-height: 50px;
-          background: #f9f1ed;
-          font-size: 14px;
-          color: #333;
+          height: 85px;
+          line-height: 85px;
+          font-size: 20px;
+          font-weight: normal;
+          color: #666;
           text-align: center;
           cursor: pointer;
+          box-sizing: border-box;
+          border-bottom: 1px solid #ccc;
+          &:first-child {
+            box-sizing: border-box;
+            padding-left: 40px;
+            text-align: left;
+            color: #01c6ae;
+          }
+          &:nth-child(3) {
+            color: #ff8a4b;
+            span {
+              font-size: 28px;
+            }
+          }
+          &:nth-child(4) {
+            span {
+              font-size: 28px;
+            }
+          }
+          &:nth-child(5) {
+            div {
+              width: 123px;
+              height: 40px;
+              line-height: 40px;
+              display: inline-block;
+              vertical-align: middle;
+              background-color: #01c6ae;
+              border-radius: 20px;
+              color: #fff;
+            }
+          }
+          &:nth-child(6) {
+            div {
+              width: 80px;
+	            height: 40px;
+              line-height: 40px;
+              display: inline-block;
+              vertical-align: middle;
+	            background-color: #f6cc8d;
+	            border-radius: 20px;
+              a {
+                font-size: 20px;
+                color: #666;
+              }
+            }
+          }
         }
         .subject {
           // height: 414px;
@@ -1170,19 +1655,355 @@ export default {
       }
     }
   }
+  .selfStudy-wrap {
+    margin: 114px auto 0;
+    .title {
+      width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      padding-bottom: 30px;
+      font-size: 52px;
+      font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      &::after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 50%;
+        margin-left: -150px;
+        width: 300px;
+        height: 8px;
+        background: #01c6ae;
+      }
+      span {
+        color: #ff8a4b;
+      }
+    }
+    .selfStudy-content {
+      width: 1200px;
+      height: 332px;
+      margin: 40px auto 0;
+      display: flex;
+      .left {
+        width: 355px;
+        height: 100%;
+        background: #01c6ae;
+        box-sizing: border-box;
+        border-bottom: 3px solid #ff8a4b;
+        padding: 45px 45px 25px;
+        .con {
+          width: 265px;
+	        height: 58px;
+          line-height: 58px;
+          margin-bottom: 20px;
+	        background-color: #078768;
+	        border-radius: 20px 0px 20px 0px;
+          font-size: 24px;
+	        font-weight: normal;
+          color: #fff;
+          span {
+            width: 14px;
+	          height: 14px;
+            display: inline-block;
+            margin: 0 22px 0 19px;
+            border-radius: 7px;
+	          background-color: #2fc8a2;
+          	box-shadow: inset 0px 5px 6px 0px rgba(6, 0, 1, 0.35);
+	          border: solid 2px #2fc8a2;
+          }
+        }
+        p {
+          font-size: 24px;
+          color: #fff;
+          margin-bottom: 19px;
+          &.text {
+            font-size: 16px;
+          }
+        }
+      }
+      .right {
+        flex: 1;
+        display: flex;
+        >div {
+          box-sizing: border-box;
+          padding: 32px 16px 0 24px;
+          &.two {
+            background: #e8f8f6;
+            >p {
+              img {
+                margin-right: 10px;
+              }
+            }
+          }
+          &.ord {
+            &:first-child {
+              .name {
+                margin-bottom: 36px;
+              }
+              p {
+                line-height: 24px;
+              }
+            }
+          }
+          .name {
+            font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
+            font-size: 26px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+          }
+          >p {
+            font-size: 16px;
+            color: #666;
+            line-height: 36px;
+            img {
+              width: 15px;
+              height: 15px;
+              vertical-align: middle;
+            }
+            span {
+              color: #01c6ae;
+            }
+          }
+        }
+      }
+    }
+  }
+  .teacher-wrap {
+    margin: 80px auto 0;
+    .title {
+      width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      padding-bottom: 30px;
+      font-size: 52px;
+      font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      &::after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 50%;
+        margin-left: -150px;
+        width: 300px;
+        height: 8px;
+        background: #01c6ae;
+      }
+      span {
+        color: #ff8a4b;
+      }
+    }
+    .teacher-content {
+      width: 1200px;
+      height: 210px;
+      margin: 37px auto 0;
+      position: relative;
+      .teacher-list {
+        box-sizing: border-box;
+        padding: 13px;
+        .teacher-item {
+          width: 378px;
+	        height: 207px;
+	        background: #fff;
+          box-sizing: border-box;
+          padding: 28px 17px 28px 35px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 13px 0px rgba(1, 198, 174, 0.3);
+          .head {
+            width: 100%;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            img {
+              width: 48px;
+              height: 48px;
+            }
+            p.name {
+              margin-left: 15px;
+              font-size: 20px;
+              line-height: 34px;
+	            letter-spacing: -1px;
+              font-weight: 600;
+              color: #01c6ae;
+            }
+          }
+          .desc {
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 28px;
+            letter-spacing: 0px;
+            color: #666;
+          }
+        }
+      }
+      .swiper-button {
+        width: 50px;
+        height: 50px;
+        box-sizing: border-box;
+        position: absolute;
+        top: 93px;
+        border-radius: 25px;
+        border: 4px solid #01c6ae;
+        color: #01c6ae;
+        &:after {
+          font-size: 20px;
+          font-weight: 600;
+        }
+        &-prev {
+          left: -60px;
+        }
+        &-next {
+          right: -60px; 
+        }
+      }
+    }
+  }
+  .xlts-wrap {
+    margin: 90px auto 0;
+    .title {
+      width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      padding-bottom: 30px;
+      font-size: 52px;
+      font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      &::after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 50%;
+        margin-left: -150px;
+        width: 300px;
+        height: 8px;
+        background: #01c6ae;
+      }
+      span {
+        color: #ff8a4b;
+      }
+    }
+    .xlts-content {
+      width: 1200px;
+      margin: 60px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      .list-item {
+        width: 588px;
+        height: 203px;
+        margin-top: 24px;
+        background: #fff;
+        box-shadow: 0px 2px 26px 0px rgba(1, 198, 174, 0.15);
+	      border-radius: 10px;
+        box-sizing: border-box;
+        padding: 38px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &:nth-child(2n) {
+          margin-left: 24px;
+        }
+        img {
+          width: 112px;
+          height: 129px;
+          margin-right: 40px;
+        }
+        .con {
+          flex: 1;
+          .name {
+            line-height: 26px;
+            font-size: 24px;
+            color: #333;
+          }
+          p {
+            margin-top: 30px;
+            line-height: 26px;
+            font-size: 16px;
+            color: #666;
+          }
+        }
+      }
+    }
+  }
+  .sb-wrap {
+    width: 100%;
+    height: 800px;
+    margin-top: 90px;
+    box-sizing: border-box;
+    padding-top: 70px;
+    background: url('../assets/images/sb-bg.jpg') no-repeat top;
+    .title {
+      width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      padding-bottom: 30px;
+      font-size: 52px;
+      font-family: 'MicrosoftYaHei,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      border-bottom: 1px solid #fff;
+      &::after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 50%;
+        margin-left: -150px;
+        width: 300px;
+        height: 8px;
+        background: #fff;
+      }
+      span {
+        color: #ff8a4b;
+      }
+    }
+    .sb-content {
+      width: 1200px;
+      margin: 60px auto 0;
+      position: relative;
+      height: 500px;
+      .text {
+        width: 403px;
+        position: absolute;
+        top: 58px;
+        left:  39px;
+        font-size: 28px;
+        font-weight: normal;
+        letter-spacing: 1px;
+        font-family: "MicrosoftYaHei";
+        color: #fff;
+        line-height: 48px;
+      }
+      >img {
+        width: 790px;
+        height: 545px;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+  }
   .question-wrap {
     width: 100%;
-    height: 806px;
+    height: 740px;
     background: url('../assets/images/question-bg.png') no-repeat;
     .question-content {
       width: 100%;
-      height: 806px;
+      height: 740px;
       background: rgba(44, 44, 44, .7);
     }
     .wrap-1200 {
       width: 1200px;
       margin: 0 auto;
-      padding-top: 50px;
+      padding-top: 70px;
       .text {
         font-size: 18px;
         color: #fff;
@@ -1190,8 +2011,7 @@ export default {
       }
       .title {
         position: relative;
-        margin-top: 70px;
-        padding-bottom: 48px;
+        padding-bottom: 40px;
         font-size: 70px;
         font-weight: 700;
         border-bottom: 1px solid #ddd;
@@ -1215,7 +2035,7 @@ export default {
         color: #fff;
       }
       .item {
-        margin-top: 30px;
+        margin-top: 38px;
         text-align: center;
         .mes {
           display: inline-block;
@@ -1235,7 +2055,7 @@ export default {
         }
       }
       .price {
-        margin-top: 60px;
+        margin-top: 68px;
         text-align: center;
         font-size: 37px;
         color: #fff;
@@ -1245,7 +2065,7 @@ export default {
         }
       }
       .tip {
-        margin-top: 20px;
+        margin-top: 26px;
         text-align: center;
         color: #fff;
         font-size: 26px;
@@ -1262,6 +2082,58 @@ export default {
         background: #ff8a4b;
         box-shadow: 0px 5px 13px 0px 
 		rgba(16, 36, 37, 0.3);
+      }
+    }
+  }
+  .zx-wrap {
+    width: 100%;
+    height: 300px;
+    background: url('../assets/images/zx-bg.jpg') no-repeat;
+    background-size: cover;
+    .zx-content {
+      width: 1200px;
+      height: 300px;
+      position: relative;
+      margin: 0 auto;
+      .yisheng {
+        width: 112px;
+        height: 291px;
+        position: absolute;
+        top: -30px;
+        left: 104px;
+      }
+      .text {
+        font-size: 26px;
+        color: #fff;
+        width: 184px;
+        position: absolute;
+        top: 100px;
+        left: 270px;
+        line-height: 39px;
+      }
+      .qrcodes {
+        width: 470px;
+        height: 215px;
+        position: absolute;
+        top: 45px;
+        right: 150px;
+        display: flex;
+        justify-content: space-between;
+        .qrcode {
+          width: 180px;
+          height: 215px;
+          img {
+            width: 180px;
+            height: 180px;
+          }
+          p {
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
+            margin-top: 20px;
+          }
+        }
       }
     }
   }
@@ -1327,6 +2199,190 @@ export default {
         border-radius: 6px;
         cursor: pointer;
       }
+    }
+  }
+  .fotter {
+    width: 100%;
+    height: 50px;
+    background: #303030;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    p {
+      font-size: 14px;
+      font-weight: normal;
+      color: #b5b5b5;
+      letter-spacing: 1px;
+      &.pl {
+        padding-left: 15px;
+      }
+      a {
+        font-size: 14px;
+        font-weight: normal;
+        color: #b5b5b5;
+        letter-spacing: 1px;
+      }
+    }
+  }
+  .advertising {
+    width: 100%;
+    height: 142px;
+    background: #3f4c5b;
+    position: relative;
+    &-content {
+      width: 1200px;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .gift {
+        width: 214px;
+        height: 100%;
+        position: relative;
+        >img {
+          width: 214px;
+          height: 133px;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+        }
+        >p {
+          width: 100%;
+          text-align: center;
+          font-size: 20px;
+          color: #f4381c;
+          position: absolute;
+          left: 0;
+          bottom: 25px;
+        }
+      }
+      .form {
+        margin-left: 28px;
+        >p {
+          font-size: 14px;
+          font-weight: normal;
+          color: #fff;
+          letter-spacing: 1px;
+        }
+        &-item {
+          display: flex;
+          align-items: center;
+          margin: 14px 0;
+          input {
+            border: 0;
+            box-sizing: border-box;
+            padding: 0 15px;
+          }
+          .phone {
+            width: 329px;
+            height: 45px;
+            background: #fff;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #999;
+          }
+          .code-item {
+            width: 270px;
+            height: 45px;
+            margin-left: 23px;
+            position: relative;
+            .code {
+              width: 100%;
+              height: 45px;
+              background: #fff;
+              border-radius: 6px;
+              font-size: 14px;
+              color: #999;
+            }
+            .code-btn {
+              width: 132px;
+              height: 30px;
+              line-height: 30px;
+              position: absolute;
+              top: 8px;
+              right: 12px;
+              background: #01c6ae;
+              border-radius: 6px;
+              text-align: center;
+              font-size: 14px;
+              letter-spacing: 1px;
+              color: #fff;
+              cursor: pointer;
+            }
+          }
+          .submit {
+            width: 171px;
+            height: 45px;
+            line-height: 45px;
+            margin-left: 23px;
+            background-color: #ff8a4b;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #fff;
+            letter-spacing: 1px;
+            text-align: center;
+            cursor: pointer;
+          }
+        }
+        .agreement {
+          display: flex;
+          align-items: center;
+          label {
+            width: 14px;
+            height: 14px;
+            display: block;
+            position: relative;
+            cursor: pointer;
+            .checkbox {
+              cursor: pointer;
+              margin: 0;
+              &:checked + .show-box:before {
+                content: '';
+                position: absolute;
+                top: 1px;
+                left: 5px;
+                width: 3px;
+                height: 8px;
+                border: solid #01c6ae;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+              }
+            }
+            .show-box {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 14px;
+              height: 14px;
+              border-radius: 2px;
+              background: #fff;
+            }
+          }
+          >p {
+            font-size: 14px;
+            color: #fff;
+            margin-left: 10px;
+            span {
+              color: #01c6ae;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    &-close {
+      width: 14px;
+      height: 14px;
+      line-height: 14px;
+      position: absolute;
+      top: 16px;
+      right: 13px;
+      text-align: center;
+      font-size: 14px;
+      color: #fff;
+      cursor: pointer;
     }
   }
 </style>

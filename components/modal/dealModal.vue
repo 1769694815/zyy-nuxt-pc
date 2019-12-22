@@ -1,8 +1,8 @@
 <!--
  * @Author: xwen
  * @Date: 2019-09-21 14:09:38
- * @LastEditTime: 2019-12-10 17:05:02
- * @LastEditors: xwen
+ * @LastEditTime : 2019-12-22 16:20:24
+ * @LastEditors  : xwen
  * @Description: 协议弹窗
  -->
 
@@ -29,6 +29,12 @@
 <script>
 export default {
   props: {
+    dealType: {
+      type: Number,
+      default: function() {
+        return 0
+      }
+    },
     showModal: {
       type: Boolean,
       default: function() {
@@ -42,15 +48,21 @@ export default {
       body: ''
     }
   },
+  watch: {
+    dealType: function(val) {
+      this.getDetail()
+    }
+  },
   mounted() {
     this.getDetail()
   },
   methods: {
     getDetail() {
+      console.log(this.dealType)
       this.$axios('/yxs/api/news/detail?id=&type=1').then(res => {
         if (res.code == 0) {
-          this.title = res.data[0].title
-          this.body = res.data[0].body
+          this.title = res.data[this.dealType].title
+          this.body = res.data[this.dealType].body
         }
       })
     },

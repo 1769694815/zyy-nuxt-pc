@@ -96,9 +96,26 @@
 export default {
   data() {
     return {
-      scrollShow: false
+      scrollShow: false,
+      info: {},
+      project: ''
     }
   },
+  //  head() {
+  //   return {
+  //     meta: [
+  //       { hid: 'keywords', name: 'keywords', content: this.project }
+  //     ]
+  //   }
+  // },
+  // async asyncData ({ $axios }) {
+  //   let { data } = await $axios('/yxs/api/web/basicInformation')
+  //   console.log('data', data)
+  //   return {
+  //     info: data,
+  //     project: '12132'
+  //   }
+  // },
   mounted() {
     let vm = this
     window.onscroll = function() {
