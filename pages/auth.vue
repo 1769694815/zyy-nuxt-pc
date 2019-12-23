@@ -14,12 +14,12 @@
           window.localStorage.setItem('zyy_userToken', this.userToken)
           this.getInfo()
         }else{
-          //  this.toIndex()  
+          this.toIndex()  
         }
     },
     methods: {
       toIndex() {
-         this.$router.push({ path:'/'  })
+        //  this.$router.push({ path:'/'  })
       },  
       getInfo() {
         this.$axios('/admin/api/web/user/findUserTokenGetName', {
@@ -28,7 +28,7 @@
           }
         }).then(res => {
           Cookies.set('zyy_userInfo', res.data, { expires: 1 })
-          //  this.toIndex()  
+          this.toIndex()  
         })
       },
     }
