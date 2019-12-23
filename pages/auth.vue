@@ -7,9 +7,13 @@
 			return {
         userToken: this.$route.query.token || '',
 			}
-		},
-		mounted() {
+    },
+    created() {
+      console.log('url',window.location.href);
       console.log('userToken',this.userToken)
+    },
+		mounted() {
+        console.log('userToken',this.userToken)
         if(this.userToken != '') {
           window.localStorage.setItem('zyy_userToken', this.userToken)
           this.getInfo()
