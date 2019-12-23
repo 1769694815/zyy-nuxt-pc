@@ -9,11 +9,12 @@
 			}
 		},
 		mounted() {
+      console.log('userToken',this.userToken)
         if(this.userToken != '') {
           window.localStorage.setItem('zyy_userToken', this.userToken)
           this.getInfo()
         }else{
-           this.toIndex()  
+          //  this.toIndex()  
         }
     },
     methods: {
@@ -27,7 +28,7 @@
           }
         }).then(res => {
           Cookies.set('zyy_userInfo', res.data, { expires: 1 })
-           this.toIndex()  
+          //  this.toIndex()  
         })
       },
     }
