@@ -52,9 +52,9 @@ export default {
     if (this.$route.name == 'about') {
       this.isAbout = true
     }
-    if (this.$route.name == 'auth') {
-      this.isAbout = true
-    }
+    // if (this.$route.name == 'auth') {
+    //   this.isAbout = true
+    // }
   },
   methods: {
     openNewPage(url) {
