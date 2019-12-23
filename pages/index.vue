@@ -687,6 +687,7 @@ export default {
       current1: 1,
       current2: 1,
       size: 4,
+      userToken: this.$route.query.token || '',
       userInfo: '',
       text: '',
       downShow: false,
@@ -825,6 +826,10 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
+    if(this.userToken != '') {
+        window.localStorage.setItem('zyy_userToken', this.userToken)
+        this.getInfo1()
+    }
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     console.log('userInfo', this.userInfo)
     if (this.userInfo) {
@@ -987,6 +992,15 @@ export default {
       this.$axios('/admin/api/web/user/findUserTokenGetName', {
         params: {
           userToken: this.userInfo.userToken
+        }
+      }).then(res => {
+        Cookies.set('zyy_userInfo', res.data, { expires: 1 })
+      })
+    },
+    getInfo1() {
+      this.$axios('/admin/api/web/user/findUserTokenGetName', {
+        params: {
+          userToken: this.userToken
         }
       }).then(res => {
         Cookies.set('zyy_userInfo', res.data, { expires: 1 })
