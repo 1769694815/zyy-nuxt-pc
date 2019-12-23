@@ -821,12 +821,14 @@ export default {
   //   }
   // },
   created() {
-
+    console.log('userTTTTToken23333',this.userToken);
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
+    console.log('userTTTTToken1111',this.userToken);
     if(this.userToken != '') {
+        console.log('userTTTTToken',this.userToken);
         window.localStorage.setItem('zyy_userToken', this.userToken)
         this.getInfo1()
     }
