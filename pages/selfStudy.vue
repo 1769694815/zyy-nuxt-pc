@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime : 2019-12-22 17:05:13
+ * @LastEditTime : 2019-12-23 09:21:15
  * @LastEditors  : xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -830,7 +830,7 @@ import DealModal from '../components/modal/dealModal.vue'
 import Swiper from 'swiper'
 import 'swiper/css/swiper.css'
 export default {
-  layout: 'selfStudy',
+  layout: 'emty',
   components: {
     "v-header": Header,
     'video-modal': VideoModal,
