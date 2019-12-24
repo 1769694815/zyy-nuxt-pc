@@ -821,7 +821,6 @@ export default {
   //   }
   // },
   created() {
-    console.log('userTTTTToken23333',this.userToken);
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
@@ -996,7 +995,9 @@ export default {
           userToken: this.userInfo.userToken
         }
       }).then(res => {
-        Cookies.set('zyy_userInfo', res.data, { expires: 1 })
+        if (res.code == 0) {
+          Cookies.set('zyy_userInfo', res.data, { expires: 1 })
+        }
       })
     },
     getInfo1() {
@@ -1005,7 +1006,9 @@ export default {
           userToken: this.userToken
         }
       }).then(res => {
-        Cookies.set('zyy_userInfo', res.data, { expires: 1 })
+        if (res.code == 0) {
+          Cookies.set('zyy_userInfo', res.data, { expires: 1 })
+        }
       })
     },
     handleScroll() {
