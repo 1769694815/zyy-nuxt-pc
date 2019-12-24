@@ -1008,6 +1008,7 @@ export default {
       }).then(res => {
         if (res.code == 0) {
           Cookies.set('zyy_userInfo', res.data, { expires: 1 })
+          this.userInfo = res.data
         }
       })
     },
