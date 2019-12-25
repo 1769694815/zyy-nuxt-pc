@@ -41,7 +41,9 @@
             target="_blank">
             自学考试
           </nuxt-link> -->
-          <a href="http://zk.yixiaoshu.net/">自学考试</a>
+          <a
+            href="http://zk.yixiaoshu.net/"
+            target="_blank">自学考试</a>
         </li>
         <li>
           <nuxt-link
