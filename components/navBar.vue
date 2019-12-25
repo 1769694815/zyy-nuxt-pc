@@ -36,11 +36,12 @@
           </nuxt-link>
         </li>
         <li>
-          <nuxt-link
+          <!-- <nuxt-link
             :to="{ name: 'selfStudy' }"
             target="_blank">
             自学考试
-          </nuxt-link>
+          </nuxt-link> -->
+          <a href="http://zk.yixiaoshu.net/">自学考试</a>
         </li>
         <li>
           <nuxt-link
