@@ -825,12 +825,6 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
-    console.log('userTTTTToken1111',this.userToken);
-    if(this.userToken != '') {
-        console.log('userTTTTToken',this.userToken);
-        window.localStorage.setItem('zyy_userToken', this.userToken)
-        this.getInfo1()
-    }
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     console.log('userInfo', this.userInfo)
     if (this.userInfo) {
@@ -997,18 +991,6 @@ export default {
       }).then(res => {
         if (res.code == 0) {
           Cookies.set('zyy_userInfo', res.data, { expires: 1 })
-        }
-      })
-    },
-    getInfo1() {
-      this.$axios('/admin/api/web/user/findUserTokenGetName', {
-        params: {
-          userToken: this.userToken
-        }
-      }).then(res => {
-        if (res.code == 0) {
-          Cookies.set('zyy_userInfo', res.data, { expires: 1 })
-          this.userInfo = res.data
         }
       })
     },

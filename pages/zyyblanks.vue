@@ -2,6 +2,7 @@
   <div/>
 </template>
 <script>
+  import Cookies from 'js-cookie'
 	export default {
 		data() {
 			return {
@@ -9,13 +10,11 @@
 			}
     },
     created() {
-      console.log('url',window.location.href);
-      console.log('userToken',this.userToken)
+      console.log('11111user',this.userToken)
     },
 		mounted() {
         console.log('userToken',this.userToken)
         if(this.userToken != '') {
-          window.localStorage.setItem('zyy_userToken', this.userToken)
           this.getInfo()
         }else{
           this.toIndex()  
@@ -23,7 +22,7 @@
     },
     methods: {
       toIndex() {
-        //  this.$router.push({ path:'/'  })
+         this.$router.push({ path:'/'  })
       },  
       getInfo() {
         this.$axios('/admin/api/web/user/findUserTokenGetName', {
@@ -31,7 +30,9 @@
             userToken: this.userToken
           }
         }).then(res => {
-          Cookies.set('zyy_userInfo', res.data, { expires: 1 })
+          if (res.code == 0) {
+            Cookies.set('zyy_userInfo', res.data, { expires: 1 })
+          }
           this.toIndex()  
         })
       },
