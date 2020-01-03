@@ -123,7 +123,7 @@ export default {
           'file': true
         }
       }
-      this.$axios.post('/admin/user/implAddUserPC', form, config).then(res => {
+      this.$axios.post('/yxs/classroommember/implAddUserPC', form, config).then(res => {
         console.log('上传', res)
         if (res.code == 0) {
           this.$message({
