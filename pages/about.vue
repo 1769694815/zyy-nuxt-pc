@@ -63,7 +63,8 @@
           controls
           preload
           loop
-          src="http://vedio.yunduancn.com/8927a73d5daa47dcb78d487b6feaa2c6/b2324bf455114008bf7cc4dbf51b5a48-ce79b5eff1075d84bc373a31b7c2316a-fd.mp4"/>
+          poster="http://vedio.yunduancn.com/8927a73d5daa47dcb78d487b6feaa2c6/snapshots/d3ad7798885b48cbaf8232b8fe74717a-00005.jpg"
+          src="http://vedio.yunduancn.com/customerTrans/a48b86c7e8e44979afc38f50ee6547e4/2fee404c-16f6f5a7f50-0004-2d52-bc8-bcde6.mp4"/>
       </div>
       <!-- 发展史&图片 -->
       <div class="bg3">
