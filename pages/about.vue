@@ -56,6 +56,15 @@
           </li>
         </ul>
       </div>
+      <!-- 视频介绍 -->
+      <div class="introduce">
+        <img src="~/assets/images/introduce.png">
+        <video
+          controls
+          preload
+          loop
+          src="http://vedio.yunduancn.com/8927a73d5daa47dcb78d487b6feaa2c6/b2324bf455114008bf7cc4dbf51b5a48-ce79b5eff1075d84bc373a31b7c2316a-fd.mp4"/>
+      </div>
       <!-- 发展史&图片 -->
       <div class="bg3">
         <div class="time">
@@ -344,9 +353,28 @@ export default {
       }
     }
   }
+  .introduce {
+    width: 100%;
+    height: 374px;
+    position: relative;
+    >img {
+      width: 424px;
+      height: 55px;
+      display: block;
+      margin: 0 auto;
+    }
+    >video {
+      width: 887px;
+      height: 400px;
+      display: block;
+      margin: 37px auto 0;
+	    border-radius: 10px;
+      background-color: #333333;
+    }
+  }
   .bg3{
     width: 100%;
-    padding: 183px 0 30px 0;
+    padding: 300px 0 30px 0;
     background-size: 100%;
     background: url('../assets/images/aboutbg2.png')no-repeat top center;
     .time{
