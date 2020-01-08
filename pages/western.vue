@@ -231,7 +231,7 @@ export default {
     let tid = query.tid || cid
     let types = [{
       name: '全部',
-      id: fid
+      id: res.data.allClassTypeCate[0].parentId
     }]
     let courses = [{
       name: '全部',
