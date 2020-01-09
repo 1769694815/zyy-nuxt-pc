@@ -219,8 +219,12 @@
             href="http://www.yixiaoshu.net/i_info/cid/33.html"
             target="_blank">学历报名</a>
         </div>
-        版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备15008425号-5&nbsp;&nbsp;&nbsp;&nbsp;
-        技术支持：<a href="http://www.yunduancn.com/">云端科技</a>
+        版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： <a 
+          target="_blank" 
+          href="http://beian.miit.gov.cn/">赣ICP备15008425号-5</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          技术支持：<a 
+            target="_blank" 
+            href="http://www.yunduancn.com/">云端科技</a>
       </div>
     </div>
   </div>
@@ -513,11 +517,12 @@ export default {
   .bottom{
     width: 100%;
     line-height: 28px;
-    padding: 21px 0;
+    padding: 21px 0 11px;
     font-size: 14px;
     color: #b5b5b5;
     text-align: center;
     background: #303030;
+    position: relative;
     .link {
       a {
         margin-left: 10px;

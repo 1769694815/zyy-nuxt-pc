@@ -35,8 +35,12 @@
       </div>
     </div>
     <div class="copyright">
-      版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： 赣ICP备15008425号-5&nbsp;&nbsp;&nbsp;&nbsp;
-      技术支持：<a href="http://www.yunduancn.com/">云端科技</a>
+      版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： <a 
+        target="_blank" 
+        href="http://beian.miit.gov.cn/">赣ICP备15008425号-5</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        技术支持：<a 
+          target="_blank" 
+          href="http://www.yunduancn.com/">云端科技</a>
     </div>
   </div>
 </template>
@@ -116,6 +120,7 @@ export default {
       }
     }
     .copyright {
+      position: relative;
       height: 50px;
       line-height: 50px;
       text-align: center;
