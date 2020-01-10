@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime : 2019-12-23 09:21:15
+ * @LastEditTime : 2020-01-10 17:48:45
  * @LastEditors  : xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -747,7 +747,7 @@
     <div class="fotter">
       <p>课程购买咨询：0791-87119966 平台（渠道）合作：0791-88197248 </p>  
       <p class="pl">版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved</p>
-      <p class="pl">备案号： 赣ICP备15008425号-5</p>
+      <p class="pl">备案号：<a href="http://beian.miit.gov.cn/">赣ICP备15008425号</a></p>
       <p class="pl">技术支持：<a href="http://www.yunduancn.com/">云端科技</a></p>
     </div>
     <div
