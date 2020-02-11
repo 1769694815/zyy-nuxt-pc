@@ -746,7 +746,7 @@
     </div>
     <div class="fotter">
       <p>课程购买咨询：0791-87119966 平台（渠道）合作：0791-88197248 </p>  
-      <p class="pl">版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved</p>
+      <p class="pl">版权所有：Copyright 2018-{{ year }} zyyzx.com.cn. All Rights Reserved</p>
       <p class="pl">备案号：<a href="http://beian.miit.gov.cn/">赣ICP备15008425号</a></p>
       <p class="pl">技术支持：<a href="http://www.yunduancn.com/">云端科技</a></p>
     </div>
@@ -958,7 +958,9 @@ export default {
         time: 33,
         price: 400,
         newPrice: 180
-      }]
+      }],
+      myDate: null,
+      year: null
     }
   },
   head() {
@@ -974,6 +976,7 @@ export default {
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo')
     this.login()
+    this.getYear()
     // this.getList()
     this.courseList = this.chinaList
     new Swiper('.swiper-container', {
@@ -987,6 +990,10 @@ export default {
     })
   },
   methods: {
+    getYear() {
+      this.myDate = new Date()
+      this.year = this.myDate.getFullYear()
+    },
     clickDealModal(type) {
       console.log('type', type)
       this.dealType = type

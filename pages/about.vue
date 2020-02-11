@@ -219,7 +219,7 @@
             href="http://www.yixiaoshu.net/i_info/cid/33.html"
             target="_blank">学历报名</a>
         </div>
-        版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： <a 
+        版权所有：Copyright 2018-{{ year }} zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： <a 
           target="_blank" 
           href="http://beian.miit.gov.cn/">赣ICP备15008425号</a>&nbsp;&nbsp;&nbsp;&nbsp;
           技术支持：<a 
@@ -267,13 +267,24 @@ export default {
         {
           pic: require("~/assets/images/honor/honor7.jpg") 
         }
-      ]
+      ],
+      myDate: null,
+      year: null
     };
+  },
+  mounted() {
+    this.getYear()
   },
   head() {
     return {
       title: this.title
     };
+  },
+  methods: {
+    getYear() {
+      this.myDate = new Date()
+      this.year = this.myDate.getFullYear()
+    }
   }
 };
 </script>

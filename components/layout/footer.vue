@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="copyright">
-      版权所有：Copyright 2018-2019 zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： <a 
+      版权所有：Copyright 2018-{{ year }} zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： <a 
         target="_blank" 
         href="http://beian.miit.gov.cn/">赣ICP备15008425号</a>&nbsp;&nbsp;&nbsp;&nbsp;
         技术支持：<a 
@@ -48,11 +48,14 @@
 export default {
   data() {
     return {
-      isAbout: false
+      isAbout: false,
+      myDate: null,
+      year: null
     }
   },
   mounted() {
     console.log(this.$route)
+    this.getYear()
     if (this.$route.name == 'about') {
       this.isAbout = true
     }
@@ -60,6 +63,10 @@ export default {
   methods: {
     openNewPage(url) {
       window.open(url.href, '_blank')
+    },
+    getYear() {
+      this.myDate = new Date()
+      this.year = this.myDate.getFullYear()
     }
   }
 }
