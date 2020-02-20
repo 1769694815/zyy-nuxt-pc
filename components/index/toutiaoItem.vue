@@ -84,7 +84,7 @@ export default {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      font-size: 18px;
+      font-size: 17px;
       cursor: pointer;
       color: #333;
       &:hover {
