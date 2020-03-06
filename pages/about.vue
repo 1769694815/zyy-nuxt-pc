@@ -221,10 +221,12 @@
         </div>
         版权所有：Copyright 2018-{{ year }} zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： <a 
           target="_blank" 
-          href="http://beian.miit.gov.cn/">赣ICP备15008425号</a>&nbsp;&nbsp;&nbsp;&nbsp;
-          技术支持：<a 
-            target="_blank" 
-            href="http://www.yunduancn.com/">云端科技</a>
+          href="http://beian.miit.gov.cn/">赣ICP备15008425号</a>&nbsp;&nbsp;&nbsp;&nbsp;<a 
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=36011102000325" 
+            target="_blank"><img src="~/assets/images/zgwablogo.png" >赣公网安备 36011102000325号</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            技术支持：<a 
+              target="_blank" 
+              href="http://www.yunduancn.com/">云端科技</a>
       </div>
     </div>
   </div>
@@ -556,6 +558,10 @@ export default {
     a {
       color: #B5B5B5;
       text-decoration: none;
+      img {
+        margin-right: 4px;
+        vertical-align: middle;
+      }
     }
   }
 }
