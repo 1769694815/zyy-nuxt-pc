@@ -1,7 +1,7 @@
 <!--
  * @Author: chenjg
  * @Date: 2019-10-25 10:06:32
- * @LastEditTime: 2020-03-06 09:44:10
+ * @LastEditTime: 2020-03-06 09:53:36
  * @LastEditors: xwen
  * @Description: 
  * @输出一段不带属性的自定义信息
@@ -749,7 +749,7 @@
       <p class="pl">版权所有：Copyright 2018-{{ year }} zyyzx.com.cn. All Rights Reserved</p>
       <p class="pl">备案号：<a href="http://beian.miit.gov.cn/">赣ICP备15008425号</a><a 
         href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=36011102000325" 
-        target="_blank"><img src="../assets/images/zgwablogo.png" >赣公网安备 36011102000325号</a></p>
+        target="_blank"><img src="../assets/images/zgwablogo.png" >赣公网安备：36011102000325号</a></p>
       <p class="pl">技术支持：<a href="http://www.yunduancn.com/">云端科技</a></p>
     </div>
     <div
