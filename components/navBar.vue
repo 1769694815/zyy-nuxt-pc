@@ -42,7 +42,7 @@
             自学考试
           </nuxt-link> -->
           <a
-            href="http://zk.yixiaoshu.net/"
+            href="http://zk.zyyzx.com.cn/"
             target="_blank">自学考试</a>
         </li>
         <li>
