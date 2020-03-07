@@ -484,6 +484,8 @@ export default {
     height: 369px;
     overflow: hidden;
     background: url('../assets/images/aboutbg5.jpg')no-repeat center;
+    position: relative;
+    z-index: 9999;
     .us-center{
       width: 1200px;
       margin: 0 auto;
