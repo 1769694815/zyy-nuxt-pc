@@ -134,6 +134,8 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      box-sizing: border-box;
+      padding-right: 90px;
       a {
         color: #B5B5B5;
         text-decoration: none;

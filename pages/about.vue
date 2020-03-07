@@ -529,7 +529,8 @@ export default {
   .bottom{
     width: 100%;
     line-height: 28px;
-    padding: 21px 0 11px;
+    box-sizing: border-box;
+    padding: 21px 90px 11px 0px;
     font-size: 14px;
     color: #b5b5b5;
     text-align: center;
