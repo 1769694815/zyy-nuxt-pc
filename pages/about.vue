@@ -219,11 +219,11 @@
             href="http://www.yixiaoshu.net/i_info/cid/33.html"
             target="_blank">学历报名</a>
         </div>
-        版权所有：Copyright 2018-{{ year }} zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;备案号： <a 
+        Copyright 2018-{{ year }} zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;备案号： <a 
           target="_blank" 
-          href="http://beian.miit.gov.cn/">赣ICP备15008425号</a>&nbsp;&nbsp;&nbsp;&nbsp;<a 
+          href="http://beian.miit.gov.cn/">赣ICP备15008425号</a>&nbsp;&nbsp;<a 
             href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=36011102000325" 
-            target="_blank"><img src="~/assets/images/zgwablogo.png" >赣公网安备：36011102000325号</a>&nbsp;&nbsp;&nbsp;&nbsp;增值电信业务许可证号：赣B2-20180020
+            target="_blank"><img src="~/assets/images/zgwablogo.png" >赣公网安备：36011102000325号</a>&nbsp;&nbsp;增值电信业务许可证号：赣B2-20180020
       </div>
     </div>
   </div>
