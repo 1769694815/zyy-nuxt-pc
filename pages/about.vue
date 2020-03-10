@@ -215,9 +215,9 @@
           <nuxt-link
             to="/download"
             target="_blank">下载APP</nuxt-link>
-          <a
+            <!-- <a
             href="http://www.yixiaoshu.net/i_info/cid/33.html"
-            target="_blank">学历报名</a>
+            target="_blank">学历报名</a> -->
         </div>
         Copyright 2018-{{ year }} zyyzx.com.cn. All Rights Reserved&nbsp;&nbsp;备案号： <a 
           target="_blank" 
