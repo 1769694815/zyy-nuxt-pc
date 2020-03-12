@@ -6,6 +6,14 @@
     <div class="container">
       <div class="c1">
         <div class="cl-box">
+          <div class="pic-1">
+            <img
+              class="a2"
+              src="../assets/images/a2.png">
+            <img
+              class="a1"
+              src="../assets/images/a1.png">
+          </div>
           <div class="content">
             <div class="title">中医药手机客户端</div>
             <img
@@ -32,40 +40,37 @@
               </div>
             </div>
           </div>
-          <div class="pic-1">
-            <img
-              class="a2"
-              src="../assets/images/a2.png">
-            <img
-              class="a1"
-              src="../assets/images/a1.png">
-          </div>
         </div>
       </div>
-      <div class="wrap">
+      <div class="wrap wrap-2">
         <img
           src="../assets/images/app1.png"
           class="img1">
       </div>
-      <div class="wrap wrap-2">
+      <div class="wrap">
         <img
           src="../assets/images/app2.png"
           class="img1">
       </div>
-      <div class="wrap">
+      <div class="wrap wrap-2">
         <img
           src="../assets/images/app3.png"
           class="img1">
       </div>
-      <div class="wrap wrap-2">
+      <div class="wrap">
         <img
           src="../assets/images/app4.png"
+          class="img1">
+      </div>
+      <div class="wrap wrap-2">
+        <img
+          src="../assets/images/app5.png"
           class="img1">
       </div>
       <div class="wrap wrap-5">
         <div class="wrap-right">
           <div class="title">
-            <span>05</span>不断完善的专业平台
+            <span>06</span>不断完善的专业平台
           </div>
           <p>更多名师课程，正在加入中</p>
         </div>
@@ -173,7 +178,7 @@ export default {
       }
       .pic-1 {
         width: 480px;
-        margin-left: 50px;
+        margin-right: 50px;
         position: relative;
         .a2 {
           position: absolute;
