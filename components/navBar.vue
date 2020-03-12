@@ -59,12 +59,17 @@
             中医药进社区
           </nuxt-link>
         </li>
-        <li>
+        <li style="position: relative;">
           <nuxt-link
             :to="{ name: 'download' }"
-            :class="{ active: tabIndex == 7 }">
+            :class="{ active: tabIndex == 7 }"
+            style="font-weight: 600;color: #3F8A38;">
             下载App
           </nuxt-link>
+          <img
+            style="width: 20px; height: 20px; position: absolute; top: 0px; right: 0;"
+            src="~/assets/images/live.gif"
+            alt="">
         </li>
         <li>
           <nuxt-link
