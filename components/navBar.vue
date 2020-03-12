@@ -63,6 +63,7 @@
           <nuxt-link
             :to="{ name: 'download' }"
             :class="{ active: tabIndex == 7 }"
+            target="_blank"
             style="font-weight: 600;color: #3F8A38;">
             下载App
           </nuxt-link>
