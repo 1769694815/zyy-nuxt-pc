@@ -15,7 +15,7 @@
               src="../assets/images/a1.png">
           </div>
           <div class="content">
-            <div class="title">中医药手机客户端</div>
+            <div class="title">中医药在线手机客户端</div>
             <img
               class="img"
               src="../assets/images/img1.png">
@@ -68,12 +68,15 @@
           class="img1">
       </div>
       <div class="wrap wrap-5">
-        <div class="wrap-right">
+        <img
+          src="../assets/images/app6.png"
+          class="img1">
+          <!-- <div class="wrap-right">
           <div class="title">
             <span>06</span>不断完善的专业平台
           </div>
           <p>更多名师课程，正在加入中</p>
-        </div>
+        </div> -->
       </div>
       <div class="wrap-6">
         <div class="wrap-box">
