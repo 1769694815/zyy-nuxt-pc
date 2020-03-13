@@ -69,7 +69,7 @@
           </nuxt-link>
           <img
             style="width: 20px; height: 20px; position: absolute; top: 0px; right: 0;"
-            src="~/assets/images/live.gif"
+            src="~/assets/images/live.png"
             alt="">
         </li>
         <li>
