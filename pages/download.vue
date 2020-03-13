@@ -149,6 +149,7 @@ export default {
       .content {
         .title {
           font-size: 30px;
+          font-weight: bold;
           color: #fff;
         }
         img {
