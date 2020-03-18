@@ -246,6 +246,53 @@
           </div> -->
         </div>
       </div>
+      <!-- 西学中 -->
+      <div class="train step_jump">
+        <div class="item-container">
+          <div class="container-header">
+            <h2 @mouseover="courseMouse('xxz', 0)">西学中</h2>
+            <div class="subnav">
+              <nuxt-link
+                v-for="(item, index) in westernSubList2"
+                :key="index"
+                :to="{ name: 'western', query: { fid: item.id }}"
+                :title="item.name"
+                class="subnav-item">
+                <span @mouseover="courseMouse('xxz', index + 1)">{{ item.name }}</span>  
+              </nuxt-link>
+              <nuxt-link
+                :to="{ name: 'western', query: { fid: 2 }}"
+                class="pos-right"
+                target="_blank">
+                查看更多
+                <i class="iconfont icongengduo" />
+              </nuxt-link>
+            </div>
+          </div>
+          <transition name="mouse">
+            <div
+              v-for="(item, index) in trainList2"
+              v-if="trainListId2 == index"
+              :key="index"
+              class="train-imgs">
+              <div
+                v-for="(val, i) in item.list"
+                v-if="i < 4"
+                :key="i"
+                class="train-img"
+                @click="toTrainDetail(val)">
+                <img :src="val.middlePicture">
+              </div>
+            </div>
+          </transition>
+          <!-- <div class="button">
+            <span @click="change2">
+              <i class="iconfont iconrefresh" />
+              换一批
+            </span>
+          </div> -->
+        </div>
+      </div>
       <!-- 名医师承 -->
       <div
         ref="item3"
@@ -552,46 +599,54 @@
           <a
             href="javascript:;"
             @click="jump(2)">
-            <span>名医</span>
-            <span>师承</span>
+            <span>西学</span>
+            <span>中</span>
           </a>
         </li>
         <li :class="{ 'active' : activeIndex == 3 }">
           <a
             href="javascript:;"
             @click="jump(3)">
-            <span>中医</span>
-            <span>大讲堂</span>
+            <span>名医</span>
+            <span>师承</span>
           </a>
         </li>
         <li :class="{ 'active' : activeIndex == 4 }">
           <a
             href="javascript:;"
             @click="jump(4)">
-            <span>学历</span>
-            <span>助考</span>
+            <span>中医</span>
+            <span>大讲堂</span>
           </a>
         </li>
         <li :class="{ 'active' : activeIndex == 5 }">
           <a
             href="javascript:;"
             @click="jump(5)">
-            <span>中医药</span>
-            <span>理论</span>
+            <span>学历</span>
+            <span>助考</span>
           </a>
         </li>
         <li :class="{ 'active' : activeIndex == 6 }">
           <a
             href="javascript:;"
             @click="jump(6)">
-            <span>执业</span>
-            <span>资格</span>
+            <span>中医药</span>
+            <span>理论</span>
           </a>
         </li>
         <li :class="{ 'active' : activeIndex == 7 }">
           <a
             href="javascript:;"
             @click="jump(7)">
+            <span>执业</span>
+            <span>资格</span>
+          </a>
+        </li>
+        <li :class="{ 'active' : activeIndex == 8 }">
+          <a
+            href="javascript:;"
+            @click="jump(8)">
             <span>资讯</span>
             <span>头条</span>
           </a>
@@ -705,6 +760,7 @@ export default {
       healthList: [],
       rightList: [],
       trainList: [],
+      trainList2: [], // 西学中  数据
       trainPages: 0, // 培训项目数据总页数
       toutiaoList: [],
       healthSubList: [],
@@ -717,6 +773,7 @@ export default {
       activeIndex: 0, // 描点
       scrollTop: 0, // 滚动高度
       westernSubList: [], // 培训项目副列表
+      westernSubList2: [], // 西学中副列表
       zyjkSubList: [], // 中医公开课副列表
       xlzkId: '',
       zydjtId: '',
@@ -731,6 +788,7 @@ export default {
       qualificationListId: 0, // 职业资格数据列表下标
       healthListId: 0, // 中医药大讲堂数据列表下标
       trainListId: 0, // 培训项目数据列表下标
+      trainListId2: 0, // 西学中数据列表下标
       toutiaoListId: 0
     }
   },
@@ -756,9 +814,11 @@ export default {
       famousSubList,
       zyjkSubList,
       trainList,
+      trainList2,
       toutiaoSubList,
       recommendCourse,
-      westernSubList
+      westernSubList,
+      westernSubList2,
     ] = await Promise.all([
       $axios('/yxs/api/web/getFriendsName'),
       $axios('/yxs/api/web/navigation'),
@@ -775,9 +835,11 @@ export default {
       $axios('/yxs/api/web/course/getIndexCategoryByCode', { params: { code: 'mingshi' }}),
       $axios('/yxs/api/web/course/getIndexCategoryByCode', { params: { code: 'zyjk' }}),
       $axios('/yxs/api/web/course/getIndexRecommendTrainList'),
+      $axios('/yxs/api/web/course/getIndexRecommendTrainList', { params: { code: 'xxz' } }),
       $axios('/yxs/api/web/news/getAllCategory'),
       $axios('/yxs/api/web/course/indexRecommendList', { params: { size: 5, current: 1 }}),
-      $axios('/yxs/api/web/course/trainType')
+      $axios('/yxs/api/web/course/trainType'),
+      $axios('/yxs/api/web/course/trainType', { params: { code: 'xxz' } })
     ])
     let xlzkId = examSubList.data.id // 学历助考id
     let zydjtId = healthSubList.data.id // 中医大讲堂id
@@ -799,11 +861,13 @@ export default {
       examSubList: examSubList.data.list.data,
       theorySubList: theorySubList.data.list.data,
       trainList: trainList.data,
+      trainList2: trainList2.data,
       qualificationSubList: qualificationSubList.data.list.data,
       // trainPages: trainList.data.pages,
       toutiaoSubList: toutiaoSubList.data,
       recommendCourse: recommendCourse.data.records,
       westernSubList: westernSubList.data,
+      westernSubList2: westernSubList2.data,
       zyjkSubList: zyjkSubList.data.list.data,
       xlzkId: xlzkId,
       zydjtId: zydjtId,
@@ -867,6 +931,11 @@ export default {
         case 'pxxm':
           if (this.trainListId != index) {
             this.trainListId = index
+          }
+          break;
+        case 'xxz':
+          if (this.trainListId2 != index) {
+            this.trainListId2 = index
           }
           break;
         case 'toutiao':
