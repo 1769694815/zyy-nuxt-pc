@@ -255,7 +255,7 @@
               <nuxt-link
                 v-for="(item, index) in westernSubList2"
                 :key="index"
-                :to="{ name: 'western', query: { fid: item.id }}"
+                :to="{ name: 'western', query: { fid: 2, cid: item.id }}"
                 :title="item.name"
                 class="subnav-item">
                 <span @mouseover="courseMouse('xxz', index + 1)">{{ item.name }}</span>  
