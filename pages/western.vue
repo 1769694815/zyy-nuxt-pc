@@ -261,6 +261,7 @@ export default {
     // 培训类别
     if (types[index].children && types[index].children.length > 0) {
       types[index].children.map(item => {
+        item.name = item.name.replace('西学中', '')
         courses.push(item)
       })
     }

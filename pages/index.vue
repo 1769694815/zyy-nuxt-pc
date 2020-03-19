@@ -250,7 +250,7 @@
       <div class="train step_jump">
         <div class="item-container">
           <div class="container-header">
-            <h2 @mouseover="courseMouse('xxz', 0)">西学中</h2>
+            <h2>西学中</h2>
             <div class="subnav">
               <nuxt-link
                 v-for="(item, index) in westernSubList2"
@@ -258,7 +258,7 @@
                 :to="{ name: 'western', query: { fid: 2, cid: item.id }}"
                 :title="item.name"
                 class="subnav-item">
-                <span @mouseover="courseMouse('xxz', index + 1)">{{ item.name }}</span>  
+                <span>{{ item.name }}</span>  
               </nuxt-link>
               <nuxt-link
                 :to="{ name: 'western', query: { fid: 2 }}"
@@ -867,7 +867,10 @@ export default {
       toutiaoSubList: toutiaoSubList.data,
       recommendCourse: recommendCourse.data.records,
       westernSubList: westernSubList.data,
-      westernSubList2: westernSubList2.data,
+      westernSubList2: westernSubList2.data.map(ele => {
+        ele.name = ele.name.replace('西学中', '')
+        return ele
+      }),
       zyjkSubList: zyjkSubList.data.list.data,
       xlzkId: xlzkId,
       zydjtId: zydjtId,
