@@ -1,7 +1,7 @@
 <!--
  * @Author: xwen
  * @Date: 2020-03-20 10:10:23
- * @LastEditTime: 2020-03-20 16:30:15
+ * @LastEditTime: 2020-03-20 16:39:05
  * @LastEditors: xwen
  * @Description: 直播详情页
  -->
@@ -161,6 +161,11 @@ export default {
   mounted() {
     this.userInfo = Cookies.getJSON('zyy_userInfo') || ''
     this.getInfo()
+    if (!this.userInfo) {
+      this.$router.push({
+        name: 'login'
+      })
+    }
     if (this.status != 1 && this.status != 0) {
       this.getCommentList()
     }
