@@ -818,7 +818,7 @@ export default {
       toutiaoSubList,
       recommendCourse,
       westernSubList,
-      westernSubList2,
+      // westernSubList2,
     ] = await Promise.all([
       $axios('/yxs/api/web/getFriendsName'),
       $axios('/yxs/api/web/navigation'),
@@ -838,8 +838,8 @@ export default {
       $axios('/yxs/api/web/course/getIndexRecommendTrainList', { params: { code: 'xxz' } }),
       $axios('/yxs/api/web/news/getAllCategory'),
       $axios('/yxs/api/web/course/indexRecommendList', { params: { size: 5, current: 1 }}),
-      $axios('/yxs/api/web/course/trainType'),
-      $axios('/yxs/api/web/course/trainType', { params: { code: 'xxz' } })
+      $axios('/yxs/api/web/course/trainType')
+      // $axios('/yxs/api/web/course/trainType', { params: { code: 'xxz' } })
     ])
     let xlzkId = examSubList.data.id // 学历助考id
     let zydjtId = healthSubList.data.id // 中医大讲堂id
@@ -867,10 +867,10 @@ export default {
       toutiaoSubList: toutiaoSubList.data,
       recommendCourse: recommendCourse.data.records,
       westernSubList: westernSubList.data,
-      westernSubList2: westernSubList2.data.map(ele => {
-        ele.name = ele.name.replace('西学中', '')
-        return ele
-      }),
+      // westernSubList2: westernSubList2.data.map(ele => {
+      //   ele.name = ele.name.replace('西学中', '')
+      //   return ele
+      // }),
       zyjkSubList: zyjkSubList.data.list.data,
       xlzkId: xlzkId,
       zydjtId: zydjtId,
