@@ -131,7 +131,7 @@
           <div 
             class="connect-item" 
             style="margin-right: 0;">
-            <div class="connect-title">市场推广</div>
+            <div class="connect-title">品牌推广</div>
             <div class="connect-detail">
               联系人： 周老师
               <br>电话: 15879196569
@@ -139,7 +139,7 @@
             </div>
           </div>
           <div class="connect-item">
-            <div class="connect-title">平台合作</div>
+            <div class="connect-title">课程资源合作</div>
             <div class="connect-detail">
               联系人： 徐老师
               <br>电话：18679558066
