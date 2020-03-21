@@ -4,9 +4,9 @@
     class="footer">
     <div class="footer-content">
       <div class="footer-left fl">
-        <p>项目合作咨询：0791-87119966 <span style="margin-left: 30px;">平台（渠道）合作：0791-88197248</span></p>
+        <p>项目合作咨询：0791-87119966 <span style="margin-left: 30px;">平台（商务）合作：0791-88197248</span></p>
         <p>主办单位地址：南昌市阳明路56号江西中医药大学继续教育学院（培训学院）</p>
-        <p>课程（品牌）合作：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
+        <p>平台运营中心：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼</p>
         <div class="link">
           <nuxt-link to="/">返回首页</nuxt-link>
           <nuxt-link

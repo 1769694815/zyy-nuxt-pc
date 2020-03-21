@@ -123,7 +123,8 @@
           <div class="connect-item">
             <div class="connect-title">商务合作</div>
             <div class="connect-detail">
-              联系人： 卢茂华
+              联系人： 卢老师
+              <br>电话: 15083831105
               <br>联系邮箱： lumaohua@gogotoo.net
             </div>
           </div>
@@ -133,6 +134,7 @@
             <div class="connect-title">市场推广</div>
             <div class="connect-detail">
               联系人： 周老师
+              <br>电话: 15879196569
               <br>联系邮箱： zhoutao@gogotoo.net
             </div>
           </div>
@@ -140,6 +142,7 @@
             <div class="connect-title">平台合作</div>
             <div class="connect-detail">
               联系人： 徐老师
+              <br>电话：18679558066
               <br>联系邮箱： xushanshan@gogotoo.net
             </div>
           </div>
@@ -148,8 +151,9 @@
             style="margin-right: 0;">
             <div class="connect-title">线上代理</div>
             <div class="connect-detail">
-              联系人： 孙老师
-              <br>联系邮箱： suiguili@gogotoo.net
+              联系人： 陈老师
+              <br>电话：15979051507
+              <br>联系邮箱： chengpeng@gogotoo.net
             </div>
           </div>
         </div>
@@ -178,14 +182,14 @@
               </li>
               <li>
                 <img src="~/assets/images/about-b3.png">
-                项目合作咨询：0791-87119966  &nbsp;&nbsp;&nbsp;  平台（渠道）合作：0791-88197248
+                项目合作咨询：0791-87119966  &nbsp;&nbsp;&nbsp;  平台（商务）合作：0791-88197248
               </li>
               <li style="margin-bottom: 0;">
                 <img src="~/assets/images/about-b4.png">
                 主办单位地址：南昌市阳明路56号江西中医药大学继续教育学院（培训学院）
               </li>
               <li style="margin-left: 65px;">
-                课程（品牌）地址：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼
+                平台运营中心：江西省南昌市红谷滩新区丰和南大道2111号世茂APM3-5栋（C2）4楼
               </li>
             </ul>
           </div>
@@ -453,7 +457,7 @@ export default {
         }
         .connect-detail{
           line-height: 30px;
-          margin-top: 38px;
+          margin-top: 18px;
           font-size: 14px;
           color: #666;
         }
