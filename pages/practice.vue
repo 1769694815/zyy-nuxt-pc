@@ -411,6 +411,11 @@ export default {
         // this.list = this.list.concat(res.data.newList.records)
         this.list = res.data.newList.records
         this.total = res.data.newList.total
+        // 清空打开解析状态
+        const domList = document.getElementsByClassName('desc')
+        for (let i = 0; i < domList.length; i++) {
+          document.getElementsByClassName('desc')[i].style.display = 'none'
+        }
         if(this.type == 2) {
           for(let i in this.list) {
             this.form.item2[i] = []
@@ -497,6 +502,7 @@ export default {
       });
     },
     currentChange(val) {
+      window.scrollTo(0, 0)
       this.current = val
       this.getList()
     }
