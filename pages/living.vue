@@ -1,7 +1,7 @@
 <!--
  * @Author: xwen
  * @Date: 2020-03-20 10:10:23
- * @LastEditTime: 2020-03-20 16:39:05
+ * @LastEditTime: 2020-03-24 16:19:57
  * @LastEditors: xwen
  * @Description: 直播详情页
  -->
@@ -166,9 +166,7 @@ export default {
         name: 'login'
       })
     }
-    if (this.status != 1 && this.status != 0) {
-      this.getCommentList()
-    }
+    this.getCommentList()
   },
   methods: {
     getInfo() {
