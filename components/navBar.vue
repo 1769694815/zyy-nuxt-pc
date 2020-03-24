@@ -16,14 +16,16 @@
         <li>
           <nuxt-link
             :to="{ name: 'western', query: { fid: 2 }}"
-            :class="{ active: tabIndex == 2 }">
+            :class="{ active: tabIndex == 2 }"
+            target="_blank">
             西学中
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'western' }"
-            :class="{ active: tabIndex == 3 }">
+            :class="{ active: tabIndex == 3 }"
+            target="_blank">
             培训项目
           </nuxt-link>
         </li>
@@ -31,7 +33,8 @@
           <!-- 正式环境107  测试环境 85 -->
           <nuxt-link
             :to="{ name: 'train', query: { fid: 107 }}"
-            :class="{ active: tabIndex == 4 }">
+            :class="{ active: tabIndex == 4 }"
+            target="_blank">
             学历助考
           </nuxt-link>
         </li>
@@ -48,14 +51,16 @@
         <li>
           <nuxt-link
             :to="{ name: 'doctor' }"
-            :class="{ active: tabIndex == 5 }">
+            :class="{ active: tabIndex == 5 }"
+            target="_blank">
             名医师承
           </nuxt-link>
         </li>
         <li>
           <nuxt-link
             :to="{ name: 'community' }"
-            :class="{ active: tabIndex == 6 }">
+            :class="{ active: tabIndex == 6 }"
+            target="_blank">
             中医药进社区
           </nuxt-link>
         </li>
@@ -75,7 +80,8 @@
         <li>
           <nuxt-link
             :to="{ name: 'about' }"
-            :class="{ active: tabIndex == 8 }">
+            :class="{ active: tabIndex == 8 }"
+            target="_blank">
             关于我们
           </nuxt-link>
         </li>
