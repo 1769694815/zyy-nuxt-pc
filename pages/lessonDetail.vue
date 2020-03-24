@@ -87,7 +87,7 @@
                 class="flex">
                 <div
                   class="b1"
-                  @click="toPlay">免费试看</div>
+                  @click="toPlay('', 1)">免费试看</div>
                 <div
                   class="b2"
                   @click="buyLesson">立即购买</div>
@@ -107,7 +107,7 @@
                 class="flex">
                 <div
                   class="b1"
-                  @click="toPlay">免费试看</div>
+                  @click="toPlay('', 1)">免费试看</div>
                 <div
                   class="b2"
                   @click="buyLesson">立即购买</div>
@@ -149,8 +149,8 @@
               <ul>
                 <li
                   v-for="(item, index) in navList"
-                  :key="index" 
-                  :class="tab === (index + 1) ? 'active' : ''" 
+                  :key="index"
+                  :class="tab === (index + 1) ? 'active' : ''"
                   @click="switchTab(index)"> {{ item.label }} </li>
               </ul>
             </div>
@@ -416,7 +416,8 @@ export default {
         this.detailData = res.data
       })
     },
-    toPlay(item) {
+    toPlay(item, flag) {
+      // flag, 是否是免费试看
       console.log('item', item)
       if(!this.userInfo) {
         this.$router.push({
@@ -428,14 +429,26 @@ export default {
             confirmButtonText: '确定'
           })
         } else {
+          let lessonId = ''
+          if(flag) {
+            lessonId = this.getFreeId()
+          }
           let url = this.$router.resolve({
             name: 'play',
             query: {
               courseId: this.id,
-              lessonId: item.lessonId
+              lessonId: item.lessonId || lessonId
             }
           })
           window.open(url.href, '_blank')
+        }
+      }
+    },
+    getFreeId() {
+      for(let i = 0; i < this.detailData.lesson.length; i++) {
+        if(this.detailData.lesson[i].free == 1) {
+          console.log('lessoniddd', this.detailData.lesson[i].lessonId)
+          return this.detailData.lesson[i].lessonId
         }
       }
     },
@@ -739,13 +752,13 @@ export default {
               text-overflow: ellipsis;
               display: -webkit-box;
               -webkit-line-clamp: 2;
-              -webkit-box-orient: vertical; 
+              -webkit-box-orient: vertical;
             }
           }
         }
         .price{
           font-size: 14px;
-          display: inline-block; 
+          display: inline-block;
           color: #666666;
           margin-top: 15px;
           span{
@@ -779,7 +792,7 @@ export default {
           }
           .b2{
             width: 150px;
-            background:#3f8a38; 
+            background:#3f8a38;
             border-radius: 4px;
             padding-left:44px;
             color: #3f8a38;
@@ -1050,7 +1063,7 @@ export default {
             }
           }
         }
-      } 
+      }
       .stu-dynamics {
         float: right;
         height: 298px;
@@ -1068,7 +1081,7 @@ export default {
             padding-left: 10px;
             font-size: 18px;
             color:#333333;
-            border-left: 4px solid #3F8A38; 
+            border-left: 4px solid #3F8A38;
           }
         }
         .text{

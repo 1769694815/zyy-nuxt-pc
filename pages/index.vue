@@ -848,6 +848,8 @@ export default {
     let mingshiId = famousSubList.data.id // 名医师承
     let zyjkId = zyjkSubList.data.id // 中医公开课
     
+    trainList.data.splice(1, 1)
+
     return {
       friendLinkList: friendLinkList.data,
       carousels: carousels.data,
@@ -860,13 +862,13 @@ export default {
       qualificationList: qualificationList.data,
       examSubList: examSubList.data.list.data,
       theorySubList: theorySubList.data.list.data,
-      trainList: trainList.data,
+      trainList: trainList.data, // 去掉西学中
       trainList2: trainList2.data,
       qualificationSubList: qualificationSubList.data.list.data,
       // trainPages: trainList.data.pages,
       toutiaoSubList: toutiaoSubList.data,
       recommendCourse: recommendCourse.data.records,
-      westernSubList: westernSubList.data,
+      westernSubList: westernSubList.data.slice(1), // 去掉西学中
       // westernSubList2: westernSubList2.data.map(ele => {
       //   ele.name = ele.name.replace('西学中', '')
       //   return ele
