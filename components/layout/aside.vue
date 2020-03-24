@@ -23,11 +23,11 @@
         </div>
         <div class="content">
           <a
-            href="tencent://message/?uin=1004246882"
+            href="tencent://message/?uin=1515997628"
             target="_blank"
             class="tab">
             <i class="iconfont iconqq" />
-            <span>技能培训孙老师</span>
+            <span>技能培训陈老师</span>
           </a>
         </div>
       </li>
