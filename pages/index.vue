@@ -591,16 +591,16 @@
           <a
             href="javascript:;"
             @click="jump(1)">
-            <span>培训</span>
-            <span>项目</span>
+            <span>西学</span>
+            <span>中</span>
           </a>
         </li>
         <li :class="{ 'active' : activeIndex == 2 }">
           <a
             href="javascript:;"
             @click="jump(2)">
-            <span>西学</span>
-            <span>中</span>
+            <span>培训</span>
+            <span>项目</span>
           </a>
         </li>
         <li :class="{ 'active' : activeIndex == 3 }">
