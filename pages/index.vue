@@ -198,6 +198,53 @@
           </div>
         </div>
       </div>
+      <!-- 西学中 -->
+      <div class="train step_jump">
+        <div class="item-container">
+          <div class="container-header">
+            <h2>西学中</h2>
+            <div class="subnav">
+              <nuxt-link
+                v-for="(item, index) in westernSubList2"
+                :key="index"
+                :to="{ name: 'western', query: { fid: 2, cid: item.id }}"
+                :title="item.name"
+                class="subnav-item">
+                <span>{{ item.name }}</span>  
+              </nuxt-link>
+              <nuxt-link
+                :to="{ name: 'western', query: { fid: 2 }}"
+                class="pos-right"
+                target="_blank">
+                查看更多
+                <i class="iconfont icongengduo" />
+              </nuxt-link>
+            </div>
+          </div>
+          <transition name="mouse">
+            <div
+              v-for="(item, index) in trainList2"
+              v-if="trainListId2 == index"
+              :key="index"
+              class="train-imgs">
+              <div
+                v-for="(val, i) in item.list"
+                v-if="i < 4"
+                :key="i"
+                class="train-img"
+                @click="toTrainDetail(val)">
+                <img :src="val.middlePicture">
+              </div>
+            </div>
+          </transition>
+          <!-- <div class="button">
+            <span @click="change2">
+              <i class="iconfont iconrefresh" />
+              换一批
+            </span>
+          </div> -->
+        </div>
+      </div>
       <!-- 培训项目 -->
       <div class="train step_jump">
         <div class="item-container">
@@ -226,53 +273,6 @@
             <div
               v-for="(item, index) in trainList"
               v-if="trainListId == index"
-              :key="index"
-              class="train-imgs">
-              <div
-                v-for="(val, i) in item.list"
-                v-if="i < 4"
-                :key="i"
-                class="train-img"
-                @click="toTrainDetail(val)">
-                <img :src="val.middlePicture">
-              </div>
-            </div>
-          </transition>
-          <!-- <div class="button">
-            <span @click="change2">
-              <i class="iconfont iconrefresh" />
-              换一批
-            </span>
-          </div> -->
-        </div>
-      </div>
-      <!-- 西学中 -->
-      <div class="train step_jump">
-        <div class="item-container">
-          <div class="container-header">
-            <h2>西学中</h2>
-            <div class="subnav">
-              <nuxt-link
-                v-for="(item, index) in westernSubList2"
-                :key="index"
-                :to="{ name: 'western', query: { fid: 2, cid: item.id }}"
-                :title="item.name"
-                class="subnav-item">
-                <span>{{ item.name }}</span>  
-              </nuxt-link>
-              <nuxt-link
-                :to="{ name: 'western', query: { fid: 2 }}"
-                class="pos-right"
-                target="_blank">
-                查看更多
-                <i class="iconfont icongengduo" />
-              </nuxt-link>
-            </div>
-          </div>
-          <transition name="mouse">
-            <div
-              v-for="(item, index) in trainList2"
-              v-if="trainListId2 == index"
               :key="index"
               class="train-imgs">
               <div
