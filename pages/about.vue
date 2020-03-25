@@ -124,7 +124,7 @@
             <div class="connect-title">商务合作</div>
             <div class="connect-detail">
               联系人： 卢老师
-              <br>电话: 15083831105
+              <br>电<span style="width: 14px;display: inline-block;"/>话： 15083831105
               <br>联系邮箱： lumaohua@gogotoo.net
             </div>
           </div>
@@ -134,7 +134,7 @@
             <div class="connect-title">品牌推广</div>
             <div class="connect-detail">
               联系人： 周老师
-              <br>电话: 15879196569
+              <br>电<span style="width: 14px;display: inline-block;"/>话： 15879196569
               <br>联系邮箱： zhoutao@gogotoo.net
             </div>
           </div>
@@ -142,7 +142,7 @@
             <div class="connect-title">课程资源合作</div>
             <div class="connect-detail">
               联系人： 徐老师
-              <br>电话：18679558066
+              <br>电<span style="width: 14px;display: inline-block;"/>话： 18679558066
               <br>联系邮箱： xushanshan@gogotoo.net
             </div>
           </div>
@@ -152,7 +152,7 @@
             <div class="connect-title">线上代理</div>
             <div class="connect-detail">
               联系人： 陈老师
-              <br>电话：15979051507
+              <br>电<span style="width: 14px;display: inline-block;"/>话： 15979051507
               <br>联系邮箱： chengpeng@gogotoo.net
             </div>
           </div>
