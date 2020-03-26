@@ -1,7 +1,7 @@
 <!--
  * @Author: xwen
  * @Date: 2020-03-20 10:10:23
- * @LastEditTime: 2020-03-24 16:19:57
+ * @LastEditTime: 2020-03-26 17:30:29
  * @LastEditors: xwen
  * @Description: 直播详情页
  -->
@@ -234,7 +234,6 @@ export default {
         'source': this.m3u8Url,
         'vid': this.vid,
         'playauth': this.playAuth,
-        'cover': this.info.mediaCover,
         'qualitySort': 'asc',
         'format': this.status == 2 ? 'm3u8' : 'mp4',
         'mediaType': 'video',
