@@ -1,7 +1,7 @@
 <!--
  * @Author: xwen
  * @Date: 2020-03-20 10:10:23
- * @LastEditTime: 2020-03-27 16:58:50
+ * @LastEditTime: 2020-03-27 17:03:57
  * @LastEditors: xwen
  * @Description: 直播详情页
  -->
@@ -456,7 +456,7 @@ export default {
       this.title = item.title + '_'
       this.m3u8Url = ''
       this.$axios('/yxs/api/live/livePlaybackDetail', { params: { id: item.id } }).then(res => {
-        this.uid = res.data.mediaId
+        this.vid = res.data.mediaId
         this.playAuth = res.data.playAuth
         this.player.dispose()
         this.playerInit()
