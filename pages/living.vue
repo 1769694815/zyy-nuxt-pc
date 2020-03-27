@@ -1,7 +1,7 @@
 <!--
  * @Author: xwen
  * @Date: 2020-03-20 10:10:23
- * @LastEditTime: 2020-03-27 16:45:19
+ * @LastEditTime: 2020-03-27 16:52:36
  * @LastEditors: xwen
  * @Description: 直播详情页
  -->
@@ -139,6 +139,7 @@ export default {
       vid: '',
       playAuth: '',
       m3u8Url: '',
+      isLive: false,
       status: 0, // 直播状态 1： 未开播  2：直播中  3： 直播结束   4: 回放
       palyer: null,
       pastList: [],
@@ -208,6 +209,7 @@ export default {
           } else if (this.status == 2) {
             // 直播中
             this.message = '直播中'
+            this.isLive = true
             this.updateUserWatch()
             this.m3u8Url = this.info.m3u8Url
           } else if (this.status == 3) {
@@ -215,6 +217,7 @@ export default {
             this.message = '已结束'
           } else {
             // 回放
+            this.isLive = false
             this.message = '回放'
           }
           this.playerInit()
@@ -237,12 +240,12 @@ export default {
         'vid': this.vid,
         'playauth': this.playAuth,
         'qualitySort': 'asc',
-        'format': this.status == 2 ? 'm3u8' : 'mp4',
+        'format': this.isLive ? 'm3u8' : 'mp4',
         'mediaType': 'video',
         'width': '100%',
         'height': '205px',
         'autoplay': true,
-        'isLive': this.status == 2,
+        'isLive': this.isLive,
         'rePlay': false,
         'playsinline': true,
         'preload': true,
@@ -447,10 +450,12 @@ export default {
     },
     // 回放
     refresh(item) {
+      this.isLive = false
       this.liveId = item.liveId
       this.info.title = item.title
       this.title = item.title + '_'
-      this.$axios('/api/yxs/api/live/livePlaybackDetail', { params: { id: item.id } }).then(res => {
+      this.m3u8Url = ''
+      this.$axios('/yxs/api/live/livePlaybackDetail', { params: { id: item.id } }).then(res => {
         this.uid = res.data.uid
         this.playAuth = res.data.playAuth
         this.player.dispose()
