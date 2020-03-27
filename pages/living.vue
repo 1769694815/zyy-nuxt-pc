@@ -1,7 +1,7 @@
 <!--
  * @Author: xwen
  * @Date: 2020-03-20 10:10:23
- * @LastEditTime: 2020-03-26 17:30:29
+ * @LastEditTime: 2020-03-27 16:45:19
  * @LastEditors: xwen
  * @Description: 直播详情页
  -->
@@ -227,6 +227,8 @@ export default {
         }
       })
     },
+    // 获取回放信息
+    
     // 阿里云播放器初始化
     playerInit() {
       this.player = new Aliplayer({
@@ -448,7 +450,13 @@ export default {
       this.liveId = item.liveId
       this.info.title = item.title
       this.title = item.title + '_'
-      this.player.replayByVidAndPlayAuth(item.mediaId, item.playAuth)
+      this.$axios('/api/yxs/api/live/livePlaybackDetail', { params: { id: item.id } }).then(res => {
+        this.uid = res.data.uid
+        this.playAuth = res.data.playAuth
+        this.player.dispose()
+        this.playerInit()
+        // this.player.replayByVidAndPlayAuth(item.mediaId, item.playAuth)
+      })
       this.getCommentList()
     }
   }
