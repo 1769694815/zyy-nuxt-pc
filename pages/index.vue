@@ -7,6 +7,7 @@
     <!-- 轮播图 -->
     <div class="carousel">
       <el-carousel
+        :interval="5000"
         height="400px"
         class="imgs">
         <el-carousel-item
