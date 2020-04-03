@@ -64,7 +64,7 @@
           var isMobile = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
           if (isMobile) {
             window.location.href = 'http://news.zyyzx.com.cn/share/app'
-          } 
+          }
         }
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
@@ -110,6 +110,13 @@
       //     }
       //   }(window);
       // })();
+      let now = new Date()
+      let start = new Date('2020/4/4 00:00:00')
+      let end = new Date('2020/4/5 00:00:00')
+      if(now > start && now < end) {
+        document.documentElement.style['-webkit-filter'] = 'grayscale(100%)'
+        document.documentElement.style.filter = 'grayscale(100%)'
+      }
     </script>
   </head>
   <body>
